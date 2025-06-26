@@ -22,6 +22,17 @@ export default function Home() {
   const onClickShuffle = () => {
     setIsShuffle(true);
 
+    // ⭐ 셔플 시 위치와 회전값 새로 설정
+    const newPositions = TarotCards.map(() => {
+      const angle = Math.random() * 360;
+      const distance = RADIUS + Math.random() * 40 - 20;
+      const x = CENTER + distance * Math.cos((angle * Math.PI) / 180);
+      const y = CENTER + distance * Math.sin((angle * Math.PI) / 180);
+      const rotate = Math.random() * 360 - 180;
+      return { top: y, left: x, rotate };
+    });
+    setPositions(newPositions);
+
     setTimeout(() => {
       setIsShuffle(false);
       setBtnId(2);
@@ -116,14 +127,15 @@ const CardWrapper = styled.div<{
   animation: ${({ $isRotate, $rotateWay }) =>
     $rotateWay === 1 && $isRotate
       ? css`
-          ${CounterclockRotation} 3s ease-in-out;
+          ${CounterclockRotation} 2s ease forwards;
         `
       : $rotateWay === 2 && $isRotate
       ? css`
-          ${ClockRotation} 3s ease-in-out;
+          ${ClockRotation} 2s ease forwards;
         `
       : "none"};
   animation-duration: ${({ $duration }) => `${$duration}s`};
+  animation-fill-mode: forwards;
 `;
 
 const CardBox = styled.div<{
