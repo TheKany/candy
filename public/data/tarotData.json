@@ -1,1094 +1,2811 @@
 [
-    {
-      "name": "바보 카드",
-      "typicalMean": "시작과 가능성",
-      "keyword": {
-        "Career": "새로운 도전, 미지의 길, 직관 따르기",
-        "Finance": "무계획 지출 주의, 즉흥 투자 경계",
-        "Romance": "썸 시작, 가벼운 설렘, 자유로운 관계",
-        "Relationship": "편견 없는 만남, 경계심 부족",
-        "Emotion": "순수함, 두려움 없음, 감정적 낙관",
-        "Change": "인생의 전환점, 첫걸음, 모험",
-        "Fortune": "기회의 문이 열림, 흐름에 맡기기"
-      },
-      "src": "/cards/major0.webp"
-    },
-    {
-      "name": "마법사 카드",
-      "typicalMean": "현실화의 힘",
-      "keyword": {
-        "Career": "역량 발휘, 자기표현, 실전 능력 사용",
-        "Finance": "기회 포착, 재테크 능력, 수완 발휘",
-        "Romance": "능동적 접근, 매력 어필, 말솜씨로 관계 주도",
-        "Relationship": "설득력 있는 커뮤니케이션, 이미지 전략",
-        "Emotion": "자신감 상승, 긍정적 자의식",
-        "Change": "주도적 변화, 현실화의 시작",
-        "Fortune": "원하는 방향으로 이끌 수 있는 운, 타이밍 중요"
-      },
-      "src": "/cards/major1.webp"
-    },
-    {
-      "name": "여사제 카드",
-      "typicalMean": "직관과 내면의 지혜",
-      "keyword": {
-        "Career": "직감적인 판단, 조용한 준비, 내면 탐구",
-        "Finance": "신중한 재정 판단, 외부 정보보다 직감 우선",
-        "Romance": "감정 숨김, 조심스러운 관계, 속마음 파악 필요",
-        "Relationship": "거리 유지, 비밀스러운 분위기, 내면의 신뢰",
-        "Emotion": "감정 통제, 차분함, 감정의 깊이",
-        "Change": "겉보다 속을 들여다볼 때, 변화 전 침묵의 시기",
-        "Fortune": "명확하지 않은 흐름, 직감에 따른 선택 필요"
-      },
-      "src": "/cards/major2.webp"
-    },
-    {
-      "name": "여황제 카드",
-      "typicalMean": "풍요와 창조",
-      "keyword": {
-        "Career": "창의적인 분야에 적합, 아이디어 실현, 성장 가능성",
-        "Finance": "재정적 풍요, 수익 확장, 물질적 안정",
-        "Romance": "다정함, 돌봄, 임신 또는 가정 관련 이슈",
-        "Relationship": "따뜻한 관계 형성, 모성적 보호, 정서적 교감",
-        "Emotion": "안정된 감정, 풍부한 감수성",
-        "Change": "긍정적 전개, 자연스러운 성장",
-        "Fortune": "행운의 흐름, 좋은 결과를 맺는 시기"
-      },
-      "src": "/cards/major3.webp"
-    },
-    {
-      "name": "황제 카드",
-      "typicalMean": "구조와 권위",
-      "keyword": {
-        "Career": "구조화된 경로, 리더십 발휘, 책임 수용",
-        "Finance": "안정적인 자산 구축, 계획적 투자",
-        "Romance": "보호자적 태도, 관계 주도, 신뢰 기반",
-        "Relationship": "권위 있는 역할, 규칙 중시, 통제 성향",
-        "Emotion": "자기 절제, 강한 의지, 감정보다 이성 우선",
-        "Change": "안정 추구, 체계 확립, 현실적인 변화",
-        "Fortune": "믿을 만한 기반 형성, 강한 운의 흐름"
-      },
-      "src": "/cards/major4.webp"
-    },
-    {
-      "name": "교황 카드",
-      "typicalMean": "전통과 신념",
-      "keyword": {
-        "Career": "전통적인 경로, 멘토십, 조직 내 성장",
-        "Finance": "보수적 자산관리, 윤리적 재정 선택",
-        "Romance": "안정적인 관계, 신뢰 중심의 연애, 결혼 지향",
-        "Relationship": "도덕적 기준, 사회적 질서, 조언자 역할",
-        "Emotion": "도덕적 확신, 내면의 평정, 기준에 따른 감정 조절",
-        "Change": "급격한 변화보다 질서 있는 전환",
-        "Fortune": "외부 조언이 길잡이, 전통적 방법이 유리"
-      },
-      "src": "/cards/major5.webp"
-    },
-    {
-      "name": "연인 카드",
-      "typicalMean": "선택과 관계",
-      "keyword": {
-        "Career": "가치 기반 선택, 협업, 진로 갈림길",
-        "Finance": "소비/투자 선택의 기로, 감정적 지출 주의",
-        "Romance": "진정한 사랑, 강한 끌림, 관계의 결정 시점",
-        "Relationship": "유대감, 신뢰 형성, 관계의 깊이 선택",
-        "Emotion": "사랑에 대한 갈망, 감정적 진실성",
-        "Change": "선택에 따른 분기점, 관계 중심 변화",
-        "Fortune": "중요한 결정의 시기, 감정과 이성의 균형 필요"
-      },
-      "src": "/cards/major6.webp"
-    },
-    {
-      "name": "전차 카드",
-      "typicalMean": "의지로 돌파",
-      "keyword": {
-        "Career": "목표 집중, 도전 성공, 의지로 돌파",
-        "Finance": "재정적 승부, 강한 추진력, 수익 추구",
-        "Romance": "적극적 구애, 관계 주도, 감정 통제",
-        "Relationship": "갈등 조율, 주도권 싸움, 자기 주장 강함",
-        "Emotion": "감정 억제, 의지 우선, 내적 긴장",
-        "Change": "빠른 전환, 밀어붙이는 시기",
-        "Fortune": "승리의 흐름, 방향만 잘 잡으면 성공"
-      },
-      "src": "/cards/major7.webp"
-    },
-    {
-      "name": "힘 카드",
-      "typicalMean": "부드러운 용기",
-      "keyword": {
-        "Career": "인내를 통한 성취, 꾸준함, 내면의 강인함",
-        "Finance": "재정 조절 능력, 감정적 소비 통제",
-        "Romance": "부드러운 배려, 감정 조율, 인내로 맺는 관계",
-        "Relationship": "신뢰 쌓기, 감정 다루기, 상대 존중",
-        "Emotion": "내면의 강함, 자제력, 감정 극복",
-        "Change": "천천히 그러나 확실한 전환",
-        "Fortune": "조용한 상승세, 꾸준함이 운을 부름"
-      },
-      "src": "/cards/major8.webp"
-    },
-    {
-      "name": "은둔자 카드",
-      "typicalMean": "내면 탐색",
-      "keyword": {
-        "Career": "혼자만의 방향 탐색, 진지한 고민, 속도보다 깊이",
-        "Finance": "소비 자제, 재정 계획 재정비, 물질보다 본질",
-        "Romance": "거리두기, 혼자 있고 싶은 마음, 감정 정리의 시간",
-        "Relationship": "단절 또는 고립, 자기 성찰 우선",
-        "Emotion": "고독 속 성찰, 감정 정리, 마음의 쉼",
-        "Change": "외부보다 내부의 변화, 성숙 과정",
-        "Fortune": "일시적인 정체, 의미 있는 멈춤"
-      },
-      "src": "/cards/major9.webp"
-    },
-    {
-      "name": "운명의 수레바퀴 카드",
-      "typicalMean": "전환점과 흐름",
-      "keyword": {
-        "Career": "예상 밖 기회, 흐름을 탈 것, 방향 전환",
-        "Finance": "재정 운의 변화, 상승 또는 하락의 흐름",
-        "Romance": "인연의 타이밍, 갑작스런 전개, 운명적인 만남",
-        "Relationship": "상황 반전, 예상 못한 전개, 변화 수용",
-        "Emotion": "기복 있음, 감정 흐름에 유연하게 대응",
-        "Change": "커다란 흐름 속 변화, 통제보다는 수용",
-        "Fortune": "운이 움직이는 시기, 상승기 or 전환점"
-      },
-      "src": "/cards/major10.webp"
-    },
-    {
-      "name": "정의 카드",
-      "typicalMean": "공정한 판단",
-      "keyword": {
-        "Career": "객관적 평가, 실력 정당화, 공정한 기회",
-        "Finance": "수입과 지출의 균형, 정당한 보상",
-        "Romance": "감정보다 이성, 관계의 균형과 책임",
-        "Relationship": "명확한 경계 설정, 솔직한 소통, 공정성",
-        "Emotion": "감정 통제, 냉철한 자기 인식",
-        "Change": "스스로의 선택과 결과에 대한 책임",
-        "Fortune": "지금의 행동이 결과로 돌아오는 시기"
-      },
-      "src": "/cards/major11.webp"
-    },
-    {
-      "name": "매달린 남자 카드",
-      "typicalMean": "관점 전환",
-      "keyword": {
-        "Career": "일시 정체, 시야 전환 필요, 참을 인",
-        "Finance": "수동적 재정 상황, 투자 보류, 기다림",
-        "Romance": "희생적인 사랑, 관계 유지 위한 인내",
-        "Relationship": "일방적 관계, 오해를 바라보는 관점 조정",
-        "Emotion": "감정 억제, 수용, 멈춤 속에서 배우기",
-        "Change": "스스로를 내려놓을 때 찾아오는 변화",
-        "Fortune": "정체의 흐름, 멈춤을 받아들일 필요"
-      },
-      "src": "/cards/major12.webp"
-    },
-    {
-      "name": "죽음 카드",
-      "typicalMean": "끝과 새로운 시작",
-      "keyword": {
-        "Career": "직업 종료, 전직 또는 전환의 시기",
-        "Finance": "낡은 습관 청산, 새로운 재정 구조",
-        "Romance": "관계 종료, 정리, 새로운 인연의 전조",
-        "Relationship": "관계 단절, 정리해야 할 인연",
-        "Emotion": "감정 소멸, 감정적 재정비",
-        "Change": "급진적 변화, 완전한 전환점",
-        "Fortune": "끝과 함께 오는 새로운 기회"
-      },
-      "src": "/cards/major13.webp"
-    },
-    {
-      "name": "절제 카드",
-      "typicalMean": "조화와 균형",
-      "keyword": {
-        "Career": "무리 없는 조절, 장기적 균형",
-        "Finance": "수입과 지출의 균형, 안정된 재정 관리",
-        "Romance": "서로에 대한 배려, 건강한 감정 흐름",
-        "Relationship": "중재, 화합, 서로 다른 관점 조율",
-        "Emotion": "감정 조절 능력, 평정심 유지",
-        "Change": "부드럽고 자연스러운 변화",
-        "Fortune": "조화로운 흐름, 무리 없이 흘러가는 운"
-      },
-      "src": "/cards/major14.webp"
-    },
-    {
-      "name": "악마 카드",
-      "typicalMean": "집착과 유혹",
-      "keyword": {
-        "Career": "의존적 환경, 권력욕, 부정한 유혹 주의",
-        "Finance": "과소비, 사치, 금전적 유혹",
-        "Romance": "집착적 관계, 끊기 힘든 인연",
-        "Relationship": "지배와 종속, 심리적 얽힘",
-        "Emotion": "중독, 욕망 통제 실패",
-        "Change": "스스로를 붙잡는 틀에서 벗어나야 할 시점",
-        "Fortune": "위험한 유혹, 자제력이 필요한 운세"
-      },
-      "src": "/cards/major15.webp"
-    },
-    {
-      "name": "탑 카드",
-      "typicalMean": "갑작스러운 붕괴",
-      "keyword": {
-        "Career": "갑작스러운 변화, 실직이나 구조조정",
-        "Finance": "재정 손실, 예상 밖의 지출",
-        "Romance": "관계의 붕괴, 진실이 드러나는 충격",
-        "Relationship": "갈등 폭발, 오래 쌓인 감정의 폭발",
-        "Emotion": "감정 폭발, 혼란과 무너짐",
-        "Change": "강제적 변화, 위기를 통한 재정비",
-        "Fortune": "충격적 사건, 반성과 재건의 계기"
-      },
-      "src": "/cards/major16.webp"
-    },
-    {
-      "name": "별 카드",
-      "typicalMean": "희망과 회복",
-      "keyword": {
-        "Career": "희망적 미래, 장기적 비전, 영감 있는 진로",
-        "Finance": "천천히 좋아지는 흐름, 회복세",
-        "Romance": "이상적인 사랑, 순수한 관계",
-        "Relationship": "신뢰 회복, 희망적인 관계 개선",
-        "Emotion": "치유, 긍정적인 감정 회복",
-        "Change": "점진적 회복, 미래에 대한 희망",
-        "Fortune": "밝아지는 운, 긍정의 흐름"
-      },
-      "src": "/cards/major17.webp"
-    },
-    {
-      "name": "달 카드",
-      "typicalMean": "혼란과 불확실성",
-      "keyword": {
-        "Career": "방향성 모호, 불안정한 상황",
-        "Finance": "속이는 정보 주의, 손실 가능성",
-        "Romance": "감정 속임수, 헷갈리는 관계",
-        "Relationship": "오해와 불신, 진심 파악 어려움",
-        "Emotion": "불안, 우울, 내면의 혼란",
-        "Change": "불확실한 변화, 혼란 속에서 드러나는 진실",
-        "Fortune": "흐림, 예측 불가한 흐름"
-      },
-      "src": "/cards/major18.webp"
-    },
-    {
-      "name": "태양 카드",
-      "typicalMean": "성공과 행복",
-      "keyword": {
-        "Career": "성공적 진로, 자신감 상승, 성장 기회",
-        "Finance": "재정적 풍요, 안정적 수입",
-        "Romance": "행복한 관계, 사랑의 성숙",
-        "Relationship": "솔직한 관계, 명확한 교류",
-        "Emotion": "밝음, 활력, 기쁨",
-        "Change": "긍정적 전환, 막힘 없는 흐름",
-        "Fortune": "최고의 운세, 행운과 성취"
-      },
-      "src": "/cards/major19.webp"
-    },
-    {
-      "name": "심판 카드",
-      "typicalMean": "각성과 기회",
-      "keyword": {
-        "Career": "새로운 기회, 과거의 결과에 따른 반전",
-        "Finance": "보상 받는 시기, 숨겨진 수입 발생",
-        "Romance": "재회 가능성, 과거 관계의 재정비",
-        "Relationship": "과거 정리, 용서, 새로운 기회",
-        "Emotion": "감정의 해방, 후회와 성찰 후의 정리",
-        "Change": "전환점, 중요한 결정을 마주함",
-        "Fortune": "과거의 업보에 따른 결과 도래"
-      },
-      "src": "/cards/major20.webp"
-    },
-    {
-      "name": "세계 카드",
-      "typicalMean": "완성과 성취",
-      "keyword": {
-        "Career": "목표 달성, 진로 완성, 높은 만족감",
-        "Finance": "경제적 완성, 풍요의 마무리",
-        "Romance": "관계의 완성, 결혼 또는 깊은 유대",
-        "Relationship": "조화롭고 완성된 관계",
-        "Emotion": "안정감, 자아의 성숙",
-        "Change": "끝맺음과 새로운 시작의 준비",
-        "Fortune": "최고의 운, 주기적 완성"
-      },
-      "src": "/cards/major21.webp"
-    },
-    {
-      "name": "펜타클 1",
-      "typicalMean": "현실적 기회의 시작",
-      "keyword": {
-        "Career": "취업, 새로운 일자리, 현실 기반 출발",
-        "Finance": "수익 기회, 안정적 자산의 씨앗",
-        "Romance": "신뢰 기반 관계의 시작, 진지한 만남",
-        "Relationship": "믿음과 실용 중심의 관계 형성",
-        "Emotion": "차분한 기대감, 안정적인 감정",
-        "Change": "실질적 변화, 물질적 기초 다지기",
-        "Fortune": "기회를 잡을 수 있는 현실적인 흐름"
-      },
-      "src": "/cards/pentacles1.webp"
-    },
-    {
-      "name": "펜타클 2",
-      "typicalMean": "균형 잡기",
-      "keyword": {
-        "Career": "여러 일 사이 균형, 겸직 또는 갈등",
-        "Finance": "수입·지출 조율, 재정적 juggling",
-        "Romance": "애매한 관계, 감정 조율 중",
-        "Relationship": "두 관계 사이의 고민, 우선순위 조정",
-        "Emotion": "감정 기복, 조절이 필요한 상태",
-        "Change": "두 선택지 사이에서의 유동적 변화",
-        "Fortune": "불안정하지만 유연한 운의 흐름"
-      },
-      "src": "/cards/pentacles2.webp"
-    },
-    {
-      "name": "펜타클 3",
-      "typicalMean": "협력과 공동 성과",
-      "keyword": {
-        "Career": "팀워크, 프로젝트 협업, 능력 인정",
-        "Finance": "공동 수익 창출, 기술 기반 수입",
-        "Romance": "함께 만들어가는 관계, 협력적 애정",
-        "Relationship": "팀워크, 사회적 관계의 조화",
-        "Emotion": "누군가와 함께할 때 안정되는 감정",
-        "Change": "협력을 통해 만들어지는 건설적 변화",
-        "Fortune": "혼자보다 함께할 때 운이 상승"
-      },
-      "src": "/cards/pentacles3.webp"
-    },
-    {
-      "name": "펜타클 4",
-      "typicalMean": "집착과 보유",
-      "keyword": {
-        "Career": "현재 자리에 머무름, 변화 두려움",
-        "Finance": "저축 중심, 지출 억제, 금전 집착",
-        "Romance": "소유욕, 관계 통제, 정체",
-        "Relationship": "감정 공유 부족, 닫힌 마음",
-        "Emotion": "방어적 태도, 감정 억제",
-        "Change": "변화에 대한 저항, 고착 상태",
-        "Fortune": "안정은 있지만 흐름은 정체됨"
-      },
-      "src": "/cards/pentacles4.webp"
-    },
-    {
-      "name": "펜타클 5",
-      "typicalMean": "결핍과 상실",
-      "keyword": {
-        "Career": "직장 불안, 일거리 부족, 실직 우려",
-        "Finance": "재정 위기, 손실, 지출 과다",
-        "Romance": "거리감, 관계 속 외로움, 감정적 결핍",
-        "Relationship": "소외감, 외부로부터의 단절",
-        "Emotion": "상실감, 외로움, 정서적 허기",
-        "Change": "고통스러운 변화, 시련의 시기",
-        "Fortune": "하강기, 의지할 곳을 찾는 운세"
-      },
-      "src": "/cards/pentacles5.webp"
-    },
-    {
-      "name": "펜타클 6",
-      "typicalMean": "주고받는 균형",
-      "keyword": {
-        "Career": "도움을 받거나 주는 상황, 상호 지원",
-        "Finance": "금전적 여유, 기부, 지원금 수령",
-        "Romance": "주는 사랑, 배려 중심 관계",
-        "Relationship": "상호 보완적 관계, 도움의 순환",
-        "Emotion": "감정 나눔, 따뜻한 교류",
-        "Change": "균형 잡힌 흐름, 도움을 받거나 제공하는 시기",
-        "Fortune": "운이 돌아옴, 필요한 만큼 채워짐"
-      },
-      "src": "/cards/pentacles6.webp"
-    },
-    {
-      "name": "펜타클 7",
-      "typicalMean": "기다림과 평가",
-      "keyword": {
-        "Career": "지금까지의 성과 점검, 인내가 필요한 시기",
-        "Finance": "투자 수익 대기, 장기 계획 검토",
-        "Romance": "관계의 진전 여부 고민, 관찰",
-        "Relationship": "노력 후의 반응을 지켜보는 관계",
-        "Emotion": "감정적 거리 유지, 확신 부족",
-        "Change": "당장보다는 미래를 위한 준비기",
-        "Fortune": "잠시 멈추고 방향을 재정비할 운세"
-      },
-      "src": "/cards/pentacles7.webp"
-    },
-    {
-      "name": "펜타클 8",
-      "typicalMean": "꾸준한 노력",
-      "keyword": {
-        "Career": "성실한 성장, 기술 숙련, 일에 몰두",
-        "Finance": "지속적 수입, 실력 기반의 수익",
-        "Romance": "관계 개선을 위한 꾸준한 노력",
-        "Relationship": "성실함이 신뢰를 만드는 시기",
-        "Emotion": "내면을 단단히 다지는 과정",
-        "Change": "느리지만 확실한 변화",
-        "Fortune": "노력한 만큼 결과가 따르는 운세"
-      },
-      "src": "/cards/pentacles8.webp"
-    },
-    {
-      "name": "펜타클 9",
-      "typicalMean": "독립과 만족",
-      "keyword": {
-        "Career": "자립 성공, 프리랜서·자영업에 유리",
-        "Finance": "경제적 안정, 충분한 수입",
-        "Romance": "나 자신을 사랑하는 여유, 독립적 연애",
-        "Relationship": "거리 두기 속에서도 우아한 연결",
-        "Emotion": "자존감 상승, 감정적 여유",
-        "Change": "안정적 정착, 삶의 질 향상",
-        "Fortune": "행운과 안정이 겹치는 시기"
-      },
-      "src": "/cards/pentacles9.webp"
-    },
-    {
-      "name": "펜타클 10",
-      "typicalMean": "물질적·정서적 완성",
-      "keyword": {
-        "Career": "장기적 성공, 안정된 직장 또는 가업",
-        "Finance": "재산 축적, 유산, 가족 자산",
-        "Romance": "결혼, 가족 중심 관계",
-        "Relationship": "가족적 유대, 신뢰와 지속",
-        "Emotion": "안정과 만족, 정서적 풍요",
-        "Change": "삶의 안정에 기반한 확장",
-        "Fortune": "최고의 안정 운, 장기적 성공 흐름"
-      },
-      "src": "/cards/pentacles10.webp"
-    },
-    {
-      "name": "펜타클 페이지",
-      "typicalMean": "가능성 있는 시작",
-      "keyword": {
-        "Career": "배우는 자세, 실무 경험 시작, 인턴·수습",
-        "Finance": "작은 수익, 금전 관리 연습",
-        "Romance": "느리지만 진지한 감정 시작",
-        "Relationship": "신중한 접근, 조심스러운 관심",
-        "Emotion": "안정 지향, 현실적인 감정 태도",
-        "Change": "기반 다지기, 천천히 시작하는 변화",
-        "Fortune": "아직은 미완성, 가능성 중심의 운세"
-      },
-      "src": "/cards/pentacles11.webp"
-    },
-    {
-      "name": "펜타클 나이트",
-      "typicalMean": "신중한 실행",
-      "keyword": {
-        "Career": "안정적 경로, 꾸준함, 책임감 있는 자세",
-        "Finance": "안정적 자산 증가, 장기적 수익",
-        "Romance": "느리지만 성실한 연애, 책임지는 태도",
-        "Relationship": "신뢰 기반의 인간관계, 우직한 스타일",
-        "Emotion": "감정 절제, 실속 있는 마음",
-        "Change": "점진적인 전환, 성실함이 변화의 핵심",
-        "Fortune": "안정적으로 나아가는 시기, 느리지만 확실한 운"
-      },
-      "src": "/cards/pentacles12.webp"
-    },
-    {
-      "name": "펜타클 퀸",
-      "typicalMean": "돌봄과 현실 감각",
-      "keyword": {
-        "Career": "실속 있는 업무 처리, 조직의 중심",
-        "Finance": "금전 관리 능력 탁월, 절제된 소비",
-        "Romance": "배려 깊은 사랑, 가정적인 연애",
-        "Relationship": "현실 기반의 따뜻한 관계",
-        "Emotion": "안정감, 감정의 여유와 균형",
-        "Change": "실용적이고 안정적인 변화",
-        "Fortune": "물질적·정서적으로 안정된 운"
-      },
-      "src": "/cards/pentacles13.webp"
-    },
-    {
-      "name": "펜타클 킹",
-      "typicalMean": "물질적 성공과 책임",
-      "keyword": {
-        "Career": "관리자급 성공, 실리 중심의 경영",
-        "Finance": "재정적 성취, 투자 수익 안정",
-        "Romance": "책임감 있는 사랑, 보호자적 태도",
-        "Relationship": "신뢰와 존중을 바탕으로 한 관계",
-        "Emotion": "감정보다 이성, 안정 우선",
-        "Change": "이미 구축된 기반 위에서 확장",
-        "Fortune": "재정과 지위 면에서 강한 운의 흐름"
-      },
-      "src": "/cards/pentacles14.webp"
-    },
-    {
-      "name": "소드 1",
-      "typicalMean": "명확한 진실의 시작",
-      "keyword": {
-        "Career": "진로 방향에 대한 통찰, 결단력",
-        "Finance": "명확한 판단이 필요한 금전 이슈",
-        "Romance": "감정보다 이성, 관계의 명료화",
-        "Relationship": "솔직한 대화, 진실이 드러남",
-        "Emotion": "감정 정리, 이성적 인식",
-        "Change": "진실을 마주함으로 시작되는 변화",
-        "Fortune": "날카롭지만 확실한 흐름"
-      },
-      "src": "/cards/swords1.webp"
-    },
-    {
-      "name": "소드 2",
-      "typicalMean": "결정 회피",
-      "keyword": {
-        "Career": "선택 앞 망설임, 확신 부족",
-        "Finance": "수입/지출 고민, 지체된 결정",
-        "Romance": "감정 숨김, 결정 미루는 관계",
-        "Relationship": "대화 회피, 균형이 맞지만 억눌림",
-        "Emotion": "감정적 회피, 억제",
-        "Change": "아직 변화 준비 안 됨, 눈 가린 상태",
-        "Fortune": "보류 상태, 결정을 미룰수록 답답함"
-      },
-      "src": "/cards/swords2.webp"
-    },
-    {
-      "name": "소드 3",
-      "typicalMean": "상처와 실망",
-      "keyword": {
-        "Career": "일에 대한 실망, 좌절 경험",
-        "Finance": "손해, 사기, 충격적 지출",
-        "Romance": "이별, 실연, 삼각관계 문제",
-        "Relationship": "배신, 깊은 오해, 상처",
-        "Emotion": "고통, 슬픔, 외로움",
-        "Change": "괴로운 전환기, 감정적 시련",
-        "Fortune": "하락기, 마음 다스림이 필요한 운"
-      },
-      "src": "/cards/swords3.webp"
-    },
-    {
-      "name": "소드 4",
-      "typicalMean": "휴식과 정지",
-      "keyword": {
-        "Career": "일시적인 휴직, 방향 재정비",
-        "Finance": "지출 자제, 경제 활동 쉬는 시기",
-        "Romance": "거리 두기, 감정 회복 기간",
-        "Relationship": "단절 또는 일시적인 소강 상태",
-        "Emotion": "무기력, 감정적으로 지침",
-        "Change": "변화 없는 시기, 쉬어야 함",
-        "Fortune": "휴식이 필요한 흐름, 성급함은 금물"
-      },
-      "src": "/cards/swords4.webp"
-    },
-    {
-      "name": "소드 5",
-      "typicalMean": "갈등과 승리의 대가",
-      "keyword": {
-        "Career": "경쟁과 정치적 문제, 불편한 승리",
-        "Finance": "손익 따지는 상황, 누군가 손해를 봄",
-        "Romance": "말다툼, 자존심 싸움, 이기려는 태도",
-        "Relationship": "싸움 후 후회, 인간관계 손상",
-        "Emotion": "냉소, 자책, 미묘한 후회",
-        "Change": "관계의 갈등에서 오는 변화",
-        "Fortune": "결과는 얻지만 후유증 남는 운세"
-      },
-      "src": "/cards/swords5.webp"
-    },
-    {
-      "name": "소드 6",
-      "typicalMean": "조용한 이탈",
-      "keyword": {
-        "Career": "변화 준비, 조용히 환경을 옮김",
-        "Finance": "재정 문제 회피, 문제에서 벗어나려는 시도",
-        "Romance": "감정 정리, 거리 두기, 이별 수순",
-        "Relationship": "다툼 후 냉각기, 감정적 거리 조절",
-        "Emotion": "차분하지만 내면의 상처 있음",
-        "Change": "부드러운 이탈, 상황 정리를 위한 이동",
-        "Fortune": "과거를 벗어나 새로운 흐름으로 전환"
-      },
-      "src": "/cards/swords6.webp"
-    },
-    {
-      "name": "소드 7",
-      "typicalMean": "숨김과 속임수",
-      "keyword": {
-        "Career": "뒤에서 움직이는 일, 비공식 활동",
-        "Finance": "몰래 빠져나가는 돈, 재정 흐름 불투명",
-        "Romance": "비밀 연애, 거짓말, 숨기는 감정",
-        "Relationship": "속임수, 신뢰 깨짐, 이중성",
-        "Emotion": "숨기고 있는 감정, 솔직하지 못함",
-        "Change": "속내를 감춘 채 방향 전환",
-        "Fortune": "조심해야 할 시기, 숨은 의도 파악 필요"
-      },
-      "src": "/cards/swords7.webp"
-    },
-    {
-      "name": "소드 8",
-      "typicalMean": "스스로 만든 감금",
-      "keyword": {
-        "Career": "선택 불가 상태, 진로 제한 느낌",
-        "Finance": "금전 압박감, 돈 문제로 움직이지 못함",
-        "Romance": "얽힌 관계, 벗어나기 어려운 감정",
-        "Relationship": "억압된 관계, 무력감",
-        "Emotion": "불안, 공포, 스스로 제한하는 감정",
-        "Change": "갇힌 듯한 상태, 인식의 전환이 필요",
-        "Fortune": "막힌 흐름, 생각을 바꿔야 돌파 가능"
-      },
-      "src": "/cards/swords8.webp"
-    },
-    {
-      "name": "소드 9",
-      "typicalMean": "불안과 후회",
-      "keyword": {
-        "Career": "과도한 스트레스, 일 관련 걱정",
-        "Finance": "후회되는 지출, 불면의 재정 고민",
-        "Romance": "이별 후 슬픔, 죄책감",
-        "Relationship": "걱정, 트라우마, 감정적 거리",
-        "Emotion": "불면, 죄책감, 우울",
-        "Change": "내부에서 먼저 치유되어야 하는 변화",
-        "Fortune": "정신적 피로 누적된 시기, 휴식 필요"
-      },
-      "src": "/cards/swords9.webp"
-    },
-    {
-      "name": "소드 10",
-      "typicalMean": "극복 후 재기",
-      "keyword": {
-        "Career": "끝난 프로젝트, 해고/퇴직 등 위기",
-        "Finance": "손실 이후 바닥, 회복의 시작점",
-        "Romance": "끝난 관계, 이별의 수용",
-        "Relationship": "신뢰 완전 붕괴, 단절",
-        "Emotion": "깊은 상처, 감정적 바닥",
-        "Change": "고통 뒤의 진정한 재시작",
-        "Fortune": "최저점이자 반등 가능성 있는 흐름"
-      },
-      "src": "/cards/swords10.webp"
-    },
-    {
-      "name": "소드 페이지",
-      "typicalMean": "호기심과 경계",
-      "keyword": {
-        "Career": "새로운 정보 탐색, 배우는 자세",
-        "Finance": "지출 계획 분석, 작은 거래 탐색",
-        "Romance": "상대에 대한 관찰, 신중한 시작",
-        "Relationship": "말은 많지만 감정 표현은 조심",
-        "Emotion": "경계심, 분석적인 감정 태도",
-        "Change": "탐색과 관찰이 먼저인 변화",
-        "Fortune": "준비 중인 흐름, 정보 수집이 중요"
-      },
-      "src": "/cards/swords11.webp"
-    },
-    {
-      "name": "소드 나이트",
-      "typicalMean": "돌진하는 논리",
-      "keyword": {
-        "Career": "빠른 결정, 논리 중심의 진입",
-        "Finance": "공격적 지출, 정보에 기반한 투자",
-        "Romance": "직설적인 표현, 빠른 전개",
-        "Relationship": "논쟁적 태도, 자기 주장을 강하게 내세움",
-        "Emotion": "감정보다 이성 우선, 격렬한 내면",
-        "Change": "급작스럽고 강제적인 변화",
-        "Fortune": "속도가 빠르지만 충돌 위험 있는 흐름"
-      },
-      "src": "/cards/swords12.webp"
-    },
-    {
-      "name": "소드 퀸",
-      "typicalMean": "이성적 판단과 냉철함",
-      "keyword": {
-        "Career": "분석력 있는 전문가, 명확한 판단",
-        "Finance": "냉정한 재정 관리, 감정 없는 거래",
-        "Romance": "감정보다 진심과 논리를 중시",
-        "Relationship": "거리 유지, 신뢰 기반 관계",
-        "Emotion": "감정 절제, 자기 통제력",
-        "Change": "감정 배제 후 내리는 이성적 전환",
-        "Fortune": "명확한 결정이 운을 바꾸는 시기"
-      },
-      "src": "/cards/swords13.webp"
-    },
-    {
-      "name": "소드 킹",
-      "typicalMean": "판단과 통제",
-      "keyword": {
-        "Career": "리더십 있는 전문가, 분석 중심 결정",
-        "Finance": "전략적 투자, 냉정한 이익 계산",
-        "Romance": "논리 중심의 관계 운영, 책임감",
-        "Relationship": "원칙주의, 공정한 판단 중심 관계",
-        "Emotion": "감정보다 논리 우선, 감정 표현 억제",
-        "Change": "객관적 결단이 이끄는 구조적 변화",
-        "Fortune": "명확한 계획이 있는 흐름, 판단의 시기"
-      },
-      "src": "/cards/swords14.webp"
-    },
-    {
-      "name": "완드 1",
-      "typicalMean": "열정의 시작",
-      "keyword": {
-        "Career": "창의적인 시작, 도전 욕구, 새 프로젝트",
-        "Finance": "새로운 수입 기회, 투자 아이디어",
-        "Romance": "뜨거운 끌림, 새로운 인연, 불같은 시작",
-        "Relationship": "활발한 교류 시작, 열정적인 관계",
-        "Emotion": "활기차고 들뜬 감정, 내면의 동기 부여",
-        "Change": "추진력 있는 전환, 기회의 불꽃",
-        "Fortune": "시작에 유리한 시기, 행운의 발화점"
-      },
-      "src": "/cards/wands1.webp"
-    },
-    {
-      "name": "완드 2",
-      "typicalMean": "선택과 계획",
-      "keyword": {
-        "Career": "방향 설정, 확장 가능성 탐색",
-        "Finance": "자산 증식 계획, 장기 투자 구상",
-        "Romance": "관계의 방향 고민, 미래에 대한 그림",
-        "Relationship": "거리감 있는 관계, 주도권 고민",
-        "Emotion": "확신 부족, 머뭇거림, 결단을 앞둔 감정",
-        "Change": "안정 속 고민, 새로운 기회 앞 갈림길",
-        "Fortune": "결정을 요하는 시기, 한 걸음 전의 흐름"
-      },
-      "src": "/cards/wands2.webp"
-    },
-    {
-      "name": "완드 3",
-      "typicalMean": "확장과 기대",
-      "keyword": {
-        "Career": "해외 기회, 성장을 향한 준비",
-        "Finance": "수익 확장, 투자 결과 기대",
-        "Romance": "미래를 함께 바라보는 관계",
-        "Relationship": "협력적 관계, 신뢰 기반의 연대",
-        "Emotion": "긍정적인 기대감, 열망이 커지는 시기",
-        "Change": "확장의 흐름, 준비된 변화",
-        "Fortune": "좋은 방향으로 열리는 운의 흐름"
-      },
-      "src": "/cards/wands3.webp"
-    },
-    {
-      "name": "완드 4",
-      "typicalMean": "안정과 축하",
-      "keyword": {
-        "Career": "안정된 직장, 성과 달성",
-        "Finance": "금전적 여유, 지출보다 보상의 시기",
-        "Romance": "안정된 관계, 약혼·결혼 가능성",
-        "Relationship": "가족적 분위기, 즐거운 모임",
-        "Emotion": "편안함, 만족감, 감정적 쉼터",
-        "Change": "긍정적 정착, 일상의 안정",
-        "Fortune": "운이 잘 풀리는 시기, 성취의 기운"
-      },
-      "src": "/cards/wands4.webp"
-    },
-    {
-      "name": "완드 5",
-      "typicalMean": "경쟁과 충돌",
-      "keyword": {
-        "Career": "경쟁 심화, 내부 갈등, 에너지 분산",
-        "Finance": "충동 지출 주의, 금전적 충돌 가능성",
-        "Romance": "말다툼, 의견 충돌, 질투",
-        "Relationship": "갈등, 대립, 협력이 필요한 시기",
-        "Emotion": "답답함, 짜증, 불균형",
-        "Change": "혼란기, 에너지 조율 필요",
-        "Fortune": "다소 불안정, 경쟁 속 기회 숨어 있음"
-      },
-      "src": "/cards/wands5.webp"
-    },
-    {
-      "name": "완드 6",
-      "typicalMean": "승리와 인정",
-      "keyword": {
-        "Career": "성과 달성, 주목받는 성과, 리더십 발휘",
-        "Finance": "수익 상승, 투자 성공, 보상",
-        "Romance": "인정받는 사랑, 자랑스러운 관계",
-        "Relationship": "존경받는 위치, 주변의 인정",
-        "Emotion": "자부심, 자신감, 뿌듯함",
-        "Change": "긍정적인 진전, 성공적인 전환",
-        "Fortune": "좋은 소식, 운이 상승하는 흐름"
-      },
-      "src": "/cards/wands6.webp"
-    },
-    {
-      "name": "완드 7",
-      "typicalMean": "방어와 고수",
-      "keyword": {
-        "Career": "경쟁 속에서 자리를 지키는 시기",
-        "Finance": "재정 방어, 지출 통제, 방어적 투자",
-        "Romance": "관계 유지 노력, 외부 간섭 방어",
-        "Relationship": "주도권 지키기, 자기 입장 고수",
-        "Emotion": "긴장감, 경계, 감정적 방어",
-        "Change": "지키는 변화, 무너지지 않는 고집",
-        "Fortune": "버텨야 할 시기, 방어적 태도가 유리"
-      },
-      "src": "/cards/wands7.webp"
-    },
-    {
-      "name": "완드 8",
-      "typicalMean": "빠른 전개",
-      "keyword": {
-        "Career": "일의 속도 상승, 기회가 급하게 다가옴",
-        "Finance": "빠른 수익, 급한 거래 주의",
-        "Romance": "급진전, 갑작스러운 고백/연락",
-        "Relationship": "빠른 소통, 대화의 물꼬",
-        "Emotion": "들뜸, 빠른 감정 변화",
-        "Change": "순식간의 전환, 속도감 있는 흐름",
-        "Fortune": "일이 빠르게 풀림, 흐름을 탈 것"
-      },
-      "src": "/cards/wands8.webp"
-    },
-    {
-      "name": "완드 9",
-      "typicalMean": "경계와 인내",
-      "keyword": {
-        "Career": "지쳐 있지만 포기하지 않음, 마지막 고비",
-        "Finance": "불안한 지출 관리, 지키는 자세",
-        "Romance": "상처로 인한 경계, 신중한 접근",
-        "Relationship": "반복된 갈등 이후의 거리두기",
-        "Emotion": "피로감, 방어적인 감정",
-        "Change": "변화 앞의 망설임, 아직은 준비 중",
-        "Fortune": "조심스러운 흐름, 무리하지 말 것"
-      },
-      "src": "/cards/wands9.webp"
-    },
-    {
-      "name": "완드 10",
-      "typicalMean": "부담과 과중한 책임",
-      "keyword": {
-        "Career": "과중한 업무, 혼자 짊어진 책임",
-        "Finance": "부채 부담, 책임감 있는 지출",
-        "Romance": "관계 피로감, 혼자 애쓰는 사랑",
-        "Relationship": "책임 과다, 감정적 무게",
-        "Emotion": "무거움, 답답함, 감정적 과부하",
-        "Change": "짐을 내려놓아야 변할 수 있음",
-        "Fortune": "무거운 운의 흐름, 정리 필요"
-      },
-      "src": "/cards/wands10.webp"
-    },
-    {
-      "name": "완드 페이지",
-      "typicalMean": "호기심과 가능성",
-      "keyword": {
-        "Career": "새로운 일에 대한 흥미, 배우는 자세",
-        "Finance": "소규모 수익 기회, 시작 단계의 자산",
-        "Romance": "풋풋한 감정, 설렘, 연락 시작",
-        "Relationship": "호기심 어린 접근, 새로운 사람과의 인연",
-        "Emotion": "기대감, 밝고 가벼운 기분",
-        "Change": "가벼운 변화, 새 시작의 기운",
-        "Fortune": "좋은 소식, 시작에 유리한 운"
-      },
-      "src": "/cards/wands11.webp"
-    },
-    {
-      "name": "완드 나이트",
-      "typicalMean": "열정과 돌진",
-      "keyword": {
-        "Career": "적극적 행동, 빠른 진입, 모험적인 경로",
-        "Finance": "공격적 투자, 수익과 손실의 기복",
-        "Romance": "빠른 접근, 강한 매력, 불같은 연애",
-        "Relationship": "즉흥적 소통, 때로는 충동적인 행동",
-        "Emotion": "들끓는 감정, 즉각적인 반응",
-        "Change": "급진적 변화, 추진력 강한 전환",
-        "Fortune": "변화가 빠른 시기, 과감한 도전 유리"
-      },
-      "src": "/cards/wands12.webp"
-    },
-    {
-      "name": "완드 퀸",
-      "typicalMean": "자신감과 따뜻한 카리스마",
-      "keyword": {
-        "Career": "리더십, 창의력 발휘, 인기 있는 포지션",
-        "Finance": "안정적 수익, 자기 주도적 재정 운영",
-        "Romance": "매력적 존재, 주도적인 사랑",
-        "Relationship": "따뜻하지만 중심을 잡는 역할",
-        "Emotion": "자신감, 여유, 내면의 안정감",
-        "Change": "자연스럽고 주체적인 변화",
-        "Fortune": "좋은 흐름, 스스로 운을 이끄는 시기"
-      },
-      "src": "/cards/wands13.webp"
-    },
-    {
-      "name": "완드 킹",
-      "typicalMean": "비전과 통솔력",
-      "keyword": {
-        "Career": "리더 포지션, 큰 그림을 보는 능력",
-        "Finance": "사업적 수완, 수익 창출 능력",
-        "Romance": "책임감 있는 연애, 믿음직한 파트너",
-        "Relationship": "중심 인물, 방향성을 제시하는 존재",
-        "Emotion": "감정보다 목표 중심, 안정적 태도",
-        "Change": "영향력 있는 변화, 자신이 주도하는 전환",
-        "Fortune": "성취로 향하는 운, 리더십 발휘에 유리"
-      },
-      "src": "/cards/wands14.webp"
-    },
-    {
-      "name": "에이스 오브 컵",
-      "typicalMean": "감정의 시작",
-      "keyword": {
-        "Career": "감정에 맞는 일 발견, 창의적인 분야",
-        "Finance": "만족감 위주의 소비, 정서적 만족",
-        "Romance": "사랑의 시작, 감정 충만한 만남",
-        "Relationship": "진심 어린 연결, 감정 공유 시작",
-        "Emotion": "사랑, 기쁨, 감정의 흐름이 열림",
-        "Change": "감정 중심의 변화, 새로운 열림",
-        "Fortune": "감정적으로 충만한 운, 좋은 인연 가능"
-      },
-      "src": "/cards/cups1.webp"
-    },
-    {
-      "name": "컵 2",
-      "typicalMean": "진실된 연결",
-      "keyword": {
-        "Career": "파트너십, 협업 관계의 조화",
-        "Finance": "동업, 함께하는 투자 기회",
-        "Romance": "교감, 소울메이트, 균형 잡힌 관계",
-        "Relationship": "서로 신뢰하는 관계, 깊은 유대",
-        "Emotion": "안정감, 조화, 감정적 균형",
-        "Change": "좋은 인연과의 연결로 생기는 변화",
-        "Fortune": "관계 운 상승, 협력의 흐름"
-      },
-      "src": "/cards/cups2.webp"
-    },
-    {
-      "name": "컵 3",
-      "typicalMean": "기쁨과 유대",
-      "keyword": {
-        "Career": "팀워크, 모임 속 성과",
-        "Finance": "작은 수익, 축하할 만한 기회",
-        "Romance": "즐거운 만남, 삼각관계 가능성 주의",
-        "Relationship": "우정, 모임, 사회적 교류 활발",
-        "Emotion": "즐거움, 해방감, 감정적 여유",
-        "Change": "주변 사람들과의 활기찬 전환",
-        "Fortune": "사람 중심의 운 상승, 축하할 일 생김"
-      },
-      "src": "/cards/cups3.webp"
-    },
-    {
-      "name": "컵 4",
-      "typicalMean": "무기력과 냉담",
-      "keyword": {
-        "Career": "흥미 없음, 일에 대한 권태",
-        "Finance": "감정적 소비, 지루함에 의한 낭비",
-        "Romance": "관심 부족, 거절, 감정적 거리",
-        "Relationship": "감정적 단절, 대화 부족",
-        "Emotion": "무기력, 권태, 감정적 방어",
-        "Change": "현재를 외면하고 새로운 것을 거부함",
-        "Fortune": "새로운 기회가 보이지 않는 흐름"
-      },
-      "src": "/cards/cups4.webp"
-    },
-    {
-      "name": "컵 5",
-      "typicalMean": "상실과 후회",
-      "keyword": {
-        "Career": "실패 경험, 일에 대한 실망",
-        "Finance": "잃어버린 돈, 후회스러운 지출",
-        "Romance": "이별, 감정적 상처, 미련",
-        "Relationship": "소원해진 인연, 회복되지 않은 감정",
-        "Emotion": "슬픔, 후회, 고립감",
-        "Change": "아픔을 딛고 다음으로 넘어가야 함",
-        "Fortune": "감정적 하강기, 회복에는 시간이 필요"
-      },
-      "src": "/cards/cups5.webp"
-    },
-    {
-      "name": "컵 6",
-      "typicalMean": "추억과 순수함",
-      "keyword": {
-        "Career": "과거의 경험을 되살리는 일, 복귀",
-        "Finance": "과거 투자 회수, 감정적 소비 경향",
-        "Romance": "옛 연인과의 재회, 순수한 사랑",
-        "Relationship": "오래된 친구, 가족과의 따뜻한 유대",
-        "Emotion": "순수함, 향수, 감정적 회복",
-        "Change": "과거의 감정이 현재를 변화시킴",
-        "Fortune": "복고적 흐름, 과거에서 오는 기회"
-      },
-      "src": "/cards/cups6.webp"
-    },
-    {
-      "name": "컵 7",
-      "typicalMean": "환상과 선택",
-      "keyword": {
-        "Career": "너무 많은 선택지, 방향 혼란",
-        "Finance": "과장된 기대, 비현실적 지출",
-        "Romance": "환상 속 사랑, 상대에 대한 착각",
-        "Relationship": "현실과 감정의 괴리, 이상화",
-        "Emotion": "혼란, 상상, 기대 과잉",
-        "Change": "선택의 기로에서 현실 인식 필요",
-        "Fortune": "실체 없는 운, 판단력 필요"
-      },
-      "src": "/cards/cups7.webp"
-    },
-    {
-      "name": "컵 8",
-      "typicalMean": "감정적 이탈",
-      "keyword": {
-        "Career":"의미 없는 일을 떠나려는 결정",
-        "Finance":"감정적으로 집착했던 투자 정리",
-        "Romance":"감정 식음, 미련 없이 떠남",
-        "Relationship":"단절, 마음이 멀어짐",
-        "Emotion":"공허함, 감정적 탈진",
-        "Change":"이별을 통한 자기 회복",
-        "Fortune":"포기와 결단이 필요한 운"
-      },
-      "src": "/cards/cups8.webp"
-    },
-    {
-      "name": "컵 9",
-      "typicalMean": "만족과 성취",
-      "keyword": {
-        "Career": "만족스러운 일, 성과 달성",
-        "Finance": "풍족함, 소망한 만큼의 수익",
-        "Romance": "감정적 충만함, 행복한 연애",
-        "Relationship": "편안한 관계, 나를 중심으로 한 안정",
-        "Emotion": "만족, 여유, 행복감",
-        "Change": "원하는 방향대로 흘러가는 변화",
-        "Fortune": "소원 성취의 흐름, 감정적으로 충만"
-      },
-      "src": "/cards/cups9.webp"
-    },
-     {
-      "name": "컵 10",
-      "typicalMean": "감정적 완성",
-      "keyword": {
-        "Career": "꿈꾸던 환경, 이상적인 조직",
-        "Finance": "감정적 안정이 기반된 재정 흐름",
-        "Romance": "결혼, 가족 중심의 깊은 사랑",
-        "Relationship": "조화로운 가족·사회적 관계",
-        "Emotion": "안정, 만족, 감정적 풍요",
-        "Change": "감정적 완성에서 오는 정착",
-        "Fortune": "최고의 감정 운, 관계와 감정 모두 상승"
-      },
-      "src": "/cards/cups10.webp"
-    },
-    {
-      "name": "컵 페이지",
-      "typicalMean": "순수한 감정의 싹틈",
-      "keyword": {
-        "Career": "예술적 재능 발현, 창의적 가능성",
-        "Finance": "감정적 소비, 소소한 지출",
-        "Romance": "고백, 설레는 감정의 시작",
-        "Relationship": "부드럽고 순수한 교류, 새 인연",
-        "Emotion": "순수함, 부끄러움, 감정의 여린 반응",
-        "Change": "가볍고 부드러운 감정 기반의 변화",
-        "Fortune": "감정적 기회가 열리는 흐름"
-      },
-      "src": "/cards/cups11.webp"
-    },
-    {
-      "name": "컵 나이트",
-      "typicalMean": "로맨틱한 제안",
-      "keyword": {
-        "Career": "감성을 살리는 직업, 예술·상담계열",
-        "Finance": "감정에 의한 소비 증가, 정서적 지출",
-        "Romance": "감정표현 적극적, 데이트 제안, 고백",
-        "Relationship": "따뜻하고 낭만적인 태도",
-        "Emotion": "설렘, 낭만, 연애 감정 고조",
-        "Change": "감정에 이끌리는 변화, 사랑이 원동력",
-        "Fortune": "사랑과 인간관계에 좋은 흐름"
-      },
-      "src": "/cards/cups12.webp"
-    },
-    {
-      "name": "컵 퀸",
-      "typicalMean": "감성적 직관과 공감",
-      "keyword": {
-        "Career": "감정 기반 직업, 힐링·케어·상담 적성",
-        "Finance": "감정적 지출이나 감정적 만족 우선",
-        "Romance": "깊은 사랑, 공감과 돌봄의 관계",
-        "Relationship": "정서적 안정, 공감력 높은 교류",
-        "Emotion": "깊은 감정의 흐름, 정서적 성숙",
-        "Change": "부드럽고 자연스러운 감정의 흐름",
-        "Fortune": "감정적으로 따뜻한 흐름, 내면을 따를 것"
-      },
-      "src": "/cards/cups13.webp"
-    },
-    {
-      "name": "컵 킹",
-      "typicalMean": "감정의 절제와 깊이",
-      "keyword": {
-        "Career": "리더십과 감성의 균형, 신뢰받는 역할",
-        "Finance": "이성적 감정 조율로 안정적 금전 관리",
-        "Romance": "성숙한 사랑, 감정 통제와 배려",
-        "Relationship": "감정 조율 능력, 조언자적 위치",
-        "Emotion": "통제된 감정의 깊이, 내면적 평온",
-        "Change": "감정의 성숙으로 인한 안정된 변화",
-        "Fortune": "감정과 이성의 균형이 만들어내는 운세"
-      },
-      "src": "/cards/cups14.webp"
-    }
-  ]
+  {
+"cardNo": 0,
+"name": "바보",
+"nickname": "시작",
+"score": {
+"love": 2,
+"career": 1,
+"finance": 0,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["새로운 만남", "즉흥적 감정", "순수함", "자유로운 관계", "시작의 설렘"],
+"career": ["새로운 기회", "모험심", "미지의 도전", "예측불가", "변화의 시작"],
+"finance": ["계획 부족", "즉흥적 소비", "예상 밖 지출", "재정적 실수", "의외의 기회"],
+"relationship": ["열린 관계", "신뢰보단 호기심", "예상치 못한 인연", "가벼운 태도", "초심"],
+"path": ["진로 탐색", "목표 미정", "다양한 가능성", "유연함", "실수 통한 배움"],
+"health": ["무모함", "에너지 넘침", "건강에 무관심", "신체 활동", "부주의"],
+"self": ["자유로운 정신", "내면의 순수함", "즉흥성", "새 출발", "자아 발견"],
+"fortune": ["새로운 여정", "예상 밖 사건", "운명의 전환점", "도전의 시작", "가능성"]
+},
+"message": {
+"love": "새롭고 자유로운 흐름이 감지됩니다. 감정에 솔직해질 필요가 있습니다.",
+"career": "새로운 가능성이 열리고 있습니다. 모험을 두려워하지 마세요.",
+"finance": "변동성이 큰 시기입니다. 충동보다 계획이 중요할 수 있습니다.",
+"relationship": "가벼운 인연이나 예측 못한 상황이 나타날 수 있습니다.",
+"path": "유연함과 다양한 가능성이 중요합니다. 실수를 두려워 마세요.",
+"health": "에너지 넘치지만 부주의가 사고로 이어질 수 있으니 조심이 필요합니다.",
+"self": "당신의 내면은 지금 무한한 가능성과 자유로움을 품고 있습니다. 새로운 시작에 열려 있습니다.",
+"fortune": "전반적인 기대와 불확실성이 공존합니다. 이 여정을 믿고 나아가 보세요."
+},
+"type": "major"
+},
+{
+"cardNo": 1,
+"name": "마법사",
+"nickname": "창조",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 2,
+"relationship": 1,
+"path": 3,
+"health": 1,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["자신감", "매력 발산", "의사소통", "관계 주도권", "새로운 기회"],
+"career": ["기획력", "자원 활용", "실행력", "아이디어 실현", "성취 가능성"],
+"finance": ["금전적 기회", "능동적 수입", "투자 감각", "실용적 판단", "기회 포착"],
+"relationship": ["설득력", "커뮤니케이션", "관계 조율", "매력적인 태도", "능동적인 자세"],
+"path": ["목표 설정", "계획 실행", "창조성", "자신감", "능력 발휘"],
+"health": ["정신적 활력", "심리적 안정", "집중력 향상", "회복력", "의식적인 관리"],
+"self": ["내면의 힘", "능력 인식", "의지력", "자기 표현", "자신감 회복"],
+"fortune": ["능동적 전환", "상황 주도", "잠재력 실현", "운을 끌어당김", "변화의 시작"]
+},
+"message": {
+"love": "당신의 매력과 표현력이 돋보이는 시기입니다. 자신 있게 다가가 보세요.",
+"career": "당신의 능력과 실행력이 성공으로 이어질 수 있습니다.",
+"finance": "기회가 많아지는 흐름입니다. 적극적으로 움직일수록 이익이 큽니다.",
+"relationship": "커뮤니케이션 능력이 중요한 역할을 합니다. 말이 힘이 됩니다.",
+"path": "구체적인 실행력이 성과를 가져옵니다. 방향이 뚜렷합니다.",
+"health": "집중력과 활력이 살아나는 시기입니다. 의도적인 관리가 더 좋습니다.",
+"self": "당신은 지금 자신의 내면 능력을 제대로 인식하고 발휘할 수 있는 때입니다.",
+"fortune": "흐름은 긍정적으로 움직이고 있습니다. 원하는 것을 끌어올 수 있는 힘이 있습니다."
+},
+"type": "major"
+},
+{
+"cardNo": 2,
+"name": "여사제",
+"nickname": "직관",
+"score": {
+"love": 1,
+"career": 0,
+"finance": 0,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 3,
+"fortune": 1
+},
+"keyword": {
+"love": ["감정 통제", "숨겨진 진심", "신중한 접근", "직감", "관계의 비밀"],
+"career": ["조용한 성과", "직관적 판단", "관망", "숨은 영향력", "비공식 정보"],
+"finance": ["재정적 신중함", "불확실성", "내부 사정 파악", "감정적 소비 자제", "숨겨진 지출"],
+"relationship": ["속마음 파악", "비언어적 신호", "관계에 대한 직감", "조심스러운 관계", "은밀한 연결"],
+"path": ["내면의 소리", "감정에 귀 기울임", "깊은 통찰", "스스로의 선택", "직관의 길"],
+"health": ["감정적 안정", "스트레스 내재화", "몸보단 마음", "조용한 회복", "감정 인식"],
+"self": ["무의식 탐색", "감정 통찰", "내면 집중", "감정의 흐름 파악", "직관 강화"],
+"fortune": ["겉으로 드러나지 않은 흐름", "비밀스러운 변화", "숨겨진 기회", "느린 전개", "관찰 필요"]
+},
+"message": {
+"love": "겉으로 드러나지 않는 감정과 진심이 중요한 시기입니다. 신중하게 접근해보세요.",
+"career": "직접적인 행동보다는 상황을 관찰하고 내면의 판단에 귀 기울이는 것이 좋습니다.",
+"finance": "불확실성이 큰 시기입니다. 드러나지 않은 지출이나 정보에 주의가 필요합니다.",
+"relationship": "인간관계에서는 말보다 직감과 눈빛이 더 많은 것을 말해줄 수 있습니다.",
+"path": "방향성은 외부보다 당신의 내면에서 나옵니다. 조용한 통찰이 필요합니다.",
+"health": "몸보다는 마음의 상태에 집중해야 할 때입니다. 감정을 억누르지 말고 인식하세요.",
+"self": "당신의 내면은 지금 깊은 통찰과 직관의 힘을 키우고 있습니다. 그 흐름을 믿으세요.",
+"fortune": "겉으로는 평온하지만 보이지 않는 흐름이 작용 중입니다. 지금은 관찰과 기다림이 필요한 시기입니다."
+},
+"type": "major"
+},
+{
+"cardNo": 3,
+"name": "여황제",
+"nickname": "풍요",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 2,
+"relationship": 3,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["풍요로운 사랑", "감정 표현", "헌신", "배려", "따뜻한 관계"],
+"career": ["창조성", "자연스러운 성과", "양육적 리더십", "성장 환경", "결실"],
+"finance": ["재정적 안정", "풍족함", "수확의 시기", "물질적 만족", "소비의 즐거움"],
+"relationship": ["모성애", "포용력", "감정적 안정", "사랑받음", "신뢰"],
+"path": ["내면의 풍요", "자기 수용", "조화로운 성장", "감정 중심의 선택", "창조적 여정"],
+"health": ["자연 회복력", "신체적 풍요", "출산/임신", "편안함", "감정 안정"],
+"self": ["풍요로운 자아", "자기애", "감정의 수용", "창조성 발견", "내면의 균형"],
+"fortune": ["성장의 흐름", "결실의 시기", "자연스러운 성공", "풍요로움", "따뜻한 운"]
+},
+"message": {
+"love": "따뜻하고 풍요로운 감정 교류가 기대됩니다. 서로를 아끼고 표현하는 것이 중요합니다.",
+"career": "창조성과 배려가 중심이 되어 성장과 결실을 이룰 수 있는 시기입니다.",
+"finance": "풍족한 흐름 속에 있으며, 수확과 만족을 경험할 수 있습니다.",
+"relationship": "인간관계에서 따뜻함과 포용력이 빛을 발합니다. 당신은 사랑받고 있습니다.",
+"path": "조화롭고 성장지향적인 방향으로 이어집니다. 감정을 따라가도 괜찮습니다.",
+"health": "신체적·감정적 안정을 유지할 수 있는 시기입니다. 특히 자연 회복력에 주목하세요.",
+"self": "당신은 지금 내면의 풍요와 창조성을 느끼고 있습니다. 자신을 사랑할 때입니다.",
+"fortune": "전체적인 부드럽고 풍요로운 흐름을 타고 있습니다. 결실을 믿어보세요."
+},
+"type": "major"
+},
+{
+"cardNo": 4,
+"name": "황제",
+"nickname": "통제",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 3,
+"relationship": 1,
+"path": 2,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["책임감 있는 사랑", "안정성 추구", "보호자적 태도", "통제된 감정", "진지한 관계"],
+"career": ["권위", "리더십", "조직력", "성과 중심", "통제와 질서"],
+"finance": ["재정 관리", "안정성 확보", "장기적 계획", "현실 감각", "규율 있는 소비"],
+"relationship": ["책임 관계", "권위적 성향", "보호와 통제", "질서 유지", "신뢰"],
+"path": ["확고한 진로", "구조적 사고", "목표 중심", "안정 지향", "책임감"],
+"health": ["체계적인 관리", "근력 중심", "규칙적인 습관", "지속력", "건강에 대한 책임"],
+"self": ["내면의 권위", "자기 통제력", "원칙 중심 사고", "자기 리더십", "결단력"],
+"fortune": ["안정 흐름", "계획적 진전", "질서 있는 성공", "예측 가능한 변화", "리더십 발휘"]
+},
+"message": {
+"love": "안정성과 책임감을 중시하는 태도가 중심이 됩니다. 진지한 관계로 발전할 수 있습니다.",
+"career": "리더십과 구조적 사고가 큰 성과로 이어질 수 있는 시기입니다.",
+"finance": "안정과 통제력이 강조됩니다. 계획에 따라 움직이면 이익을 얻을 수 있습니다.",
+"relationship": "인간관계에서 신뢰와 책임감이 중요합니다. 단, 지나친 통제는 주의해야 합니다.",
+"path": "목표 지향적이고 체계적인 접근이 좋은 결과를 만듭니다.",
+"health": "규칙적인 습관과 체계적인 관리가 건강 유지에 도움이 됩니다. 강인함이 필요한 때입니다.",
+"self": "당신은 스스로를 통제하고 이끄는 내면의 권위를 가지고 있습니다. 원칙을 지키세요.",
+"fortune": "안정적이며 예측 가능한 방향으로 흐릅니다. 책임감 있게 대응하면 좋습니다."
+},
+"type": "major"
+},
+{
+"cardNo": 5,
+"name": "교황",
+"nickname": "전통",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 1,
+"relationship": 2,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["전통적인 연애관", "도덕적 기준", "관계의 규범화", "사회적 승인", "신중한 진행"],
+"career": ["조직에 충실함", "전통적 방식", "멘토 관계", "규칙 준수", "지식 공유"],
+"finance": ["보수적 재정 관리", "전통적 투자", "안정성 추구", "조언 따르기", "규범적 소비"],
+"relationship": ["사회적 관계", "신뢰 기반 연결", "권위자의 조언", "규범적 관계", "질서 유지"],
+"path": ["제도적 진로", "안정 추구", "학습과 성장", "멘토링", "가치 중심의 결정"],
+"health": ["전통적 치료", "정기적인 관리", "예방 중심", "규칙적 생활", "스트레스 조절"],
+"self": ["신념 확립", "도덕 의식", "가치 중심 사고", "정체성 형성", "내면 질서"],
+"fortune": ["예측 가능한 흐름", "질서 있는 변화", "사회적 영향", "지혜의 개입", "조언 수용"]
+},
+"message": {
+"love": "전통적인 가치관과 안정적인 관계 형성이 중요해질 수 있는 시기입니다.",
+"career": "조직의 규칙을 따르고 멘토의 조언을 따르는 것이 유리할 수 있습니다.",
+"finance": "보수적이고 안정적인 접근이 효과적입니다. 예측 가능한 결과가 따를 수 있습니다.",
+"relationship": "인간관계에서는 신뢰와 질서를 기반으로 한 전통적 연결이 중요하게 작용합니다.",
+"path": "안정과 제도적 틀 안에서 발전할 수 있으며, 멘토의 조언이 도움이 됩니다.",
+"health": "규칙적인 생활과 예방 중심의 관리가 중심이 되어야 합니다. 지나친 변화는 피하세요.",
+"self": "당신의 내면은 지금 신념과 가치를 정립하고 있습니다. 도덕적 기준이 중요한 기준이 됩니다.",
+"fortune": "질서 있고 안정적으로 흐르며, 외부 조언이나 전통적 선택이 긍정적으로 작용할 수 있습니다."
+},
+"type": "major"
+},
+{
+"cardNo": 6,
+"name": "연인",
+"nickname": "선택",
+"score": {
+"love": 3,
+"career": 1,
+"finance": 1,
+"relationship": 3,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["사랑", "감정의 조화", "상호 선택", "운명적 만남", "진심 어린 관계"],
+"career": ["중요한 선택", "협업", "가치 충돌", "파트너십", "감정 개입"],
+"finance": ["금전적 결정", "공동 소비", "유혹", "선택의 갈림길", "재정적 책임"],
+"relationship": ["친밀감", "진정성", "상호 이해", "감정 공유", "관계 형성"],
+"path": ["중요한 전환점", "가치 기준 설정", "감정적 진로 결정", "선택의 순간", "삶의 방향성"],
+"health": ["정서적 건강", "심리적 안정", "연애 관련 스트레스", "감정 조절", "균형 회복"],
+"self": ["내면의 통합", "감정 수용", "진정한 욕구 인식", "선택의 책임", "자기 수용"],
+"fortune": ["긍정적 인연", "운명적 선택", "기회의 문", "균형 있는 변화", "인간관계의 전환"]
+},
+"message": {
+"love": "사랑과 감정의 조화가 중심이 되는 시기입니다. 상호 존중과 진심이 관계를 깊게 만듭니다.",
+"career": "중요한 선택이 다가올 수 있습니다. 협업이나 관계 속에서 균형이 중요합니다.",
+"finance": "유혹이나 선택의 갈림길이 있을 수 있습니다. 감정보다 현실적인 판단이 필요합니다.",
+"relationship": "인간관계에서 깊은 친밀감과 진정한 소통이 이루어질 수 있는 시기입니다.",
+"path": "삶의 가치에 따라 선택해야 할 시기입니다. 감정에 휘둘리지 않는 결단이 필요합니다.",
+"health": "감정적 균형이 건강에 영향을 줄 수 있습니다. 정서적 안정에 집중하세요.",
+"self": "당신은 지금 내면의 감정과 이성 사이에서 선택을 마주하고 있습니다. 자기 수용이 해답이 될 수 있습니다.",
+"fortune": "사람과의 연결을 통해 새로운 가능성을 열 수 있는 방향으로 흐르고 있습니다."
+},
+"type": "major"
+},
+{
+"cardNo": 7,
+"name": "전차",
+"nickname": "의지",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 2,
+"relationship": 1,
+"path": 3,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["감정의 통제", "관계 주도", "의지 있는 사랑", "결단", "주도권 쟁취"],
+"career": ["목표 달성", "강한 추진력", "승리", "의지의 결과", "도전 성공"],
+"finance": ["수입 향상", "재정적 결단", "계획 실행", "기세 몰이", "물질적 성취"],
+"relationship": ["자기 주장", "관계 주도권", "직진형 소통", "상대 설득", "감정 억제"],
+"path": ["결단력", "장애물 극복", "목표를 향한 전진", "자기 통제", "강한 방향성"],
+"health": ["의지력 강화", "체력 회복", "회복을 향한 돌파", "신체 강화", "정신력"],
+"self": ["의지 중심 자아", "자기 주도성", "승리에 대한 집중", "자신감", "통제력"],
+"fortune": ["전진하는 운세", "결과 중심 흐름", "의지 실현", "역경 돌파", "빠른 변화"]
+},
+"message": {
+"love": "감정의 주도권과 결단이 중요한 시기입니다. 상황을 끌고 갈 힘이 당신에게 있습니다.",
+"career": "강한 추진력과 집중력으로 목표를 달성할 수 있는 시기입니다.",
+"finance": "계획된 행동과 결단이 이익으로 이어질 수 있습니다. 지금은 속도가 중요합니다.",
+"relationship": "인간관계에서는 자신감 있게 이끄는 태도가 도움이 됩니다. 단, 무리한 주장에는 주의하세요.",
+"path": "확고한 목표와 추진력이 결과를 좌우합니다. 지금이 밀어붙일 시기입니다.",
+"health": "의지와 체력 모두 상승할 수 있는 시기입니다. 꾸준한 행동이 회복을 이끕니다.",
+"self": "당신은 지금 스스로를 강하게 밀어붙이고 있습니다. 의지와 자신감이 당신의 무기입니다.",
+"fortune": "당신의 결단과 행동력에 따라 빠르게 움직입니다. 정면 돌파가 해답이 될 수 있습니다."
+},
+"type": "major"
+},
+{
+"cardNo": 8,
+"name": "힘",
+"nickname": "용기",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 1,
+"relationship": 2,
+"path": 3,
+"health": 3,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["부드러운 리더십", "내면의 끌림", "인내심", "감정 조율", "관계 안정"],
+"career": ["꾸준한 노력", "인내력", "위기 극복", "신뢰 구축", "조용한 성장"],
+"finance": ["재정 관리", "감정적 소비 자제", "소소한 성과", "안정적인 자산", "장기적 관점"],
+"relationship": ["포용력", "관계 인내", "신뢰 형성", "심리적 지지", "부드러운 소통"],
+"path": ["자기 확신", "내면의 힘", "꾸준함", "의지력", "부드러운 추진"],
+"health": ["회복력", "정신적 안정", "지속적인 관리", "강인한 체력", "자연 치유"],
+"self": ["자기 통제", "내면의 용기", "감정 조율", "인내와 성장", "강한 정신력"],
+"fortune": ["조용한 성공", "안정적 흐름", "의지 실현", "장기적 변화", "흔들리지 않는 운"]
+},
+"message": {
+"love": "인내와 감정 조율이 중심입니다. 부드러운 힘이 관계를 깊게 합니다.",
+"career": "조용하지만 끈기 있는 태도가 결국 신뢰와 성과로 이어집니다.",
+"finance": "큰 변화보다는 안정과 관리가 중요합니다. 감정적 소비는 피하세요.",
+"relationship": "인간관계에서는 포용력과 인내가 관계를 단단하게 만듭니다. 부드럽게 대하세요.",
+"path": "꾸준함과 내면의 확신이 방향을 정합니다. 쉽게 흔들리지 마세요.",
+"health": "몸과 마음이 회복력을 얻고 있습니다. 규칙적인 관리가 큰 힘이 됩니다.",
+"self": "당신은 지금 자기 통제와 내면의 힘을 통해 조용히 성장하고 있습니다.",
+"fortune": "눈에 띄진 않지만 안정적으로 상승 중입니다. 꾸준함이 열쇠입니다."
+},
+"type": "major"
+},
+{
+"cardNo": 9,
+"name": "은둔자",
+"nickname": "탐색",
+"score": {
+"love": -1,
+"career": 1,
+"finance": 0,
+"relationship": 0,
+"path": 3,
+"health": 1,
+"self": 3,
+"fortune": 1
+},
+"keyword": {
+"love": ["거리 두기", "감정 정리", "고독한 사랑", "내면의 정리", "신중한 판단"],
+"career": ["조용한 몰입", "혼자만의 집중", "지식 추구", "경험 축적", "단계별 준비"],
+"finance": ["지출 절제", "정보 탐색", "금전적 신중함", "잠재적 준비", "큰 움직임 없음"],
+"relationship": ["고립", "관계 정비", "감정 거리", "내면 회복", "필요한 거리두기"],
+"path": ["진정한 방향 탐색", "스스로에 대한 질문", "인생 철학", "고독 속의 확신", "깊은 통찰"],
+"health": ["정신적 회복", "내면적 안정", "휴식기", "심리적 치유", "생활 리듬 정돈"],
+"self": ["자기 성찰", "고요한 내면", "철학적 사고", "자기 탐구", "혼자 있는 힘"],
+"fortune": ["깊은 준비", "당장의 변화 없음", "내면적 성장", "잠재 흐름", "신중함이 필요한 시기"]
+},
+"message": {
+"love": "감정보다 내면을 돌아보는 시간이 될 수 있습니다. 거리를 두고 스스로를 먼저 들여다보세요.",
+"career": "겉으로 드러나지 않는 준비와 몰입이 성과로 이어질 수 있습니다.",
+"finance": "신중한 태도가 중요합니다. 지출을 줄이고 정보를 모을 시기입니다.",
+"relationship": "인간관계에서 한 걸음 떨어져 자신을 돌아보는 시간이 필요합니다.",
+"path": "깊은 고민과 자기 탐구를 통해 진정한 방향을 찾게 될 것입니다.",
+"health": "회복과 안정에 초점을 맞춰야 합니다. 몸보다는 마음의 균형이 중요합니다.",
+"self": "당신은 지금 내면 깊은 곳을 들여다보고 있습니다. 혼자 있는 시간이 성장을 이끌 수 있습니다.",
+"fortune": "빠른 변화보다는 조용한 성찰과 준비의 흐름 속에 있습니다. 조급해하지 마세요."
+},
+"type": "major"
+},
+{
+"cardNo": 10,
+"name": "운명의 수레바퀴",
+"nickname": "변화",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 2,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 3
+},
+"keyword": {
+"love": ["예상 밖 만남", "관계의 전환", "운명의 흐름", "기회의 시기", "변화의 바람"],
+"career": ["기회 포착", "승진 또는 이동", "조직 변화", "운에 따른 전개", "예상 외 전환"],
+"finance": ["금전운 상승", "행운의 수입", "예기치 못한 지출", "투자 기회", "재정의 순환"],
+"relationship": ["예상치 못한 연결", "관계의 기복", "재회 가능성", "인연의 순환", "타이밍의 영향"],
+"path": ["전환점 도달", "새로운 가능성", "예측 불가능한 흐름", "운에 따른 선택", "인생의 회전"],
+"health": ["컨디션 변화", "기복", "회복 기회", "예상 밖 결과", "건강 운 작용"],
+"self": ["변화 수용", "유연한 사고", "기회의 흐름 인식", "순환 인식", "내면의 흐름과 연결"],
+"fortune": ["운명의 흐름", "큰 전환점", "기회의 문", "예상 밖의 행운", "순환 속 성장"]
+},
+"message": {
+"love": "새로운 전개나 전환점이 다가올 수 있습니다. 흐름에 몸을 맡겨보는 것도 방법입니다.",
+"career": "예기치 못한 기회나 변화가 찾아올 수 있습니다. 유연하게 대응하세요.",
+"finance": "순환의 흐름 속에 있습니다. 뜻밖의 기회나 지출에 대비하세요.",
+"relationship": "인간관계에서 예상치 못한 변화가 나타날 수 있습니다. 타이밍과 운을 주시하세요.",
+"path": "운명적 전환점에 있을 수 있습니다. 계획보다는 흐름을 인식하는 게 중요합니다.",
+"health": "기복이 있을 수 있으나 회복의 기회도 함께 존재합니다. 지나친 걱정보단 흐름에 집중하세요.",
+"self": "당신은 지금 인생의 흐름 속에 있습니다. 변화에 저항하기보다는 수용하는 태도가 필요합니다.",
+"fortune": "큰 전환점에 와 있습니다. 지금은 변화의 흐름을 믿고 기회를 잡아야 할 시기입니다."
+},
+"type": "major"
+},
+{
+"cardNo": 11,
+"name": "정의",
+"nickname": "균형",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 2,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["공정한 관계", "감정의 균형", "상호 존중", "선택의 결과", "책임 있는 사랑"],
+"career": ["정당한 평가", "공정한 경쟁", "계약 성사", "판단력", "도덕적 선택"],
+"finance": ["공정한 분배", "법적 절차", "계약 및 서류", "재정 투명성", "결과에 따른 보상"],
+"relationship": ["균형 있는 관계", "진실된 소통", "신뢰 회복", "공평함", "정리와 판단"],
+"path": ["올바른 결정", "가치 기준 정립", "논리적 사고", "선택의 책임", "정의 추구"],
+"health": ["생활 균형", "건강 관리의 책임", "스트레스 조절", "규칙적인 생활", "심신의 조화"],
+"self": ["내면의 공정성", "정직한 자기 평가", "균형 잡힌 사고", "자기 책임", "감정과 이성의 조화"],
+"fortune": ["균형의 흐름", "원인과 결과", "정직한 결과 도출", "공정한 기회", "선택에 따른 운명"]
+},
+"message": {
+"love": "감정의 균형과 상호 존중이 중요합니다. 책임감 있는 태도가 관계를 지탱합니다.",
+"career": "공정한 평가와 계약상의 정당성이 중심이 됩니다. 판단력 있는 결정이 필요합니다.",
+"finance": "법적 절차나 문서, 재정 투명성에 주의해야 할 시기입니다. 결과는 공정하게 주어집니다.",
+"relationship": "인간관계에서는 신뢰 회복과 공정한 입장이 중요합니다. 진실된 소통이 열쇠입니다.",
+"path": "올바른 판단과 책임 있는 선택이 필요합니다. 명확한 가치 기준을 따르세요.",
+"health": "몸과 마음의 균형을 유지하는 것이 핵심입니다. 스트레스와 과로를 조절하세요.",
+"self": "당신은 지금 내면의 정의감과 공정성을 되돌아보고 있습니다. 자기 자신에게도 정직해지세요.",
+"fortune": "공정하게 움직이고 있습니다. 과거의 선택에 따른 결과가 드러나는 시기입니다."
+},
+"type": "major"
+},
+{
+"cardNo": 12,
+"name": "매달린 남자",
+"nickname": "인내",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 0,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 3,
+"fortune": 1
+},
+"keyword": {
+"love": ["기다림", "희생적 사랑", "관계의 정체", "감정의 숙성", "양보"],
+"career": ["일시적 보류", "장기적 안목", "기다림의 전략", "희생의 의미", "입장 전환"],
+"finance": ["소극적 소비", "재정 보류", "금전의 유보", "희생 투자", "변화 없는 상태"],
+"relationship": ["상대의 입장 이해", "양보", "관계 속 배려", "소통의 멈춤", "내적 인내"],
+"path": ["진로 재검토", "의미 있는 멈춤", "새로운 관점", "내면의 조율", "잠시 내려놓기"],
+"health": ["심리적 회복", "정체의 시간", "정신적 내성", "무리하지 않기", "느린 회복"],
+"self": ["시선 전환", "내면 성찰", "감정 조절", "희생의 가치", "조용한 성장"],
+"fortune": ["속도보다 방향", "운의 일시 정체", "타이밍 조율", "멈춤의 의미", "기회 전 준비"]
+},
+"message": {
+"love": "지금은 관계의 속도를 늦추고 감정의 깊이를 되돌아볼 시기입니다. 인내심이 필요합니다.",
+"career": "당장의 성과보다 장기적인 안목이 중요합니다. 잠시 멈추는 것이 전략이 될 수 있습니다.",
+"finance": "변화 없이 정체되어 있을 수 있습니다. 무리한 움직임보단 재정적 유보가 현명합니다.",
+"relationship": "인간관계에서는 상대의 입장을 이해하고 양보하는 태도가 상황을 바꿀 수 있습니다.",
+"path": "일시적인 멈춤이 내면 성찰을 돕습니다. 방향 전환의 힌트를 찾는 시기입니다.",
+"health": "무리하지 않고 회복에 집중해야 할 시기입니다. 심신의 여유가 필요합니다.",
+"self": "당신은 지금 내면을 성찰하고 새로운 시각을 받아들일 준비를 하고 있습니다. 조용한 성장이 시작됩니다.",
+"fortune": "지금 정체되어 있지만, 이 시간은 더 큰 기회를 위한 준비일 수 있습니다. 섣부른 판단은 피하세요."
+},
+"type": "major"
+},
+{
+"cardNo": 13,
+"name": "죽음",
+"nickname": "전환",
+"score": {
+"love": -1,
+"career": 1,
+"finance": 0,
+"relationship": 0,
+"path": 2,
+"health": 0,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["관계 종료", "이별", "정리", "새로운 시작 전 끝맺음", "감정의 탈피"],
+"career": ["직장 이동", "업무 종료", "변화 수용", "경력 리셋", "새로운 시작"],
+"finance": ["불필요한 지출 제거", "금전 정리", "부채 청산", "재정적 정비", "재출발"],
+"relationship": ["관계 정리", "불필요한 인연 정리", "관계의 전환", "감정적 해방", "새 인연 준비"],
+"path": ["인생 방향 전환", "목표 수정", "불필요한 집착 정리", "새 여정의 문", "마무리의 가치"],
+"health": ["생활습관 종료", "해로운 패턴 제거", "심리적 전환", "몸과 마음의 재정비", "치유의 문턱"],
+"self": ["내면의 정화", "낡은 사고 탈피", "자아의 재구성", "비움", "재탄생 준비"],
+"fortune": ["큰 전환기", "낡은 운의 종료", "새로운 흐름 도래", "결단의 시기", "순환의 마무리"]
+},
+"message": {
+"love": "이별이나 관계의 종료가 있을 수 있습니다. 하지만 이것은 새로운 시작을 위한 준비일 수 있습니다.",
+"career": "변화나 종료는 두려워할 것이 아닙니다. 그것은 더 나은 방향으로 나아가기 위한 발판이 됩니다.",
+"finance": "불필요한 지출이나 부채를 정리하고 다시 시작할 수 있는 기회입니다.",
+"relationship": "인간관계에서 정리할 인연은 정리하고 새로운 관계를 준비할 때입니다.",
+"path": "오래된 방향이나 목표를 내려놓고 새로운 길을 모색해야 할 시기입니다.",
+"health": "건강에 있어 과거의 나쁜 습관을 끊어내야 합니다. 몸과 마음 모두 재정비의 시기입니다.",
+"self": "당신은 지금 낡은 자아를 내려놓고 새로운 정체성을 준비하고 있습니다. 재탄생의 문 앞에 서 있습니다.",
+"fortune": "큰 전환기를 맞이하고 있습니다. 과거를 마무리하고 새로운 흐름을 받아들일 준비를 하세요."
+},
+"type": "major"
+},
+{
+"cardNo": 14,
+"name": "절제",
+"nickname": "조화",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 2,
+"relationship": 3,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["조화로운 관계", "감정의 균형", "상호 이해", "천천히 발전", "감정 조율"],
+"career": ["협력", "조율 능력", "장기적 성장", "융합적 사고", "안정적 업무 흐름"],
+"finance": ["재정 균형", "현명한 소비", "조심스러운 투자", "지속 가능성", "유지 관리"],
+"relationship": ["관계 조율", "평화로운 상호작용", "중재자 역할", "이해와 배려", "갈등 완화"],
+"path": ["천천히 나아감", "인내심", "균형 잡힌 선택", "중용의 길", "지속적인 성장"],
+"health": ["정신·신체 균형", "건강 루틴 유지", "무리하지 않기", "평온함", "자연 회복"],
+"self": ["내면의 안정", "감정의 절제", "자기 조절", "조화의 추구", "평정심"],
+"fortune": ["완만한 행운", "균형의 흐름", "조화로운 발전", "무리 없는 변화", "운의 유지"]
+},
+"message": {
+"love": "감정의 조화와 상호 이해가 중심이 됩니다. 천천히, 안정감 있게 관계를 이어가세요.",
+"career": "협력과 조율 능력이 중요한 역할을 합니다. 조화 속에서 기회가 생깁니다.",
+"finance": "균형 있는 소비와 관리가 필요합니다. 조심스럽게 유지하는 것이 이익입니다.",
+"relationship": "인간관계에서는 갈등보다는 조율이 중심이 됩니다. 당신의 중재자 역할이 빛납니다.",
+"path": "조급함보다는 천천히 쌓아가는 자세가 도움이 됩니다. 균형이 핵심입니다.",
+"health": "정신과 육체의 균형을 유지하는 데 중점을 두세요. 무리하지 말고 루틴을 지키는 것이 중요합니다.",
+"self": "당신은 지금 내면의 평정과 균형을 유지하고자 노력하고 있습니다. 감정의 절제가 당신을 성장시킵니다.",
+"fortune": "완만하지만 안정적인 흐름입니다. 무리한 행동보다 조화를 추구하는 선택이 길합니다."
+},
+"type": "major"
+},
+{
+"cardNo": 15,
+"name": "악마",
+"nickname": "집착",
+"score": {
+"love": -2,
+"career": -1,
+"finance": 0,
+"relationship": -2,
+"path": -1,
+"health": -2,
+"self": -2,
+"fortune": -1
+},
+"keyword": {
+"love": ["집착", "중독적 관계", "육체적 유혹", "자유 부족", "의존"],
+"career": ["물질적 유혹", "도덕적 딜레마", "스트레스 억압", "강압적 환경", "타성"],
+"finance": ["과소비", "재정적 유혹", "빚", "소유 집착", "단기적 이익 추구"],
+"relationship": ["억압적 관계", "심리적 지배", "독성 인연", "자율성 결핍", "긴장감"],
+"path": ["자유의 상실", "욕망에 휘둘림", "잘못된 방향", "내면의 속박", "현실 도피"],
+"health": ["중독 경향", "생활 불균형", "스트레스 누적", "무기력감", "에너지 고갈"],
+"self": ["자기 억압", "욕망의 노예", "내면 통제력 상실", "두려움", "탐닉"],
+"fortune": ["어두운 영향", "자기 속박", "타인의 지배", "운의 왜곡", "조심스러운 시기"]
+},
+"message": {
+"love": "집착이나 감정적 중독에 주의해야 합니다. 관계의 건강함을 점검해 보세요.",
+"career": "물질적 유혹이나 도덕적 타협에 빠질 위험이 있습니다. 자신의 가치 기준을 지키는 것이 중요합니다.",
+"finance": "유혹과 과소비, 재정적 불균형이 우려됩니다. 단기 이익보다 장기 안정을 우선하세요.",
+"relationship": "인간관계에서 누군가에게 지배당하거나, 스스로 억압당하는 상황일 수 있습니다. 독립성이 필요합니다.",
+"path": "잘못된 욕망이나 회피적 태도가 방향을 흐릴 수 있습니다. 현실을 직시해야 할 때입니다.",
+"health": "중독, 불규칙한 습관, 스트레스가 누적되고 있을 수 있습니다. 빠르게 생활 균형을 회복하세요.",
+"self": "당신은 지금 내면의 욕망이나 불안에 휘둘리고 있을 수 있습니다. 자기 통제와 해방이 필요합니다.",
+"fortune": "지금 왜곡되어 있거나 억압의 기운이 강할 수 있습니다. 타인이나 상황에 끌려가지 않도록 주의하세요."
+},
+"type": "major"
+},
+{
+"cardNo": 16,
+"name": "탑",
+"nickname": "붕괴",
+"score": {
+"love": -3,
+"career": -2,
+"finance": -2,
+"relationship": -2,
+"path": -1,
+"health": -2,
+"self": -1,
+"fortune": -2
+},
+"keyword": {
+"love": ["갑작스러운 이별", "관계 붕괴", "진실의 충격", "감정 폭발", "불안정함"],
+"career": ["해고나 퇴사", "계획 실패", "위기 상황", "예상 밖 변화", "체계 붕괴"],
+"finance": ["예기치 못한 손실", "지출 폭증", "금전적 붕괴", "위험한 투자", "파산 경고"],
+"relationship": ["신뢰의 붕괴", "싸움", "관계의 단절", "갈등 폭발", "가면 벗겨짐"],
+"path": ["목표의 붕괴", "인생관 전환", "기초 재구성", "혼란기", "갑작스런 변화"],
+"health": ["사고 주의", "급성 질환", "정신적 쇼크", "컨디션 붕괴", "불안정 상태"],
+"self": ["자아 붕괴", "혼란스러움", "정신적 충격", "신념 붕괴", "기반 상실"],
+"fortune": ["위기의 흐름", "예상치 못한 전환", "급변", "혼돈", "강제 리셋"]
+},
+"message": {
+"love": "관계의 붕괴나 갑작스러운 이별이 일어날 수 있습니다. 이 과정을 통해 진실을 마주하게 됩니다.",
+"career": "예기치 못한 변화나 시스템의 붕괴가 올 수 있습니다. 하지만 이것이 새 시작의 기반이 될 수 있습니다.",
+"finance": "큰 손실이나 위험한 지출이 발생할 수 있습니다. 보수적으로 대응하고 위기에 대비하세요.",
+"relationship": "인간관계에서 신뢰가 깨지거나 큰 충돌이 발생할 수 있습니다. 숨겨졌던 진실이 드러나는 시기입니다.",
+"path": "방향 자체가 흔들릴 수 있습니다. 하지만 무너짐 속에서 새로운 기반이 잡힐 수 있습니다.",
+"health": "급성 질환이나 사고에 주의가 필요합니다. 무리한 활동은 삼가세요.",
+"self": "당신은 지금 자아의 기반이 흔들리고 있습니다. 내면의 재정비가 필요한 시기입니다.",
+"fortune": "갑작스럽고 격렬한 변화 속에 있습니다. 모든 것이 무너지는 것 같아도, 진정한 리셋이 시작됩니다."
+},
+"type": "major"
+},
+{
+"cardNo": 17,
+"name": "별",
+"nickname": "희망",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 2,
+"relationship": 2,
+"path": 3,
+"health": 3,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["희망", "감정 회복", "긍정적인 전망", "순수한 연결", "진실된 사랑"],
+"career": ["미래 계획", "창의성 발현", "기회 포착", "희망적인 변화", "목표 향해 나아감"],
+"finance": ["서서히 좋아짐", "긍정적 흐름", "재정 회복", "희망적 투자", "장기적 안정"],
+"relationship": ["신뢰 회복", "좋은 에너지", "긍정적 관계", "기대감", "정서적 안정"],
+"path": ["미래 지향", "목표 설정", "진로에 대한 확신", "내면의 빛", "올바른 길"],
+"health": ["회복력", "심신 안정", "치유의 흐름", "긍정적인 체력 변화", "건강한 루틴"],
+"self": ["내면의 치유", "영감", "긍정적인 자아 인식", "감정 정화", "스스로를 믿음"],
+"fortune": ["행운의 도래", "긍정적 전환", "미래 희망", "우주의 응원", "기회의 문"]
+},
+"message": {
+"love": "희망과 회복의 기운이 흐릅니다. 진심과 순수함이 관계를 더욱 빛나게 합니다.",
+"career": "미래에 대한 긍정적인 변화가 일어나고 있습니다. 창의성과 열정이 빛을 발합니다.",
+"finance": "점차 회복되는 흐름입니다. 장기적으로 안정될 가능성이 높습니다.",
+"relationship": "인간관계에서 긍정적인 분위기와 신뢰 회복이 이루어지는 시기입니다. 소중한 연결을 믿어보세요.",
+"path": "목표가 분명해지고 있습니다. 지금 나아가는 방향은 희망적입니다.",
+"health": "빠르게 회복되고 있으며, 정서적·신체적으로 안정되고 있습니다. 치유의 시간이 주어집니다.",
+"self": "당신은 지금 내면의 빛을 다시 찾고 있습니다. 자신을 믿는 힘이 모든 회복의 시작입니다.",
+"fortune": "밝고 희망적인 흐름 속에 있습니다. 우주의 흐름이 당신을 지지하고 있으니 긍정적으로 나아가세요."
+},
+"type": "major"
+},
+{
+"cardNo": 18,
+"name": "달",
+"nickname": "혼란",
+"score": {
+"love": -1,
+"career": 0,
+"finance": -1,
+"relationship": -1,
+"path": 0,
+"health": -1,
+"self": 0,
+"fortune": -1
+},
+"keyword": {
+"love": ["착각", "혼란스러운 감정", "숨겨진 진실", "감정 기복", "환상"],
+"career": ["불확실한 상황", "진실 은폐", "직감 의존", "정체", "판단력 부족"],
+"finance": ["위험한 거래", "속임수 주의", "재정 혼란", "잘못된 판단", "감정적 소비"],
+"relationship": ["불투명한 관계", "신뢰 부족", "비밀", "감정의 미로", "오해"],
+"path": ["목표의 불분명", "방향 상실", "직관의 흐름", "현실 도피", "내면 탐색"],
+"health": ["수면 문제", "심리적 불안", "감정 기복", "숨은 질환", "스트레스 누적"],
+"self": ["감정적 불확실성", "잠재의식", "내면 그림자", "두려움 직면", "혼란의 극복"],
+"fortune": ["모호한 흐름", "운의 왜곡", "숨겨진 진실", "판단 보류", "잠재의 영향"]
+},
+"message": {
+"love": "감정이 불분명하거나 상대의 진심을 오해할 수 있는 시기입니다. 섣부른 판단은 피하세요.",
+"career": "확신이 서지 않는 상황일 수 있습니다. 직감에 의존하기보단 사실을 확인하세요.",
+"finance": "혼란스럽고 판단 실수가 생기기 쉬운 시기입니다. 투자나 지출은 신중해야 합니다.",
+"relationship": "인간관계에서 비밀이나 오해가 생길 수 있습니다. 모든 것을 곧이곧대로 믿지 마세요.",
+"path": "목표가 흐릿하거나 현실 도피적 선택을 할 수 있습니다. 내면의 직관을 살펴보세요.",
+"health": "수면과 심리적 균형에 특히 주의가 필요합니다. 스트레스가 누적되고 있을 수 있습니다.",
+"self": "당신은 지금 감정의 혼란 속에 있습니다. 내면의 그림자를 직시하고 천천히 마주할 필요가 있습니다.",
+"fortune": "흐릿하고 불투명한 시기입니다. 명확한 판단이 어려우므로 중요한 결정은 잠시 미루는 것이 좋습니다."
+},
+"type": "major"
+},
+{
+"cardNo": 19,
+"name": "태양",
+"nickname": "성공",
+"score": {
+"love": 3,
+"career": 3,
+"finance": 3,
+"relationship": 3,
+"path": 3,
+"health": 3,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["행복한 관계", "서로에 대한 확신", "순수한 사랑", "밝은 에너지", "기쁨의 공유"],
+"career": ["성공적인 결과", "승진", "능력 발휘", "긍정적인 평가", "성과 달성"],
+"finance": ["수익 증가", "안정된 재정", "긍정적 계약", "기회 실현", "행운의 돈 흐름"],
+"relationship": ["신뢰", "긍정적인 교류", "활발한 소통", "인정받는 관계", "진실된 연결"],
+"path": ["진로 확신", "목표 달성", "정확한 방향", "주체적인 성장", "밝은 미래"],
+"health": ["건강한 체력", "정신적 활력", "회복력 극대화", "밝은 컨디션", "긍정 에너지"],
+"self": ["자신감", "내면의 빛", "긍정적 자아상", "자기 실현", "에너지 충만"],
+"fortune": ["행운의 흐름", "빛나는 시기", "성과 보장", "긍정적인 전환", "기회의 극대화"]
+},
+"message": {
+"love": "서로에 대한 확신과 기쁨이 가득한 시기입니다. 밝고 따뜻한 에너지가 관계를 더욱 풍요롭게 만듭니다.",
+"career": "당신의 능력이 인정받고 성공적인 결과로 이어질 가능성이 높습니다.",
+"finance": "금전운이 밝습니다. 수익이 늘고 행운이 따르는 시기이니 자신 있게 기회를 잡아보세요.",
+"relationship": "인간관계에서 신뢰와 소통이 원활합니다. 긍정적인 관계 속에서 인정받고 지지받을 수 있습니다.",
+"path": "방향성이 명확해지고 목표 달성이 현실화됩니다. 스스로를 믿고 나아가세요.",
+"health": "최상의 컨디션을 유지할 수 있습니다. 몸과 마음 모두 활력이 넘치는 시기입니다.",
+"self": "당신은 지금 내면의 자신감과 에너지가 최고조에 달해 있습니다. 있는 그대로의 당신이 가장 빛납니다.",
+"fortune": "매우 밝고 긍정적입니다. 당신을 비추는 태양처럼, 모든 것이 순조롭게 풀려갈 것입니다."
+},
+"type": "major"
+},
+{
+"cardNo": 20,
+"name": "심판",
+"nickname": "각성",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 2,
+"relationship": 1,
+"path": 3,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["과거 관계의 귀환", "관계 재정비", "용서", "두 번째 기회", "감정의 부활"],
+"career": ["성과 평가", "중요한 결단", "진로 전환", "능력 인정", "커리어 부활"],
+"finance": ["금전적 회복", "채무 해결", "재정 정리", "과거 문제 해결", "새 재정 계획"],
+"relationship": ["화해", "갈등 종결", "새로운 시선", "과거 정리", "관계의 회복"],
+"path": ["운명적 전환점", "삶의 방향성 재확인", "부름에 응답", "내적 부활", "진정한 시작"],
+"health": ["회복기", "새로운 건강 습관", "재활", "정신적 치유", "몸과 마음의 정화"],
+"self": ["자기 인식", "과거의 통합", "내면 각성", "새 출발", "진정한 자아 발견"],
+"fortune": ["운명의 판단", "전환점", "성장의 기회", "과거의 결실", "새로운 가능성"]
+},
+"message": {
+"love": "과거의 감정이 다시 떠오르거나 관계의 회복이 이뤄질 수 있습니다. 두 번째 기회를 진지하게 바라보세요.",
+"career": "중대한 결단의 순간입니다. 과거의 경험을 바탕으로 새로운 방향을 설정할 수 있습니다.",
+"finance": "회복의 기운이 도는 시기입니다. 그동안의 실수나 부채를 바로잡을 기회입니다.",
+"relationship": "인간관계에서 화해와 회복의 흐름이 있습니다. 진실된 소통이 관계를 다시 일으킵니다.",
+"path": "삶의 방향성을 다시 정립하게 되는 순간입니다. 내면의 부름에 응답하세요.",
+"health": "회복 국면에 들어섭니다. 이전보다 나아지는 흐름이 있으니 긍정적인 루틴을 유지하세요.",
+"self": "당신은 지금 과거의 자신을 통합하고 진정한 자아로 거듭나는 각성의 시기에 있습니다.",
+"fortune": "중요한 전환점을 맞이하고 있습니다. 지금까지의 결과가 드러나고, 새 길이 열립니다."
+},
+"type": "major"
+},
+{
+"cardNo": 21,
+"name": "세계",
+"nickname": "완성",
+"score": {
+"love": 3,
+"career": 3,
+"finance": 3,
+"relationship": 3,
+"path": 3,
+"health": 2,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["완성된 사랑", "관계의 결실", "성숙한 관계", "상호 통합", "운명의 만남"],
+"career": ["목표 달성", "성과의 마무리", "경력 완성", "사회적 인정", "프로젝트 완주"],
+"finance": ["경제적 안정", "목표 수익 달성", "투자 결실", "재정적 자립", "풍요의 흐름"],
+"relationship": ["관계의 통합", "조화로운 유대", "네트워크 확장", "완전한 이해", "인정과 수용"],
+"path": ["목표 성취", "마침표와 새 출발", "정신적 성숙", "모든 것이 연결됨", "여정의 완성"],
+"health": ["건강의 안정", "정신과 육체의 통합", "회복 완료", "균형 유지", "건강한 삶"],
+"self": ["자기 완성", "내면의 통합", "자기 실현", "성숙함", "삶에 대한 만족"],
+"fortune": ["대성공", "행운의 정점", "완성의 시기", "보상의 시간", "이루어짐"]
+},
+"message": {
+"love": "관계가 완성되고 성숙해지는 시기입니다. 상호 존중과 사랑이 조화를 이룹니다.",
+"career": "긴 여정의 결실을 맞이하고 있습니다. 당신의 노력이 완전한 성과로 드러납니다.",
+"finance": "안정과 풍요가 찾아오는 시기입니다. 목표한 바를 이뤘거나 곧 이룰 수 있습니다.",
+"relationship": "조화롭고 균형 잡혀 있습니다. 넓어진 관계망과 깊은 이해가 어우러지는 때입니다.",
+"path": "한 사이클이 끝나고 새로운 여정이 시작됩니다. 당신은 한 단계 성숙해졌습니다.",
+"health": "안정적이고 회복세입니다. 규칙적인 삶과 마음의 균형이 당신을 지탱해줍니다.",
+"self": "당신은 지금 내면적으로 성숙하고 완성된 자아로 거듭나고 있습니다. 진정한 자기 실현의 시기입니다.",
+"fortune": "매우 긍정적이며, 지금까지의 노력들이 결실을 맺는 시점입니다. 보상과 완성의 에너지가 가득합니다."
+},
+"type": "major"
+},
+{
+"cardNo": 22,
+"name": "완드 A",
+"nickname": "출발",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 2,
+"relationship": 2,
+"path": 3,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["새로운 사랑의 시작", "뜨거운 감정", "적극적 표현", "관계에 활력", "끌림"],
+"career": ["창의적 기회", "프로젝트 시작", "의욕 충만", "행동력", "아이디어 실현"],
+"finance": ["수익 창출 기회", "능동적 수입", "사업 아이디어", "초기 투자", "금전적 동기부여"],
+"relationship": ["새로운 인연", "에너지 넘치는 관계", "적극적 소통", "관계 확장", "열정적 교류"],
+"path": ["진로 개척", "목표 설정", "열정의 시작", "창조적 방향", "도전 의지"],
+"health": ["활력 상승", "에너지 충전", "건강한 시작", "의욕 회복", "긍정적 신체 변화"],
+"self": ["내면의 열정", "창조적 에너지", "자기 표현", "의욕 폭발", "영감"],
+"fortune": ["긍정적인 시작", "행동의 운", "기회의 도래", "좋은 타이밍", "성장의 불씨"]
+},
+"message": {
+"love": "새로운 인연이 다가오거나, 기존 관계에 뜨거운 에너지가 불어넣어지는 시기입니다.",
+"career": "새로운 프로젝트나 기회가 열리며, 적극적으로 행동할수록 성과가 커집니다.",
+"finance": "새로운 수입원이나 투자 기회가 생길 수 있습니다. 당신의 열정이 수익으로 이어질 수 있어요.",
+"relationship": "인간관계에서 활기차고 적극적인 흐름이 나타납니다. 새로운 연결이 당신을 기다립니다.",
+"path": "지금이 새 방향을 설정하고 도전할 최고의 타이밍입니다. 에너지를 믿고 나아가세요.",
+"health": "활력이 상승하는 시기로, 새로운 운동이나 건강 습관을 시작하기에 적절합니다.",
+"self": "당신은 지금 내면 깊은 곳에서부터 창의력과 열정이 솟아오르고 있습니다. 이 힘을 발휘하세요.",
+"fortune": "흐름은 새 출발에 유리합니다. 행동을 취하면 기회가 열릴 것입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 23,
+"name": "완드 2",
+"nickname": "계획",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 1,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["관계에 대한 고민", "미래 계획", "거리감", "선택의 기로", "상대에 대한 관망"],
+"career": ["전략적 기획", "진로 선택", "확장 가능성", "결정 준비", "기회의 탐색"],
+"finance": ["투자 계획", "재정 전략", "신중한 판단", "금전 흐름 조율", "새로운 기회 대비"],
+"relationship": ["거리를 둔 관찰", "새로운 관계 탐색", "상대 평가", "조심스러운 접근", "가능성 판단"],
+"path": ["미래 설계", "결단 전의 준비", "여러 방향 탐색", "신중한 움직임", "시야 확장"],
+"health": ["생활 계획 필요", "건강 관리 시작", "운동 루틴 고려", "몸 상태 점검", "신체 계획 수립"],
+"self": ["선택 앞의 자아", "미래 대비", "내면 정리", "의식적 기획", "심리적 준비"],
+"fortune": ["가능성 있는 흐름", "행동 전 준비", "기회 포착 직전", "미래 시야 확보", "결정을 앞둔 상태"]
+},
+"message": {
+"love": "관계의 미래에 대해 고민하거나 결정하기 전의 조심스러운 단계에 있습니다. 신중함이 필요합니다.",
+"career": "중요한 결정을 앞두고 기회를 평가하는 시기입니다. 장기적 시야로 전략을 세우세요.",
+"finance": "계획 단계에 있으며, 신중한 접근이 이익으로 이어질 수 있습니다. 무리한 투자는 피하세요.",
+"relationship": "지금 거리를 두고 관찰하거나, 새 인연을 조심스럽게 고려하는 단계일 수 있습니다.",
+"path": "여러 방향 중에서 무엇을 선택할지 고민하는 시기입니다. 준비가 되어가고 있습니다.",
+"health": "아직 본격적인 변화보다 계획과 점검의 단계입니다. 루틴을 세우기 좋은 시기입니다.",
+"self": "당신은 지금 내면적으로 새로운 가능성 앞에 서 있습니다. 어떤 방향으로 나아갈지 정할 때입니다.",
+"fortune": "긍정적인 방향으로 움직이려는 준비 단계에 있습니다. 결정을 내리기 전 충분히 숙고하세요."
+},
+"type": "minor"
+},
+{
+"cardNo": 24,
+"name": "완드 3",
+"nickname": "확장",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 2,
+"relationship": 2,
+"path": 3,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["관계의 진전", "함께하는 미래 계획", "장거리 연애", "감정의 성장", "희망적인 기대"],
+"career": ["프로젝트 확장", "해외 기회", "장기적 비전", "성과의 흐름", "전망"],
+"finance": ["해외 거래", "성장 기반 구축", "장기 투자", "수익 기대", "재정 안정성 확보"],
+"relationship": ["관계의 발전", "미래 지향 소통", "신뢰 형성", "새로운 인연 도입", "교류 확장"],
+"path": ["비전 실현", "장기 계획 실행", "새로운 도전 준비", "확장 의지", "기회의 지평"],
+"health": ["회복 후 확장", "건강 관리의 지속성", "신체 리듬 안정", "긍정적인 체력 향상", "컨디션 유지"],
+"self": ["성장의 흐름", "기다림 속 확신", "의지력 강화", "시야 확장", "자신에 대한 믿음"],
+"fortune": ["성장의 시작", "확장 운세", "먼 곳에서 오는 기회", "전망 있는 흐름", "기다림의 결실"]
+},
+"message": {
+"love": "함께 미래를 그리는 흐름입니다. 관계가 진전되며 희망적인 방향으로 나아갈 수 있습니다.",
+"career": "당신의 노력과 계획이 외부로 확장되며 성과로 이어질 기회가 다가옵니다.",
+"finance": "장기적인 계획과 성장 기반 위에 있습니다. 현재의 방향성을 유지하세요.",
+"relationship": "인간관계에서 신뢰가 쌓이며, 네트워크가 넓어지는 흐름입니다. 긍정적인 교류가 이루어질 수 있습니다.",
+"path": "도전을 위한 기반이 잘 잡혀 있습니다. 시야를 넓히고 새로운 가능성에 주목하세요.",
+"health": "점차 안정되고 있으며, 꾸준한 관리가 긍정적인 결과로 이어지고 있습니다.",
+"self": "당신은 지금 내면적으로 확장과 성장을 체험하고 있습니다. 미래에 대한 신뢰를 유지하세요.",
+"fortune": "확장과 성장의 기운을 가집니다. 당신의 노력은 곧 결실로 돌아올 가능성이 큽니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 25,
+"name": "완드 4",
+"nickname": "안정",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 2,
+"relationship": 3,
+"path": 2,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["관계의 안정", "축하할 일", "결혼", "함께하는 기쁨", "가정적인 흐름"],
+"career": ["프로젝트 완료", "성과에 대한 인정", "일터의 안정", "동료와의 조화", "즐거운 분위기"],
+"finance": ["재정적 안정", "지출 계획 성공", "가정 내 풍요", "잔잔한 수익", "기념할 만한 지출"],
+"relationship": ["가족과의 화합", "커뮤니티 소속감", "친밀한 교류", "행복한 모임", "신뢰 기반 관계"],
+"path": ["일정 목표 달성", "잠시의 휴식", "결과의 기쁨", "진로상의 성취감", "지지받는 환경"],
+"health": ["안정된 컨디션", "건강한 생활 패턴", "회복의 기쁨", "휴식과 재충전", "균형 있는 몸과 마음"],
+"self": ["성취의 여유", "긍정적 자아상", "자기 만족", "삶의 안정감", "내면의 평화"],
+"fortune": ["기쁨의 순간", "성공적인 흐름", "작은 축복", "운의 안정화", "행복한 전환점"]
+},
+"message": {
+"love": "관계가 안정되고 기념할 만한 일이 생길 수 있습니다. 진지한 관계로 발전하기 좋은 시기입니다.",
+"career": "프로젝트의 성과를 인정받고, 평온한 분위기 속에서 안정감을 느낄 수 있습니다.",
+"finance": "큰 수익보다는 안정적인 흐름이 지속됩니다. 지출이나 계획이 잘 맞아떨어질 수 있습니다.",
+"relationship": "인간관계에서 신뢰와 조화가 잘 이루어지는 시기입니다. 소속감이 커지고 유대가 깊어집니다.",
+"path": "일정한 성취를 이뤘거나, 주변의 응원과 지지를 받을 수 있는 시기입니다.",
+"health": "안정되고 있으며, 휴식과 균형 잡힌 생활이 회복과 유지를 도와줍니다.",
+"self": "당신은 지금 삶에 대한 만족감과 성취감을 느낄 수 있는 위치에 있습니다. 내면도 안정되고 있습니다.",
+"fortune": "안정적인 방향으로 흘러가며, 작은 성취나 기쁨을 축하할 수 있는 흐름입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 26,
+"name": "완드 5",
+"nickname": "갈등",
+"score": {
+"love": -1,
+"career": 1,
+"finance": 0,
+"relationship": -2,
+"path": 0,
+"health": -1,
+"self": 0,
+"fortune": -1
+},
+"keyword": {
+"love": ["의견 충돌", "감정 싸움", "관계 내 긴장", "애매한 태도", "질투"],
+"career": ["직장 내 경쟁", "의사소통 마찰", "주도권 싸움", "아이디어 충돌", "협업의 어려움"],
+"finance": ["금전 계획의 불일치", "투자 상 갈등", "과잉 지출", "재정 판단 충돌", "금전 마찰"],
+"relationship": ["시비", "다툼", "관계의 긴장", "경쟁 의식", "오해"],
+"path": ["방향성 혼란", "주변의 반대", "선택에 대한 이견", "의욕 부족", "정체 상태"],
+"health": ["스트레스", "긴장감 누적", "불균형", "에너지 소모", "신체적 무리"],
+"self": ["내면의 혼란", "불안정한 감정", "의사결정 어려움", "자기방어", "자기모순"],
+"fortune": ["혼란스러운 흐름", "불필요한 마찰", "불확실한 결과", "경쟁 속 불안정", "운의 정체"]
+},
+"message": {
+"love": "감정의 충돌이나 다툼이 발생할 수 있습니다. 감정보다는 이성적 소통이 필요합니다.",
+"career": "주변과의 경쟁이나 협업 속 마찰이 있을 수 있으나, 성장의 기회가 될 수도 있습니다.",
+"finance": "계획과 의견 충돌이 있을 수 있습니다. 신중한 조율이 필요합니다.",
+"relationship": "다툼이나 오해가 생기기 쉬운 시기입니다. 말을 아끼고 상황을 관찰하세요.",
+"path": "여러 방향성 사이에서 갈등이 생기기 쉬우며, 혼란을 정리하는 시간이 필요합니다.",
+"health": "스트레스성 증상이 나타날 수 있으므로 충분한 휴식과 이완이 필요합니다.",
+"self": "당신은 지금 내면적으로 흔들리는 갈등 상태에 있을 수 있습니다. 마음을 정돈해보세요.",
+"fortune": "마찰과 갈등의 흐름 속에 있습니다. 무리한 추진보다는 조율과 조심이 필요합니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 27,
+"name": "완드 6",
+"nickname": "승리",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 2,
+"relationship": 2,
+"path": 3,
+"health": 2,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["성공적인 관계", "상대의 인정", "주목받는 연애", "애정 표현", "공식적인 관계"],
+"career": ["성과 인정", "프로젝트 성공", "리더십", "명예", "외부의 칭찬"],
+"finance": ["수익 달성", "재정 목표 도달", "보상", "금전적 성취", "투자의 결실"],
+"relationship": ["주변의 칭찬", "신뢰 얻기", "존경", "자신감 있는 태도", "긍정적 영향"],
+"path": ["목표 성취", "노력의 보상", "비전 실현", "자신감 상승", "의미 있는 진전"],
+"health": ["건강 회복", "체력 상승", "긍정적 피드백", "활기찬 상태", "좋은 평가"],
+"self": ["자기 확신", "자존감 향상", "주체적 삶", "성취감", "내면의 승리"],
+"fortune": ["운의 정점", "긍정적 흐름", "성과 있는 시기", "보상받는 운세", "명예로운 기회"]
+},
+"message": {
+"love": "연애에서 당신의 매력이나 진심이 인정받으며, 관계가 더 성숙하게 발전할 수 있는 시기입니다.",
+"career": "성과와 노력이 주변에 인정받으며, 명예로운 위치에 오를 수 있습니다.",
+"finance": "노력의 보상이 따라오는 흐름입니다. 수익이 안정적으로 들어올 수 있습니다.",
+"relationship": "인간관계에서 긍정적인 영향력이 커지고, 당신이 주목받거나 존경받을 수 있습니다.",
+"path": "지금 매우 순조로운 시기로, 당신의 성취가 가시적으로 드러납니다.",
+"health": "회복세이며, 스스로에 대한 자부심도 강해집니다. 기운이 상승하고 있습니다.",
+"self": "당신은 지금 자신에 대한 신뢰와 확신을 바탕으로 주도적인 에너지를 갖고 있습니다.",
+"fortune": "흐름이 매우 긍정적입니다. 성공과 성취의 기운이 강하게 작용하고 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 28,
+"name": "완드 7",
+"nickname": "방어",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 1,
+"relationship": -1,
+"path": 1,
+"health": 0,
+"self": 1,
+"fortune": 0
+},
+"keyword": {
+"love": ["관계 방어", "감정적 거리", "의심", "지속 노력", "상대 설득"],
+"career": ["입장 고수", "반대 극복", "자신의 입장 보호", "결정 지키기", "직무 방어"],
+"finance": ["금전 지키기", "예상 외 지출", "재정 보호", "투자 방어", "재정 관리 필요"],
+"relationship": ["방어적 태도", "감정 대립", "의견 충돌", "주장을 지키는 태도", "지지 부족"],
+"path": ["입장 유지", "경쟁 속 단호함", "목표를 향한 저항", "유연성 부족", "내 길을 지킴"],
+"health": ["체력 소모", "긴장 지속", "건강 방어 태세", "면역 관리 필요", "휴식 부족"],
+"self": ["내면의 고집", "자기 확신", "감정 방어", "주체성", "자기주장"],
+"fortune": ["방어의 운세", "도전적 상황", "입장 유지 필요", "주변의 압력", "중립 유지"]
+},
+"message": {
+"love": "자신의 입장을 고수하거나 방어적인 태도가 관계에 영향을 줄 수 있습니다. 소통이 중요합니다.",
+"career": "당신의 입장을 지켜야 할 순간입니다. 반대에 맞서 자신을 증명할 수 있는 기회입니다.",
+"finance": "예기치 않은 변수에 대비해 방어적인 재정 전략이 필요합니다.",
+"relationship": "인간관계에서 방어적인 태도나 고집이 충돌을 유발할 수 있습니다. 유연함을 잃지 않도록 주의하세요.",
+"path": "자신만의 길을 지키기 위해 싸우는 시기입니다. 당신의 입장은 의미가 있습니다.",
+"health": "스트레스나 피로 누적으로 방어력이 떨어질 수 있습니다. 긴장 완화가 중요합니다.",
+"self": "당신은 지금 자기 확신과 주체성을 지키기 위해 노력하고 있습니다. 다만 고립되지 않도록 조심하세요.",
+"fortune": "다소 방어적인 흐름입니다. 당장의 결과보다는 입장을 지키는 것에 초점을 맞추세요."
+},
+"type": "minor"
+},
+{
+"cardNo": 29,
+"name": "완드 8",
+"nickname": "속도",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 1,
+"relationship": 2,
+"path": 2,
+"health": 1,
+"self": 1,
+"fortune": 2
+},
+"keyword": {
+"love": ["급진적 진전", "연락 도착", "빠른 감정 변화", "불붙는 관계", "속도감 있는 연애"],
+"career": ["빠른 진척", "업무 속도", "프로젝트 가속", "성과 가시화", "소식 도착"],
+"finance": ["빠른 수익 흐름", "급한 지출", "빠른 금전 이동", "자금 순환", "단기 투자"],
+"relationship": ["연락 재개", "빠른 관계 진전", "대화 속도", "소식 전달", "이동수"],
+"path": ["목표 가속", "빠른 결과", "계획의 전개", "지체 없는 행동", "결정의 실행"],
+"health": ["빠른 회복", "건강 개선 흐름", "순환 촉진", "즉각 반응", "활동성 증가"],
+"self": ["행동력", "즉각 실행", "내면의 추진력", "결단력", "동기 부여"],
+"fortune": ["빠른 전환", "기회가 눈앞에", "속도의 흐름", "이동의 기운", "전개되는 사건"]
+},
+"message": {
+"love": "급격한 감정의 진전이나 연락이 오가며 빠르게 관계가 진전될 수 있는 시기입니다.",
+"career": "업무가 빠르게 진척되며, 결과가 눈에 보이는 속도로 다가옵니다.",
+"finance": "단기적 수익이나 지출 등 빠르게 흐름이 변할 수 있는 시기입니다. 민첩한 대응이 필요합니다.",
+"relationship": "인간관계에서 연락이나 만남이 빠르게 이뤄질 수 있고, 새로운 네트워크도 빠르게 확장될 수 있습니다.",
+"path": "행동이 결과로 이어지는 속도가 매우 빠릅니다. 지금이 기회를 잡을 타이밍입니다.",
+"health": "회복이 빠르게 진행되거나, 즉각적인 컨디션 변화가 있을 수 있습니다. 활동적으로 움직이세요.",
+"self": "당신은 지금 내면의 에너지와 추진력을 바탕으로 즉각적인 실행이 가능한 시기에 있습니다.",
+"fortune": "빠르게 움직이는 흐름 속에 있습니다. 좋은 기회가 눈앞에 있으니 망설이지 마세요."
+},
+"type": "minor"
+},
+{
+"cardNo": 30,
+"name": "완드 9",
+"nickname": "인내",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 0,
+"relationship": -1,
+"path": 1,
+"health": -1,
+"self": 1,
+"fortune": 0
+},
+"keyword": {
+"love": ["신중한 태도", "과거의 상처", "닫힌 마음", "느린 진전", "경계심"],
+"career": ["버티는 힘", "마지막 고비", "조심스러운 판단", "계속되는 노력", "긴장 상태"],
+"finance": ["재정 방어", "지출 조심", "불확실성 대처", "금전적 인내", "재정적 상처 극복"],
+"relationship": ["신뢰 부족", "방어적 태도", "재조정 필요", "경계", "거리두기"],
+"path": ["계속되는 노력", "쉬지 않는 전진", "방어적인 자세", "지속적인 집중", "버티기"],
+"health": ["피로 누적", "회복 중", "만성 스트레스", "에너지 소모", "지속 관리 필요"],
+"self": ["심리적 방어", "회복의지", "과거 극복", "끈기", "조심스러운 자세"],
+"fortune": ["지속되는 흐름", "마지막 시험", "조심스러운 전진", "잠재적 회복", "버티는 운세"]
+},
+"message": {
+"love": "과거의 경험으로 인해 방어적인 태도를 보일 수 있습니다. 서두르지 말고 신중하게 다가가세요.",
+"career": "지금까지 해온 것을 포기하지 말고 조금만 더 인내하면 좋은 결과를 볼 수 있습니다.",
+"finance": "무리하지 말고 현 상태를 유지하는 것이 좋습니다. 안정적 흐름을 지키세요.",
+"relationship": "인간관계에서 상처나 불신으로 인해 거리를 두고 있을 수 있습니다. 관계 회복엔 시간이 필요합니다.",
+"path": "고비를 넘기고 있는 중입니다. 지금 포기하지 않으면 결과가 따를 수 있습니다.",
+"health": "피로 누적이 많을 수 있는 시기로, 회복과 휴식이 절실히 필요합니다.",
+"self": "당신은 지금 조심스럽게 자신을 지켜내고 있습니다. 회복 중이며, 곧 다시 일어설 수 있습니다.",
+"fortune": "아직 안정되지 않았지만, 인내와 끈기로 좋은 방향으로 전환할 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 31,
+"name": "완드 10",
+"nickname": "부담",
+"score": {
+"love": -1,
+"career": 0,
+"finance": 0,
+"relationship": -1,
+"path": 0,
+"health": -2,
+"self": 0,
+"fortune": -1
+},
+"keyword": {
+"love": ["감정적 짐", "관계 내 부담", "혼자만의 노력", "애정 소진", "책임감 과중"],
+"career": ["업무 과중", "책임 부담", "성공의 무게", "혼자 감당", "정신적 피로"],
+"finance": ["금전 스트레스", "부채 부담", "재정적 책임", "지속되는 지출", "투자의 무게"],
+"relationship": ["타인에 대한 책임", "관계 피로", "혼자 짊어짐", "희생", "불균형한 관계"],
+"path": ["성취의 무게", "진로 고민", "계획에 짓눌림", "지나친 완벽주의", "지속 불가능한 패턴"],
+"health": ["과로", "체력 저하", "누적된 피로", "신체적 무리", "긴급한 회복 필요"],
+"self": ["감정적 과부하", "내면의 압박", "쉼 없는 상태", "책임감 강박", "한계 임박"],
+"fortune": ["무거운 흐름", "압박감 있는 시기", "지나친 책임 부담", "조절이 필요한 운세", "경고성 징후"]
+},
+"message": {
+"love": "한 사람이 지나치게 짐을 지고 있을 수 있습니다. 함께 나누려는 자세가 필요합니다.",
+"career": "성과는 있지만 그만큼 큰 책임과 스트레스도 따라옵니다. 일의 분산이 필요합니다.",
+"finance": "책임감이나 부담으로 인해 여유가 적은 상태입니다. 재정 구조를 점검해보세요.",
+"relationship": "인간관계에서 당신이 너무 많은 걸 떠안고 있을 수 있습니다. 에너지 분배가 필요합니다.",
+"path": "지금은 과도한 부담을 짊어지고 있는 시기입니다. 선택과 집중이 필요합니다.",
+"health": "무리한 일정이나 피로 누적으로 인해 적신호가 올 수 있습니다. 휴식이 최우선입니다.",
+"self": "당신은 지금 많은 책임과 감정적 압박을 견디고 있습니다. 이제 내려놓는 연습도 필요합니다.",
+"fortune": "무겁고 지치는 흐름입니다. 지금은 힘을 분산하고 휴식할 줄 아는 지혜가 필요합니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 32,
+"name": "완드 시종",
+"nickname": "호기심",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 1,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["새로운 만남", "풋풋한 감정", "가벼운 관계", "자유로운 소통", "설렘"],
+"career": ["신규 기획", "창의적 접근", "배움의 시작", "작은 기회", "진취성"],
+"finance": ["소액의 기회", "새로운 수익원", "재정 실험", "금전적 시도", "성장 가능성"],
+"relationship": ["친근한 접근", "개방성", "긍정적 교류", "활기찬 에너지", "가벼운 유대"],
+"path": ["배움의 시작", "도전정신", "진로 탐색", "가능성 실험", "자기 발견"],
+"health": ["건강한 에너지", "새로운 루틴", "활동적인 몸", "초기 체력 상승", "의욕 회복"],
+"self": ["자기표현", "흥미 유발", "모험심", "창의력", "새로운 자아 탐색"],
+"fortune": ["기회 도래", "새 출발", "유연한 흐름", "의욕 상승", "메시지 수신"]
+},
+"message": {
+"love": "새로운 만남이나 가볍고 자유로운 관계가 시작될 수 있습니다. 설레는 감정에 주목하세요.",
+"career": "새로운 기획이나 창의적인 일이 시작될 수 있는 시기입니다. 적극적으로 반응하세요.",
+"finance": "작고 새로운 기회를 통해 조금씩 개선될 수 있는 흐름입니다. 실험 정신이 중요합니다.",
+"relationship": "인간관계에서는 가볍고 긍정적인 소통이 활발해지는 시기입니다. 새로운 인연도 기대해볼 수 있습니다.",
+"path": "새로운 분야에 대한 탐색이나 배움의 시기로, 가능성을 넓힐 기회가 있습니다.",
+"health": "활력이 생기고 새로운 루틴을 시작하기 좋은 시기입니다. 의욕적으로 움직여보세요.",
+"self": "당신은 지금 새로운 자극에 흥미를 느끼고 있으며, 내면의 가능성을 발견하는 시점에 와 있습니다.",
+"fortune": "가볍고 긍정적인 방향으로 흘러갑니다. 새로운 소식이나 기회가 들어올 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 33,
+"name": "완드 기사",
+"nickname": "추진력",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 1,
+"relationship": 0,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["열정적인 접근", "불타는 감정", "짧고 강렬한 관계", "직진형", "자유로운 애정"],
+"career": ["도전정신", "속도 있는 실행", "결단력", "새로운 기회 추구", "변화 수용"],
+"finance": ["빠른 투자", "즉흥적 지출", "금전 기회 포착", "모험적 재정", "위험 감수"],
+"relationship": ["직설적인 태도", "즉흥적 만남", "감정 기복", "자기중심적 교류", "짧은 교류"],
+"path": ["진로 변화", "주도적 선택", "새로운 방향", "실험정신", "열정 추구"],
+"health": ["활력 상승", "운동 욕구", "충동적 활동", "급격한 체력 소모", "체온 상승"],
+"self": ["내면의 에너지", "불타는 의욕", "즉시 행동", "강한 자의식", "자기 표현"],
+"fortune": ["기회 돌진", "급변하는 운", "위험과 가능성 동시 존재", "행동이 운을 부름", "감정적 흐름"]
+},
+"message": {
+"love": "빠르고 열정적인 감정이 중심이 되며, 강렬하지만 오래 가지 않을 수 있습니다. 신중함도 필요합니다.",
+"career": "새로운 기회에 적극적으로 뛰어드는 시기입니다. 당신의 추진력이 큰 무기가 됩니다.",
+"finance": "기회와 리스크가 공존합니다. 충동적 판단보다는 열정을 잘 조율하세요.",
+"relationship": "빠르게 가까워질 수 있지만, 지속 가능성은 따져봐야 합니다. 중심을 잃지 마세요.",
+"path": "변화와 전환의 시기로, 당신의 주도적 에너지가 진로 방향을 바꿀 수 있습니다.",
+"health": "에너지가 넘치지만 과도한 활동으로 인해 피로가 누적될 수 있습니다. 페이스 조절이 필요합니다.",
+"self": "당신은 지금 뜨거운 추진력과 열정을 가지고 있으며, 자기 실현을 향해 과감하게 나아갈 수 있습니다.",
+"fortune": "빠르게 전개되는 흐름입니다. 기회를 잡는 순간 판단력이 성패를 가를 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 34,
+"name": "완드 여왕",
+"nickname": "자신감",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 1,
+"relationship": 2,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["매력 발산", "자기 확신", "주도적 관계", "따뜻한 감정", "연애의 중심"],
+"career": ["자기주도", "긍정적 리더십", "자신감 있는 성과", "영향력", "존재감"],
+"finance": ["금전 활용 능력", "현명한 소비", "경제적 안목", "자립 기반", "금전적 여유"],
+"relationship": ["주변의 존경", "따뜻한 인간관계", "적극적 교류", "긍정적 영향력", "사교성"],
+"path": ["리더십 발휘", "확신 있는 방향", "도전의지", "안정된 목표의식", "주체성 강화"],
+"health": ["활력 넘침", "에너지 회복", "심리적 안정", "외향적 기운", "밝은 컨디션"],
+"self": ["내면의 강함", "자기 확신", "표현력", "매력 인식", "자신에 대한 사랑"],
+"fortune": ["긍정의 흐름", "자기 주도적 기회", "활기찬 시기", "매력 발산 운", "성장 기운"]
+},
+"message": {
+"love": "당신의 매력과 자신감이 관계에 긍정적인 영향을 줍니다. 주도적으로 표현해도 좋습니다.",
+"career": "스스로를 믿고 행동할 때 리더십과 영향력이 드러나는 시기입니다.",
+"finance": "여유와 균형 속에 있으며, 자신 있는 소비와 계획이 이익으로 이어집니다.",
+"relationship": "인간관계에서는 밝고 사교적인 에너지로 인해 많은 이들과 긍정적인 관계를 맺을 수 있습니다.",
+"path": "주도적이고 자신감 있는 결정이 좋은 흐름을 만듭니다. 목표에 집중하세요.",
+"health": "에너지가 충만하고 회복력도 좋습니다. 밝은 컨디션을 유지하려는 노력이 도움이 됩니다.",
+"self": "당신은 지금 내면의 자신감과 표현력을 마음껏 발휘할 수 있는 시기에 있습니다.",
+"fortune": "활기차고 긍정적인 흐름을 탑니다. 자신을 믿고 나아가도 좋은 결과가 따를 것입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 35,
+"name": "완드 왕",
+"nickname": "리더십",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 2,
+"relationship": 2,
+"path": 3,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["주도적 관계", "매력적인 태도", "보호자적 역할", "관계의 안정", "감정 표현의 리더"],
+"career": ["비전 제시", "결단력", "리더십", "책임감", "성취 중심"],
+"finance": ["재정 관리 능력", "사업적 통찰", "큰 그림", "안정된 수입", "기회 포착"],
+"relationship": ["영향력 있는 태도", "주변의 신뢰", "의연함", "정신적 지주", "신념"],
+"path": ["목표 지향", "자기 확신", "주도적 진로", "장기적 비전", "성취 지향"],
+"health": ["체력 유지", "심신의 균형", "지속적 관리", "강인함", "책임 있는 생활습관"],
+"self": ["내면의 확신", "통제력", "자기 신뢰", "정신적 성숙", "결정권"],
+"fortune": ["성취 흐름", "기회를 잡는 운", "위상 상승", "중심에 서는 운", "주도권"]
+},
+"message": {
+"love": "당신이 주도적으로 관계를 이끌 수 있으며, 안정과 신뢰를 바탕으로 깊어질 수 있습니다.",
+"career": "리더로서의 자질이 빛나는 시기입니다. 당신의 비전과 결단이 성과로 이어집니다.",
+"finance": "신중한 판단과 통찰력을 바탕으로 성장할 수 있는 흐름입니다. 재정 계획에 집중해보세요.",
+"relationship": "인간관계에서는 당신의 의연한 태도와 영향력이 신뢰를 이끌어내며 중심 역할을 하게 됩니다.",
+"path": "장기적인 비전과 자기 확신이 기반이 됩니다. 당신의 방향성이 분명히 드러납니다.",
+"health": "비교적 안정적이며, 책임감 있는 생활 태도가 현재의 밸런스를 지켜줍니다.",
+"self": "당신은 지금 자신의 신념과 중심을 확고히 하며, 상황을 주도적으로 통제하고 있습니다.",
+"fortune": "중심에 서 있는 에너지입니다. 당신의 리더십과 판단이 좋은 결과를 이끌 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 36,
+"name": "펜타클 A",
+"nickname": "기회",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 3,
+"relationship": 1,
+"path": 2,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["현실적 관계", "안정적 시작", "기회 있는 만남", "물질적 기반", "성실한 접근"],
+"career": ["기회의 출현", "현실적 성공", "안정적 직장", "성과 기반", "신뢰할 수 있는 제안"],
+"finance": ["금전 기회", "투자의 시작", "재정 안정", "수익 창출", "물질적 성취"],
+"relationship": ["현실적인 유대", "신뢰 기반", "성실한 관계", "새로운 인연", "지속 가능한 관계"],
+"path": ["구체적 목표", "현실적 진로", "기반 마련", "실질적 성과", "현명한 선택"],
+"health": ["건강 회복", "신체 안정", "생활의 균형", "건강한 습관", "기초 체력 향상"],
+"self": ["현실 인식", "기반 형성", "내면의 안정", "성장 시작", "자기 가치 인식"],
+"fortune": ["물질적 운 상승", "기회의 발현", "새로운 가능성", "행운의 씨앗", "실속 있는 흐름"]
+},
+"message": {
+"love": "현실적이고 안정된 관계의 시작을 의미합니다. 진지한 접근이 좋은 결과를 이끌 수 있습니다.",
+"career": "새로운 기회나 제안을 통해 안정적인 성장의 기반이 마련될 수 있는 시기입니다.",
+"finance": "매우 좋습니다. 수익을 창출할 수 있는 기회가 생기며 장기적인 안정으로 이어질 수 있습니다.",
+"relationship": "신뢰와 성실함을 바탕으로 점차적으로 깊어지는 흐름입니다.",
+"path": "매우 현실적인 방향 설정이 가능하며, 구체적인 목표가 잡히는 시기입니다.",
+"health": "안정과 회복의 흐름 속에 있습니다. 건강 관리 습관을 시작하기에 적절한 시기입니다.",
+"self": "당신은 지금 내면과 외면의 기반을 다지며 안정적으로 성장해 나갈 수 있는 시점에 있습니다.",
+"fortune": "실속 있고 안정적인 흐름을 탑니다. 새로운 시작에 매우 좋은 기운이 따릅니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 37,
+"name": "펜타클 2",
+"nickname": "균형",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 2,
+"relationship": 0,
+"path": 1,
+"health": 0,
+"self": 1,
+"fortune": 1
+},
+"keyword": {
+"love": ["감정 조율", "가벼운 관계", "관계 속 우선순위", "선택의 기로", "변화 적응"],
+"career": ["일과 삶의 균형", "다중 업무 처리", "변화 대응", "현실 감각", "유연한 적응"],
+"finance": ["수입과 지출의 균형", "돈의 흐름", "소득 다변화", "재정 스케줄링", "변동성"],
+"relationship": ["상대와의 거리 유지", "유연한 태도", "감정 기복 조절", "상황 판단력", "밸런스 있는 교류"],
+"path": ["방향성 조율", "다중 가능성", "가볍게 시도", "현실과 이상 간 균형", "순간적 선택"],
+"health": ["컨디션 기복", "스트레스 관리", "생활 리듬 조절", "과유불급", "움직임과 휴식의 균형"],
+"self": ["적응력", "유연한 사고", "균형감각", "감정의 흐름 이해", "결정의 신중함"],
+"fortune": ["상황의 흐름에 따름", "균형 잡힌 운", "두 가지 가능성 공존", "판단력 요구", "흔들림 속 중심"]
+},
+"message": {
+"love": "감정의 기복이 있을 수 있으나 유연한 자세로 관계의 균형을 잘 맞추는 것이 중요합니다.",
+"career": "여러 업무나 역할을 조율하며 균형을 잡아야 하는 시기입니다.",
+"finance": "수입과 지출의 균형에 달려 있습니다. 흐름을 놓치지 않도록 주의하세요.",
+"relationship": "인간관계에서는 상대방과의 적정한 거리를 유지하고, 융통성 있게 대처하는 것이 중요합니다.",
+"path": "다양한 선택지 속에서 조화롭게 조율하는 능력이 요구됩니다.",
+"health": "컨디션 변화가 있을 수 있으므로 무리하지 않고 리듬을 맞추는 것이 중요합니다.",
+"self": "당신은 지금 균형을 배우고 있습니다. 감정과 현실을 함께 고려하며 선택을 조율해보세요.",
+"fortune": "균형감 있는 흐름입니다. 한쪽에 치우치지 않고 조화를 이루려는 노력이 복을 부를 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 38,
+"name": "펜타클 3",
+"nickname": "협업",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 2,
+"relationship": 2,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["서로의 노력", "관계의 기초", "성실한 접근", "공동의 목표", "점진적 진전"],
+"career": ["팀워크", "역할 분담", "협업 프로젝트", "전문성 강화", "성과 기반"],
+"finance": ["공동 수익", "지속적 수입", "계획적 소비", "실용적 재정", "투자의 협력"],
+"relationship": ["신뢰 형성", "협력 관계", "공동 노력", "실질적 교류", "관계의 구조화"],
+"path": ["전문성 구축", "배움과 협력", "체계적 성장", "현실적 접근", "실력 발휘"],
+"health": ["체계적 관리", "의료적 협업", "생활 리듬 개선", "균형 잡힌 건강", "성실한 실천"],
+"self": ["기초 다지기", "협력 의식", "성장 기반", "전문성 추구", "성실함"],
+"fortune": ["성장 운세", "협업의 기회", "기반 형성", "성과가 따르는 시기", "단계적 발전"]
+},
+"message": {
+"love": "함께 노력하고 신뢰를 쌓아가는 과정이 중요합니다. 점진적으로 안정된 관계로 이어질 수 있습니다.",
+"career": "협업과 전문성을 기반으로 성과가 나오는 시기입니다. 동료들과의 조화가 중요합니다.",
+"finance": "실질적인 계획과 협력 속에서 안정과 수익이 가능합니다. 장기적 안목이 필요합니다.",
+"relationship": "신뢰를 바탕으로 함께 만들어가는 구조적인 관계가 형성됩니다.",
+"path": "협업과 기초 실력의 조화가 요구됩니다. 전문성을 쌓는 데 집중해보세요.",
+"health": "균형 있는 루틴과 꾸준한 관리로 개선되는 흐름입니다. 주변의 조언도 도움이 됩니다.",
+"self": "당신은 지금 내면의 기반을 다지며 협력과 성장의 중요성을 배우고 있습니다.",
+"fortune": "점진적 발전과 함께합니다. 협력과 실력 발휘를 통해 좋은 흐름을 만들 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 39,
+"name": "펜타클 4",
+"nickname": "집착",
+"score": {
+"love": -1,
+"career": 1,
+"finance": 2,
+"relationship": -1,
+"path": 0,
+"health": 0,
+"self": 0,
+"fortune": 0
+},
+"keyword": {
+"love": ["감정 억제", "관계 통제", "질투", "소유욕", "거리감"],
+"career": ["현 상태 유지", "변화 거부", "안정 지향", "보수적 선택", "리스크 회피"],
+"finance": ["저축", "지출 억제", "재정 안정", "재산 보호", "금전 통제"],
+"relationship": ["폐쇄성", "불신", "자기 보호", "거리 두기", "소통 부족"],
+"path": ["정체된 흐름", "변화의 두려움", "현실 고착", "보수적 태도", "위험 회피"],
+"health": ["에너지 정체", "긴장 상태", "과도한 통제", "불균형", "무감각"],
+"self": ["내면 억제", "감정 차단", "두려움 기반 통제", "고립감", "유연성 부족"],
+"fortune": ["안정 우선 흐름", "정체된 운", "변화 저항", "기회 차단", "고정적 패턴"]
+},
+"message": {
+"love": "감정 표현이 부족하거나 통제하려는 경향이 강해질 수 있습니다. 관계에 유연함이 필요합니다.",
+"career": "현재의 위치를 고수하고자 하는 태도가 강할 수 있습니다. 변화도 때론 필요합니다.",
+"finance": "안정적이지만 지나치게 움켜쥐려다 기회를 놓칠 수 있습니다. 균형 있는 관리가 중요합니다.",
+"relationship": "인간관계에서는 폐쇄적인 태도나 소유욕이 관계를 어렵게 만들 수 있습니다. 열린 자세가 필요합니다.",
+"path": "변화에 대한 두려움으로 인해 정체될 수 있습니다. 유연한 사고가 필요합니다.",
+"health": "긴장과 에너지의 정체로 인해 불균형이 생길 수 있습니다. 심리적 여유가 회복에 도움 됩니다.",
+"self": "당신은 지금 스스로를 꽉 쥐고 지키려는 경향이 있습니다. 내려놓음과 수용이 성장의 열쇠가 됩니다.",
+"fortune": "안정적이나 정체되어 있습니다. 때로는 손을 놓아야 새로운 것이 들어올 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 40,
+"name": "펜타클 5",
+"nickname": "결핍",
+"score": {
+"love": -2,
+"career": -2,
+"finance": -3,
+"relationship": -2,
+"path": -1,
+"health": -2,
+"self": -2,
+"fortune": -2
+},
+"keyword": {
+"love": ["소외감", "거리감", "감정 단절", "상처", "상실"],
+"career": ["직업 불안정", "실직", "성과 부재", "지원 부족", "기회 상실"],
+"finance": ["경제적 위기", "손실", "지출 증가", "빈곤 의식", "지원 부재"],
+"relationship": ["고립", "신뢰 붕괴", "정서적 거리", "외로움", "단절"],
+"path": ["방향 상실", "의욕 저하", "혼란", "미래 불안", "지원 없는 상황"],
+"health": ["신체적 쇠약", "면역력 저하", "정신적 우울", "회복 지연", "냉각 상태"],
+"self": ["낮은 자존감", "내면의 외로움", "심리적 공허", "무력감", "불안정"],
+"fortune": ["어려운 운세", "시련기", "고립된 흐름", "도움이 필요한 시기", "침체"]
+},
+"message": {
+"love": "서로의 감정이 단절되거나 외로움을 느끼기 쉬운 시기입니다. 따뜻한 소통이 절실합니다.",
+"career": "불안정하거나 기회가 부족한 상황일 수 있습니다. 혼자 감당하지 마세요.",
+"finance": "좋지 않은 흐름입니다. 무리한 지출을 피하고 도움을 요청하는 것이 현명할 수 있습니다.",
+"relationship": "인간관계에서는 외로움이나 단절을 느낄 수 있으며, 정서적 지지의 부재가 클 수 있습니다.",
+"path": "방향성이 흔들리고 자신감이 떨어질 수 있는 시기입니다. 혼자가 아님을 기억하세요.",
+"health": "신체적·정신적으로 약해질 수 있습니다. 휴식과 정서적 회복이 가장 필요합니다.",
+"self": "당신은 지금 심리적으로 위축되고 결핍감을 느낄 수 있습니다. 작은 연결도 큰 힘이 됩니다.",
+"fortune": "침체되어 있으나, 도움을 요청하면 예상보다 가까운 곳에 손길이 있을 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 41,
+"name": "펜타클 6",
+"nickname": "나눔",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 2,
+"relationship": 2,
+"path": 1,
+"health": 1,
+"self": 1,
+"fortune": 2
+},
+"keyword": {
+"love": ["상호 존중", "관계의 균형", "감정의 교환", "배려", "서로 돕는 사랑"],
+"career": ["공정한 대우", "성과의 분배", "동료 지원", "조화로운 환경", "기회 공유"],
+"finance": ["금전적 도움", "재정적 균형", "기부나 수혜", "공평한 거래", "수입의 안정"],
+"relationship": ["주고받는 관계", "이해와 공감", "신뢰 형성", "도움 주기", "감사의 교류"],
+"path": ["균형 잡힌 선택", "상호적 기회", "조언 수용", "협력의 길", "기회 공유"],
+"health": ["건강 관리의 균형", "지지 받는 회복", "생활 리듬 정비", "심신 조화", "도움 받기"],
+"self": ["겸손", "공감 능력", "배려하는 마음", "자기 균형", "자존감 회복"],
+"fortune": ["기회의 분배", "운의 흐름 공유", "도움이 들어옴", "보상의 시기", "우호적 환경"]
+},
+"message": {
+"love": "감정의 균형과 배려가 강조됩니다. 서로의 입장을 존중하는 마음이 관계를 풍요롭게 합니다.",
+"career": "공정한 평가와 협업 속에서 성과가 나옵니다. 상호 지원의 분위기가 좋습니다.",
+"finance": "비교적 긍정적이며, 수입과 지출의 균형이 잘 유지됩니다. 도움을 주거나 받을 수도 있습니다.",
+"relationship": "나누고 도우려는 태도가 관계를 건강하게 만듭니다. 신뢰와 감사가 핵심입니다.",
+"path": "협력과 조언을 통해 기회를 얻을 수 있으며, 공정한 평가가 따를 수 있습니다.",
+"health": "도움을 받거나 생활 습관을 조율하는 데 좋은 시기입니다. 무리하지 않는 것이 중요합니다.",
+"self": "당신은 지금 타인과의 관계에서 배우고 있으며, 자신 안의 균형과 배려를 성장시키는 시기입니다.",
+"fortune": "안정적인 흐름으로, 주고받음이 조화를 이루는 시기입니다. 베풀수록 돌아옵니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 42,
+"name": "펜타클 7",
+"nickname": "인내",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 2,
+"relationship": 0,
+"path": 1,
+"health": 1,
+"self": 1,
+"fortune": 1
+},
+"keyword": {
+"love": ["천천히 다가감", "감정 점검", "관계의 흐름 관찰", "기다림", "결정 유보"],
+"career": ["성과 점검", "노력의 중간 결과", "인내심", "장기적 기획", "현 상황 평가"],
+"finance": ["재정 점검", "투자의 경과", "수익 대기", "신중한 접근", "보수적 관리"],
+"relationship": ["관계 유지", "감정의 변화 체크", "성장 관찰", "속도 조절", "관계 피드백"],
+"path": ["진로의 재고", "중간 점검", "다음 단계 준비", "기다림의 지혜", "속도의 조절"],
+"health": ["호전 관찰", "점진적 회복", "건강 루틴 점검", "스트레스 관리", "지속적 관심"],
+"self": ["자기 반성", "현 위치 평가", "기대와 현실의 균형", "조금씩의 성장", "참을성"],
+"fortune": ["중간 운세", "결과 대기", "성장의 준비", "시간이 필요한 시기", "무리한 변화 금물"]
+},
+"message": {
+"love": "관계의 흐름을 지켜보며 조급해하지 않는 태도가 필요합니다. 천천히 다가가는 것이 좋습니다.",
+"career": "지금까지의 노력에 대한 중간 점검이 필요합니다. 인내가 결과로 이어질 수 있습니다.",
+"finance": "당장은 큰 변화가 없을 수 있으나, 기다림이 수익을 가져올 수 있습니다. 신중한 판단이 중요합니다.",
+"relationship": "인간관계에서는 관계의 발전보다는 유지와 관찰이 필요한 시기입니다. 감정을 돌아보세요.",
+"path": "당장 결론을 내리기보다 현재의 진행 상황을 점검하며 다음 단계를 계획할 필요가 있습니다.",
+"health": "점진적으로 좋아질 수 있습니다. 꾸준한 루틴과 인내가 회복의 핵심입니다.",
+"self": "당신은 지금 자기 자신을 객관적으로 바라보며, 느리지만 꾸준한 성장의 길 위에 있습니다.",
+"fortune": "중간 흐름에 머물러 있으며, 무리하게 움직이기보단 조용히 준비하고 기다리는 것이 유리합니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 43,
+"name": "펜타클 8",
+"nickname": "수련",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 2,
+"relationship": 1,
+"path": 3,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["성실한 태도", "서서히 쌓이는 신뢰", "노력하는 관계", "감정 표현 훈련", "관계 집중"],
+"career": ["끈기", "전문성 향상", "실력 발휘", "성실한 업무 처리", "목표 집중"],
+"finance": ["지속적인 수입", "계획적 재정 관리", "금전적 성장", "작은 성과 축적", "근면함의 보상"],
+"relationship": ["신뢰 형성", "꾸준한 소통", "관계 유지 노력", "성실한 교류", "감정의 안정화"],
+"path": ["기술 연마", "성장 중", "공부와 훈련", "계획적 목표 달성", "노력을 통한 돌파"],
+"health": ["규칙적인 관리", "컨디션 안정", "지속적인 개선", "생활 습관 유지", "건강 루틴 확립"],
+"self": ["자기 훈련", "꾸준함", "성장 마인드", "목표 집중", "노력에 대한 자긍심"],
+"fortune": ["근면한 운", "성과가 쌓이는 흐름", "노력의 결실", "차근차근 진전", "성실의 복"]
+},
+"message": {
+"love": "노력하는 태도와 성실함이 관계의 신뢰를 깊게 만듭니다. 천천히 쌓아가는 것이 중요합니다.",
+"career": "꾸준한 업무 집중과 자기계발을 통해 성장의 기반을 다질 수 있습니다.",
+"finance": "서서히 좋아집니다. 반복적인 노력과 실천이 수익으로 이어질 수 있는 시기입니다.",
+"relationship": "인간관계에서는 성실한 태도와 지속적인 소통이 관계 유지의 열쇠가 됩니다.",
+"path": "집중과 반복 훈련이 필요한 시기입니다. 장기적 성장 가능성이 큽니다.",
+"health": "꾸준한 관리가 효과를 볼 수 있습니다. 루틴을 지키면 회복이 빠릅니다.",
+"self": "당신은 지금 자신을 갈고닦는 과정에 있으며, 성실함과 꾸준함이 큰 내면의 성장을 가져옵니다.",
+"fortune": "천천히 그러나 꾸준히 상승하는 흐름입니다. 지금의 노력이 미래를 만듭니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 44,
+"name": "펜타클 9",
+"nickname": "자립",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 3,
+"relationship": 1,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["자기애", "독립적인 사랑", "자기 만족", "안정된 감정", "여유 있는 관계"],
+"career": ["성공", "성과 인정", "노력의 결실", "혼자서도 해내는 능력", "독립 업무"],
+"finance": ["물질적 풍요", "재정적 여유", "수익 실현", "재산 축적", "금전적 자립"],
+"relationship": ["선 긋기", "우아한 거리감", "신뢰 기반", "자기만의 공간", "감정적 안정"],
+"path": ["목표 성취", "혼자의 길", "스스로 결정", "자율성", "경험의 축적"],
+"health": ["건강한 생활", "정서적 안정", "회복세", "균형 잡힌 루틴", "자기 관리 능력"],
+"self": ["자기 확신", "내면의 여유", "성취감", "독립심", "자기 만족"],
+"fortune": ["풍요로운 흐름", "결실의 시기", "보상의 운", "혼자서도 잘 되는 운", "긍정적 독립"]
+},
+"message": {
+"love": "자신을 사랑하는 마음이 기반이 되어야 합니다. 여유와 안정이 관계를 아름답게 만듭니다.",
+"career": "당신의 성취가 주목받고 있으며, 혼자의 힘으로도 해낼 수 있는 능력이 있습니다.",
+"finance": "매우 긍정적이며, 지금까지의 노력이 풍요로운 결과로 돌아오는 시기입니다.",
+"relationship": "거리를 두면서도 신뢰를 유지하는 성숙한 관계를 형성할 수 있는 시기입니다.",
+"path": "독립적으로 자신만의 방향을 만들어갈 수 있습니다. 성과도 따릅니다.",
+"health": "균형 잡힌 생활 속에서 안정적이며, 자기 관리를 통해 더 좋아질 수 있습니다.",
+"self": "당신은 지금 내면과 외면 모두에서 자립의 아름다움을 실현하고 있습니다. 그 성취를 즐기세요.",
+"fortune": "보상의 시기로, 혼자서도 충분히 성공할 수 있는 흐름입니다. 자신감을 가지세요."
+},
+"type": "minor"
+},
+{
+"cardNo": 45,
+"name": "펜타클 10",
+"nickname": "풍요",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 3,
+"relationship": 2,
+"path": 2,
+"health": 2,
+"self": 2,
+"fortune": 3
+},
+"keyword": {
+"love": ["가족 중심", "안정된 사랑", "장기적 관계", "믿음과 지지", "결혼 운"],
+"career": ["장기적 성공", "사회적 입지", "안정된 조직", "성과 누적", "지속 가능한 발전"],
+"finance": ["재산 축적", "유산", "자산 안정", "금전적 풍요", "투자 성과"],
+"relationship": ["가족 유대", "세대 간 연결", "전통 유지", "깊은 신뢰", "공동체적 관계"],
+"path": ["장기 계획 완성", "목표 달성", "안정적 미래", "경험의 통합", "삶의 토대"],
+"health": ["세대 건강", "생활 안정", "지속 가능한 관리", "신체적 여유", "정서적 평화"],
+"self": ["성취감", "삶의 안정", "내면의 평화", "유산 의식", "기반 위의 나"],
+"fortune": ["풍요의 운", "성공한 흐름", "장기 복", "가정운 상승", "결실의 시기"]
+},
+"message": {
+"love": "장기적인 안정을 느낄 수 있는 시기입니다. 결혼이나 가족 계획과도 연결될 수 있습니다.",
+"career": "장기적 성공과 안정이 확보되며, 이전의 노력이 확실한 성과로 드러납니다.",
+"finance": "매우 좋으며, 자산의 축적이나 유산, 투자 등의 흐름에서 긍정적인 결과가 기대됩니다.",
+"relationship": "가족이나 오랜 지인과의 유대가 깊어지며, 공동체 속에서 안정감을 얻을 수 있습니다.",
+"path": "목표가 안정적으로 실현되는 시기이며, 기반 위에 긴 미래가 놓여 있습니다.",
+"health": "전반적으로 안정적이며, 가족 단위의 건강 관리나 정서적 안정감이 큰 영향을 미칩니다.",
+"self": "당신은 지금 물질적·정서적 안정 속에서 자기 존재를 확고히 하고 있습니다. 삶의 토대가 단단합니다.",
+"fortune": "매우 밝으며, 장기적 복과 안정이 따르는 흐름입니다. 성취의 시기입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 46,
+"name": "펜타클 페이지",
+"nickname": "기회",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 2,
+"relationship": 1,
+"path": 3,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["새로운 시작", "성장하는 관계", "조심스러운 접근", "진지한 관심", "감정 표현의 연습"],
+"career": ["배움의 자세", "기회 포착", "업무 기초", "새로운 직무", "책임감 있는 태도"],
+"finance": ["소액 투자", "재정 계획 수립", "저축 시작", "기초 자산 형성", "성실한 관리"],
+"relationship": ["성실한 소통", "신뢰 쌓기", "조심스러운 관계 형성", "친밀감의 발달", "유대 시작"],
+"path": ["새로운 배움", "학업 시작", "목표 설정", "기초부터 다지기", "미래를 위한 준비"],
+"health": ["건강 습관 형성", "기초 체력 관리", "규칙적 생활 시작", "작은 변화", "지속성"],
+"self": ["성실성", "호기심", "잠재력 인식", "자기 계발 의지", "기회의 감지"],
+"fortune": ["새로운 기회", "성장의 운세", "기초 형성 시기", "작지만 확실한 행운", "가능성의 발견"]
+},
+"message": {
+"love": "새로운 관심이나 조심스러운 시작이 있을 수 있습니다. 성실한 접근이 관계를 키울 수 있습니다.",
+"career": "배우고 성장할 기회가 주어집니다. 기초를 잘 다지면 크게 발전할 수 있습니다.",
+"finance": "작은 기회에서 시작됩니다. 계획적으로 움직이면 안정적인 기반을 만들 수 있습니다.",
+"relationship": "아직 미성숙할 수 있지만, 성실한 태도로 신뢰를 쌓아가는 시기입니다.",
+"path": "새로운 시작에 적합한 시기이며, 학습과 계획이 성장을 이끕니다.",
+"health": "지금부터 루틴을 시작하고 몸을 관리하기에 좋은 시기입니다. 작지만 꾸준한 변화가 중요합니다.",
+"self": "당신은 지금 배우고 성장할 준비가 되어 있습니다. 열린 마음으로 기회를 마주해보세요.",
+"fortune": "새로운 가능성과 성장을 위한 기회를 줍니다. 작은 시작이 큰 결실로 이어질 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 47,
+"name": "펜타클 나이트",
+"nickname": "성실",
+"score": {
+"love": 1,
+"career": 3,
+"finance": 3,
+"relationship": 1,
+"path": 2,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["꾸준한 관심", "책임감 있는 관계", "안정적인 감정", "천천히 다가감", "지속적인 노력"],
+"career": ["끈기", "성실한 실행", "장기 프로젝트", "현실적 태도", "성과 누적"],
+"finance": ["안정적 자산", "지속적 수익", "실용적 투자", "계획적 소비", "신중한 판단"],
+"relationship": ["신뢰 쌓기", "책임감 있는 태도", "조용한 배려", "성실한 소통", "시간이 필요한 관계"],
+"path": ["점진적 성장", "현실 기반의 결정", "꾸준한 진로", "중단 없는 노력", "장기 계획"],
+"health": ["지속적인 건강관리", "생활 루틴 유지", "체력 강화", "천천히 회복", "균형 유지"],
+"self": ["자기 책임감", "느리지만 꾸준한 의지", "내면의 끈기", "현실 수용", "확실한 실행"],
+"fortune": ["꾸준한 운", "안정적 발전", "결실을 위한 시간", "흐름 유지", "성장의 흐름"]
+},
+"message": {
+"love": "급진적인 변화보다는 조용하고 안정적인 관계로 이어지는 흐름입니다. 믿음이 중요합니다.",
+"career": "성실하게 맡은 바를 수행하면 확실한 성과로 이어질 수 있습니다.",
+"finance": "점진적으로 상승하는 흐름입니다. 실용적인 접근과 꾸준한 관리가 필요합니다.",
+"relationship": "깊지 않아 보여도 시간이 지나며 신뢰를 형성하는 유형입니다. 진심이 통합니다.",
+"path": "빠르진 않지만 단단하게 나아가는 시기입니다. 중단 없이 이어가는 것이 관건입니다.",
+"health": "꾸준한 루틴과 규칙적인 관리가 도움이 됩니다. 지금 하는 작은 노력이 미래를 좌우합니다.",
+"self": "당신은 지금 느리지만 분명한 방식으로 자신을 완성해가고 있습니다. 성실함이 당신의 무기입니다.",
+"fortune": "큰 기복 없이 꾸준한 발전이 예상됩니다. 기다림과 성실함이 복을 부릅니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 48,
+"name": "펜타클 퀸",
+"nickname": "양육",
+"score": {
+"love": 2,
+"career": 2,
+"finance": 3,
+"relationship": 2,
+"path": 2,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["따뜻한 배려", "가정적인 안정", "현실적인 사랑", "헌신", "믿음"],
+"career": ["현실적 선택", "조용한 리더십", "책임감", "조직의 안정화", "보살피는 역할"],
+"finance": ["재정 관리", "가계 운영", "실용적 소비", "금전적 여유", "자산 보호"],
+"relationship": ["보살핌", "신뢰 형성", "안정적인 관계", "정서적 지원", "책임 있는 태도"],
+"path": ["현실적 진로", "꾸준한 발전", "안정 기반 선택", "삶의 균형", "내실 있는 성장"],
+"health": ["생활 속 관리", "안정된 건강", "정서적 치유", "몸과 마음의 조화", "가정적 루틴"],
+"self": ["실용성", "자기 보호", "따뜻한 내면", "현실 감각", "성숙한 감정"],
+"fortune": ["안정된 운", "가정운 상승", "보호받는 흐름", "성장의 기운", "실속 있는 운세"]
+},
+"message": {
+"love": "헌신과 배려가 사랑을 깊게 만듭니다. 가정적이고 안정적인 관계가 잘 형성되는 시기입니다.",
+"career": "실용적이고 신뢰할 수 있는 모습으로 팀이나 조직에 기여할 수 있습니다.",
+"finance": "매우 안정적입니다. 알뜰하고 체계적인 관리로 재정적 여유가 생길 수 있습니다.",
+"relationship": "따뜻한 돌봄과 책임감 있는 태도가 중심이 됩니다. 신뢰를 쌓기에 좋은 흐름입니다.",
+"path": "현실적인 기반 위에서 성장합니다. 조급하지 않고 자신만의 페이스를 유지하세요.",
+"health": "잘 유지되고 있으며, 정서적 안정이 신체에도 좋은 영향을 미칩니다. 생활 루틴을 지켜보세요.",
+"self": "당신은 지금 내면의 따뜻함과 실용적 감각을 조화롭게 키워나가는 중입니다. 자신을 돌보는 데 집중하세요.",
+"fortune": "편안하고 안정적입니다. 실속을 챙기며 조용한 성장을 기대해도 좋습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 49,
+"name": "펜타클 킹",
+"nickname": "안정",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 3,
+"relationship": 2,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["신뢰할 수 있는 파트너", "안정된 관계", "현실적인 사랑", "책임감", "성숙한 감정"],
+"career": ["리더십", "관리 능력", "성공적 경영", "업무의 안정화", "현실적 판단"],
+"finance": ["물질적 풍요", "재정적 성공", "자산 관리", "투자 성과", "경제적 책임"],
+"relationship": ["신뢰 구축", "의지할 수 있는 존재", "성숙한 인간관계", "책임 있는 태도", "지도자 역할"],
+"path": ["목표 달성", "장기적 안목", "실용적 진로", "성숙한 결정", "안정 기반의 발전"],
+"health": ["균형 잡힌 체력", "지속 가능한 관리", "건강한 루틴", "생활의 규칙성", "정신적 안정"],
+"self": ["자기 확신", "내면의 안정", "현실 수용", "책임 있는 자아", "자기 통제"],
+"fortune": ["성공 운", "안정된 흐름", "보상의 시기", "실현 가능한 목표", "확실한 기회"]
+},
+"message": {
+"love": "신뢰와 책임감이 중심이 됩니다. 안정된 관계로 발전할 가능성이 높습니다.",
+"career": "현실적 판단력과 경영 감각이 성과로 이어지는 시기입니다.",
+"finance": "매우 좋습니다. 자산이 안정되고, 투자와 관리 능력이 빛을 발할 수 있습니다.",
+"relationship": "인간관계에서는 당신이 신뢰받는 중심 인물이 될 수 있습니다. 성숙한 태도가 조화를 이룹니다.",
+"path": "장기적 안목에서 계획하면 좋은 흐름입니다. 안정성과 실현 가능성을 중시하세요.",
+"health": "안정적으로 유지됩니다. 꾸준한 루틴과 식습관 관리가 좋은 결과를 가져옵니다.",
+"self": "당신은 지금 내면과 외부 모두에서 자신감과 안정감을 유지하고 있습니다. 신뢰할 수 있는 자기 자신입니다.",
+"fortune": "실현 가능성과 안정이 강하게 들어와 있습니다. 원하는 것을 현실로 만들 수 있는 시기입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 50,
+"name": "소드 A",
+"nickname": "결단",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 1,
+"relationship": 1,
+"path": 3,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["명확한 감정", "관계 정리", "진실된 표현", "갈등 해소", "결단의 순간"],
+"career": ["결단력", "통찰", "문제 해결", "아이디어 발현", "빠른 판단"],
+"finance": ["지출 구조 분석", "현실 직시", "결정적 판단", "금전 계획", "재정적 정리"],
+"relationship": ["정확한 커뮤니케이션", "관계 단절 or 강화", "진실을 마주함", "생산적 논쟁", "오해 해소"],
+"path": ["진로 명확화", "방향 설정", "두뇌 회전", "명확한 계획", "의사결정"],
+"health": ["정신적 각성", "건강 정보 파악", "치료 결단", "두통·스트레스", "심리적 정화"],
+"self": ["자기 인식", "진실 직면", "내면 통찰", "냉정함", "자기 단련"],
+"fortune": ["결정의 운", "진실의 순간", "상황 명확화", "판단의 힘", "새로운 전환"]
+},
+"message": {
+"love": "감정에 대한 명확한 인식이 중요합니다. 관계에 대한 결단이 필요한 시기일 수 있습니다.",
+"career": "문제 해결 능력과 판단력이 빛을 발합니다. 논리적인 접근이 성과를 이끌어냅니다.",
+"finance": "구조적인 점검이 필요한 시기입니다. 명확한 판단으로 금전 흐름을 재정비하세요.",
+"relationship": "인간관계에서는 오해를 푸는 소통이 핵심입니다. 갈등 상황에서는 진실이 중요한 기준이 됩니다.",
+"path": "매우 명확하게 나아갈 방향이 보입니다. 지금은 확실한 결정을 내릴 때입니다.",
+"health": "정신적 긴장감이 클 수 있지만, 문제의 원인을 인식하고 바로잡기 좋은 시기입니다.",
+"self": "당신은 지금 자기 인식을 통해 내면의 진실을 마주하고 있습니다. 단단한 의식이 필요합니다.",
+"fortune": "빠르게 전환될 수 있는 흐름입니다. 명확한 의사결정이 당신에게 유리하게 작용합니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 51,
+"name": "소드 2",
+"nickname": "갈등",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 0,
+"relationship": 0,
+"path": 1,
+"health": 0,
+"self": 1,
+"fortune": 0
+},
+"keyword": {
+"love": ["선택의 기로", "감정 억제", "관계의 침묵", "결정 회피", "혼란스러운 감정"],
+"career": ["중립적 입장", "판단 보류", "갈등 상황", "결정을 위한 정보 부족", "이성적 균형"],
+"finance": ["소비와 저축 사이", "금전 흐름 정체", "결정 유보", "리스크 회피", "정보 부족"],
+"relationship": ["침묵", "서로 다른 입장", "대화 단절", "관계의 정체", "감정의 눌림"],
+"path": ["진로 혼란", "선택 미루기", "내적 갈등", "방향성 부재", "혼란 속 침묵"],
+"health": ["심리적 갈등", "감정 억눌림", "신체보다 정신의 문제", "스트레스 누적", "명확한 진단 필요"],
+"self": ["내면의 균형", "혼란스러운 마음", "감정 회피", "선택의 어려움", "자기 보호"],
+"fortune": ["정체된 운", "판단 유보", "움직이기 어려운 흐름", "갈등 상황", "타협 필요"]
+},
+"message": {
+"love": "감정이 억제되거나 표현되지 않는 상태일 수 있습니다. 결정을 내리기엔 시기상조일 수 있습니다.",
+"career": "결정을 내리기보다는 정보를 더 수집하고 관망하는 자세가 필요합니다.",
+"finance": "불확실성이 클 수 있으며, 신중한 태도가 필요합니다. 움직이기보다 상황을 더 지켜보세요.",
+"relationship": "대화 단절이나 감정의 억제가 있을 수 있습니다. 진심을 표현하기 어려운 시기입니다.",
+"path": "결정을 내리기 어려운 흐름입니다. 확신이 생길 때까지 기다려도 괜찮습니다.",
+"health": "감정보다 이성이 우위에 있는 상태로, 스트레스나 심리적 갈등을 먼저 해소하는 게 필요합니다.",
+"self": "당신은 지금 내면의 균형을 맞추기 위해 감정을 눌러두고 있을 수 있습니다. 자신을 정직하게 마주하세요.",
+"fortune": "정체되어 있습니다. 무리하게 선택하기보다 상황을 분석하고 준비하는 시기로 삼는 것이 좋습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 52,
+"name": "소드 3",
+"nickname": "상처",
+"score": {
+"love": -2,
+"career": -1,
+"finance": -1,
+"relationship": -2,
+"path": -1,
+"health": -1,
+"self": 0,
+"fortune": -1
+},
+"keyword": {
+"love": ["이별", "실연", "감정적 상처", "오해와 갈등", "정리의 필요성"],
+"career": ["실망", "실패", "좌절의 경험", "비판", "예상 밖의 결과"],
+"finance": ["손해", "지출 증가", "금전적 실망", "계획 어긋남", "불안정한 수입"],
+"relationship": ["갈등", "상처 주고받음", "이별", "배신감", "고립감"],
+"path": ["목표 좌절", "진로 혼란", "계획 실패", "통찰의 시간", "정신적 성장의 기회"],
+"health": ["심리적 통증", "스트레스", "심장 관련 문제", "회복 필요", "정서적 위기"],
+"self": ["감정의 정화", "고통 속 성장", "자기 이해", "마음 치유의 시작", "통찰"],
+"fortune": ["하강의 흐름", "시련의 시기", "정리와 결단", "회복 전 고통", "진실의 마주침"]
+},
+"message": {
+"love": "상처나 이별의 가능성이 있습니다. 감정을 마주하고 정리할 필요가 있는 시기입니다.",
+"career": "실망스러운 일이 생길 수 있습니다. 이 경험은 당신을 단단하게 만들 수 있습니다.",
+"finance": "손실이나 예기치 못한 지출이 생길 수 있습니다. 계획을 재정비하는 것이 필요합니다.",
+"relationship": "인간관계에서는 상처받는 일이 생기기 쉽습니다. 관계를 돌아보고 필요한 정리를 고려하세요.",
+"path": "좌절이나 혼란이 있을 수 있지만, 이 경험이 더 깊은 통찰로 이어질 수 있습니다.",
+"health": "감정적인 스트레스가 신체에 영향을 줄 수 있습니다. 심리적 회복에 집중하세요.",
+"self": "당신은 지금 상처를 통해 자신을 더 깊이 이해하고 있습니다. 회복은 시작되었습니다.",
+"fortune": "하강하는 흐름 속에 있지만, 고통 뒤엔 반드시 회복이 찾아옵니다. 정화의 시기입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 53,
+"name": "소드 4",
+"nickname": "휴식",
+"score": {
+"love": 0,
+"career": 1,
+"finance": 0,
+"relationship": 0,
+"path": 1,
+"health": 2,
+"self": 2,
+"fortune": 0
+},
+"keyword": {
+"love": ["감정 정리", "거리두기", "평온한 감정", "관계 속 휴식", "재충전의 시간"],
+"career": ["일시적 정체", "업무 속 휴식", "에너지 회복", "내부 정비", "심사숙고"],
+"finance": ["소비 절제", "재정 점검", "위험 회피", "재정 정비", "금전 흐름 보류"],
+"relationship": ["거리를 둔 관계", "감정적 안정", "자기 공간 확보", "관계 속 냉각기", "갈등 회피"],
+"path": ["방향 재정비", "속도 조절", "휴식 통한 통찰", "결정을 위한 멈춤", "내적 준비"],
+"health": ["정신적 안정", "치유", "수면과 회복", "스트레스 완화", "휴식이 필요한 때"],
+"self": ["내면 치유", "에너지 충전", "고요한 성찰", "자기 보호", "심신 회복"],
+"fortune": ["정체된 흐름", "속도를 늦춰야 할 때", "잠시 멈춤", "재정비의 시기", "움직임보다 회복"]
+},
+"message": {
+"love": "당장의 움직임보다 감정을 정리하고 쉬어가는 시간이 필요한 시기입니다.",
+"career": "속도를 늦추고 에너지를 회복하는 것이 우선입니다. 재정비가 성과를 부를 수 있습니다.",
+"finance": "정체되어 있으나 무리한 움직임보다 지출을 절제하고 흐름을 점검하는 게 유리합니다.",
+"relationship": "당분간 거리를 두는 것이 좋을 수 있습니다. 감정을 가라앉히고 재정비하세요.",
+"path": "방향을 재정비하는 시기로, 조용히 준비하고 성찰하는 시간이 필요합니다.",
+"health": "회복과 안정이 중심입니다. 지금은 무리하지 말고 휴식을 통해 체력을 회복하세요.",
+"self": "당신은 지금 내면의 회복을 위한 시간을 갖고 있습니다. 휴식은 당신에게 꼭 필요한 에너지입니다.",
+"fortune": "크게 움직이지 않지만, 멈춤을 통해 큰 전환의 기반을 만들 수 있습니다. 지금은 쉬어야 할 때입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 54,
+"name": "소드 5",
+"nickname": "충돌",
+"score": {
+"love": -2,
+"career": -1,
+"finance": -1,
+"relationship": -2,
+"path": -1,
+"health": -1,
+"self": 0,
+"fortune": -1
+},
+"keyword": {
+"love": ["이기적인 행동", "감정 싸움", "상처 주는 말", "신뢰 손상", "갈등의 반복"],
+"career": ["경쟁 과열", "비생산적 논쟁", "갈등 유발", "동료와의 대립", "협업 실패"],
+"finance": ["금전 분쟁", "손실 유발", "불필요한 경쟁", "탐욕", "리스크 확대"],
+"relationship": ["말다툼", "자존심 충돌", "냉소적 태도", "신뢰 붕괴", "소모적인 관계"],
+"path": ["잘못된 선택", "혼란 속 경쟁", "피해를 남기는 결정", "욕심 과다", "방향성 혼선"],
+"health": ["스트레스 누적", "정신적 과로", "감정 폭발", "신경 예민", "심리적 충돌"],
+"self": ["자기 방어", "후회와 성찰", "승리에 대한 허탈감", "감정 조절 필요", "내면의 균형 흔들림"],
+"fortune": ["불안정한 흐름", "분쟁 조짐", "자초한 결과", "운의 소모", "균형 회복 필요"]
+},
+"message": {
+"love": "말이나 행동으로 인해 상처를 주거나 받기 쉬운 시기입니다. 감정 조절이 필요합니다.",
+"career": "불필요한 경쟁이나 갈등이 상황을 악화시킬 수 있으니 신중한 태도가 필요합니다.",
+"finance": "손실 가능성이 높습니다. 무리한 투자는 피하고, 갈등 요소를 점검해야 합니다.",
+"relationship": "인간관계에서는 충돌과 말다툼으로 신뢰가 깨질 수 있습니다. 관계를 지키고 싶다면 침묵이 필요할 수도 있습니다.",
+"path": "진로 / 학업에서의 지나친 경쟁심이나 무리한 결정은 결과적으로 자신에게 불리할 수 있습니다.",
+"health": "스트레스나 감정 폭발로 인한 정신적 피로가 쌓이기 쉬운 시기입니다. 휴식과 심리적 안정이 필요합니다.",
+"self": "당신은 지금 감정의 중심을 잡기 어려운 상황에 있을 수 있습니다. 후회보다는 성찰이 더 필요합니다.",
+"fortune": "불안정하며, 억지로 무언가를 얻으려 하기보다는 상황을 조용히 관망하는 것이 좋습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 55,
+"name": "소드 6",
+"nickname": "이동",
+"score": {
+"love": 1,
+"career": 1,
+"finance": 1,
+"relationship": 1,
+"path": 2,
+"health": 2,
+"self": 1,
+"fortune": 1
+},
+"keyword": {
+"love": ["거리두기", "감정적 정리", "새로운 시작", "평화로운 변화", "과거에서 벗어남"],
+"career": ["이직", "업무 이동", "상황 전환", "변화 수용", "새로운 국면"],
+"finance": ["지출 구조 변화", "금전 회복", "재정적 방향 전환", "새로운 수입 흐름", "리스크에서 이탈"],
+"relationship": ["관계 정리", "소외 극복", "평화의 회복", "이해의 진전", "감정 정화"],
+"path": ["새로운 여정", "과거에서 벗어남", "방향 수정", "심리적 전환", "안정 추구"],
+"health": ["정신적 치유", "회복기", "긴장 해소", "몸과 마음의 회복", "건강한 이동"],
+"self": ["과거 정리", "감정 전환", "치유적 거리두기", "자기 정비", "내면 정화"],
+"fortune": ["전환의 흐름", "변화의 시작", "부드러운 이동", "회복세", "새로운 기회"]
+},
+"message": {
+"love": "감정을 정리하고 새로운 평화를 추구할 수 있는 흐름입니다. 이전 관계를 떠나거나 마음의 거리두기가 필요할 수 있습니다.",
+"career": "업무 이동이나 이직의 기운이 있습니다. 새로운 국면으로 넘어가는 시기입니다.",
+"finance": "점차 회복세에 들어섭니다. 기존의 문제에서 벗어나 재정 방향을 수정할 수 있습니다.",
+"relationship": "인간관계에서는 갈등을 뒤로하고 평화를 향해 나아가는 에너지가 강합니다. 정리와 이해가 동반됩니다.",
+"path": "방향을 수정하거나 새로운 여정을 준비하기 좋은 시기입니다. 과거에서 벗어나는 흐름입니다.",
+"health": "회복의 흐름에 있습니다. 무리하지 말고 자연스럽게 치유해 나가세요.",
+"self": "당신은 지금 심리적으로 회복 중에 있으며, 내면의 평화를 향해 조용히 나아가는 단계에 있습니다.",
+"fortune": "전환기를 맞고 있습니다. 과거의 문제를 넘어서며 새롭게 시작할 수 있는 에너지가 작용 중입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 56,
+"name": "소드 7",
+"nickname": "기회주의",
+"score": {
+"love": -1,
+"career": 0,
+"finance": -1,
+"relationship": -2,
+"path": 0,
+"health": 0,
+"self": 0,
+"fortune": 0
+},
+"keyword": {
+"love": ["감정 숨김", "불확실한 관계", "회피", "솔직하지 못함", "이중적인 태도"],
+"career": ["전략적 움직임", "조용한 추진", "정면 돌파 회피", "비공식 루트", "기밀 유지"],
+"finance": ["숨겨진 비용", "금전적 계산", "불투명한 계약", "리스크 은폐", "기회 활용"],
+"relationship": ["불신", "속임", "회피", "거짓말", "신뢰의 위기"],
+"path": ["간접적 해결", "회피적 태도", "직면하지 않는 선택", "우회적 접근", "기회 노림"],
+"health": ["자기 몸 무시", "은근한 스트레스", "건강 정보 은폐", "불안 속 무대응", "자기 속이기"],
+"self": ["회피적 사고", "자기 합리화", "양심의 갈등", "비밀스러운 감정", "책임 회피"],
+"fortune": ["불확실한 운", "감춰진 요소", "의심의 기운", "겉과 속의 차이", "정면 돌파는 불리"]
+},
+"message": {
+"love": "감정을 숨기거나 정직하지 못한 흐름이 있을 수 있습니다. 신뢰 회복이 필요합니다.",
+"career": "전략적 접근이 필요하긴 하지만, 지나치면 불신을 초래할 수 있습니다.",
+"finance": "숨겨진 리스크나 불투명한 거래에 주의하세요. 신중한 판단이 필요합니다.",
+"relationship": "인간관계에서는 거짓이나 회피가 문제를 악화시킬 수 있습니다. 신뢰가 깨지기 쉬운 시기입니다.",
+"path": "정면으로 부딪히기보다는 우회하거나 전략적으로 접근하는 편이 유리할 수 있습니다.",
+"health": "겉보기보다 내면의 피로가 쌓여 있을 수 있습니다. 무시하지 말고 관리하세요.",
+"self": "당신은 지금 감정이나 상황을 회피하려는 경향이 있을 수 있습니다. 자기 솔직함이 회복의 첫 걸음입니다.",
+"fortune": "겉보기보다 복잡한 흐름입니다. 단순하게 받아들이지 말고 한 걸음 더 들여다보는 것이 좋습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 57,
+"name": "소드 8",
+"nickname": "제약",
+"score": {
+"love": -2,
+"career": -1,
+"finance": -1,
+"relationship": -1,
+"path": -2,
+"health": -1,
+"self": -2,
+"fortune": -1
+},
+"keyword": {
+"love": ["감정 억압", "진전 없음", "불안한 관계", "소통 단절", "벗어나기 힘든 상황"],
+"career": ["업무 스트레스", "제한된 환경", "자유 없음", "답답한 구조", "이직 고민"],
+"finance": ["금전 문제 얽힘", "빚", "재정적 제약", "결정 불가", "통제 불능"],
+"relationship": ["답답한 관계", "감정의 감금", "소통의 단절", "의존적 관계", "스트레스 유발"],
+"path": ["방향성 상실", "두려움에 의한 정체", "행동 불능", "진로 제한", "혼란스러운 상태"],
+"health": ["신체·정신의 위축", "불안", "움직이지 못함", "심리적 고립", "억눌림"],
+"self": ["자기 부정", "두려움", "마음의 속박", "스스로 만든 감옥", "내면 불안"],
+"fortune": ["정체", "갇힌 운", "희망 없음처럼 보임", "현실 탈출 어려움", "무력한 흐름"]
+},
+"message": {
+"love": "억눌린 감정과 불안이 관계를 어렵게 만들 수 있습니다. 소통과 용기가 필요합니다.",
+"career": "답답한 환경이나 구조 속에 얽혀 있을 수 있습니다. 사고의 전환이 필요합니다.",
+"finance": "제약이 크고 결정이 어려운 상황일 수 있습니다. 조심스럽게 접근해야 합니다.",
+"relationship": "억눌림과 소통 단절이 있는 시기입니다. 거리두기와 자기 보호가 필요합니다.",
+"path": "두려움이나 혼란으로 방향을 잡기 어려울 수 있습니다. 외부의 시선보다 내면의 소리에 귀 기울이세요.",
+"health": "정신적 억눌림이나 고립감이 영향을 미칠 수 있습니다. 내면의 안정이 우선입니다.",
+"self": "당신은 지금 자신을 속박하고 있는 생각에 사로잡혀 있을 수 있습니다. 벗어날 수 있는 힘은 이미 당신 안에 있습니다.",
+"fortune": "정체되어 있지만, 지금은 빠져나오려 하기보다 내면을 정리하는 시기로 삼는 것이 좋습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 58,
+"name": "소드 9",
+"nickname": "불안",
+"score": {
+"love": -2,
+"career": -2,
+"finance": -2,
+"relationship": -2,
+"path": -2,
+"health": -2,
+"self": -3,
+"fortune": -2
+},
+"keyword": {
+"love": ["이별 걱정", "혼자만의 고민", "신뢰 부족", "감정 불안정", "후회"],
+"career": ["실수에 대한 불안", "과도한 스트레스", "불면", "업무 압박", "심리적 부담"],
+"finance": ["금전 걱정", "재정 불안정", "경제적 스트레스", "지출 압박", "미래에 대한 두려움"],
+"relationship": ["불신", "후회", "관계 후폭풍", "말하지 못한 감정", "내면의 고통"],
+"path": ["방향성에 대한 불안", "후회되는 선택", "진로 스트레스", "결정의 압박", "심리적 혼란"],
+"health": ["불면증", "스트레스", "심리 질환", "신경 쇠약", "과도한 걱정"],
+"self": ["자책", "죄책감", "내면의 고통", "불안장애", "감정 폭주"],
+"fortune": ["하강 흐름", "걱정 많은 시기", "운의 정체", "의욕 상실", "혼란의 국면"]
+},
+"message": {
+"love": "지나친 걱정과 불안이 관계에 부정적인 영향을 미칠 수 있습니다. 스스로를 믿어야 할 때입니다.",
+"career": "과도한 스트레스와 압박으로 인해 집중이 어려울 수 있습니다. 휴식이 필요합니다.",
+"finance": "불안정하며, 미래에 대한 걱정이 커질 수 있습니다. 실질보다 감정이 앞설 수 있으니 침착하게 대응하세요.",
+"relationship": "후회나 말 못한 감정이 내면을 괴롭힐 수 있습니다. 감정을 정리할 시간이 필요합니다.",
+"path": "방향성에 대한 불안이 클 수 있습니다. 단기적 실수에 너무 얽매이지 마세요.",
+"health": "스트레스성 불면이나 심리적 질환에 주의해야 합니다. 충분한 휴식과 정서적 안정이 필요합니다.",
+"self": "당신은 지금 스스로를 너무 몰아붙이고 있을 수 있습니다. 감정의 중심을 되찾아야 할 시기입니다.",
+"fortune": "불안정하고 감정적 흐름에 영향을 받습니다. 잠시 멈추고 감정을 다스리는 데 집중해보세요."
+},
+"type": "minor"
+},
+{
+"cardNo": 59,
+"name": "소드 10",
+"nickname": "종말",
+"score": {
+"love": -3,
+"career": -2,
+"finance": -2,
+"relationship": -3,
+"path": -2,
+"health": -2,
+"self": -2,
+"fortune": -2
+},
+"keyword": {
+"love": ["이별", "끝난 관계", "회복 불가", "감정적 몰락", "정리의 시점"],
+"career": ["해고", "프로젝트 종료", "실패 수용", "의욕 상실", "종료 선언"],
+"finance": ["금전 손실", "투자 실패", "회생 어려움", "부채 증가", "통제 불가"],
+"relationship": ["배신", "파탄", "돌아올 수 없는 지점", "완전한 단절", "상처의 극단"],
+"path": ["목표 포기", "방향성 상실", "완전한 전환 필요", "무기력", "재시작의 필요"],
+"health": ["극도의 피로", "심리·신체적 한계", "탈진", "통증", "완전한 휴식 필요"],
+"self": ["자기 붕괴", "극심한 자책", "정체감 상실", "내면 상처의 정점", "심리적 붕괴"],
+"fortune": ["하락세", "운의 바닥", "정리의 시기", "새 출발 전 정리", "운명의 전환점"]
+},
+"message": {
+"love": "끝맺음의 에너지가 강하게 작용합니다. 관계를 놓는 것이 치유의 첫걸음일 수 있습니다.",
+"career": "어떤 흐름의 종료가 있을 수 있습니다. 지금은 마무리와 정리가 필요한 시점입니다.",
+"finance": "손실 가능성이 크며, 무리한 회복보다는 손실을 인정하고 전략을 재정비해야 합니다.",
+"relationship": "인간관계에서는 관계가 끝나거나 완전히 단절되는 에너지가 있습니다. 새로운 관계를 위한 공간이 열릴 수 있습니다.",
+"path": "기존 방향을 내려놓고 완전히 새로운 길을 모색해야 할 수 있습니다.",
+"health": "한계에 도달한 상태일 수 있습니다. 반드시 쉬고 회복에 집중해야 합니다.",
+"self": "당신은 지금 가장 깊은 내면의 상처를 마주하고 있습니다. 이제는 치유와 회복을 향한 움직임이 필요합니다.",
+"fortune": "바닥을 치고 있는 시기일 수 있지만, 모든 끝은 새로운 시작의 출발점이기도 합니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 60,
+"name": "페이지 오브 소드",
+"nickname": "탐색",
+"score": {
+"love": 1,
+"career": 2,
+"finance": 1,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["관찰", "감정 탐색", "신중한 접근", "의심", "소통의 시작"],
+"career": ["정보 수집", "빠른 대응", "기민함", "말과 글의 기술", "탐색적 태도"],
+"finance": ["지출 분석", "계획적 소비", "경제 정보 탐색", "지식 기반 결정", "금전 흐름 관찰"],
+"relationship": ["예민한 감정", "경계심", "상대의 반응 파악", "조심스러운 대화", "상호 탐색"],
+"path": ["탐색의 단계", "학습 태도", "지적 성장", "기초 다지기", "시작을 위한 정보 수집"],
+"health": ["건강 관련 정보 탐색", "예방 중심", "자기 인식", "의심되는 증상 체크", "정신적 민감도"],
+"self": ["자기 성찰", "지식 갈망", "호기심", "관찰자 시선", "내면 탐색"],
+"fortune": ["가능성 탐색", "신중한 흐름", "관찰 후 행동", "예민함이 행운의 열쇠", "정보가 운을 바꾼다"]
+},
+"message": {
+"love": "감정이 아직 명확하지 않을 수 있으며, 신중하게 탐색하는 시기입니다. 급하게 결정하지 마세요.",
+"career": "정보 수집과 말의 힘이 중요한 시기입니다. 빠르게 배우고 적응할 수 있습니다.",
+"finance": "아직 실질적인 변화보다는 준비와 분석이 필요한 단계입니다. 공부가 힘이 됩니다.",
+"relationship": "인간관계에서는 예민한 반응을 감지하며 관계를 조심스럽게 조율하는 모습이 필요합니다.",
+"path": "배움의 초입에 있으며, 다양한 가능성을 탐색하는 단계입니다. 더 많은 정보를 모아보세요.",
+"health": "민감한 변화에 주의해야 하며, 예방적인 태도가 도움이 됩니다.",
+"self": "당신은 지금 내면과 외부 세계를 탐색하며 자신에 대한 인식을 넓히고 있습니다.",
+"fortune": "빠른 변동보다는 관찰과 준비가 중요한 흐름입니다. 정보를 잘 다루는 것이 복이 됩니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 61,
+"name": "나이트 오브 소드",
+"nickname": "돌진",
+"score": {
+"love": 0,
+"career": 2,
+"finance": 1,
+"relationship": 0,
+"path": 2,
+"health": -1,
+"self": 1,
+"fortune": 1
+},
+"keyword": {
+"love": ["직설적 태도", "성급한 고백", "감정보다 행동", "논쟁 유발", "상대보다 앞섬"],
+"career": ["목표 돌진", "빠른 추진", "논리적 설득", "결정력", "두려움 없는 실행"],
+"finance": ["과감한 지출", "빠른 투자 판단", "수익보다 속도 중시", "리스크 감수", "단기 중심"],
+"relationship": ["말이 앞서는 상황", "설득 시도", "냉정함 부족", "지적 논쟁", "속도 차이"],
+"path": ["목표 중심", "직진 본능", "기회 포착", "빠른 결정", "장기 계획 미흡"],
+"health": ["과로", "스트레스성 질환", "휴식 부족", "속도의 부작용", "주의력 저하"],
+"self": ["의지력", "사고의 속도", "강한 집중", "무모함", "자기 주장 강화"],
+"fortune": ["빠른 전개", "돌진의 흐름", "한 방향 기운", "속도의 행운", "위험 감수"]
+},
+"message": {
+"love": "감정보다는 행동이 앞설 수 있습니다. 서두르지 말고 상대의 페이스를 살펴보세요.",
+"career": "당신의 빠른 판단과 실행력이 두각을 나타낼 시기입니다. 그러나 무리한 속도는 주의하세요.",
+"finance": "과감한 결단으로 기회를 잡을 수 있지만, 리스크 관리가 필요합니다.",
+"relationship": "인간관계에서는 말이나 태도가 날카롭게 비칠 수 있습니다. 속도보다는 공감이 중요합니다.",
+"path": "목표를 향해 빠르게 돌진하는 기세가 있습니다. 방향이 맞는지만 점검하세요.",
+"health": "속도에 의한 소진에 주의해야 합니다. 몸이 보내는 신호를 무시하지 마세요.",
+"self": "당신은 지금 강한 의지와 집중력으로 상황을 돌파하려는 힘이 있습니다. 단, 주변을 놓치지 마세요.",
+"fortune": "속도감 있게 전개될 수 있습니다. 너무 앞서가지 않도록 중심을 잡는 것이 관건입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 62,
+"name": "퀸 오브 소드",
+"nickname": "통찰",
+"score": {
+"love": 0,
+"career": 2,
+"finance": 2,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["이성적 판단", "감정 절제", "직설적인 표현", "진지한 대화", "독립적인 태도"],
+"career": ["논리적 사고", "명확한 커뮤니케이션", "리더십", "결단력", "통찰력"],
+"finance": ["현실적 판단", "합리적 지출", "재정 통제", "냉정한 투자", "계획적 소비"],
+"relationship": ["솔직한 관계", "거리두기", "명확한 경계", "진실된 소통", "정리 정돈된 관계"],
+"path": ["분석적 사고", "지적 통찰", "명료한 목표 설정", "감정 배제", "실용적 판단"],
+"health": ["정신적 명료함", "감정 기복 조절", "스트레스 통제", "자기 관리", "이성적 대응"],
+"self": ["감정의 절제", "자기통찰", "현실 인식", "명확한 자기표현", "지적 성숙"],
+"fortune": ["이성적 흐름", "분석이 복이 되는 시기", "냉정함이 행운", "감정보다 판단 중심", "논리적 운세"]
+},
+"message": {
+"love": "감정보다는 이성과 진실된 소통이 필요한 시기입니다. 직설적인 표현이 오히려 관계에 도움이 될 수 있습니다.",
+"career": "당신의 논리력과 명확한 커뮤니케이션이 좋은 평가를 이끌어낼 수 있습니다.",
+"finance": "감정적 소비보다는 냉철한 판단으로 재정을 안정시킬 수 있는 시기입니다.",
+"relationship": "솔직함과 명확한 기준을 세우는 것이 중요합니다. 불필요한 감정 낭비는 피하세요.",
+"path": "객관적이고 분석적인 접근이 유리합니다. 방향성을 분명히 할 수 있습니다.",
+"health": "감정 기복을 이성적으로 조절하면서 안정감을 유지할 수 있는 시기입니다.",
+"self": "당신은 지금 스스로를 객관적으로 바라볼 수 있는 힘을 갖고 있습니다. 자신의 진실을 외면하지 마세요.",
+"fortune": "명료한 사고와 현실적인 대응이 복이 되는 흐름입니다. 이성의 힘을 믿어보세요."
+},
+"type": "minor"
+},
+{
+"cardNo": 63,
+"name": "킹 오브 소드",
+"nickname": "판단",
+"score": {
+"love": 0,
+"career": 3,
+"finance": 2,
+"relationship": 1,
+"path": 2,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["감정 절제", "객관적 접근", "단호한 태도", "신중한 관계", "거리감 유지"],
+"career": ["리더십", "공정한 판단", "규율 중심", "전략적 사고", "분석 중심"],
+"finance": ["현명한 투자", "금융 지식 활용", "정확한 계산", "합리적 소비", "장기 계획"],
+"relationship": ["객관성", "질서 있는 관계", "의견 조율", "감정보다 논리 우선", "단호한 태도"],
+"path": ["분석적 결정", "강한 기준", "현실 기반 목표", "이성적 추진", "결단력"],
+"health": ["자기 통제력", "생활 습관 조절", "심리적 절제", "건강 정보 분석", "균형 유지"],
+"self": ["내면의 리더", "논리적 사고", "정체성 확립", "통찰력 있는 판단", "이성 중심 자기표현"],
+"fortune": ["명확한 운의 흐름", "공정함이 운을 이끎", "질서와 판단의 힘", "이성적 선택이 복", "통제된 기회"]
+},
+"message": {
+"love": "감정보다는 이성적 판단이 우선되는 시기입니다. 신중하고 솔직한 태도가 중요합니다.",
+"career": "리더십과 공정한 판단력이 두각을 나타냅니다. 타인에게 영향력을 줄 수 있는 시기입니다.",
+"finance": "명확한 판단과 분석을 바탕으로 한 장기적인 전략이 유리합니다.",
+"relationship": "질서와 규율 속에서 유지되는 경향이 있습니다. 감정보다는 원칙이 앞설 수 있습니다.",
+"path": "목표를 명확히 하고 이성적인 계획을 세워야 할 때입니다.",
+"health": "자기 통제와 규칙적인 습관이 유지될수록 안정적일 수 있습니다.",
+"self": "당신은 지금 내면의 기준을 세우고, 그것에 따라 외부 세계를 판단하고 행동하려 하고 있습니다.",
+"fortune": "질서정연하게 움직이며, 냉철한 판단이 좋은 결과를 이끄는 시기입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 64,
+"name": "컵 A",
+"nickname": "감정의 시작",
+"score": {
+"love": 3,
+"career": 1,
+"finance": 1,
+"relationship": 2,
+"path": 1,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["새로운 사랑", "감정 표현", "두근거림", "감정의 개방", "진심 어린 교류"],
+"career": ["감정적 만족", "열정 기반 시작", "창의적 영감", "협력적 분위기", "마음이 따르는 일"],
+"finance": ["감정이 동반된 소비", "선물", "금전적 여유 시작", "재정적 안도감", "풍요의 예감"],
+"relationship": ["감정적 교류", "정서적 연결", "신뢰의 출발", "친밀감", "마음의 유대"],
+"path": ["감정이 끌리는 방향", "직관 따르기", "자기 감정 수용", "감성적 동기 부여", "내면의 부름"],
+"health": ["감정 회복", "정서적 치유", "스트레스 해소", "기분 상승", "마음의 안정"],
+"self": ["감정 수용", "감성 회복", "마음의 열림", "사랑받을 자격 인식", "자기 연민"],
+"fortune": ["긍정적 감정 흐름", "좋은 소식", "마음이 따뜻해지는 시기", "운이 열림", "감정적 충만"]
+},
+"message": {
+"love": "새로운 사랑이나 감정의 시작이 일어날 수 있습니다. 마음이 자연스럽게 열리는 시기입니다.",
+"career": "감정을 수용하며 즐겁게 일할 수 있는 기회가 생깁니다. 감성적 만족이 중요한 시기입니다.",
+"finance": "여유로워지거나 감정이 동반된 지출이 많아질 수 있습니다. 무리는 피하되 따뜻함이 중심이 됩니다.",
+"relationship": "감정의 소통이 원활해지고, 마음을 열수록 관계가 깊어지는 흐름입니다.",
+"path": "감정이 이끄는 방향을 따르는 것이 좋습니다. 마음이 편안한 길이 옳은 길일 수 있습니다.",
+"health": "정서적인 안정과 회복을 중심으로 좋아질 수 있습니다. 감정의 정화가 이루어지는 시기입니다.",
+"self": "당신은 지금 자신을 감정적으로 더 깊이 이해하고 수용하고자 하는 흐름 속에 있습니다.",
+"fortune": "긍정적인 감정의 흐름과 함께 열리고 있습니다. 마음이 따뜻할수록 좋은 운이 들어옵니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 65,
+"name": "컵 2",
+"nickname": "조화",
+"score": {
+"love": 3,
+"career": 1,
+"finance": 1,
+"relationship": 3,
+"path": 1,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["상호 감정", "연인 관계", "진실된 연결", "감정 교류", "화합"],
+"career": ["파트너십", "협력", "신뢰 기반 업무", "감정적 소통", "계약의 시작"],
+"finance": ["공동 투자", "협력 기반 수익", "재정적 동맹", "서로 돕는 소비", "감정적 풍요"],
+"relationship": ["우정", "신뢰", "마음의 소통", "정서적 유대", "긍정적 관계 형성"],
+"path": ["공감의 진로", "협업 중심 선택", "인간적 연결", "감성 기반 목표", "같이 걷는 길"],
+"health": ["감정 안정", "정서 회복", "친밀함을 통한 치유", "심리적 건강", "공감적 지지"],
+"self": ["내면의 균형", "자기 수용", "감정의 이해", "자신과의 화해", "감정의 조율"],
+"fortune": ["긍정적 연결", "좋은 인연", "운의 조화", "행운의 만남", "감정으로 이어지는 기회"]
+},
+"message": {
+"love": "깊은 감정의 교류와 진심 어린 연결이 나타납니다. 관계의 조화가 이루어지는 시기입니다.",
+"career": "협력과 파트너십이 중요한 역할을 합니다. 신뢰를 바탕으로 한 공동 작업이 성과로 이어질 수 있습니다.",
+"finance": "감정적 유대에서 비롯된 도움이나 협력으로 안정될 수 있습니다.",
+"relationship": "서로를 이해하고 공감할 수 있는 좋은 흐름입니다. 우정과 신뢰가 강화됩니다.",
+"path": "나 혼자가 아닌 타인과의 연결 속에서 방향이 보일 수 있습니다. 함께하는 힘을 믿어보세요.",
+"health": "정서적 지지를 받을 수 있는 시기입니다. 심리적 균형이 몸에도 긍정적 영향을 줍니다.",
+"self": "당신은 지금 자신과의 관계를 회복하고 내면의 균형을 찾고 있습니다. 감정의 조화가 중요한 시기입니다.",
+"fortune": "사람과의 연결을 통해 긍정적으로 흐를 수 있습니다. 좋은 인연이 행운을 부릅니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 66,
+"name": "컵 3",
+"nickname": "축하",
+"score": {
+"love": 2,
+"career": 1,
+"finance": 1,
+"relationship": 3,
+"path": 1,
+"health": 2,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["즐거운 만남", "가벼운 연애", "함께하는 기쁨", "감정 나눔", "긍정적 관계"],
+"career": ["성과 축하", "팀워크", "소통 강화", "협업의 결실", "즐거운 분위기"],
+"finance": ["소소한 풍요", "감정 기반 소비", "축하를 위한 지출", "기분 좋은 선물", "소득 공유"],
+"relationship": ["우정", "모임", "유대감", "감정 교류", "공동의 행복"],
+"path": ["사람들과 함께하는 방향", "커뮤니티 속 성장", "감정을 공유하는 길", "연대의 힘", "즐거움을 추구하는 진로"],
+"health": ["정신적 활력", "기분 상승", "즐거운 생활", "스트레스 해소", "긍정적 감정 영향"],
+"self": ["자기 수용", "기쁨의 표현", "긍정적 자존감", "감정 해방", "내면의 즐거움"],
+"fortune": ["기쁨이 흐르는 운", "즐거운 소식", "사람들과의 좋은 인연", "행복한 에너지", "축하할 일"]
+},
+"message": {
+"love": "즐겁고 가벼운 감정 교류가 이루어질 수 있습니다. 기쁨을 나누는 시간이 될 수 있습니다.",
+"career": "좋은 결과나 협업의 성공을 함께 축하하는 분위기가 형성됩니다.",
+"finance": "소소하지만 기쁜 지출이 많아지는 시기입니다. 즐거움을 위해 쓰는 돈이 운을 돕습니다.",
+"relationship": "우정과 소속감을 중심으로 활발하게 이어집니다. 함께하는 시간이 치유가 됩니다.",
+"path": "감정을 나누며 협력하는 방향이 좋습니다. 사람들과의 연결이 힘이 됩니다.",
+"health": "기분 좋은 자극과 즐거운 활동으로 회복되고 강화됩니다. 긍정적 정서가 건강에 영향을 줍니다.",
+"self": "당신은 지금 기쁨을 나누고 표현할 수 있는 상태입니다. 내면의 긍정 에너지가 올라오고 있습니다.",
+"fortune": "축하와 기쁨의 흐름을 타고 있으며, 함께하는 사람이 많을수록 운도 강해집니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 67,
+"name": "컵 4",
+"nickname": "무기력",
+"score": {
+"love": -1,
+"career": -1,
+"finance": 0,
+"relationship": -1,
+"path": -1,
+"health": -1,
+"self": -1,
+"fortune": 0
+},
+"keyword": {
+"love": ["감정적 거리감", "권태기", "무관심", "마음의 닫힘", "흥미 상실"],
+"career": ["동기 저하", "일상의 반복", "기회 인식 부족", "만족감 부족", "자극 없음"],
+"finance": ["소극적 소비", "기회 무시", "현 상태 유지", "금전적 무반응", "잠재된 가능성"],
+"relationship": ["감정 단절", "거리두기", "흥미 부족", "관계 유지의 무게", "소통 부재"],
+"path": ["방향성 상실", "의욕 부족", "동기 부재", "지루함", "변화의 저항"],
+"health": ["심리적 무기력", "정서적 피로", "기운 저하", "무감각", "감정 억제"],
+"self": ["감정적 닫힘", "자기 무시", "의욕 상실", "내면과 단절", "심리적 지침"],
+"fortune": ["정체된 흐름", "기회가 보이지 않음", "무반응의 운세", "자극 부족", "회복 필요"]
+},
+"message": {
+"love": "감정이 식었거나, 권태기가 올 수 있는 시기입니다. 새로운 자극이 필요할 수 있습니다.",
+"career": "일에 대한 흥미나 동기 부여가 약해질 수 있습니다. 변화의 신호를 무시하지 마세요.",
+"finance": "안정적이나, 기회가 와도 적극적으로 잡기 어려울 수 있습니다. 관심이 필요합니다.",
+"relationship": "소통의 단절이나 거리감이 느껴질 수 있습니다. 감정적 참여가 부족한 상태입니다.",
+"path": "반복적이고 흥미를 잃기 쉬운 흐름입니다. 새로운 자극이 필요합니다.",
+"health": "감정적 피로와 심리적 무기력으로 인해 기운이 떨어질 수 있습니다. 마음의 환기가 필요합니다.",
+"self": "당신은 지금 내면의 감정을 억누르거나 무시하고 있을 수 있습니다. 자기 감정에 귀를 기울여야 할 때입니다.",
+"fortune": "일시적으로 정체되어 보일 수 있습니다. 하지만 주변의 기회를 인식하면 바꿀 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 68,
+"name": "컵 5",
+"nickname": "상실",
+"score": {
+"love": -2,
+"career": -1,
+"finance": -1,
+"relationship": -2,
+"path": -1,
+"health": -1,
+"self": -2,
+"fortune": -1
+},
+"keyword": {
+"love": ["이별", "후회", "실망", "미련", "감정적 상처"],
+"career": ["실패 경험", "기회 상실", "성과 미달", "후회되는 결정", "감정적 동요"],
+"finance": ["손해", "지출에 대한 후회", "투자 실패", "금전적 미련", "복구 필요"],
+"relationship": ["관계 단절", "상처 받은 감정", "믿음의 상실", "감정적 거리", "소통 실패"],
+"path": ["실망스러운 방향", "목표 상실", "후회", "진로 혼란", "감정적 좌절"],
+"health": ["감정적 고통", "우울감", "심리적 상처", "마음의 상실감", "회복 지연"],
+"self": ["내면의 슬픔", "후회와 집착", "자책", "감정 소모", "자기 가치 하락"],
+"fortune": ["운의 저조함", "실패의 흐름", "감정적으로 흔들리는 시기", "상실에서의 회복 필요", "희망은 아직 있음"]
+},
+"message": {
+"love": "실망이나 상처, 이별이 있을 수 있습니다. 지나간 감정에 너무 집착하지 말고 남은 관계를 돌아보세요.",
+"career": "기대에 못 미치는 결과나 후회되는 결정이 있을 수 있습니다. 실수를 인정하고 회복이 필요합니다.",
+"finance": "손실이나 과거의 잘못된 판단으로 후회가 남을 수 있습니다. 냉정하게 손실을 분석해보세요.",
+"relationship": "단절이나 감정적 상처를 겪는 흐름입니다. 다친 감정을 돌보고 정리할 시간이 필요합니다.",
+"path": "목표를 잃거나 실망을 겪는 시기일 수 있습니다. 하지만 아직 남아 있는 가능성을 봐야 할 때입니다.",
+"health": "감정적 스트레스와 우울감으로 인한 심리적 부담이 클 수 있습니다. 회복의지를 갖는 것이 중요합니다.",
+"self": "당신은 지금 자신에 대한 후회나 슬픔 속에 있을 수 있습니다. 하지만 진정한 회복은 남은 것에 집중하는 데서 시작됩니다.",
+"fortune": "하강 곡선을 보일 수 있지만, 모든 것이 끝난 것은 아닙니다. 여전히 남아 있는 기회가 당신을 기다리고 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 69,
+"name": "컵 6",
+"nickname": "추억",
+"score": {
+"love": 2,
+"career": 1,
+"finance": 1,
+"relationship": 2,
+"path": 1,
+"health": 2,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["옛사랑", "순수한 관계", "감정 회복", "재회", "과거의 여운"],
+"career": ["과거 경험 활용", "기억에 남는 일", "복귀", "기존 인맥", "감성적 만족"],
+"finance": ["과거 재정 회복", "가족 지원", "소박한 소비", "예전 방식", "추억 소비"],
+"relationship": ["어린 시절 친구", "가족", "재결합", "감정적 유대", "기억 공유"],
+"path": ["기억 기반 진로", "기존 경험 활용", "과거로의 회귀", "익숙한 방향", "정서적 안정 추구"],
+"health": ["정서적 안정", "어린 시절의 기쁨", "마음의 치유", "감정 회복", "휴식의 시간"],
+"self": ["내면의 순수함", "감정 회복", "자기 이해", "과거의 자신과 대화", "평온한 자기 수용"],
+"fortune": ["감성적 행운", "과거에서 오는 기회", "기억 속 선물", "추억이 복이 됨", "정서적 풍요"]
+},
+"message": {
+"love": "과거의 감정이 다시 떠오르거나, 재회가 이루어질 수 있습니다. 순수하고 따뜻한 관계의 가능성이 있습니다.",
+"career": "과거의 경험이나 인연이 도움을 줄 수 있습니다. 익숙한 환경이 유리하게 작용할 수 있습니다.",
+"finance": "가족이나 과거의 재정 상태 회복과 연결될 수 있으며, 소박한 소비가 안정감을 줍니다.",
+"relationship": "오랜 친구, 가족 같은 존재와의 연결이 강화됩니다. 감정을 나누는 데 좋은 시기입니다.",
+"path": "익숙한 방향, 또는 과거에 해봤던 분야가 다시 기회가 될 수 있습니다.",
+"health": "정서적인 안정과 평온함을 통해 회복세를 보입니다. 어린 시절의 기쁨을 떠올려보는 것도 좋습니다.",
+"self": "당신은 지금 자신의 과거를 되돌아보고 그 안에서 감정적 회복을 찾고 있습니다. 내면의 순수함을 마주할 시기입니다.",
+"fortune": "과거의 인연이나 기억 속에서 다시 흐르기 시작합니다. 정서적 풍요가 행운을 부릅니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 70,
+"name": "컵 7",
+"nickname": "환상",
+"score": {
+"love": -1,
+"career": -1,
+"finance": -1,
+"relationship": 0,
+"path": -1,
+"health": -1,
+"self": -1,
+"fortune": -1
+},
+"keyword": {
+"love": ["비현실적 기대", "환상적인 관계", "선택의 혼란", "이상형 집착", "감정적 불확실성"],
+"career": ["집중력 부족", "우왕좌왕", "선택 장애", "비현실적 목표", "우선순위 불분명"],
+"finance": ["헛된 투자", "과도한 욕심", "현실 감각 부족", "금전적 혼란", "선택 실수"],
+"relationship": ["겉모습 판단", "진실한 소통 부족", "판단 흐림", "관계의 혼란", "비현실적 관계 기대"],
+"path": ["방향 상실", "너무 많은 선택지", "집중 분산", "실행력 저하", "이상만 추구"],
+"health": ["정신적 피로", "혼란스러운 상태", "집중력 저하", "감정적 과잉", "현실 회피"],
+"self": ["감정에 휘둘림", "판단력 저하", "자기 속임", "비현실 추구", "내면의 혼란"],
+"fortune": ["혼란스러운 운세", "결정을 미룰수록 손해", "선택의 책임", "판단 흐림", "현실 직시 필요"]
+},
+"message": {
+"love": "비현실적인 기대나 감정의 혼란이 나타날 수 있습니다. 지금은 진실된 감정을 우선시해야 합니다.",
+"career": "지나치게 많은 옵션 속에서 방향을 잃기 쉬운 시기입니다. 명확한 목표 설정이 필요합니다.",
+"finance": "충동적 선택이나 이상적인 기대가 손해로 이어질 수 있습니다. 현실적인 판단이 우선입니다.",
+"relationship": "진심보다는 환상에 빠지기 쉬운 흐름입니다. 상대를 있는 그대로 바라보는 노력이 필요합니다.",
+"path": "너무 많은 가능성 속에서 실제적인 선택을 못 할 수 있습니다. 선택과 집중이 중요합니다.",
+"health": "정신적인 피로와 혼란이 누적될 수 있는 시기입니다. 마음을 안정시키는 것이 우선입니다.",
+"self": "당신은 지금 내면의 다양한 욕망과 감정 속에서 갈피를 잡지 못하고 있을 수 있습니다. 스스로를 현실로 끌어올 필요가 있습니다.",
+"fortune": "흐릿하고 결정이 어려운 시기입니다. 하지만 환상보다는 현실에 뿌리를 둘수록 흐름이 명확해집니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 71,
+"name": "컵 8",
+"nickname": "이별",
+"score": {
+"love": -2,
+"career": 0,
+"finance": -1,
+"relationship": -2,
+"path": 1,
+"health": 0,
+"self": 1,
+"fortune": 0
+},
+"keyword": {
+"love": ["감정적 단절", "헤어짐", "떠남", "미련 없는 결단", "감정에서의 탈피"],
+"career": ["현실 도피", "일에 대한 회의감", "변화를 위한 포기", "퇴사 고민", "새로운 길 준비"],
+"finance": ["과감한 정리", "소유에 대한 집착 탈피", "비효율적 지출 단절", "재정 리셋", "감정적 소비에서 벗어남"],
+"relationship": ["인간관계 정리", "거리두기", "감정적 이별", "관계 재정비", "혼자의 시간"],
+"path": ["새로운 길로 향함", "과거에서의 탈피", "내면의 여정", "결단의 시기", "목표 재설정"],
+"health": ["정서적 안정 추구", "스트레스로부터 거리두기", "휴식 필요", "감정적 해방", "심리적 회복"],
+"self": ["자기 독립", "과거의 자신과 이별", "내면 중심 전환", "감정 정리", "고요함의 선택"],
+"fortune": ["변화의 문턱", "무언가를 떠나야 열리는 운", "정체 탈피", "새 출발의 기회", "감정 정리 후 흐름 전환"]
+},
+"message": {
+"love": "감정이 식었거나, 더 이상 의미가 없다고 느껴질 수 있습니다. 관계를 정리하고 떠날 시기일 수 있습니다.",
+"career": "익숙한 일에 회의감을 느끼고 새로운 방향을 모색할 수 있습니다. 결단이 필요한 시기입니다.",
+"finance": "비효율적인 소비나 투자에서 벗어나는 것이 핵심입니다. 감정이 개입된 소비를 줄이세요.",
+"relationship": "거리두기나 정리의 흐름 속에 있습니다. 더 이상 나에게 도움이 되지 않는 관계는 떠나야 할 수도 있습니다.",
+"path": "기존의 방향에서 벗어나 새로운 여정을 준비해야 할 시점입니다. 과감한 선택이 필요합니다.",
+"health": "심리적인 피로와 감정적 무게로부터 스스로를 떨어뜨려야 하는 시기입니다. 혼자만의 회복이 필요합니다.",
+"self": "당신은 지금 과거의 자신 또는 익숙했던 감정과 이별하고 새로운 나를 향해 나아가고 있습니다.",
+"fortune": "정리와 결단 이후에 흐름이 바뀌기 시작합니다. 떠남이 새로운 문을 여는 열쇠가 될 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 72,
+"name": "컵 9",
+"nickname": "만족",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 2,
+"relationship": 2,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["감정적 충족", "행복한 관계", "사랑의 만족", "로맨틱한 분위기", "소원 성취"],
+"career": ["성과 달성", "직업 만족", "보람", "감정적 안정", "목표 도달"],
+"finance": ["재정 안정", "금전적 성취", "소원 성취", "충분한 자산", "여유로운 소비"],
+"relationship": ["유쾌한 관계", "감정 공유", "친밀한 연결", "행복한 교류", "주변의 지지"],
+"path": ["목표 달성", "감정적 동기 실현", "자기 만족", "이룬 결과", "자신감"],
+"health": ["건강 회복", "정서적 만족감", "균형 잡힌 상태", "기분 좋은 에너지", "마음과 몸의 안정"],
+"self": ["자존감 향상", "자기 수용", "자기 보상", "긍정적 자아", "내면의 충족"],
+"fortune": ["행운의 절정", "소원이 이루어지는 시기", "감정적 풍요", "원하는 결과 도달", "강한 만족감"]
+},
+"message": {
+"love": "감정적으로 충만한 흐름입니다. 행복한 연애나 사랑의 성취를 경험할 수 있습니다.",
+"career": "원하는 목표나 성과를 달성하게 되는 시기입니다. 감정적인 보람도 함께 느낄 수 있습니다.",
+"finance": "안정되고 만족스러운 상태입니다. 원하는 수준의 재정적 결과에 도달할 가능성이 높습니다.",
+"relationship": "따뜻하고 유쾌한 교류가 중심이 됩니다. 주위 사람들과의 감정적 조화가 잘 이루어집니다.",
+"path": "원하는 방향으로 잘 진행되고 있으며, 지금까지의 노력이 성과로 이어지는 시기입니다.",
+"health": "신체적, 정신적으로 모두 안정적인 흐름입니다. 마음의 만족이 몸에도 좋은 영향을 줍니다.",
+"self": "당신은 지금 자기 자신에 대한 만족감과 성취감을 느끼는 흐름에 있습니다. 자기 수용이 매우 높아지고 있습니다.",
+"fortune": "전반적으로 긍정의 흐름을 타고 있으며, 원하는 바가 이루어질 가능성이 높습니다. 풍요와 성취의 운입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 73,
+"name": "컵 10",
+"nickname": "행복",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 2,
+"relationship": 3,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 3
+},
+"keyword": {
+"love": ["이상적인 관계", "감정의 완성", "가족적인 사랑", "영속적인 행복", "감정적 안전"],
+"career": ["조화로운 팀", "만족스러운 결과", "장기적 안정", "성장의 흐름", "감정과 일의 균형"],
+"finance": ["재정적 안정", "가정 중심 소비", "지속 가능한 풍요", "안정된 기반", "가치 중심 지출"],
+"relationship": ["가족", "신뢰", "감정적 친밀감", "조화로운 유대", "따뜻한 인간관계"],
+"path": ["감정과 가치의 일치", "삶의 균형", "가치 있는 방향", "정서적 목표 달성", "장기적 만족"],
+"health": ["정신적 안정", "감정적 치유", "행복에서 오는 활력", "균형 있는 생활", "심리적 건강"],
+"self": ["내면의 충족", "자기 사랑", "삶에 대한 만족", "평화로운 자아", "감정적 풍요"],
+"fortune": ["감정의 절정", "완전한 조화", "소망 성취", "행복한 결말", "장기적 안정 운"]
+},
+"message": {
+"love": "이상적인 감정적 관계가 이루어지는 시기입니다. 가족처럼 안정되고 영속적인 사랑을 기대할 수 있습니다.",
+"career": "팀워크와 안정적인 흐름 속에서 만족스러운 결과를 얻게 됩니다. 감정적으로도 조화롭습니다.",
+"finance": "안정적이고 가족 중심의 소비나 가치 있는 투자가 조화를 이루게 됩니다.",
+"relationship": "가족을 포함한 깊은 유대와 신뢰가 중심이 됩니다. 관계 속에서 큰 행복을 경험할 수 있습니다.",
+"path": "감정적, 가치적으로 모두 만족할 수 있는 방향으로 흘러갑니다. 삶의 균형을 이룰 수 있습니다.",
+"health": "감정적 안정과 삶의 조화 속에서 긍정적으로 유지됩니다. 정신과 신체의 균형이 잘 잡혀 있습니다.",
+"self": "당신은 현재 내면적으로 매우 안정된 상태에 있으며, 삶과 자신에 대한 긍정적 감정을 느끼고 있습니다.",
+"fortune": "정서적 충만함과 장기적인 안정으로 이어지는 좋은 흐름입니다. 감정과 삶이 완성되는 시기입니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 74,
+"name": "페이지 오브 컵",
+"nickname": "순수함",
+"score": {
+"love": 2,
+"career": 1,
+"finance": 0,
+"relationship": 2,
+"path": 1,
+"health": 1,
+"self": 2,
+"fortune": 1
+},
+"keyword": {
+"love": ["새로운 감정", "고백", "감정적 설렘", "풋사랑", "순수한 연애"],
+"career": ["창의성", "예술적 감각", "감정적 직관", "신선한 아이디어", "감성 기반 접근"],
+"finance": ["작은 기회", "감정적 소비", "예술 관련 수입", "불확실한 흐름", "직관적 판단"],
+"relationship": ["감정 공유", "순수한 교류", "유연한 소통", "예상치 못한 연락", "호의적인 분위기"],
+"path": ["예술적 진로", "감정 기반 선택", "감성 직관 활용", "내면의 목소리 경청", "초심"],
+"health": ["정서적 치유", "마음의 회복", "예민한 감정 관리", "마음의 변화 감지", "긍정적 반응"],
+"self": ["감정 인식", "내면의 아이", "감성 회복", "직관 수용", "새로운 정서 탐색"],
+"fortune": ["의외의 기회", "감정적 제안", "순수한 운", "부드러운 전환점", "긍정적 소식"]
+},
+"message": {
+"love": "새롭고 순수한 감정이 싹틀 수 있는 시기입니다. 고백이나 설렘 가득한 교류가 있을 수 있습니다.",
+"career": "감성적인 직관이나 창의적인 아이디어가 주목받습니다. 감정의 흐름을 따르는 것이 도움이 됩니다.",
+"finance": "아직 작고 불확실하지만, 감성 기반 소비나 예술 관련 기회에서 작게나마 흐름이 시작됩니다.",
+"relationship": "부드럽고 순수한 감정 교류가 중심이 됩니다. 예상치 못한 소식이나 연락이 올 수 있습니다.",
+"path": "예술적이거나 감정에 기반한 길이 열릴 수 있습니다. 자신의 감정을 믿고 따라가 보세요.",
+"health": "정서적인 회복과 치유가 필요한 시기입니다. 마음이 예민해질 수 있으니 감정적 안정에 집중하세요.",
+"self": "당신은 지금 내면의 감정과 연결되고 있으며, 새로운 정서적 자아를 발견하는 중입니다. 직관을 신뢰하세요.",
+"fortune": "부드럽고 예상치 못한 긍정의 흐름이 스며들고 있습니다. 작은 기회가 큰 변화로 이어질 수 있습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 75,
+"name": "나이트 오브 컵",
+"nickname": "제안",
+"score": {
+"love": 3,
+"career": 1,
+"finance": 1,
+"relationship": 2,
+"path": 1,
+"health": 1,
+"self": 2,
+"fortune": 2
+},
+"keyword": {
+"love": ["로맨틱한 제안", "고백", "연애 감정 표현", "관계 진전", "감정 전달"],
+"career": ["감성 기반 업무", "예술적 직업", "제안 수용", "감정의 흐름을 따름", "창의적 협업"],
+"finance": ["감정적 동기", "예술 관련 수입", "기회 탐색", "매력적인 투자 제안", "감성적 소비"],
+"relationship": ["따뜻한 소통", "정중한 제안", "관계 진전", "감정적 유대", "신뢰 쌓기"],
+"path": ["감성 직관 추구", "이상주의적 진로", "감정의 흐름 따르기", "예술적 활동", "감동을 주는 방향"],
+"health": ["감정적 안정", "스트레스 완화", "정서적 힐링", "긍정적인 분위기", "감정의 흐름 인식"],
+"self": ["감정 표현", "이상 추구", "자기 감정 수용", "내면의 낭만", "감성적 추진"],
+"fortune": ["좋은 제안", "부드러운 변화", "감성적 기회", "감정으로 인한 행운", "감정적 성취"]
+},
+"message": {
+"love": "누군가의 고백이나 로맨틱한 제안이 있을 수 있습니다. 감정의 진전이 기대되는 흐름입니다.",
+"career": "감성적이거나 창의적인 분야에서의 제안이나 협업 기회가 찾아올 수 있습니다.",
+"finance": "감정적으로 끌리는 투자 제안이나 예술 관련 수입 흐름이 생길 수 있는 시기입니다.",
+"relationship": "인간관계에서는 따뜻한 제안이나 호의적인 접근을 통해 감정적 유대가 깊어질 수 있습니다.",
+"path": "감정과 이상을 따르는 것이 오히려 길이 될 수 있습니다. 감동을 주는 방향으로 나아가세요.",
+"health": "감정적 균형과 안정이 핵심입니다. 부드럽고 따뜻한 환경이 회복을 돕습니다.",
+"self": "당신은 현재 감정과 이상을 조화롭게 추구하고 있으며, 그 안에서 자신을 발견하고 표현하고 있습니다.",
+"fortune": "감성적 제안이나 기회를 통해 긍정적으로 흐르고 있습니다. 감정을 믿고 따라가도 좋습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 76,
+"name": "퀸 오브 컵",
+"nickname": "공감",
+"score": {
+"love": 3,
+"career": 2,
+"finance": 1,
+"relationship": 3,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["감정적 배려", "깊은 사랑", "공감 능력", "헌신", "정서적 유대"],
+"career": ["감성적 리더십", "상담/치유 직업", "배려 중심 협업", "직관적 판단", "조용한 영향력"],
+"finance": ["섬세한 소비", "타인을 위한 지출", "감정 기반 판단", "재정적 균형", "헌신적 기부"],
+"relationship": ["공감", "배려", "정서적 안정", "깊은 교류", "신뢰 쌓기"],
+"path": ["감성적 사명", "타인을 돕는 길", "심리적 이해 중심", "정서적 직관 따르기", "내면 중심 진로"],
+"health": ["정서적 회복", "심리 안정", "감성 힐링", "스트레스 완화", "마음의 평화"],
+"self": ["내면의 깊이", "감정 수용", "자기 이해", "공감력 상승", "감정적 성숙"],
+"fortune": ["부드러운 흐름", "감정적 보상", "따뜻한 기회", "정서적 성취", "감성 중심의 운"]
+},
+"message": {
+"love": "깊은 공감과 감정적 배려가 중심이 됩니다. 헌신적인 사랑이 당신을 감싸고 있습니다.",
+"career": "감정과 직관을 통해 사람들을 이끄는 조용한 리더십이 효과를 발휘합니다.",
+"finance": "조심스럽고 섬세한 관리가 필요한 시기입니다. 감정적으로 의미 있는 지출에 집중해보세요.",
+"relationship": "감정적 공감과 배려를 통해 더욱 깊어집니다. 주변 사람들과의 신뢰가 단단해질 수 있습니다.",
+"path": "타인을 돕는 방향, 감성적이고 공감 기반의 분야가 잘 맞습니다. 내면의 직관을 따라가세요.",
+"health": "감정적 안정과 회복이 핵심입니다. 스트레스를 줄이고 정서적 힐링을 우선하세요.",
+"self": "당신은 지금 자신에 대한 깊은 감정적 이해와 공감 속에서 내면을 돌보고 있습니다. 감정적 성숙이 높아지는 시기입니다.",
+"fortune": "부드럽고 따뜻하게 흐르며, 감정적으로 만족스러운 결과를 가져올 수 있는 기회가 많습니다."
+},
+"type": "minor"
+},
+{
+"cardNo": 77,
+"name": "킹 오브 컵",
+"nickname": "통제",
+"score": {
+"love": 2,
+"career": 3,
+"finance": 2,
+"relationship": 2,
+"path": 2,
+"health": 2,
+"self": 3,
+"fortune": 2
+},
+"keyword": {
+"love": ["감정 통제", "성숙한 사랑", "이해심 깊은 연인", "감정 안정", "조용한 헌신"],
+"career": ["감정적 리더십", "심리적 조율", "중재자 역할", "성숙한 판단", "갈등 해결"],
+"finance": ["균형 잡힌 판단", "감정 배제한 결정", "경제적 안정", "신중한 지출", "현명한 자산 운용"],
+"relationship": ["감정 관리", "신뢰 주는 존재", "감정적 균형", "침착한 반응", "관계 안정"],
+"path": ["심리 기반 진로", "성숙한 사명 의식", "리더십 발휘", "정서적 조율", "지혜 중심 선택"],
+"health": ["감정적 균형", "스트레스 관리", "정신적 안정", "침착한 대응", "마음의 회복"],
+"self": ["감정 통제력", "내면의 성숙", "자기 절제", "조화로운 자아", "현명한 자기 이해"],
+"fortune": ["안정된 흐름", "지혜로운 기회", "성숙한 대응의 보상", "감정적 위기 극복", "통제력 있는 운세"]
+},
+"message": {
+"love": "성숙하고 조용한 사랑이 중심이 됩니다. 감정의 깊이는 크지만 절제된 표현으로 나타납니다.",
+"career": "감정을 조절하고 주변을 중재하는 리더십이 돋보입니다. 신뢰를 얻게 되는 시기입니다.",
+"finance": "안정적이며, 신중하고 감정을 배제한 판단을 통해 장기적인 재정적 안정을 꾀할 수 있습니다.",
+"relationship": "감정을 절제하면서도 깊은 신뢰를 쌓는 흐름입니다. 성숙한 태도가 모든 관계를 안정시킵니다.",
+"path": "조화와 감정적 성숙이 중요한 역할을 합니다. 타인의 감정을 조율하는 역할에 적합한 시기입니다.",
+"health": "감정적 균형을 통해 유지됩니다. 마음의 평정이 육체적 컨디션에도 긍정적인 영향을 줍니다.",
+"self": "당신은 지금 감정을 잘 다루고 있으며, 내면의 성숙과 조화를 통해 자신을 이해하고 수용하는 단계에 있습니다.",
+"fortune": "안정적이며, 성숙한 판단력과 감정 통제가 긍정적인 결과를 끌어올 수 있는 기반이 됩니다."
+},
+"type": "minor"
+}
+
+]

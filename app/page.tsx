@@ -1,10 +1,9 @@
 "use client";
 
-import TarotBoard from "@/components/tarot/TarotBoard";
-import React from "react";
+import IntroBoard from "@/components/intro/IntroBoard";
 
-const page = () => {
-  return <TarotBoard />;
+const Home = () => {
+  return <IntroBoard />;
 };
 
-export default page;
+export default Home;
