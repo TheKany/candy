@@ -17,10 +17,13 @@ import styled from "styled-components";
 import OneCard from "./_component/OneCard";
 import ThreeCard from "./_component/ThreeCard";
 import YesOrNoCard from "./_component/YesOrNoCard";
+import Wrapper from "@/components/_common/_Wrapper";
+import { useRouter } from "next/navigation";
 
 const Result = () => {
-  const { pickWay } = usePickCard();
-  const { type } = useTarotType();
+  const router = useRouter();
+  const { pickWay, resetWay } = usePickCard();
+  const { type, resetType } = useTarotType();
   const { resetShuffleStep } = useShuffleType();
 
   const [cardList, setCardList] = useState<TarotCardsData[] | null>(null);
@@ -52,13 +55,31 @@ const Result = () => {
     setCardList(result);
   };
 
+  const onClickShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText("https://candy-three-pi.vercel.app/");
+      alert("링크가 복사되었습니다!");
+    } catch (err) {
+      alert("링크 복사에 실패했습니다.");
+    }
+  };
+
+  const onClickLinkHome = () => {
+    resetWay();
+    resetType();
+    router.replace("/");
+  };
+
   // 해당 페이지오면 셔플 스텝 초기화
   useEffect(() => {
+    if (pickWay === null) {
+      // router.replace("/");
+    }
     resetShuffleStep();
   }, []);
 
   return (
-    <Container>
+    <Wrapper>
       <CategoryContainer $visible={isVisible}>
         <BtnTitle>고민의 키워드는 뭔가요?</BtnTitle>
         <ButtonContainer>
@@ -185,11 +206,41 @@ const Result = () => {
           </CardListContainer>
         </>
       ) : null}
-    </Container>
+
+      <BottomButtonBox>
+        <ShareBtn onClick={onClickShareLink}>공유하기</ShareBtn>
+        <HomeBtn onClick={onClickLinkHome}>홈으로</HomeBtn>
+      </BottomButtonBox>
+    </Wrapper>
   );
 };
 
 export default Result;
+
+const BottomButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+`;
+
+const ShareBtn = styled.button`
+  background-color: #eadbc8;
+  color: #121212;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 4px 8px;
+`;
+
+const HomeBtn = styled.button`
+  background-color: #eadbc8;
+  color: #121212;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 4px 8px;
+`;
 
 const BtnTitle = styled.p`
   font-family: "BlackHanSans";
@@ -226,7 +277,7 @@ const ButtonBox = styled.button`
 
 const CardListContainer = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 90vh;
 
   display: flex;
   flex-direction: column;

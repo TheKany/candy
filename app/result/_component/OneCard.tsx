@@ -37,9 +37,7 @@ const OneCard = ({ cardList, pickCategory }: Props) => {
                   ))}
                 </KeywordBox>
               )}
-              {pickCategory && (
-                <Message>현재 당신의 {item.message[pickCategory]}</Message>
-              )}
+              {pickCategory && <Message>{item.message[pickCategory]}</Message>}
             </InfoBox>
           </CardWrapper>
         );
@@ -85,7 +83,7 @@ const KeywordBox = styled.div`
 const CardImgBox = styled.div`
   position: relative;
 
-  width: 60%;
+  width: 50%;
   aspect-ratio: 2 / 3;
 `;
 

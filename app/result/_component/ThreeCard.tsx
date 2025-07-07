@@ -44,9 +44,7 @@ const ThreeCard = ({ cardList, pickCategory }: Props) => {
                   ))}
                 </KeywordBox>
               )}
-              {pickCategory && (
-                <Message>현재 당신의 {item.message[pickCategory]}</Message>
-              )}
+              {pickCategory && <Message>{item.message[pickCategory]}</Message>}
             </InfoBox>
           </CardWrapper>
         );
