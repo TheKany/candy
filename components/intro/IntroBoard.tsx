@@ -2,9 +2,11 @@
 
 import React from "react";
 import {
+  ImageBox,
   MenuButton,
   MenuContainer,
   MenuList,
+  ServiceTextBox,
   ServiceTitle,
   SubTitle,
   TextBox,
@@ -24,9 +26,16 @@ const IntroBoard = () => {
 
   return (
     <>
-      <ServiceTitle>Tr: ㅌㄹ</ServiceTitle>
+      <ServiceTextBox>
+        <ServiceTitle $fz={16}>달콤하게 점쳐보는</ServiceTitle>
+        <ServiceTitle $fz={16}>당신의 운명</ServiceTitle>
+        <ServiceTitle $fz={36}>타로타르트</ServiceTitle>
+      </ServiceTextBox>
+      <ImageBox>
+        <Image src={"/main.png"} alt="메인이미지" width={250} height={250} />
+      </ImageBox>
       <MenuList>
-        {/* 원 오라클: title="진심을 듣다" subtitle="한 장의 메시지" */}
+        {/* 원 오라클: title="한 입 타르트" subtitle="한 장으로 보는 운명" */}
         <MenuButton onClick={() => onClickLinkMenu("one")}>
           <MenuContainer>
             <Image
@@ -36,12 +45,12 @@ const IntroBoard = () => {
               height={52}
             />
             <TextBox>
-              <Title>진심을 듣다.</Title>{" "}
-              <SubTitle>- 한 장의 메시지 -</SubTitle>
+              <Title>한 입 타르트</Title>{" "}
+              <SubTitle>- 한 장으로 보는 운명 -</SubTitle>
             </TextBox>
           </MenuContainer>
         </MenuButton>
-        {/* 쓰리카드: title="흐름을 읽다" subtitle="과거-현재-미래" */}
+        {/* 쓰리카드: title="타르트 시간세트" subtitle="과거-현재-미래" */}
         <MenuButton onClick={() => onClickLinkMenu("three")}>
           <MenuContainer>
             <Image
@@ -51,16 +60,18 @@ const IntroBoard = () => {
               height={40}
             />
             <TextBox>
-              <Title>흐름을 읽다.</Title> <SubTitle>- 시간의 흐름 -</SubTitle>
+              <Title>타르트 시간세트</Title>{" "}
+              <SubTitle>- 과거-현재-미래 -</SubTitle>
             </TextBox>
           </MenuContainer>
         </MenuButton>
-        {/* 양자택일: title="길을 고르다" subtitle="Yes or No / 선택의 순간" */}
+        {/* 양자택일: title="선택 타르트" subtitle="Yes or No / 선택의 순간" */}
         <MenuButton onClick={() => onClickLinkMenu("Yn")}>
           <MenuContainer>
             <Image src={"/third.png"} alt="둘 중 하나" width={40} height={41} />
             <TextBox>
-              <Title>길을 고르다.</Title> <SubTitle>- 선택의 순간 -</SubTitle>
+              <Title>선택 타르트</Title>{" "}
+              <SubTitle>- Yes or No / 선택의 순간 -</SubTitle>
             </TextBox>
           </MenuContainer>
         </MenuButton>

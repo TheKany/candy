@@ -23,9 +23,10 @@ const Con = styled.div`
   min-width: 280px;
   height: 100vh;
   max-height: 1200px;
-  background-color: #193854;
+  background-color: #154734;
   position: relative;
   overflow: hidden;
+  overflow-y: auto;
 
   padding: 24px 8px;
 
