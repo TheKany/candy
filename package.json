@@ -15,12 +15,14 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.19",
+    "uuid": "^11.1.0",
     "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/uuid": "^10.0.0",
     "typescript": "^5"
   }
 }
