@@ -7,11 +7,15 @@ import {
   ServiceTitle,
 } from "@/components/home/homeStyle";
 import MenuButton from "@/components/home/MenuButton";
-import { supabase } from "@/lib/supabaseClient";
 import { getTotalUsers, handleCountUsers } from "@/util/handleCountUsers";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import dynamic from "next/dynamic";
+
+const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
+  ssr: false,
+});
 
 const Home = () => {
   const [totalUsers, setTotalUsers] = useState<number>(0);
@@ -81,6 +85,8 @@ const Home = () => {
           subTitle="선택을 도와줘"
         /> */}
       </MenuList>
+
+      {/* <AdBanner /> */}
     </>
   );
 };

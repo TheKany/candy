@@ -9,6 +9,11 @@ import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import { handleResetStore } from "@/util/handleResetStore";
 import Loading from "@/components/_common/Loading";
 import styled from "styled-components";
+import dynamic from "next/dynamic";
+
+const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
+  ssr: false,
+});
 
 const Result = () => {
   const router = useRouter();
@@ -44,13 +49,16 @@ const Result = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div style={{ minHeight: "300px" }}>
-          <TarotResult />
-          <ButtonBox>
-            <button onClick={onClickHome}>홈으로</button>
-            <KakaoShareButton />
-          </ButtonBox>
-        </div>
+        <>
+          <div style={{ minHeight: "300px" }}>
+            <TarotResult />
+            <ButtonBox>
+              <button onClick={onClickHome}>홈으로</button>
+              <KakaoShareButton />
+            </ButtonBox>
+          </div>
+          <AdBanner />
+        </>
       )}
     </Wrapper>
   );
