@@ -41,7 +41,6 @@ const shiftArray = (arr: number[], offset: number): number[] => {
 };
 
 export const getRandomCardNo = ({ length }: Props) => {
-  console.log(length);
   let cardDeck = Array.from({ length }, (_, idx) => idx);
 
   // 1. 랜덤으로 카드를 퍼트린다 (셔플)
@@ -54,21 +53,21 @@ export const getRandomCardNo = ({ length }: Props) => {
   const cardGroup = Math.floor(Math.random() * 4) + 3;
   let randomDeck = splitCardGroups(cardDeck, cardGroup);
 
-  setTimeout(() => {
-    console.log("🟡 Step 1 - 카드 퍼트리기:", cardDeck);
-    console.log(`🟠 Step 2 - ${cardGroup}개 그룹 나눔:`, randomDeck);
-  }, 2000);
+  // setTimeout(() => {
+  //   console.log("🟡 Step 1 - 카드 퍼트리기:", cardDeck);
+  //   console.log(`🟠 Step 2 - ${cardGroup}개 그룹 나눔:`, randomDeck);
+  // }, 2000);
 
   // 3. 반시계 방향 넘기기
   setTimeout(() => {
     randomDeck = rotateLeftDeck(randomDeck);
-    console.log("🔵 Step 3 - 반시계 방향 섞기:", randomDeck);
+    // console.log("🔵 Step 3 - 반시계 방향 섞기:", randomDeck);
   }, 5000);
 
   // 4. 시계 방향 넘기기
   setTimeout(() => {
     randomDeck = rotateRightDeck(randomDeck);
-    console.log("🟢 Step 4 - 시계 방향 섞기:", randomDeck);
+    // console.log("🟢 Step 4 - 시계 방향 섞기:", randomDeck);
   }, 10000);
 
   // 5. 하나의 배열로 반환
