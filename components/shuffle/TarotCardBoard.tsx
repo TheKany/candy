@@ -37,6 +37,15 @@ const TarotCardBoard = ({ isRotating, positions, cardCnt }: Props) => {
       const targetTop = slotPos.top - containerRect.top;
       const targetLeft = slotPos.left - containerRect.left;
 
+      if (slotPositions.length === 1) {
+        cardEl.style.top = `${targetTop}px`;
+        cardEl.style.left = `50%`;
+        cardEl.style.transform = `translate(-50%, 0%) rotate(0deg)`;
+        cardEl.style.transition = `top 0.6s ease, left 0.6s ease, transform 0.6s ease`;
+        cardEl.style.zIndex = "10";
+        return;
+      }
+
       cardEl.style.top = `${targetTop}px`;
       cardEl.style.left = `${targetLeft}px`;
       cardEl.style.transform = `translate(0, 0) rotate(0deg)`;

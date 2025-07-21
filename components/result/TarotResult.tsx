@@ -9,6 +9,7 @@ import {
   handleCardFlowData,
   handleCardWorryData,
 } from "@/util/handleCardData";
+import { div } from "framer-motion/client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
