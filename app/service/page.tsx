@@ -1,72 +1,36 @@
 "use client";
 
-import TarotBoard from "@/components/tarot/TarotBoard";
-import { useShuffleType } from "@/store/shuffleTypeStore";
-import { fade } from "@/styles/fadeAnimation";
-import React from "react";
-import styled from "styled-components";
+import Wrapper from "@/components/_common/_Wrapper";
+import QuestionEmotion from "@/components/service/QuestionEmotion";
+import QuestionPick from "@/components/service/QuestionFlow";
+import QuestionWorry from "@/components/service/QuestionWorry";
+import {
+  LinkBox,
+  MainTitle,
+  ShuffleBtn,
+} from "@/components/service/serviceStyle";
+import { usePickCard } from "@/store/pickCardStore";
 
 const Service = () => {
-  const { shuffleStep } = useShuffleType();
+  const { pickedWorry, pickedEmotion, pickedFlow } = usePickCard();
 
   return (
-    <div>
-      {shuffleStep === null && (
-        <HeadTitleText>당신의 고민은 무엇인가요?</HeadTitleText>
-      )}
+    <Wrapper>
+      <MainTitle>먼저 당신의 이야기를 들려주세요</MainTitle>
 
-      {shuffleStep === 1 ? (
-        <TextWrapper>
-          <TitleText>마음을 비우고 카드를 섞어볼까요.</TitleText>
-          <SubText>카드가 섞이는 동안 숨을 고르며 마음을 비워주세요.</SubText>
-        </TextWrapper>
-      ) : null}
+      <QuestionWorry />
 
-      {shuffleStep === 2 ? (
-        <TextWrapper>
-          <TitleText>
-            이번엔 질문을 떠올리며 <br /> 카드를 섞어볼까요.
-          </TitleText>
-          <SubText>카드가 섞이는 동안 명확한 질문을 떠올려주세요.</SubText>
-        </TextWrapper>
-      ) : null}
+      <QuestionEmotion />
 
-      {shuffleStep === 3 ? (
-        <TextWrapper>
-          <TitleText>카드를 골라볼까요</TitleText>
-          <SubText>카드를 뽑을 위치를 골라주세요.</SubText>
-        </TextWrapper>
-      ) : null}
+      <QuestionPick />
 
-      <TarotBoard />
-    </div>
+      <LinkBox>
+        {!!pickedWorry && !!pickedEmotion && !!pickedFlow ? (
+          <ShuffleBtn href="/shuffle">카드 섞기</ShuffleBtn>
+        ) : null}
+      </LinkBox>
+    </Wrapper>
   );
 };
 
 export default Service;
-
-const TextWrapper = styled.div`
-  animation: ${fade} 0.5s ease-in-out;
-`;
-
-const HeadTitleText = styled.p`
-  color: #fff;
-  font-size: 28px;
-  font-weight: 700;
-  text-align: center;
-`;
-
-const TitleText = styled.p`
-  color: #fff;
-  font-size: 24px;
-  font-weight: 500;
-  text-align: center;
-`;
-
-const SubText = styled.p`
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  padding-top: 16px;
-`;

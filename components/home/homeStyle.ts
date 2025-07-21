@@ -30,14 +30,14 @@ export const MenuList = styled.div`
   gap: 16px;
 `;
 
-export const MenuButton = styled.button`
+export const MenuContainer = styled.button`
   width: 90%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 `;
 
-export const MenuContainer = styled.div`
+export const MenuBtnWrapper = styled.div`
   position: relative;
   width: 100%;
   display: flex;

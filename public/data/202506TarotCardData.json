@@ -1,0 +1,548 @@
+[
+  {
+    "id": 0,
+    "name": "바보",
+    "nickname": "시작",
+    "coreKeyword": ["자유", "모험", "가능성", "순수함", "미지"],
+    "type": "major"
+  },
+  {
+  "id": 1,
+  "name": "마법사",
+  "nickname": "실행",
+  "coreKeyword": ["의지", "집중", "능력", "행동", "창조"],
+  "type": "major"
+  },
+  {
+    "id": 2,
+    "name": "여교황",
+    "nickname": "직관",
+    "coreKeyword": ["지혜", "무의식", "비밀", "통찰", "신중함"],
+    "type": "major"
+  },
+  {
+    "id": 3,
+    "name": "여제",
+    "nickname": "풍요",
+    "coreKeyword": ["풍요", "자애", "창조성", "자연", "양육"],
+    "type": "major"
+  },
+  {
+    "id": 4,
+    "name": "황제",
+    "nickname": "통제",
+    "coreKeyword": ["권위", "안정", "질서", "결단", "구조"],
+    "type": "major"
+  },
+  {
+    "id": 5,
+    "name": "교황",
+    "nickname": "신념",
+    "coreKeyword": ["전통", "가르침", "신념", "도덕", "조언"],
+    "type": "major"
+  },
+  {
+    "id": 6,
+    "name": "연인",
+    "nickname": "선택",
+    "coreKeyword": ["사랑", "결합", "조화", "유혹", "결정"],
+    "type": "major"
+  },
+  {
+    "id": 7,
+    "name": "전차",
+    "nickname": "돌파",
+    "coreKeyword": ["승리", "의지", "통제", "속도", "집중"],
+    "type": "major"
+  },
+  {
+    "id": 8,
+    "name": "힘",
+    "nickname": "인내",
+    "coreKeyword": ["용기", "내면의 힘", "자제", "회복", "신뢰"],
+    "type": "major"
+  },
+  {
+    "id": 9,
+    "name": "은둔자",
+    "nickname": "탐색",
+    "coreKeyword": ["고독", "성찰", "지혜", "진리", "조용한 관찰"],
+    "type": "major"
+  },
+  {
+    "id": 10,
+    "name": "운명의 수레바퀴",
+    "nickname": "전환",
+    "coreKeyword": ["변화", "기회", "순환", "운명", "예상 밖 전개"],
+    "type": "major"
+  },
+  {
+    "id": 11,
+    "name": "정의",
+    "nickname": "균형",
+    "coreKeyword": ["공정함", "진실", "판단", "책임", "균형"],
+    "type": "major"
+  },
+  {
+    "id": 12,
+    "name": "매달린 사람",
+    "nickname": "전환점",
+    "coreKeyword": ["희생", "정지", "관점 변화", "수용", "기다림"],
+    "type": "major"
+  },
+  {
+    "id": 13,
+    "name": "죽음",
+    "nickname": "끝맺음",
+    "coreKeyword": ["종결", "변화", "해방", "전환", "새로운 시작"],
+    "type": "major"
+  },
+  {
+    "id": 14,
+    "name": "절제",
+    "nickname": "조화",
+    "coreKeyword": ["균형", "인내", "절충", "중용", "조율"],
+    "type": "major"
+  },
+  {
+    "id": 15,
+    "name": "악마",
+    "nickname": "집착",
+    "coreKeyword": ["유혹", "속박", "중독", "그림자", "의존"],
+    "type": "major"
+  },
+  {
+    "id": 16,
+    "name": "탑",
+    "nickname": "붕괴",
+    "coreKeyword": ["충격", "무너짐", "예상 밖 사건", "진실", "해체"],
+    "type": "major"
+  },
+  {
+    "id": 17,
+    "name": "별",
+    "nickname": "희망",
+    "coreKeyword": ["치유", "희망", "영감", "회복", "미래"],
+    "type": "major"
+  },
+  {
+    "id": 18,
+    "name": "달",
+    "nickname": "혼란",
+    "coreKeyword": ["불안", "착각", "무의식", "혼란", "상상"],
+    "type": "major"
+  },
+  {
+    "id": 19,
+    "name": "태양",
+    "nickname": "성장",
+    "coreKeyword": ["성취", "긍정", "기쁨", "자신감", "밝음"],
+    "type": "major"
+  },
+  {
+    "id": 20,
+    "name": "심판",
+    "nickname": "깨달음",
+    "coreKeyword": ["회복", "부활", "결단", "진실", "성찰"],
+    "type": "major"
+  },
+  {
+    "id": 21,
+    "name": "세계",
+    "nickname": "완성",
+    "coreKeyword": ["완성", "성취", "통합", "여정의 끝", "조화"],
+    "type": "major"
+  },
+  {
+    "id": 22,
+    "name": "완드 에이스",
+    "nickname": "열정",
+    "coreKeyword": ["시작", "아이디어", "열정", "창의성", "기회"],
+    "type": "minor"
+  },
+  {
+    "id": 23,
+    "name": "완드 2",
+    "nickname": "계획",
+    "coreKeyword": ["선택", "계획", "미래", "탐색", "기대"],
+    "type": "minor"
+  },
+  {
+    "id": 24,
+    "name": "완드 3",
+    "nickname": "확장",
+    "coreKeyword": ["전망", "확장", "기다림", "기회", "전진"],
+    "type": "minor"
+  },
+  {
+    "id": 25,
+    "name": "완드 4",
+    "nickname": "안정",
+    "coreKeyword": ["안정", "축하", "성취", "휴식", "공동체"],
+    "type": "minor"
+  },
+  {
+    "id": 26,
+    "name": "완드 5",
+    "nickname": "갈등",
+    "coreKeyword": ["경쟁", "갈등", "혼란", "의견 충돌", "긴장"],
+    "type": "minor"
+  },
+  {
+    "id": 27,
+    "name": "완드 6",
+    "nickname": "승리",
+    "coreKeyword": ["성공", "인정", "성과", "리더십", "진보"],
+    "type": "minor"
+  },
+  {
+    "id": 28,
+    "name": "완드 7",
+    "nickname": "방어",
+    "coreKeyword": ["저항", "방어", "입장 고수", "도전", "용기"],
+    "type": "minor"
+  },
+  {
+    "id": 29,
+    "name": "완드 8",
+    "nickname": "속도",
+    "coreKeyword": ["속도", "전진", "진행", "소식", "기세"],
+    "type": "minor"
+  },
+  {
+    "id": 30,
+    "name": "완드 9",
+    "nickname": "인내",
+    "coreKeyword": ["지속", "경계", "방어", "피로", "버팀"],
+    "type": "minor"
+  },
+  {
+    "id": 31,
+    "name": "완드 10",
+    "nickname": "부담",
+    "coreKeyword": ["과중한 책임", "부담", "과로", "압박감", "끝을 향함"],
+    "type": "minor"
+  },
+  {
+    "id": 32,
+    "name": "완드 페이지",
+    "nickname": "탐험",
+    "coreKeyword": ["호기심", "탐험", "열정", "메시지", "아이디어"],
+    "type": "minor"
+  },
+  {
+    "id": 33,
+    "name": "완드 나이트",
+    "nickname": "돌진",
+    "coreKeyword": ["열정", "충동", "도전", "에너지", "이동"],
+    "type": "minor"
+  },
+  {
+    "id": 34,
+    "name": "완드 퀸",
+    "nickname": "매력",
+    "coreKeyword": ["자신감", "매력", "활기", "리더십", "따뜻함"],
+    "type": "minor"
+  },
+  {
+    "id": 35,
+    "name": "완드 킹",
+    "nickname": "통솔",
+    "coreKeyword": ["비전", "통솔력", "결단력", "영향력", "카리스마"],
+    "type": "minor"
+  },
+  {
+    "id": 36,
+    "name": "컵 에이스",
+    "nickname": "감정",
+    "coreKeyword": ["사랑", "감정의 시작", "연결", "공감", "열림"],
+    "type": "minor"
+  },
+  {
+    "id": 37,
+    "name": "컵 2",
+    "nickname": "조화",
+    "coreKeyword": ["파트너십", "조화", "감정적 유대", "상호 이해", "관계의 시작"],
+    "type": "minor"
+  },
+  {
+    "id": 38,
+    "name": "컵 3",
+    "nickname": "축하",
+    "coreKeyword": ["우정", "축하", "연대감", "기쁨", "모임"],
+    "type": "minor"
+  },
+  {
+    "id": 39,
+    "name": "컵 4",
+    "nickname": "무기력",
+    "coreKeyword": ["지루함", "무관심", "내적 고립", "기회 거절", "정체"],
+    "type": "minor"
+  },
+  {
+    "id": 40,
+    "name": "컵 5",
+    "nickname": "상실",
+    "coreKeyword": ["실망", "후회", "상실", "미련", "감정적 아픔"],
+    "type": "minor"
+  },
+  {
+    "id": 41,
+    "name": "컵 6",
+    "nickname": "추억",
+    "coreKeyword": ["향수", "과거", "기억", "순수함", "감성"],
+    "type": "minor"
+  },
+  {
+    "id": 42,
+    "name": "컵 7",
+    "nickname": "망상",
+    "coreKeyword": ["환상", "선택의 혼란", "현실 도피", "상상", "집중 부족"],
+    "type": "minor"
+  },
+  {
+    "id": 43,
+    "name": "컵 8",
+    "nickname": "이탈",
+    "coreKeyword": ["포기", "이별", "감정 정리", "거리두기", "새로운 여정"],
+    "type": "minor"
+  },
+  {
+    "id": 44,
+    "name": "컵 9",
+    "nickname": "만족",
+    "coreKeyword": ["감정적 만족", "소망 성취", "자족", "기쁨", "충만함"],
+    "type": "minor"
+  },
+  {
+    "id": 45,
+    "name": "컵 10",
+    "nickname": "행복",
+    "coreKeyword": ["감정적 완성", "가족", "조화", "평화", "지속적인 행복"],
+    "type": "minor"
+  },
+  {
+    "id": 46,
+    "name": "컵 페이지",
+    "nickname": "메시지",
+    "coreKeyword": ["감성", "직감", "소식", "순수함", "창의성"],
+    "type": "minor"
+  },
+  {
+    "id": 47,
+    "name": "컵 나이트",
+    "nickname": "제안",
+    "coreKeyword": ["로맨스", "제안", "이동", "감정 표현", "유혹"],
+    "type": "minor"
+  },
+  {
+    "id": 48,
+    "name": "컵 퀸",
+    "nickname": "공감",
+    "coreKeyword": ["공감", "감수성", "돌봄", "직관", "내면의 깊이"],
+    "type": "minor"
+  },
+  {
+    "id": 49,
+    "name": "컵 킹",
+    "nickname": "균형",
+    "coreKeyword": ["감정 조절", "지혜", "균형", "평화", "리더십"],
+    "type": "minor"
+  },
+  {
+    "id": 50,
+    "name": "소드 에이스",
+    "nickname": "명료",
+    "coreKeyword": ["진실", "명료함", "결단", "아이디어", "통찰"],
+    "type": "minor"
+  },
+  {
+    "id": 51,
+    "name": "소드 2",
+    "nickname": "갈등",
+    "coreKeyword": ["결정 장애", "양자택일", "평형", "회피", "마음의 갈등"],
+    "type": "minor"
+  },
+  {
+    "id": 52,
+    "name": "소드 3",
+    "nickname": "상처",
+    "coreKeyword": ["배신", "상실", "슬픔", "고통", "실망"],
+    "type": "minor"
+  },
+  {
+    "id": 53,
+    "name": "소드 4",
+    "nickname": "휴식",
+    "coreKeyword": ["회복", "휴식", "명상", "정지", "재정비"],
+    "type": "minor"
+  },
+  {
+    "id": 54,
+    "name": "소드 5",
+    "nickname": "패배",
+    "coreKeyword": ["갈등", "패배", "손실", "질투", "도전"],
+    "type": "minor"
+  },
+  {
+    "id": 55,
+    "name": "소드 6",
+    "nickname": "이동",
+    "coreKeyword": ["이별", "이동", "전환", "회복", "여정"],
+    "type": "minor"
+  },
+  {
+    "id": 56,
+    "name": "소드 7",
+    "nickname": "기만",
+    "coreKeyword": ["기만", "속임수", "전략", "비밀", "도주"],
+    "type": "minor"
+  },
+  {
+    "id": 57,
+    "name": "소드 8",
+    "nickname": "속박",
+    "coreKeyword": ["제한", "속박", "두려움", "무력감", "혼란"],
+    "type": "minor"
+  },
+  {
+    "id": 58,
+    "name": "소드 9",
+    "nickname": "불안",
+    "coreKeyword": ["걱정", "불안", "악몽", "후회", "두려움"],
+    "type": "minor"
+  },
+  {
+    "id": 59,
+    "name": "소드 10",
+    "nickname": "종결",
+    "coreKeyword": ["배신", "종결", "고통", "절망", "끝"],
+    "type": "minor"
+  },
+  {
+    "id": 60,
+    "name": "소드 페이지",
+    "nickname": "관찰",
+    "coreKeyword": ["호기심", "관찰", "통찰", "정보", "소식"],
+    "type": "minor"
+  },
+  {
+    "id": 61,
+    "name": "소드 나이트",
+    "nickname": "돌진",
+    "coreKeyword": ["열정", "충동", "행동", "결단", "속도"],
+    "type": "minor"
+  },
+  {
+    "id": 62,
+    "name": "소드 퀸",
+    "nickname": "분별",
+    "coreKeyword": ["명료함", "분별력", "진실", "독립", "통찰"],
+    "type": "minor"
+  },
+  {
+    "id": 63,
+    "name": "소드 킹",
+    "nickname": "통제",
+    "coreKeyword": ["이성", "통제", "책임", "권위", "객관성"],
+    "type": "minor"
+  },
+  {
+    "id": 64,
+    "name": "펜타클 에이스",
+    "nickname": "기회",
+    "coreKeyword": ["재물", "기회", "시작", "성장", "안정"],
+    "type": "minor"
+  },
+  {
+    "id": 65,
+    "name": "펜타클 2",
+    "nickname": "균형",
+    "coreKeyword": ["유연성", "균형", "적응", "조율", "다중 과제"],
+    "type": "minor"
+  },
+  {
+    "id": 66,
+    "name": "펜타클 3",
+    "nickname": "협력",
+    "coreKeyword": ["협력", "기술", "팀워크", "계획", "성과"],
+    "type": "minor"
+  },
+  {
+    "id": 67,
+    "name": "펜타클 4",
+    "nickname": "소유",
+    "coreKeyword": ["보호", "소유욕", "안정", "저축", "고집"],
+    "type": "minor"
+  },
+  {
+    "id": 68,
+    "name": "펜타클 5",
+    "nickname": "곤경",
+    "coreKeyword": ["빈곤", "외로움", "어려움", "손실", "좌절"],
+    "type": "minor"
+  },
+  {
+    "id": 69,
+    "name": "펜타클 6",
+    "nickname": "나눔",
+    "coreKeyword": ["관대함", "균형", "기부", "수혜", "도움"],
+    "type": "minor"
+  },
+  {
+    "id": 70,
+    "name": "펜타클 7",
+    "nickname": "인내",
+    "coreKeyword": ["노력", "결실", "인내", "성찰", "평가"],
+    "type": "minor"
+  },
+  {
+    "id": 71,
+    "name": "펜타클 8",
+    "nickname": "숙련",
+    "coreKeyword": ["연습", "성실", "기술", "노력", "향상"],
+    "type": "minor"
+  },
+  {
+    "id": 72,
+    "name": "펜타클 9",
+    "nickname": "성취",
+    "coreKeyword": ["독립", "풍요", "자립", "성취", "안정"],
+    "type": "minor"
+  },
+  {
+    "id": 73,
+    "name": "펜타클 10",
+    "nickname": "유산",
+    "coreKeyword": ["부", "가족", "안정", "유산", "완성"],
+    "type": "minor"
+  },
+  {
+    "id": 74,
+    "name": "펜타클 페이지",
+    "nickname": "학습",
+    "coreKeyword": ["학습", "실용성", "성장", "관찰", "근면"],
+    "type": "minor"
+  },
+  {
+    "id": 75,
+    "name": "펜타클 나이트",
+    "nickname": "성실",
+    "coreKeyword": ["근면", "성실", "책임감", "꾸준함", "신중함"],
+    "type": "minor"
+  },
+  {
+    "id": 76,
+    "name": "펜타클 퀸",
+    "nickname": "보살핌",
+    "coreKeyword": ["현실적", "보살핌", "부양", "자립", "따뜻함"],
+    "type": "minor"
+  },
+  {
+    "id": 77,
+    "name": "펜타클 킹",
+    "nickname": "안정",
+    "coreKeyword": ["부", "안정", "책임감", "성공", "권위"],
+    "type": "minor"
+  }
+]

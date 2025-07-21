@@ -1,9 +1,62 @@
 "use client";
 
-import IntroBoard from "@/components/intro/IntroBoard";
+import {
+  ImageBox,
+  MenuList,
+  ServiceTextBox,
+  ServiceTitle,
+} from "@/components/home/homeStyle";
+import MenuButton from "@/components/home/MenuButton";
+import Image from "next/image";
+import React from "react";
 
 const Home = () => {
-  return <IntroBoard />;
+  return (
+    <>
+      <ServiceTextBox>
+        <ServiceTitle $fz={16}>달콤하게 점쳐보는</ServiceTitle>
+        <ServiceTitle $fz={16}>당신의 운명</ServiceTitle>
+        <ServiceTitle $fz={36}>타로타르트</ServiceTitle>
+      </ServiceTextBox>
+      <ImageBox>
+        <Image src={"/main.png"} alt="메인이미지" width={250} height={250} />
+      </ImageBox>
+      <MenuList>
+        {/* 원 오라클: title="한 입 타르트" subtitle="한 장으로 보는 운명" */}
+        <MenuButton
+          selectType={"one"}
+          src="/cardBack.png"
+          alt="한 장의 카드"
+          width={30}
+          height={52}
+          title="한 입 타르트"
+          subTitle="한 장으로 가볍게"
+        />
+
+        {/* 쓰리카드: title="타르트 시간세트" subtitle="과거-현재-미래" */}
+        <MenuButton
+          selectType={"three"}
+          src="/second.png"
+          alt="세 장의 카드"
+          width={43}
+          height={40}
+          title="타르트 시간세트"
+          subTitle="과거-현재-미래"
+        />
+
+        {/* 양자택일: title="선택 타르트" subtitle="Yes or No / 선택의 순간" */}
+        <MenuButton
+          selectType={"Yn"}
+          src="/third.png"
+          alt="세 장의 카드"
+          width={40}
+          height={41}
+          title="어떤 타르트를 먹을까?"
+          subTitle="선택을 도와줘"
+        />
+      </MenuList>
+    </>
+  );
 };
 
 export default Home;
