@@ -25,6 +25,12 @@ export const metadata = {
   description: "달콤하게 맛보는 나의 운명: 타로타르트",
 };
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,6 +40,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Container>{children}</Container>
+        <script
+          defer
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"
+        ></script>
       </body>
     </html>
   );

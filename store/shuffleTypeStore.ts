@@ -1,10 +1,15 @@
 import { create } from "zustand";
 
-export type TarotType = 1 | 2 | 3 | 4 | null;
+/**
+ * @type 1 = '시계 방향 회전'
+ * @type 2 = '반시계 방향 회전'
+ * @type 3 = '가운데 모으기'
+ */
+export type ShuffleStepType = 1 | 2 | 3 | 4 | null;
 
 interface ShuffleType {
-  shuffleStep: TarotType;
-  setShuffleStep: (type: TarotType) => void;
+  shuffleStep: ShuffleStepType;
+  setShuffleStep: (type: ShuffleStepType) => void;
   resetShuffleStep: () => void;
 }
 
