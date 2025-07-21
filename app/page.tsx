@@ -7,12 +7,38 @@ import {
   ServiceTitle,
 } from "@/components/home/homeStyle";
 import MenuButton from "@/components/home/MenuButton";
+import { supabase } from "@/lib/supabaseClient";
+import { getTotalUsers, handleCountUsers } from "@/util/handleCountUsers";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const Home = () => {
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+
+  useEffect(() => {
+    const intervalCount = setInterval(() => {
+      handleCountUsers(window.location.pathname);
+    }, 10000);
+
+    return () => clearInterval(intervalCount);
+  }, []);
+
+  useEffect(() => {
+    const loadTotal = async () => {
+      const result = await getTotalUsers();
+      setTotalUsers(result);
+    };
+
+    loadTotal();
+  }, []);
+
   return (
     <>
+      <TotalText style={{ fontSize: "14px", marginTop: "8px" }}>
+        Total🤓 : {totalUsers}
+      </TotalText>
+
       <ServiceTextBox>
         <ServiceTitle $fz={16}>달콤하게 점쳐보는</ServiceTitle>
         <ServiceTitle $fz={16}>당신의 운명</ServiceTitle>
@@ -60,3 +86,7 @@ const Home = () => {
 };
 
 export default Home;
+
+const TotalText = styled.p`
+  color: #fff;
+`;
