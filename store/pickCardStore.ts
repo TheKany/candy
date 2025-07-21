@@ -36,7 +36,7 @@ export const usePickCard = create<PickCardWayStore>()(
 
     {
       name: "pickCard-data",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

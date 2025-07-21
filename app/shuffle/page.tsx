@@ -14,6 +14,7 @@ import InfoText from "@/components/shuffle/InfoText";
 import PickCardBoard from "@/components/shuffle/PickCardBoard";
 import { usePickCard } from "@/store/pickCardStore";
 import { useTarotType } from "@/store/tarotTypeStore";
+import { handleResetStore } from "@/util/handleResetStore";
 
 type PositionProps = {
   top: string;
@@ -120,12 +121,26 @@ const ShufflePage = () => {
   }, []);
 
   useEffect(() => {
-    if (type === "one" && pickedCardList.length === 1) {
-      router.replace("/result");
-    } else if (pickedCardList.length === 3) {
-      router.replace("/result");
-    }
+    setTimeout(() => {
+      if (type === "one" && pickedCardList.length === 1) {
+        router.replace("/result");
+      } else if (pickedCardList.length === 3) {
+        router.replace("/result");
+      }
+    }, 1000);
   }, [pickedCardList]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      handleResetStore();
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   return (
     <Container>

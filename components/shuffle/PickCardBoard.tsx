@@ -1,4 +1,5 @@
 import { usePickCardSlotStore } from "@/store/pickCardSlotStore";
+import { useTarotType } from "@/store/tarotTypeStore";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
@@ -6,9 +7,25 @@ type Props = {
   finishedShuffle: boolean;
 };
 
+const getCardCountByType = (type: string | null) => {
+  switch (type) {
+    case "one":
+      return 1;
+    case "three":
+      return 3;
+    case "Yn":
+      return 1;
+    default:
+      return 0;
+  }
+};
+
 const PickCardBoard = ({ finishedShuffle }: Props) => {
+  const { type } = useTarotType();
   const { setSlotPosition } = usePickCardSlotStore();
   const slotRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const cardCount = getCardCountByType(type);
 
   useEffect(() => {
     if (!finishedShuffle) return;
@@ -21,27 +38,43 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   }, [finishedShuffle]);
 
   return (
-    <PickCardContainer $isFinish={finishedShuffle}>
-      {[0, 1, 2].map((_, i) => (
-        <PickCard key={i}>
-          <CardPosition
-            ref={(el) => {
-              slotRef.current[i] = el;
-            }}
-          ></CardPosition>
-        </PickCard>
-      ))}
-    </PickCardContainer>
+    <>
+      {type === "one" ? (
+        <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
+          {[0].map((_, i) => (
+            <PickCard key={i}>
+              <CardPosition
+                ref={(el) => {
+                  slotRef.current[i] = el;
+                }}
+              ></CardPosition>
+            </PickCard>
+          ))}
+        </PickCardContainer>
+      ) : (
+        <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
+          {[0, 1, 2].map((_, i) => (
+            <PickCard key={i}>
+              <CardPosition
+                ref={(el) => {
+                  slotRef.current[i] = el;
+                }}
+              ></CardPosition>
+            </PickCard>
+          ))}
+        </PickCardContainer>
+      )}
+    </>
   );
 };
 
 export default PickCardBoard;
 
-const PickCardContainer = styled.div<{ $isFinish: boolean }>`
+const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(${({ $col }) => $col}, 1fr);
   gap: 8px;
   height: 100px;
   position: absolute;

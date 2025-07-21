@@ -15,8 +15,13 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
   const onClickNumberBtn = (id: number | string) => {
     if (typeof id === "number") {
-      if (chooseNum.length > 1) return;
-      setChooseNum((prev) => prev + id);
+      const next = chooseNum + id.toString();
+      const nextNum = Number(next);
+
+      if (nextNum > 78) return;
+      if (chooseNum.length >= 2) return;
+
+      setChooseNum(next);
     }
 
     if (id === "remove") {
@@ -50,7 +55,9 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
 
   return (
     <NumberContainer $isFinish={finishedShuffle}>
-      <ChooseCardNum>{chooseNum}</ChooseCardNum>
+      <ChooseCardNum>
+        운명의 카드는 <span>{chooseNum}</span>번째 카드
+      </ChooseCardNum>
       {Array.from({ length: 12 }).map((_, idx) => {
         if (idx < 9) {
           return (
@@ -88,8 +95,9 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
 export default NumberPad;
 
 const ChooseCardNum = styled.p`
+  width: 100%;
   text-align: center;
-  font-size: 32px;
+  font-size: 18px;
   font-weight: 500;
   color: #d4af37;
 
@@ -97,6 +105,12 @@ const ChooseCardNum = styled.p`
   left: 50%;
   top: -15%;
   transform: translate(-50%, -50%);
+
+  & span {
+    color: #fff;
+    border-bottom: 1px solid #d4af37;
+    padding: 0 4px;
+  }
 `;
 
 const NumberContainer = styled.div<{ $isFinish: boolean }>`
@@ -106,7 +120,7 @@ const NumberContainer = styled.div<{ $isFinish: boolean }>`
   gap: 8px;
 
   position: absolute;
-  bottom: 0;
+  bottom: -5%;
 
   opacity: ${({ $isFinish }) => ($isFinish ? 1 : 0)};
   visibility: ${({ $isFinish }) => ($isFinish ? "visible" : "hidden")};

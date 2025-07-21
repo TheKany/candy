@@ -45,7 +45,7 @@ const Home = () => {
         />
 
         {/* 양자택일: title="선택 타르트" subtitle="Yes or No / 선택의 순간" */}
-        <MenuButton
+        {/* <MenuButton
           selectType={"Yn"}
           src="/third.png"
           alt="세 장의 카드"
@@ -53,7 +53,7 @@ const Home = () => {
           height={41}
           title="어떤 타르트를 먹을까?"
           subTitle="선택을 도와줘"
-        />
+        /> */}
       </MenuList>
     </>
   );
