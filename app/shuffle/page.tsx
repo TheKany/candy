@@ -144,19 +144,21 @@ const ShufflePage = () => {
 
   return (
     <Container>
-      <Wrapper>
-        <InfoText finishedShuffle={finishedShuffle} />
+      {cardCnt > 0 ? (
+        <Wrapper>
+          <InfoText finishedShuffle={finishedShuffle} />
 
-        <TarotCardBoard
-          isRotating={isRotating}
-          positions={positions}
-          cardCnt={cardCnt}
-        />
+          <TarotCardBoard
+            isRotating={isRotating}
+            positions={positions}
+            cardCnt={cardCnt}
+          />
 
-        <PickCardBoard finishedShuffle={finishedShuffle} />
+          <PickCardBoard finishedShuffle={finishedShuffle} />
 
-        <NumberPad finishedShuffle={finishedShuffle} deck={deck} />
-      </Wrapper>
+          <NumberPad finishedShuffle={finishedShuffle} deck={deck} />
+        </Wrapper>
+      ) : null}
     </Container>
   );
 };
