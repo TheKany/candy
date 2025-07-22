@@ -10,6 +10,7 @@ import { handleResetStore } from "@/util/handleResetStore";
 import Loading from "@/components/_common/Loading";
 import styled from "styled-components";
 import dynamic from "next/dynamic";
+import Feedback from "@/components/result/Feedback";
 
 const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
   ssr: false,
@@ -33,14 +34,14 @@ const Result = () => {
   }, []);
 
   useEffect(() => {
-    const handlePopState = () => {
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
       handleResetStore();
     };
 
-    window.addEventListener("popstate", handlePopState);
+    window.addEventListener("beforeunload", onBeforeUnload);
 
     return () => {
-      window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener("beforeunload", onBeforeUnload);
     };
   }, []);
 
@@ -50,13 +51,15 @@ const Result = () => {
         <Loading />
       ) : (
         <>
-          <div style={{ minHeight: "300px" }}>
-            <TarotResult />
-            <ButtonBox>
-              <button onClick={onClickHome}>홈으로</button>
-              <KakaoShareButton />
-            </ButtonBox>
-          </div>
+          <TarotResult />
+
+          <Feedback />
+
+          <ButtonBox>
+            <button onClick={onClickHome}>홈으로</button>
+            <KakaoShareButton />
+          </ButtonBox>
+
           <AdBanner />
         </>
       )}
