@@ -9,24 +9,14 @@ import {
   MainTitle,
   ShuffleBtn,
 } from "@/components/service/serviceStyle";
+import { useResetData } from "@/hooks/useResetData";
 import { usePickCard } from "@/store/pickCardStore";
 import { handleResetStore } from "@/util/handleResetStore";
-import { useEffect } from "react";
 
 const Service = () => {
   const { pickedWorry, pickedEmotion, pickedFlow } = usePickCard();
 
-  useEffect(() => {
-    const handlePopState = () => {
-      handleResetStore();
-    };
-
-    window.addEventListener("popstate", handlePopState);
-
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
+  useResetData(handleResetStore);
 
   return (
     <Wrapper>

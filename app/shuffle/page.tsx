@@ -15,6 +15,7 @@ import PickCardBoard from "@/components/shuffle/PickCardBoard";
 import { usePickCard } from "@/store/pickCardStore";
 import { useTarotType } from "@/store/tarotTypeStore";
 import { handleResetStore } from "@/util/handleResetStore";
+import { useResetData } from "@/hooks/useResetData";
 
 type PositionProps = {
   top: string;
@@ -130,17 +131,7 @@ const ShufflePage = () => {
     }, 1000);
   }, [pickedCardList]);
 
-  useEffect(() => {
-    const handlePopState = () => {
-      handleResetStore();
-    };
-
-    window.addEventListener("popstate", handlePopState);
-
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
+  useResetData(handleResetStore);
 
   return (
     <Container>

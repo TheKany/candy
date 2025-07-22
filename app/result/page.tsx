@@ -11,6 +11,7 @@ import Loading from "@/components/_common/Loading";
 import styled from "styled-components";
 import dynamic from "next/dynamic";
 import Feedback from "@/components/result/Feedback";
+import { useResetData } from "@/hooks/useResetData";
 
 const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
   ssr: false,
@@ -33,17 +34,7 @@ const Result = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const onBeforeUnload = (e: BeforeUnloadEvent) => {
-      handleResetStore();
-    };
-
-    window.addEventListener("beforeunload", onBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", onBeforeUnload);
-    };
-  }, []);
+  useResetData(handleResetStore);
 
   return (
     <Wrapper>
