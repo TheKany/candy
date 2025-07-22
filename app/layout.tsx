@@ -23,6 +23,9 @@ export const viewport = {
 export const metadata = {
   title: "타로타르트",
   description: "달콤하게 맛보는 나의 운명: 타로타르트",
+  other: {
+    "google-adsense-account": "ca-pub-4184442303277144",
+  },
 };
 
 declare global {
@@ -30,7 +33,6 @@ declare global {
     Kakao: any;
   }
 }
-
 export default function RootLayout({
   children,
 }: Readonly<{
