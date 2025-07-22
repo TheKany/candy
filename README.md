@@ -1,63 +1,36 @@
 # 타로카드 서비스
 
-## 고민 키워드
+https://tarot-tart.vercel.app/
 
-| 번호 | 코드           | 표시명                     |
-| ---- | -------------- | -------------------------- |
-| 0    | `career`       | 💼 직장 · 일 · 커리어      |
-| 1    | `finance`      | 💰 돈 · 재정 · 소비        |
-| 2    | `love`         | ❤️ 연애 · 썸 · 사랑        |
-| 3    | `path`         | 🤝 친구 · 가족 · 소통      |
-| 4    | `relationship` | 📚 학업 · 진로 · 시험      |
-| 5    | `self`         | 🧘‍♀️ 감정 · 자존감 · 나 자신 |
+## 만들게 된 계기
+한 때 타로카드에 관심이 생겨 책과 카드를 구입해 주변 지인들의 타로를 봐주곤 했습니다.
+이 경험을 바탕으로 복잡한 해석본 / 장소 / 전문성에 구애받지 않는 앱 서비스로 만들면 좋겠다라는 생각에
+무료버전으로 라이트하게 제작을 했습니다 :)
 
-## 감정 키워드
+## 사용 스택
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=flat&logo=styled-components&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=flat&logo=pwa&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=amazonaws&logoColor=white)
 
-| 번호 | 코드        | 표시명         |
-| ---- | ----------- | -------------- |
-| 0    | `anxious`   | 😰 불안하다    |
-| 1    | `stuck`     | 😵 답답하다    |
-| 2    | `exhausted` | 😩 지쳤다      |
-| 3    | `confused`  | ❓ 잘 모르겠다 |
-| 4    | `regretful` | 😔 후회된다    |
-| 5    | `sad`       | 😢 슬프다      |
-| 6    | `excited`   | 💓 설렌다      |
+## 프로젝트 구성 인원
+- 기획 / 디자인 / 개발: 👨🏻‍🦱 kkan (1인)
 
-## 흐름 키워드
+## 주요 기능
+- 생각 -> 키워드 선택 -> 결과 의 형태
+- 사용자는 본인이 가지고 있는 고민에 대해 생각하면서 키워드를 고르고, 결과 해석본을 받는다.
+- 카카오톡 공유
+- 개발자에게 피드백 보내기
 
-| 번호 | 코드        | 표시명           |
-| ---- | ----------- | ---------------- |
-| 0    | `beginning` | 🌱 시작하려는 중 |
-| 1    | `ongoing`   | 🔄 진행 중이다   |
-| 2    | `ending`    | 🌇 마무리 중이다 |
-| 3    | `stuck`     | ⛔ 멈춰 있다     |
-| 4    | `change`    | 🔀 변화가 생겼다 |
-| 5    | `unclear`   | 🌫️ 알 수 없다    |
+## 기술 구현
+- 인공지능을 활용한 해석이 아닌 타로에 관련된 다양한 해석을 종합하여 압축된 형태로 제공.
+- 카드를 섞는 기능은 단순하게 '피셔 예이츠 셔플'을 사용하는게 아닌 사람이 섞을 때 발생하는 경우의 수를 생각하여 로직 작성.
+- supabase를 활용한 누적 이용자 / 개발자 피드백 전송 / 타로 해석 데이터 저장.
+- pwa 를 활용해 웹앱 형태로 제공.
 
-## 테이블
-
-### 카드 정보
-
-| 컬럼명        | 타입     | 설명                   |
-| ------------- | -------- | ---------------------- |
-| `id`          | int (PK) | 카드 ID (0\~77)        |
-| `name`        | text     | 카드 이름 (예: 바보)   |
-| `nickname`    | text     | 대표 키워드 (예: 시작) |
-| `coreKeyword` | text\[]  | 키워드 배열            |
-| `type`        | text     | major / minor          |
-
-### 카드 해석 정보
-
-| 컬럼명     | 타입     | 설명                                         |
-| ---------- | -------- | -------------------------------------------- |
-| `id`       | int (PK) | 자동 증가 ID                                 |
-| `card_id`  | int      | 참조용 카드 ID (`tarot_cards.id`)            |
-| `worry`    | text     | 고민 키워드 코드                             |
-| `emotion`  | text     | 감정 키워드 코드                             |
-| `flow`     | text     | 흐름 키워드 코드                             |
-| `score`    | int      | 고민, 감정, 흐름에 대한 긍정 점수 (-3 \~ +3) |
-| `solution` | text     | 해당 조합에 맞는 공감 해석문                 |
-
-오늘의 타로 리딩이 도움이 되셨다면,
-당신의 복채는 마음속 감사로도 충분합니다 🙏  
-(이 페이지의 광고는 운영에 도움이 됩니다 😊)
+## TODO
+- 웹 형태의 최적화된 view 제공
+- 다양한 형태의 타로기능 추가
+- 다양한 각도의 해석 추가
