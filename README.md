@@ -12,7 +12,6 @@ https://tarot-tart.vercel.app/
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=flat&logo=styled-components&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
-![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=flat&logo=pwa&logoColor=white)
 ![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=amazonaws&logoColor=white)
 
 ## 프로젝트 구성 인원
@@ -34,3 +33,4 @@ https://tarot-tart.vercel.app/
 - 웹 형태의 최적화된 view 제공
 - 다양한 형태의 타로기능 추가
 - 다양한 각도의 해석 추가
+- PWA 기능 추가
