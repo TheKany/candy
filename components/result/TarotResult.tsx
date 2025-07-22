@@ -130,11 +130,10 @@ const TarotResult = () => {
               <ImgBox>
                 <Image
                   src={`/cards/card${cardNo}.webp`}
-                  alt={``}
-                  width={0}
-                  height={0}
-                  unoptimized
+                  alt={`카드 ${cardNo}`}
                   fill
+                  sizes="(max-width: 320px) 100vw, 320px"
+                  priority
                 />
               </ImgBox>
 

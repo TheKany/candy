@@ -71,11 +71,10 @@ const TarotCardBoard = ({ isRotating, positions, cardCnt }: Props) => {
             >
               <Image
                 src="/cardBack.png"
-                alt="카드"
-                width={0}
-                height={0}
+                alt="카드 뒷면"
                 fill
-                unoptimized
+                sizes={`${CARD_WIDTH}px`}
+                priority
               />
             </CardBox>
           ))}
