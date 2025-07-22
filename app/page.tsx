@@ -12,6 +12,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import dynamic from "next/dynamic";
+import Wrapper from "@/components/_common/_Wrapper";
 
 const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
   ssr: false,
@@ -38,7 +39,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <TotalText style={{ fontSize: "14px", marginTop: "8px" }}>
         Total🤓 : {totalUsers}
       </TotalText>
@@ -87,7 +88,7 @@ const Home = () => {
       </MenuList>
 
       {/* <AdBanner /> */}
-    </>
+    </Wrapper>
   );
 };
 
