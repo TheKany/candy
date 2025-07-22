@@ -20,13 +20,12 @@ const Feedback = () => {
 
   return (
     <FeedbackBox>
-      <p>달콤한 타르트처럼</p>
-      <p>오늘의 타로도 당신에게 작은 위로가 되었길바래요</p>
-      <p>복채는 마음으로 받았어요 :) </p>
-      <p>대신 피드백 한번 부탁드려도 될까요?</p>
-
       {!submitted ? (
         <>
+          <p>달콤한 타르트처럼</p>
+          <p>오늘의 타로도 당신에게 작은 위로가 되었길바래요</p>
+          <p>복채는 마음으로 받았어요 :) </p>
+          <p>대신 피드백 한번 부탁드려도 될까요?</p>
           <textarea
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
@@ -48,11 +47,17 @@ const FeedbackBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 16px 0;
+
+  background-color: #2c6851;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25);
 
   & p {
     text-align: center;
     color: #fff;
+    font-size: 14px;
   }
 
   & textarea {
@@ -64,6 +69,10 @@ const FeedbackBox = styled.div`
     font-size: 14px;
     resize: none;
     min-height: 80px;
+
+    &::placeholder {
+      font-size: 12px;
+    }
   }
 
   & button {
