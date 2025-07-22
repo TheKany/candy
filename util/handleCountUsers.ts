@@ -11,8 +11,6 @@ const getSessionId = () => {
 };
 
 export const handleCountUsers = async (page: string) => {
-  const sessionId = getSessionId();
-
   await supabase.from("tarot_count_logs").insert({
     session_id: getSessionId(),
   });
