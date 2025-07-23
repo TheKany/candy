@@ -6,9 +6,10 @@ import styled from "styled-components";
 type Props = {
   finishedShuffle: boolean;
   deck: number[];
+  hiddenText: boolean;
 };
 
-const NumberPad = ({ finishedShuffle, deck }: Props) => {
+const NumberPad = ({ finishedShuffle, deck, hiddenText }: Props) => {
   const { type } = useTarotType();
   const { pickedCardList, setPickedCardList } = usePickCard();
   const [chooseNum, setChooseNum] = useState<string>("");
@@ -56,7 +57,13 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
   return (
     <NumberContainer $isFinish={finishedShuffle}>
       <ChooseCardNum>
-        운명의 카드는 <span>{chooseNum}</span>번째 카드
+        {hiddenText ? (
+          <>운명을 찾는 중 ...</>
+        ) : (
+          <>
+            운명의 카드는 <span>{chooseNum}</span>번째 카드
+          </>
+        )}
       </ChooseCardNum>
       {Array.from({ length: 12 }).map((_, idx) => {
         if (idx < 9) {

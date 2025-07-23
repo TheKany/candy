@@ -35,6 +35,7 @@ const ShufflePage = () => {
   const [isRotating, setIsRotating] = useState(false);
   const [finishedShuffle, setFinishedShuffle] = useState(false);
   const [deck, setDeck] = useState<number[]>([]);
+  const [hiddenText, setHiddenText] = useState(false);
 
   const onShuffleCard = async () => {
     if (isRotating) return;
@@ -116,6 +117,7 @@ const ShufflePage = () => {
     const onLoadData = async () => {
       const result = await getCardCount();
       setCardCnt(result);
+      setHiddenText(false);
     };
 
     onLoadData();
@@ -124,8 +126,10 @@ const ShufflePage = () => {
   useEffect(() => {
     setTimeout(() => {
       if (type === "one" && pickedCardList.length === 1) {
+        setHiddenText(true);
         router.replace("/result");
       } else if (pickedCardList.length === 3) {
+        setHiddenText(true);
         router.replace("/result");
       }
     }, 1000);
@@ -147,7 +151,11 @@ const ShufflePage = () => {
 
           <PickCardBoard finishedShuffle={finishedShuffle} />
 
-          <NumberPad finishedShuffle={finishedShuffle} deck={deck} />
+          <NumberPad
+            finishedShuffle={finishedShuffle}
+            deck={deck}
+            hiddenText={hiddenText}
+          />
         </Wrapper>
       ) : null}
     </Container>
