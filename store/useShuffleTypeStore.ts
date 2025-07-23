@@ -13,7 +13,7 @@ interface ShuffleType {
   resetShuffleStep: () => void;
 }
 
-export const useShuffleType = create<ShuffleType>((set) => ({
+export const useShuffleTypeStore = create<ShuffleType>((set) => ({
   shuffleStep: null,
   setShuffleStep: (shuffleStep) => set({ shuffleStep }),
   resetShuffleStep: () => set({ shuffleStep: null }),

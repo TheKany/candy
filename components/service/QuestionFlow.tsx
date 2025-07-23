@@ -2,11 +2,12 @@
 
 import React from "react";
 import { Answer, BtnBox, Question, QuestionBox } from "./serviceStyle";
-import { usePickCard } from "@/store/pickCardStore";
+import { usePickCardStore } from "@/store/pickCardStore";
 import { flowDisplayKor, flowKeywordList } from "@/types/worryTypes";
 
 const QuestionPick = () => {
-  const { pickedFlow, setPickedFlow } = usePickCard();
+  const pickedFlow = usePickCardStore((state) => state.pickedFlow);
+  const setPickedFlow = usePickCardStore((state) => state.setPickedFlow);
 
   return (
     <QuestionBox>

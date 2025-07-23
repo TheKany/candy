@@ -10,11 +10,13 @@ import {
   ShuffleBtn,
 } from "@/components/service/serviceStyle";
 import { useResetData } from "@/hooks/useResetData";
-import { usePickCard } from "@/store/pickCardStore";
+import { usePickCardStore } from "@/store/pickCardStore";
 import { handleResetStore } from "@/util/handleResetStore";
 
 const Service = () => {
-  const { pickedWorry, pickedEmotion, pickedFlow } = usePickCard();
+  const pickedWorry = usePickCardStore((state) => state.pickedWorry);
+  const pickedEmotion = usePickCardStore((state) => state.pickedEmotion);
+  const pickedFlow = usePickCardStore((state) => state.pickedFlow);
 
   useResetData(handleResetStore);
 

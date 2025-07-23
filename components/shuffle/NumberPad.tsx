@@ -1,5 +1,5 @@
-import { usePickCard } from "@/store/pickCardStore";
-import { useTarotType } from "@/store/tarotTypeStore";
+import { usePickCardStore } from "@/store/pickCardStore";
+import { useTarotTypeStore } from "@/store/tarotTypeStore";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -10,10 +10,15 @@ type Props = {
 };
 
 const NumberPad = ({ finishedShuffle, deck, hiddenText }: Props) => {
-  const { type } = useTarotType();
-  const { pickedCardList, setPickedCardList } = usePickCard();
+  const type = useTarotTypeStore((state) => state.type);
+  const pickedCardList = usePickCardStore((state) => state.pickedCardList);
+  const setPickedCardList = usePickCardStore(
+    (state) => state.setPickedCardList
+  );
+
   const [chooseNum, setChooseNum] = useState<string>("");
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
+
   const onClickNumberBtn = (id: number | string) => {
     if (typeof id === "number") {
       const next = chooseNum + id.toString();
