@@ -1,7 +1,7 @@
 "use client";
 
-import { usePickCard } from "@/store/pickCardStore";
-import { useTarotType } from "@/store/tarotTypeStore";
+import { usePickCardStore } from "@/store/pickCardStore";
+import { useTarotTypeStore } from "@/store/tarotTypeStore";
 import { CategoryKeyword } from "@/types/tarotCardTypes";
 import {
   handleCardBasicInfo,
@@ -32,9 +32,12 @@ type CardComment = {
 
 const TarotResult = () => {
   const router = useRouter();
-  const { pickedWorry, pickedEmotion, pickedFlow, pickedCardList } =
-    usePickCard();
-  const { type } = useTarotType();
+
+  const type = useTarotTypeStore((state) => state.type);
+  const pickedWorry = usePickCardStore((state) => state.pickedWorry);
+  const pickedEmotion = usePickCardStore((state) => state.pickedEmotion);
+  const pickedFlow = usePickCardStore((state) => state.pickedFlow);
+  const pickedCardList = usePickCardStore((state) => state.pickedCardList);
 
   const [comments, setComments] = useState<CardComment[]>([]);
 

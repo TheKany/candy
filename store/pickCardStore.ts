@@ -14,7 +14,7 @@ interface PickCardWayStore {
   resetPickKeyword: () => void;
 }
 
-export const usePickCard = create<PickCardWayStore>()(
+export const usePickCardStore = create<PickCardWayStore>()(
   persist(
     (set) => ({
       pickedWorry: null,

@@ -2,7 +2,6 @@
 
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useShuffleType } from "@/store/shuffleTypeStore";
 import { getRandomCardNo } from "@/util/getRandomCardNo";
 import { handleCardShufflePosition } from "@/util/handleCardShufflePosition";
 import { getCardCount } from "@/util/getCardData";
@@ -12,10 +11,11 @@ import NumberPad from "@/components/shuffle/NumberPad";
 import TarotCardBoard from "@/components/shuffle/TarotCardBoard";
 import InfoText from "@/components/shuffle/InfoText";
 import PickCardBoard from "@/components/shuffle/PickCardBoard";
-import { usePickCard } from "@/store/pickCardStore";
-import { useTarotType } from "@/store/tarotTypeStore";
+import { usePickCardStore } from "@/store/pickCardStore";
 import { handleResetStore } from "@/util/handleResetStore";
 import { useResetData } from "@/hooks/useResetData";
+import { useShuffleTypeStore } from "@/store/useShuffleTypeStore";
+import { useTarotTypeStore } from "@/store/tarotTypeStore";
 
 type PositionProps = {
   top: string;
@@ -25,16 +25,17 @@ type PositionProps = {
 
 const ShufflePage = () => {
   const router = useRouter();
-  const { type } = useTarotType();
 
-  const { pickedCardList } = usePickCard();
-  const { setShuffleStep } = useShuffleType();
+  const type = useTarotTypeStore((state) => state.type);
+  const pickedCardList = usePickCardStore((state) => state.pickedCardList);
+  const setShuffleStep = useShuffleTypeStore((state) => state.setShuffleStep);
 
   const [cardCnt, setCardCnt] = useState<number>(0);
   const [positions, setPositions] = useState<PositionProps[]>([]);
   const [isRotating, setIsRotating] = useState(false);
   const [finishedShuffle, setFinishedShuffle] = useState(false);
   const [deck, setDeck] = useState<number[]>([]);
+  const [hiddenText, setHiddenText] = useState(false);
 
   const onShuffleCard = async () => {
     if (isRotating) return;
@@ -116,6 +117,7 @@ const ShufflePage = () => {
     const onLoadData = async () => {
       const result = await getCardCount();
       setCardCnt(result);
+      setHiddenText(false);
     };
 
     onLoadData();
@@ -124,8 +126,10 @@ const ShufflePage = () => {
   useEffect(() => {
     setTimeout(() => {
       if (type === "one" && pickedCardList.length === 1) {
+        setHiddenText(true);
         router.replace("/result");
       } else if (pickedCardList.length === 3) {
+        setHiddenText(true);
         router.replace("/result");
       }
     }, 1000);
@@ -147,7 +151,11 @@ const ShufflePage = () => {
 
           <PickCardBoard finishedShuffle={finishedShuffle} />
 
-          <NumberPad finishedShuffle={finishedShuffle} deck={deck} />
+          <NumberPad
+            finishedShuffle={finishedShuffle}
+            deck={deck}
+            hiddenText={hiddenText}
+          />
         </Wrapper>
       ) : null}
     </Container>

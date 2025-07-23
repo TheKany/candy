@@ -9,7 +9,7 @@ interface TarotStore {
   resetType: () => void;
 }
 
-export const useTarotType = create<TarotStore>()(
+export const useTarotTypeStore = create<TarotStore>()(
   persist(
     (set) => ({
       type: null,

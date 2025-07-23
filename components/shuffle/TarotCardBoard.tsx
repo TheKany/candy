@@ -1,7 +1,7 @@
 import { CARD_HEIGHT, CARD_WIDTH } from "@/constants/tarot";
-import { usePickCardSlotStore } from "@/store/pickCardSlotStore";
-import { usePickCard } from "@/store/pickCardStore";
-import { useShuffleType } from "@/store/shuffleTypeStore";
+import { usePickCardStoreSlotStore } from "@/store/pickCardSlotStore";
+import { usePickCardStore } from "@/store/pickCardStore";
+import { useShuffleTypeStore } from "@/store/useShuffleTypeStore";
 import { Clockwise, Counterclockwise } from "@/styles/rotateAnimations";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
@@ -18,10 +18,13 @@ type Props = {
 };
 
 const TarotCardBoard = ({ isRotating, positions, cardCnt }: Props) => {
-  const { slotPositions } = usePickCardSlotStore();
-  const { pickedCardList } = usePickCard();
+  const slotPositions = usePickCardStoreSlotStore(
+    (state) => state.slotPositions
+  );
+  const pickedCardList = usePickCardStore((state) => state.pickedCardList);
+  const shuffleStep = useShuffleTypeStore((state) => state.shuffleStep);
+
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const { shuffleStep } = useShuffleType();
 
   useEffect(() => {
     if (!slotPositions.length) return;

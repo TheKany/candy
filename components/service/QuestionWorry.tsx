@@ -3,10 +3,11 @@
 import React from "react";
 import { Answer, BtnBox, Question, QuestionBox } from "./serviceStyle";
 import { worryDisplayKor, worryKeywordList } from "@/types/worryTypes";
-import { usePickCard } from "@/store/pickCardStore";
+import { usePickCardStore } from "@/store/pickCardStore";
 
 const QuestionWorry = () => {
-  const { pickedWorry, setPickedWorry } = usePickCard();
+  const pickedWorry = usePickCardStore((state) => state.pickedWorry);
+  const setPickedWorry = usePickCardStore((state) => state.setPickedWorry);
 
   return (
     <QuestionBox>

@@ -1,18 +1,24 @@
-import { usePickCard } from "@/store/pickCardStore";
-import { useTarotType } from "@/store/tarotTypeStore";
+import { usePickCardStore } from "@/store/pickCardStore";
+import { useTarotTypeStore } from "@/store/tarotTypeStore";
 import React, { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
   finishedShuffle: boolean;
   deck: number[];
+  hiddenText: boolean;
 };
 
-const NumberPad = ({ finishedShuffle, deck }: Props) => {
-  const { type } = useTarotType();
-  const { pickedCardList, setPickedCardList } = usePickCard();
+const NumberPad = ({ finishedShuffle, deck, hiddenText }: Props) => {
+  const type = useTarotTypeStore((state) => state.type);
+  const pickedCardList = usePickCardStore((state) => state.pickedCardList);
+  const setPickedCardList = usePickCardStore(
+    (state) => state.setPickedCardList
+  );
+
   const [chooseNum, setChooseNum] = useState<string>("");
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
+
   const onClickNumberBtn = (id: number | string) => {
     if (typeof id === "number") {
       const next = chooseNum + id.toString();
@@ -56,7 +62,13 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
   return (
     <NumberContainer $isFinish={finishedShuffle}>
       <ChooseCardNum>
-        운명의 카드는 <span>{chooseNum}</span>번째 카드
+        {hiddenText ? (
+          <>운명을 찾는 중 ...</>
+        ) : (
+          <>
+            운명의 카드는 <span>{chooseNum}</span>번째 카드
+          </>
+        )}
       </ChooseCardNum>
       {Array.from({ length: 12 }).map((_, idx) => {
         if (idx < 9) {

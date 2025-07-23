@@ -2,7 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { TarotType, useTarotType } from "@/store/tarotTypeStore";
+import { TarotType, useTarotTypeStore } from "@/store/tarotTypeStore";
 import {
   MenuBtnWrapper,
   MenuContainer,
@@ -31,7 +31,7 @@ const MenuButton = ({
   subTitle,
 }: Props) => {
   const router = useRouter();
-  const { setType } = useTarotType();
+  const { setType } = useTarotTypeStore();
   const onClickLinkMenu = (id: TarotType) => {
     setType(id);
     router.push("/service");

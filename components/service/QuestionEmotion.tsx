@@ -2,11 +2,12 @@
 
 import React from "react";
 import { Answer, BtnBox, Question, QuestionBox } from "./serviceStyle";
-import { usePickCard } from "@/store/pickCardStore";
+import { usePickCardStore } from "@/store/pickCardStore";
 import { emotionDisplayKor, emotionKeywordList } from "@/types/worryTypes";
 
 const QuestionEmotion = () => {
-  const { pickedEmotion, setPickedEmotion } = usePickCard();
+  const pickedEmotion = usePickCardStore((state) => state.pickedEmotion);
+  const setPickedEmotion = usePickCardStore((state) => state.setPickedEmotion);
 
   return (
     <QuestionBox>

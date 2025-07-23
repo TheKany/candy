@@ -11,7 +11,7 @@ interface PickCardSlotStore {
   resetSlotPositions: () => void;
 }
 
-export const usePickCardSlotStore = create<PickCardSlotStore>((set) => ({
+export const usePickCardStoreSlotStore = create<PickCardSlotStore>((set) => ({
   slotPositions: [],
   setSlotPosition: (index, position) =>
     set((state) => {
