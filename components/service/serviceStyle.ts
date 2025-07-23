@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import styled from "styled-components";
 
 export const MainTitle = styled.p`
@@ -42,7 +43,7 @@ export const LinkBox = styled.div`
   width: 100%;
 `;
 
-export const ShuffleBtn = styled.a`
+export const ShuffleBtn = styled(Link)`
   width: 80%;
   background-color: #fff;
   padding: 16px 0;

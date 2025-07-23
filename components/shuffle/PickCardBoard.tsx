@@ -1,6 +1,6 @@
 import { usePickCardSlotStore } from "@/store/pickCardSlotStore";
 import { useTarotType } from "@/store/tarotTypeStore";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -25,7 +25,12 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   const { setSlotPosition } = usePickCardSlotStore();
   const slotRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const cardCount = getCardCountByType(type);
+  const [cardCount, setCardCount] = useState(0);
+  useEffect(() => {
+    if (type !== null) {
+      setCardCount(getCardCountByType(type));
+    }
+  }, [type]);
 
   useEffect(() => {
     if (!finishedShuffle) return;

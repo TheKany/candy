@@ -25,8 +25,8 @@ type PositionProps = {
 
 const ShufflePage = () => {
   const router = useRouter();
-
   const { type } = useTarotType();
+
   const { pickedCardList } = usePickCard();
   const { setShuffleStep } = useShuffleType();
 
