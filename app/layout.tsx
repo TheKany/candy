@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Container from "@/components/_common/_Container";
 import { Analytics } from "@vercel/analytics/next";
+import { url } from "inspector";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,15 @@ export const viewport = {
 export const metadata = {
   title: "타로타르트",
   description: "달콤하게 맛보는 나의 운명: 타로타르트",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/android-icon-192x192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: { url: "/apple-icon-180x180.png", sizes: "180x180" },
+    manifest: "/manifest.json",
+  },
   other: {
     "google-adsense-account": "ca-pub-4184442303277144",
   },
