@@ -1,18 +1,18 @@
 "use client";
 
+import Wrapper from "@/components/_common/_Wrapper";
+import MenuButton from "@/components/home/MenuButton";
 import {
   ImageBox,
   MenuList,
   ServiceTextBox,
   ServiceTitle,
 } from "@/components/home/homeStyle";
-import MenuButton from "@/components/home/MenuButton";
 import { getTotalUsers, handleCountUsers } from "@/util/handleCountUsers";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import dynamic from "next/dynamic";
-import Wrapper from "@/components/_common/_Wrapper";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
   ssr: false,
@@ -74,17 +74,6 @@ const Home = () => {
           title="타르트 시간세트"
           subTitle="과거-현재-미래"
         />
-
-        {/* 양자택일: title="선택 타르트" subtitle="Yes or No / 선택의 순간" */}
-        {/* <MenuButton
-          selectType={"Yn"}
-          src="/third.png"
-          alt="세 장의 카드"
-          width={40}
-          height={41}
-          title="어떤 타르트를 먹을까?"
-          subTitle="선택을 도와줘"
-        /> */}
       </MenuList>
 
       {/* <AdBanner /> */}
