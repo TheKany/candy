@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient";
+import { supabaseServer } from "@/lib/supabaseServer";
 
 export async function POST() {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from("tarot_count_logs")
       .insert({ used_at: new Date().toISOString() });
 
