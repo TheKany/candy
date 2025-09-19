@@ -10,12 +10,13 @@ const Feedback = () => {
 
   const submitFeedback = async () => {
     const result = await handleUserFeedback(feedback);
-    if (result === "ok") {
-      setSubmitted(true);
-      setFeedback("");
-    } else {
-      alert("피드백 전송 중 오류가 발생했어요 😢");
-    }
+    console.log(result);
+    // if (result === "ok") {
+    //   setSubmitted(true);
+    //   setFeedback("");
+    // } else {
+    //   alert("피드백 전송 중 오류가 발생했어요 😢");
+    // }
   };
 
   return (
