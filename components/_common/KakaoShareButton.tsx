@@ -63,7 +63,7 @@ const KakaoShareButton = () => {
 
   return (
     <>
-      {isKakaoKey ?? (
+      {isKakaoKey && (
         <button onClick={handleShare} disabled={!isKakaoReady}>
           카카오톡 공유하기
         </button>
