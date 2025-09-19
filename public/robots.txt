@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://tarot-tart.vercel.app/sitemap.xml
+Disallow: /result
+Disallow: /shuffle
+Disallow: /service

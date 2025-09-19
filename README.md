@@ -41,10 +41,6 @@ https://tarot-tart.vercel.app/
 - 다양한 각도의 해석 추가
 - PWA 기능 추가
 
-## 폴더 구성
+### 2025.09.18
+- 좀 더 자세한 리딩을 위해 질문지 개편
 
-- store
-  ㄴ useUserSelectAnswerStore.ts: 유저가 고른 고민의 정보
-  ㄴ useUserPickNumStore.ts: 유저가 고른 카드 ( 순서와 실제 카드 )
-  ㄴ useShuffleTypeStore.ts: 카드 셔플하는 순서 ( css에 사용 )
-  ㄴ usepickCardSlotStore.ts: 뽑은 카드 나열하는 판 위치 ( css에 사용 )
