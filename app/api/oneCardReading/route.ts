@@ -1,6 +1,5 @@
 // 한 장 타로
-
-import { supabase } from "@/lib/supabaseClient";
+import { supabaseServer } from "@/lib/supabaseServer";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -17,7 +16,7 @@ export async function GET(request: Request) {
 
     const cardId = id.split(",").map((id) => parseInt(id, 10));
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from("one_card_readings")
       .select("*")
       .in("card_id", cardId);
