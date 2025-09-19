@@ -1,4 +1,4 @@
-import { TarotType } from "@/store/tarotTypeStore";
+import { TarotType } from "@/store/useTarotTypeStore";
 
 type Props = {
   length: number;

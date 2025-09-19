@@ -2,13 +2,7 @@
 
 import Wrapper from "@/components/_common/_Wrapper";
 import MenuButton from "@/components/home/MenuButton";
-import {
-  ImageBox,
-  MenuList,
-  ServiceTextBox,
-  ServiceTitle,
-} from "@/components/home/homeStyle";
-import { getTotalUsers, handleCountUsers } from "@/util/handleCountUsers";
+import { getTotalUsers } from "@/util/handleCountUsers";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -20,14 +14,6 @@ const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
 
 const Home = () => {
   const [totalUsers, setTotalUsers] = useState<number>(0);
-
-  useEffect(() => {
-    const intervalCount = setInterval(() => {
-      handleCountUsers(window.location.pathname);
-    }, 10000);
-
-    return () => clearInterval(intervalCount);
-  }, []);
 
   useEffect(() => {
     const loadTotal = async () => {
@@ -64,16 +50,16 @@ const Home = () => {
           subTitle="한 장으로 가볍게"
         />
 
-        {/* 쓰리카드: title="타르트 시간세트" subtitle="과거-현재-미래" */}
-        <MenuButton
+        {/* 쓰리카드: title="타르트 세트" subtitle="세 장으로 깊게" */}
+        {/* <MenuButton
           selectType={"three"}
           src="/second.png"
           alt="세 장의 카드"
           width={43}
           height={40}
-          title="타르트 시간세트"
-          subTitle="과거-현재-미래"
-        />
+          title="타르트 세트"
+          subTitle="세 장으로 더 맛있게"
+        /> */}
       </MenuList>
 
       {/* <AdBanner /> */}
@@ -85,4 +71,34 @@ export default Home;
 
 const TotalText = styled.p`
   color: #fff;
+`;
+
+const ServiceTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+`;
+
+const ServiceTitle = styled.p<{ $fz: number }>`
+  font-size: ${({ $fz }) => `${$fz}px`};
+  color: #d4af37;
+  font-weight: 700;
+`;
+
+const MenuList = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
 `;

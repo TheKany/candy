@@ -1,5 +1,5 @@
-import { useUserSelectAnswer } from "@/store/handleUserSelect";
-import { Answer, AnswerBox, Box, QuestionText } from "./serviceStyled";
+import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
+import { Answer, AnswerBox, Box, QuestionText } from "./_serviceStyled";
 
 const Cause = () => {
   const { cause, setCause } = useUserSelectAnswer();
@@ -11,20 +11,20 @@ const Cause = () => {
       </QuestionText>
       <AnswerBox>
         <Answer
-          onClick={() => setCause("외부적 요인")}
-          $isSelected={cause === "외부적 요인"}
+          onClick={() => setCause("external_factors")}
+          $isSelected={cause === "external_factors"}
         >
           외부적 요인
         </Answer>
         <Answer
-          onClick={() => setCause("내부적 요인")}
-          $isSelected={cause === "내부적 요인"}
+          onClick={() => setCause("internal_factors")}
+          $isSelected={cause === "internal_factors"}
         >
           내부적 요인
         </Answer>
         <Answer
-          onClick={() => setCause("잘 모르겠음")}
-          $isSelected={cause === "잘 모르겠음"}
+          onClick={() => setCause("not_sure")}
+          $isSelected={cause === "not_sure"}
         >
           잘 모르겠음
         </Answer>

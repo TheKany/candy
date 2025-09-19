@@ -7,7 +7,7 @@ import Emotion from "@/components/service/Emotion";
 import Relationship from "@/components/service/Relationship";
 import Stage from "@/components/service/Stage";
 import { useResetData } from "@/hooks/useResetData";
-import { useUserSelectAnswer } from "@/store/handleUserSelect";
+import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
 import { handleResetStore } from "@/util/handleResetStore";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
@@ -27,10 +27,10 @@ const Service = () => {
 
   return (
     <Wrapper>
-      <p>먼저 당신의 이야기를 들려주세요</p>
+      <PageTitle>먼저 당신의 이야기를 들려주세요</PageTitle>
 
-      {/* 1. 감정 */}
-      <Emotion />
+      {/* 1. 원인 */}
+      <Cause />
 
       {/* 2. 관계 */}
       <Relationship />
@@ -38,8 +38,8 @@ const Service = () => {
       {/* 3. 시기 */}
       <Stage />
 
-      {/* 4. 원인 */}
-      <Cause />
+      {/* 4. 감정 */}
+      <Emotion />
 
       {/* 5. 변화 */}
       <Change />
@@ -52,6 +52,14 @@ const Service = () => {
 };
 
 export default Service;
+
+const PageTitle = styled.p`
+  color: #d4af37;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+`;
 
 const ShuffleButton = styled.button<{ $allPicked: boolean }>`
   width: 100%;

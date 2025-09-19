@@ -1,5 +1,5 @@
-import { useUserSelectAnswer } from "@/store/handleUserSelect";
-import { Answer, AnswerBox, Box, QuestionText } from "./serviceStyled";
+import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
+import { Answer, AnswerBox, Box, QuestionText } from "./_serviceStyled";
 
 const Emotion = () => {
   const { emotion, setEmotion } = useUserSelectAnswer();
@@ -11,32 +11,32 @@ const Emotion = () => {
       </QuestionText>
       <AnswerBox>
         <Answer
-          onClick={() => setEmotion("불안과 두려움")}
-          $isSelected={emotion === "불안과 두려움"}
+          onClick={() => setEmotion("anxiety_fear")}
+          $isSelected={emotion === "anxiety_fear"}
         >
           불안과 두려움
         </Answer>
         <Answer
-          onClick={() => setEmotion("지침과 무기력")}
-          $isSelected={emotion === "지침과 무기력"}
+          onClick={() => setEmotion("exhaustion_lethargy")}
+          $isSelected={emotion === "exhaustion_lethargy"}
         >
           지침과 무기력
         </Answer>
         <Answer
-          onClick={() => setEmotion("혼란과 방황")}
-          $isSelected={emotion === "혼란과 방황"}
+          onClick={() => setEmotion("confusion_wandering")}
+          $isSelected={emotion === "confusion_wandering"}
         >
           혼란과 방황
         </Answer>
         <Answer
-          onClick={() => setEmotion("기대와 설렘")}
-          $isSelected={emotion === "기대와 설렘"}
+          onClick={() => setEmotion("excitement_thrill")}
+          $isSelected={emotion === "excitement_thrill"}
         >
           기대와 설렘
         </Answer>
         <Answer
-          onClick={() => setEmotion("만족과 감사")}
-          $isSelected={emotion === "만족과 감사"}
+          onClick={() => setEmotion("satisfaction_gratitude")}
+          $isSelected={emotion === "satisfaction_gratitude"}
         >
           만족과 감사
         </Answer>

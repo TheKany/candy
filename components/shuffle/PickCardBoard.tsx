@@ -1,5 +1,5 @@
-import { usePickCardStoreSlotStore } from "@/store/pickCardSlotStore";
-import { useTarotTypeStore } from "@/store/tarotTypeStore";
+import { usePickCardStoreSlotStore } from "@/store/usepickCardSlotStore";
+import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -88,6 +88,9 @@ const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
   height: 100px;
   position: absolute;
   top: 40%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  padding: 0 8px;
 
   opacity: ${({ $isFinish }) => ($isFinish ? 1 : 0)};
   visibility: ${({ $isFinish }) => ($isFinish ? "visible" : "hidden")};

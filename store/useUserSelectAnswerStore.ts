@@ -1,4 +1,4 @@
-// 유저가 고른 고민의 종류
+// @/store/useUserSelectAnswer.ts
 
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -17,6 +17,7 @@ type UserSelectAnswerStore = UserAnswers & {
   setStage: (value: string) => void;
   setCause: (value: string) => void;
   setChange: (value: string) => void;
+  resetAnswer: () => void;
 };
 
 export const useUserSelectAnswer = create<UserSelectAnswerStore>()(
@@ -32,6 +33,14 @@ export const useUserSelectAnswer = create<UserSelectAnswerStore>()(
       setStage: (value) => set({ stage: value }),
       setCause: (value) => set({ cause: value }),
       setChange: (value) => set({ change: value }),
+      resetAnswer: () =>
+        set({
+          emotion: null,
+          relationship: null,
+          stage: null,
+          cause: null,
+          change: null,
+        }),
     }),
     {
       name: "userPick",

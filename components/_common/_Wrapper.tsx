@@ -30,4 +30,5 @@ export default Wrapper;
 
 const Box = styled.div`
   padding: 8px;
+  background-color: #154734;
 `;

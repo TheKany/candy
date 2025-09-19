@@ -1,8 +1,9 @@
-import { useUserSelectAnswer } from "@/store/handleUserSelect";
-import { Answer, AnswerBox, Box, QuestionText } from "./serviceStyled";
+import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
+import { Answer, AnswerBox, Box, QuestionText } from "./_serviceStyled";
 
 const Relationship = () => {
   const { relationship, setRelationship } = useUserSelectAnswer();
+
   return (
     <Box>
       <QuestionText>
@@ -10,26 +11,26 @@ const Relationship = () => {
       </QuestionText>
       <AnswerBox>
         <Answer
-          onClick={() => setRelationship("나 자신")}
-          $isSelected={relationship === "나 자신"}
+          onClick={() => setRelationship("myself")}
+          $isSelected={relationship === "myself"}
         >
           나 자신
         </Answer>
         <Answer
-          onClick={() => setRelationship("한 사람")}
-          $isSelected={relationship === "한 사람"}
+          onClick={() => setRelationship("one_person")}
+          $isSelected={relationship === "one_person"}
         >
           한 사람
         </Answer>
         <Answer
-          onClick={() => setRelationship("집단")}
-          $isSelected={relationship === "집단"}
+          onClick={() => setRelationship("group")}
+          $isSelected={relationship === "group"}
         >
           집단
         </Answer>
         <Answer
-          onClick={() => setRelationship("대상 없음")}
-          $isSelected={relationship === "대상 없음"}
+          onClick={() => setRelationship("no_subject")}
+          $isSelected={relationship === "no_subject"}
         >
           대상 없음
         </Answer>

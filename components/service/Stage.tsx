@@ -1,8 +1,9 @@
-import { useUserSelectAnswer } from "@/store/handleUserSelect";
-import { Answer, AnswerBox, Box, QuestionText } from "./serviceStyled";
+import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
+import { Answer, AnswerBox, Box, QuestionText } from "./_serviceStyled";
 
 const Stage = () => {
   const { stage, setStage } = useUserSelectAnswer();
+
   return (
     <Box>
       <QuestionText>
@@ -10,26 +11,26 @@ const Stage = () => {
       </QuestionText>
       <AnswerBox>
         <Answer
-          onClick={() => setStage("시작 단계")}
-          $isSelected={stage === "시작 단계"}
+          onClick={() => setStage("start_phase")}
+          $isSelected={stage === "start_phase"}
         >
           시작 단계
         </Answer>
         <Answer
-          onClick={() => setStage("진행 단계")}
-          $isSelected={stage === "진행 단계"}
+          onClick={() => setStage("in_progress")}
+          $isSelected={stage === "in_progress"}
         >
           진행 단계
         </Answer>
         <Answer
-          onClick={() => setStage("결정 단계")}
-          $isSelected={stage === "결정 단계"}
+          onClick={() => setStage("decision_phase")}
+          $isSelected={stage === "decision_phase"}
         >
           결정 단계
         </Answer>
         <Answer
-          onClick={() => setStage("마무리 단계")}
-          $isSelected={stage === "마무리 단계"}
+          onClick={() => setStage("conclusion_phase")}
+          $isSelected={stage === "conclusion_phase"}
         >
           마무리 단계
         </Answer>

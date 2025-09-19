@@ -33,8 +33,11 @@ const Loading = () => {
 export default Loading;
 
 const CenterWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
