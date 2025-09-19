@@ -61,7 +61,7 @@ const Result = () => {
   }, []);
 
   useResetData(handleResetStore);
-
+  console.log(isMobile);
   return (
     <Wrapper>
       {isLoading ? (
