@@ -1,42 +1,70 @@
 "use client";
 
 import Wrapper from "@/components/_common/_Wrapper";
-import QuestionEmotion from "@/components/service/QuestionEmotion";
-import QuestionPick from "@/components/service/QuestionFlow";
-import QuestionWorry from "@/components/service/QuestionWorry";
-import {
-  LinkBox,
-  MainTitle,
-  ShuffleBtn,
-} from "@/components/service/serviceStyle";
+import Cause from "@/components/service/Cause";
+import Change from "@/components/service/Change";
+import Emotion from "@/components/service/Emotion";
+import Relationship from "@/components/service/Relationship";
+import Stage from "@/components/service/Stage";
 import { useResetData } from "@/hooks/useResetData";
-import { usePickCardStore } from "@/store/pickCardStore";
+import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
 import { handleResetStore } from "@/util/handleResetStore";
+import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
 const Service = () => {
-  const pickedWorry = usePickCardStore((state) => state.pickedWorry);
-  const pickedEmotion = usePickCardStore((state) => state.pickedEmotion);
-  const pickedFlow = usePickCardStore((state) => state.pickedFlow);
+  const router = useRouter();
+  const { emotion, relationship, stage, cause, change } = useUserSelectAnswer();
+
+  const allAnswersSelected =
+    !!emotion && !!relationship && !!stage && !!cause && !!change;
 
   useResetData(handleResetStore);
 
+  const onLinkBtn = () => {
+    allAnswersSelected && router.push("/shuffle");
+  };
+
   return (
     <Wrapper>
-      <MainTitle>먼저 당신의 이야기를 들려주세요</MainTitle>
+      <PageTitle>먼저 당신의 이야기를 들려주세요</PageTitle>
 
-      <QuestionWorry />
+      {/* 1. 원인 */}
+      <Cause />
 
-      <QuestionEmotion />
+      {/* 2. 관계 */}
+      <Relationship />
 
-      <QuestionPick />
+      {/* 3. 시기 */}
+      <Stage />
 
-      <LinkBox>
-        {!!pickedWorry && !!pickedEmotion && !!pickedFlow ? (
-          <ShuffleBtn href="/shuffle">카드 섞기</ShuffleBtn>
-        ) : null}
-      </LinkBox>
+      {/* 4. 감정 */}
+      <Emotion />
+
+      {/* 5. 변화 */}
+      <Change />
+
+      <ShuffleButton onClick={onLinkBtn} $allPicked={allAnswersSelected}>
+        카드 섞기
+      </ShuffleButton>
     </Wrapper>
   );
 };
 
 export default Service;
+
+const PageTitle = styled.p`
+  color: #d4af37;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+`;
+
+const ShuffleButton = styled.button<{ $allPicked: boolean }>`
+  width: 100%;
+  padding: 16px;
+  background-color: #e46b2e;
+  border-radius: 8px;
+  font-size: 500;
+`;

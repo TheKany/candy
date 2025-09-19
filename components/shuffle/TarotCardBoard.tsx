@@ -1,7 +1,7 @@
 import { CARD_HEIGHT, CARD_WIDTH } from "@/constants/tarot";
-import { usePickCardStoreSlotStore } from "@/store/pickCardSlotStore";
-import { usePickCardStore } from "@/store/pickCardStore";
+import { usePickCardStoreSlotStore } from "@/store/usepickCardSlotStore";
 import { useShuffleTypeStore } from "@/store/useShuffleTypeStore";
+import { useUserPickNum } from "@/store/useUserPickNumStore";
 import { Clockwise, Counterclockwise } from "@/styles/rotateAnimations";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
@@ -21,7 +21,7 @@ const TarotCardBoard = ({ isRotating, positions, cardCnt }: Props) => {
   const slotPositions = usePickCardStoreSlotStore(
     (state) => state.slotPositions
   );
-  const pickedCardList = usePickCardStore((state) => state.pickedCardList);
+  const userPickedCardList = useUserPickNum((state) => state.inputs);
   const shuffleStep = useShuffleTypeStore((state) => state.shuffleStep);
 
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -29,8 +29,8 @@ const TarotCardBoard = ({ isRotating, positions, cardCnt }: Props) => {
   useEffect(() => {
     if (!slotPositions.length) return;
 
-    pickedCardList.forEach((cardIdx, order) => {
-      const cardEl = cardRefs.current[cardIdx];
+    userPickedCardList.forEach((cardIdx, order) => {
+      const cardEl = cardRefs.current[Number(cardIdx) - 1];
       const slotPos = slotPositions[order];
 
       if (!cardEl || !slotPos) return;
@@ -55,7 +55,7 @@ const TarotCardBoard = ({ isRotating, positions, cardCnt }: Props) => {
       cardEl.style.transition = `top 0.6s ease, left 0.6s ease, transform 0.6s ease`;
       cardEl.style.zIndex = "10";
     });
-  }, [pickedCardList, slotPositions]);
+  }, [userPickedCardList, slotPositions]);
 
   return (
     <CardContainer>

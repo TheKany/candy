@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -10,8 +10,14 @@ declare global {
 
 const KakaoShareButton = () => {
   const [isKakaoReady, setIsKakaoReady] = useState(false);
+  const [isKakaoKey, setIsKakoKey] = useState(true);
 
   useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_KAKAO_API_KEY) {
+      setIsKakoKey(false);
+      return;
+    }
+
     if (!window.Kakao) {
       const script = document.createElement("script");
       script.src = "https://developers.kakao.com/sdk/js/kakao.js";
@@ -56,9 +62,13 @@ const KakaoShareButton = () => {
   };
 
   return (
-    <button onClick={handleShare} disabled={!isKakaoReady}>
-      카카오톡 공유하기
-    </button>
+    <>
+      {isKakaoKey ?? (
+        <button onClick={handleShare} disabled={!isKakaoReady}>
+          카카오톡 공유하기
+        </button>
+      )}
+    </>
   );
 };
 

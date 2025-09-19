@@ -1,18 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Container from "@/components/_common/_Container";
 import { Analytics } from "@vercel/analytics/next";
 import { url } from "inspector";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const viewport = {
   width: "device-width",
@@ -83,7 +72,7 @@ export default function RootLayout({
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4184442303277144"
         crossOrigin="anonymous"
       />
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <Container>{children}</Container>
         <script
           defer
