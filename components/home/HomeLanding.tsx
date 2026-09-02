@@ -3,9 +3,38 @@
 import { HOME_CONTENT } from "@/constants/homeContent";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { formatTarotVisitCount } from "@/util/tarotVisitCount";
 
 export default function HomeLanding() {
+  const [visitCount, setVisitCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadVisitCount = async () => {
+      try {
+        const response = await fetch("/api/countUsers", {
+          signal: controller.signal,
+        });
+        if (!response.ok) return;
+
+        const payload = (await response.json()) as { count?: unknown };
+        if (typeof payload.count === "number" && Number.isFinite(payload.count)) {
+          setVisitCount(payload.count);
+        }
+      } catch (error) {
+        if (!(error instanceof DOMException && error.name === "AbortError")) {
+          console.error("Failed to load tarot count:", error);
+        }
+      }
+    };
+
+    loadVisitCount();
+    return () => controller.abort();
+  }, []);
+
   return (
     <Main>
       <Eyebrow>{HOME_CONTENT.eyebrow}</Eyebrow>
@@ -19,6 +48,11 @@ export default function HomeLanding() {
             priority
             sizes="(max-width: 430px) 76vw, 320px"
           />
+          <CountBubble aria-live="polite">
+            {visitCount === null
+              ? "타르트 사간 사람 집계 중"
+              : formatTarotVisitCount(visitCount)}
+          </CountBubble>
         </Artwork>
         <Title>{HOME_CONTENT.title}</Title>
         <Description>{HOME_CONTENT.description}</Description>
@@ -115,6 +149,7 @@ const Hero = styled.section`
 `;
 
 const Artwork = styled.div`
+  position: relative;
   width: clamp(176px, 72vw, 320px);
   aspect-ratio: 1;
   filter: drop-shadow(0 18px 25px rgb(0 0 0 / 32%));
@@ -133,6 +168,46 @@ const Artwork = styled.div`
 
   @media (max-width: 319px) {
     width: min(68vw, 190px);
+  }
+`;
+
+const CountBubble = styled.p`
+  position: absolute;
+  top: 8%;
+  right: -4%;
+  z-index: 2;
+  width: max-content;
+  max-width: 148px;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid rgb(247 218 131 / 72%);
+  border-radius: 14px;
+  color: #173629;
+  background: #fff6dc;
+  box-shadow: 0 8px 18px rgb(0 0 0 / 24%);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.4;
+  word-break: keep-all;
+
+  &::after {
+    position: absolute;
+    right: 20px;
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    border-right: 1px solid rgb(247 218 131 / 72%);
+    border-bottom: 1px solid rgb(247 218 131 / 72%);
+    background: #fff6dc;
+    content: "";
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 319px) {
+    right: -2%;
+    max-width: 116px;
+    padding: 7px 9px;
+    font-size: 0.64rem;
   }
 `;
 
