@@ -42,55 +42,40 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
     slotRef.current.forEach((el, i) => {
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      setSlotPosition(i, { top: rect.top, left: rect.left });
+      setSlotPosition(i, {
+        top: rect.top + window.scrollY,
+        left: rect.left + window.scrollX,
+      });
     });
   }, [finishedShuffle]);
 
   return (
-    <>
-      {type === "one" ? (
-        <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
-          {[0].map((_, i) => (
-            <PickCard key={i}>
-              <CardPosition
-                ref={(el) => {
-                  slotRef.current[i] = el;
-                }}
-              ></CardPosition>
-            </PickCard>
-          ))}
-        </PickCardContainer>
-      ) : (
-        <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
-          {[0, 1, 2].map((_, i) => (
-            <PickCard key={i}>
-              <CardPosition
-                ref={(el) => {
-                  slotRef.current[i] = el;
-                }}
-              ></CardPosition>
-            </PickCard>
-          ))}
-        </PickCardContainer>
-      )}
-    </>
+    <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
+      {Array.from({ length: cardCount }).map((_, i) => (
+        <PickCard key={i} aria-label={`선택한 카드 ${i + 1} 자리`}>
+          <SlotLabel>선택한 카드</SlotLabel>
+          <CardPosition
+            ref={(el) => {
+              slotRef.current[i] = el;
+            }}
+          />
+        </PickCard>
+      ))}
+    </PickCardContainer>
   );
 };
 
 export default PickCardBoard;
 
 const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
-  width: 100%;
-
+  width: min(calc(100% - 32px), 340px);
+  min-height: 124px;
+  margin: 4px auto 14px;
   display: grid;
   grid-template-columns: repeat(${({ $col }) => $col}, 1fr);
-  gap: 8px;
-  height: 100px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -30%);
-  padding: 0 8px;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
 
   opacity: ${({ $isFinish }) => ($isFinish ? 1 : 0)};
   visibility: ${({ $isFinish }) => ($isFinish ? "visible" : "hidden")};
@@ -100,12 +85,28 @@ const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
 
 const PickCard = styled.div`
   width: 100%;
-  height: 100%;
-  border: 1px solid #d4af37;
-  padding: 6px 30%;
+  min-width: 0;
+  height: 124px;
+  border: 1px dashed rgba(212, 175, 55, 0.75);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  position: relative;
 `;
 
 const CardPosition = styled.div`
-  width: 10px;
-  height: 10px;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  top: 54%;
+  left: 50%;
+`;
+
+const SlotLabel = styled.span`
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(212, 175, 55, 0.82);
+  font-size: 12px;
+  white-space: nowrap;
 `;

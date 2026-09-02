@@ -5,6 +5,8 @@ import { useUserPickNum } from "@/store/useUserPickNumStore";
 import Image from "next/image";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { getTarotTopic } from "@/constants/tarotTopics";
+import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 
 type CardProps = {
   id: number;
@@ -26,6 +28,8 @@ type CombinedCardProps = CardProps & {
 
 const OneCardResult = () => {
   const pickCards = useUserPickNum((state) => state.realCard);
+  const topicId = useTarotTopicStore((state) => state.topic);
+  const topic = getTarotTopic(topicId);
 
   const [data, setData] = useState<CombinedCardProps[]>([]);
 
@@ -67,6 +71,7 @@ const OneCardResult = () => {
 
   return (
     <Wrapper>
+      {topic && <TopicLabel>선택한 주제 · {topic.title}</TopicLabel>}
       <Box $count={pickCards.length}>
         {data.map((card) => (
           <CardInfo key={card.id}>
@@ -91,6 +96,19 @@ const OneCardResult = () => {
 };
 
 export default OneCardResult;
+
+const TopicLabel = styled.p`
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 7px 13px;
+  border: 1px solid #d8b85c;
+  border-radius: 999px;
+  color: #294d40;
+  background: #fff9e8;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-align: center;
+`;
 
 const Box = styled.div<{ $count: number }>`
   display: flex;

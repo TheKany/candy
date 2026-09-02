@@ -1,16 +1,22 @@
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { getCardAtPosition } from "@/util/cardSelectionFlow";
 
 type Props = {
   finishedShuffle: boolean;
   deck: number[];
+  selectionLocked: boolean;
+  onSelectionStarted: () => void;
 };
 
-const NumberPad = ({ finishedShuffle, deck }: Props) => {
-  const router = useRouter();
+const NumberPad = ({
+  finishedShuffle,
+  deck,
+  selectionLocked,
+  onSelectionStarted,
+}: Props) => {
   const { setInput, setRealCard } = useUserPickNum();
   const type = useTarotTypeStore((state) => state.type);
 
@@ -18,6 +24,7 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
   const [number, setNumber] = useState("");
 
   const onClickNumberBtn = (id: number | string) => {
+    if (selectionLocked) return;
     if (number.length === 0 && id === 0) return;
 
     if (typeof id === "number") {
@@ -50,7 +57,10 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
       if (type === "one" && pickedNumList.length >= 1) return;
       if (type === null) return;
 
-      const realCard = deck[cardNum - 1];
+      const realCard = getCardAtPosition(deck, cardNum);
+      if (realCard === null) return;
+
+      onSelectionStarted();
       setInput(String(number));
       setRealCard(String(realCard));
       setPickNumList((prev) => [...prev, cardNum]);
@@ -59,19 +69,12 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
     }
   };
 
-  useEffect(() => {
-    if (type === "three" && pickedNumList.length == 3) {
-      return router.replace("/result");
-    }
-
-    if (type === "one" && pickedNumList.length == 1) {
-      return router.replace("/result");
-    }
-  }, [pickedNumList]);
-
   return (
     <Box $isFinish={finishedShuffle}>
-      <Typing>고른 운명의 카드 : {number}</Typing>
+      <Typing aria-live="polite">
+        <TypingLabel>고른 운명의 카드</TypingLabel>
+        <TypingNumber>{number || "—"}</TypingNumber>
+      </Typing>
       <InfoText>[ 1 ~ 78번까지의 카드 중에서 골라주세요. ]</InfoText>
       <NumberContainer>
         {Array.from({ length: 12 }).map((_, idx) => {
@@ -79,6 +82,7 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
             return (
               <NumberBtn
                 key={idx + 1}
+                disabled={selectionLocked}
                 onClick={() => onClickNumberBtn(idx + 1)}
               >
                 {idx + 1}
@@ -88,6 +92,7 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
             return (
               <NumberBtn
                 key={"remove"}
+                disabled={selectionLocked}
                 onClick={() => onClickNumberBtn("remove")}
               >
                 지우기
@@ -97,6 +102,7 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
             return (
               <NumberBtn
                 key={"check"}
+                disabled={selectionLocked}
                 onClick={() => onClickNumberBtn("check")}
               >
                 결정
@@ -104,7 +110,11 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
             );
           } else {
             return (
-              <NumberBtn key={0} onClick={() => onClickNumberBtn(0)}>
+              <NumberBtn
+                key={0}
+                disabled={selectionLocked}
+                onClick={() => onClickNumberBtn(0)}
+              >
                 0
               </NumberBtn>
             );
@@ -118,17 +128,39 @@ const NumberPad = ({ finishedShuffle, deck }: Props) => {
 export default NumberPad;
 
 const Box = styled.div<{ $isFinish: boolean }>`
+  width: min(100%, 360px);
+  margin: 0 auto;
+  padding: 0 16px 28px;
   opacity: ${({ $isFinish }) => ($isFinish ? 1 : 0)};
   visibility: ${({ $isFinish }) => ($isFinish ? "visible" : "hidden")};
 
   transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 `;
 
-const Typing = styled.p`
-  color: #fff;
-  height: 20px;
-  text-align: start;
-  padding-left: 20%;
+const Typing = styled.div`
+  min-height: 50px;
+  padding: 9px 14px;
+  border: 1px solid #d4af37;
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #f7f3e8;
+`;
+
+const TypingLabel = styled.span`
+  min-width: 0;
+  font-size: clamp(13px, 4vw, 15px);
+  word-break: keep-all;
+`;
+
+const TypingNumber = styled.strong`
+  min-width: 28px;
+  color: #d4af37;
+  font-size: 20px;
+  text-align: right;
 `;
 
 const InfoText = styled.p`
@@ -157,5 +189,10 @@ const NumberBtn = styled.button`
 
   &:active {
     background-color: #fff;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.55;
   }
 `;
