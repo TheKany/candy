@@ -9,7 +9,7 @@ export type TarotTypeOption = {
 };
 
 export type TarotSelectionAction =
-  | { kind: "navigate"; href: "/shuffle" }
+  | { kind: "navigate"; href: "/topic" }
   | { kind: "notice"; message: "준비 중이에요" };
 
 export const TAROT_TYPES = [
@@ -23,7 +23,7 @@ export function getTarotSelectionAction(
   id: TarotTypeId,
 ): TarotSelectionAction {
   if (id === "one") {
-    return { kind: "navigate", href: "/shuffle" };
+    return { kind: "navigate", href: "/topic" };
   }
 
   return { kind: "notice", message: "준비 중이에요" };

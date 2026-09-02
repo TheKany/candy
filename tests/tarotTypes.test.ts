@@ -17,8 +17,8 @@ test("exposes every product reading exactly once in display order", () => {
   );
 });
 
-test("routes one oracle and blocks every unfinished reading", () => {
-  assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/shuffle" });
+test("routes one oracle through topic selection and blocks every unfinished reading", () => {
+  assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/topic" });
   for (const id of ["three", "celtic", "horoscope"] as const) {
     assert.deepEqual(getTarotSelectionAction(id), { kind: "notice", message: "준비 중이에요" });
   }
