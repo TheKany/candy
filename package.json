@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "validate:tarot-data": "node scripts/validate-tarot-data.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
