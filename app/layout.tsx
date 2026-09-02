@@ -1,13 +1,14 @@
 import "./globals.css";
 import Container from "@/components/_common/_Container";
 import { Analytics } from "@vercel/analytics/next";
-import { url } from "inspector";
+import PwaRegister from "@/components/_common/PwaRegister";
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: "no",
+  themeColor: "#0c3427",
 };
 
 export const metadata = {
@@ -18,14 +19,15 @@ export const metadata = {
   siteName: "타로타르트",
   locale: "ko_KR",
   type: "website",
+  manifest: "/manifest.json",
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
-      { url: "/android-icon-192x192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icons/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icons/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
     apple: { url: "/apple-icon-180x180.png", sizes: "180x180" },
-    manifest: "/manifest.json",
   },
   openGraph: {
     title: "타로타르트",
@@ -73,6 +75,7 @@ export default function RootLayout({
         crossOrigin="anonymous"
       />
       <body>
+        <PwaRegister />
         <Container>{children}</Container>
         <script
           defer
