@@ -8,7 +8,7 @@ const environmentNames = [
   "SUPABASE_ANON_KEY",
 ] as const;
 
-test("returns null getters instead of throwing when Supabase is unconfigured", async () => {
+test("returns null getters when Supabase configuration is absent or partial", async () => {
   const originalEnvironment = new Map(
     environmentNames.map((name) => [name, process.env[name]]),
   );
@@ -22,6 +22,13 @@ test("returns null getters instead of throwing when Supabase is unconfigured", a
     const { getSupabaseServer } = await import("../lib/supabaseServer.ts");
 
     assert.equal(getSupabaseClient(), null);
+    assert.equal(getSupabaseServer(), null);
+
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
+    assert.equal(getSupabaseClient(), null);
+
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    process.env.SUPABASE_URL = "https://example.supabase.co";
     assert.equal(getSupabaseServer(), null);
   } finally {
     for (const [name, value] of originalEnvironment) {
