@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import React from "react";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ type Props = {
 
 const Wrapper = ({ children }: Props) => {
   const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <AnimatePresence mode="wait">
@@ -18,7 +19,8 @@ const Wrapper = ({ children }: Props) => {
         key={pathname}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
+        style={{ minHeight: "100%" }}
       >
         <Box>{children}</Box>
       </motion.div>
@@ -29,6 +31,9 @@ const Wrapper = ({ children }: Props) => {
 export default Wrapper;
 
 const Box = styled.div`
-  padding: 8px;
-  background-color: #154734;
+  min-height: 100%;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `;

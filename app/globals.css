@@ -54,9 +54,12 @@
 
 html,
 body {
-  width: 100vw;
-  max-width: 600px;
+  width: 100%;
+  max-width: 480px;
+  min-width: 280px;
+  min-height: 100%;
   margin: 0 auto;
+  overflow-x: hidden;
   font-family: "NotoSerifKR", sans-serif;
   touch-action: manipulation;
 }
@@ -95,10 +98,4 @@ button {
 .slick-slide {
   display: flex !important;
   justify-content: center !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }

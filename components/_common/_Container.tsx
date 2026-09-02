@@ -20,20 +20,12 @@ export default Container;
 
 const Con = styled.div`
   width: 100%;
+  max-width: 480px;
   min-width: 280px;
-  height: 100vh;
-  max-height: 1200px;
+  min-height: 100dvh;
   position: relative;
-  overflow: hidden;
+  margin: 0 auto;
+  overflow-x: hidden;
   overflow-y: auto;
-  background-color: #154734;
-
-  @media (max-height: 600px) {
-    width: 600px;
-    height: 1200px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  background-color: #0c3427;
 `;
