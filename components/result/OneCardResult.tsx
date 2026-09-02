@@ -1,204 +1,300 @@
 "use client";
 
-import Wrapper from "../_common/_Wrapper";
-import { useUserPickNum } from "@/store/useUserPickNumStore";
-import Image from "next/image";
-import styled from "styled-components";
-import { useEffect, useState } from "react";
 import { getTarotTopic } from "@/constants/tarotTopics";
 import { useTarotTopicStore } from "@/store/useTarotTopicStore";
+import { useUserPickNum } from "@/store/useUserPickNumStore";
+import type { TarotReadingResult } from "@/types/tarotReadingTypes";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-type CardProps = {
-  id: number;
-  name: string;
-  nickname: string;
-  coreKeyword: string[];
-  type: string;
-};
-
-type OneCardReadingProps = {
-  card_id: number;
-  title: null;
-  reading_text: string;
-};
-
-type CombinedCardProps = CardProps & {
-  readingText: string;
-};
+const readingSections = [
+  ["감정의 층위", "emotional_layer"],
+  ["숨은 맥락", "hidden_context"],
+  ["마주할 과제", "challenge"],
+  ["열려 있는 기회", "opportunity"],
+  ["가까운 흐름", "near_future"],
+  ["카드의 조언", "advice"],
+] as const;
 
 const OneCardResult = () => {
-  const pickCards = useUserPickNum((state) => state.realCard);
+  const pickedCards = useUserPickNum((state) => state.realCard);
   const topicId = useTarotTopicStore((state) => state.topic);
   const topic = getTarotTopic(topicId);
-
-  const [data, setData] = useState<CombinedCardProps[]>([]);
-
-  const onLoadData = async () => {
-    try {
-      const idString = pickCards.join(",");
-      const [cardDataResponse, oneCardReadingResponse] = await Promise.all([
-        fetch(`/api/cardData?ids=${idString}`),
-        fetch(`/api/oneCardReading?ids=${idString}`),
-      ]);
-
-      if (!cardDataResponse.ok || !oneCardReadingResponse.ok) {
-        throw new Error("데이터를 불러오는 데 실패했습니다.");
-      }
-
-      const cardData: CardProps[] = await cardDataResponse.json();
-      const oneCardReadings: OneCardReadingProps[] =
-        await oneCardReadingResponse.json();
-
-      const combinedData = cardData.map((card) => {
-        const reading = oneCardReadings.find((r) => r.card_id === card.id);
-        return {
-          ...card,
-          readingText: reading?.reading_text || "해석을 찾을 수 없습니다.",
-        };
-      });
-
-      setData(combinedData);
-    } catch (error) {
-      console.error("카드 데이터를 불러오는 중 오류 발생:", error);
-    }
-  };
+  const cardId = pickedCards[0];
+  const [result, setResult] = useState<TarotReadingResult | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (pickCards.length > 0) {
-      onLoadData();
-    }
-  }, [pickCards]);
+    if (cardId === undefined || !topicId) return;
+
+    const controller = new AbortController();
+
+    const loadReading = async () => {
+      try {
+        const params = new URLSearchParams({
+          cardId: String(cardId),
+          topicId,
+          orientation: "upright",
+        });
+        const response = await fetch(`/api/tarotReading?${params}`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) throw new Error("reading request failed");
+
+        setResult((await response.json()) as TarotReadingResult);
+      } catch (error) {
+        if ((error as Error).name !== "AbortError") {
+          console.error("Tarot reading request failed:", error);
+          setErrorMessage("카드의 메시지를 불러오지 못했어요. 잠시 후 다시 시도해주세요.");
+        }
+      }
+    };
+
+    loadReading();
+    return () => controller.abort();
+  }, [cardId, topicId]);
+
+  if (cardId === undefined || !topic) {
+    return <StatusMessage>선택한 카드와 주제를 확인해주세요.</StatusMessage>;
+  }
+
+  if (errorMessage) return <StatusMessage>{errorMessage}</StatusMessage>;
+  if (!result) return <StatusMessage>카드의 메시지를 펼치고 있어요.</StatusMessage>;
+
+  const { card, reading, fallback } = result;
 
   return (
-    <Wrapper>
-      {topic && <TopicLabel>선택한 주제 · {topic.title}</TopicLabel>}
-      <Box $count={pickCards.length}>
-        {data.map((card) => (
-          <CardInfo key={card.id}>
-            <CardBox>
-              <p>{card.name}</p>
-              <p>( {card.nickname} )</p>
-              <p>{card.coreKeyword.join(", ")}</p>
+    <ResultSection>
+      <TopicLabel>선택한 주제 · {topic.title}</TopicLabel>
 
-              <Image
-                src={`/cards/card${Number(card.id)}.webp`}
-                alt="뽑은 카드"
-                width={pickCards.length === 1 ? 240 : 120}
-                height={pickCards.length === 1 ? 400 : 200}
-              />
-            </CardBox>
-            <TextBox>{card.readingText}</TextBox>
-          </CardInfo>
-        ))}
-      </Box>
-    </Wrapper>
+      <CardBox>
+        <CardName>{card.name_ko}</CardName>
+        <EnglishName>{card.name_en}</EnglishName>
+        <Keywords>{card.upright_keywords.slice(0, 5).join(" · ")}</Keywords>
+        <CardImage>
+          <Image
+            src={`/cards/card${card.card_id}.webp`}
+            alt={`${card.name_ko} 타로 카드`}
+            width={220}
+            height={367}
+            priority
+          />
+        </CardImage>
+      </CardBox>
+
+      {fallback || !reading ? (
+        <FallbackBox>
+          <h2>카드가 전하는 한마디</h2>
+          <p>{card.upright_one_line}</p>
+          <span>지금의 상황과 맞닿는 부분부터 천천히 살펴보세요.</span>
+        </FallbackBox>
+      ) : (
+        <ReadingBox>
+          <ReadingHeader>
+            <span>오늘의 리딩</span>
+            <h2>{reading.headline}</h2>
+            <p>{reading.core_message}</p>
+          </ReadingHeader>
+
+          <ReadingGrid>
+            {readingSections.map(([title, field]) => (
+              <ReadingCard key={field}>
+                <h3>{title}</h3>
+                <p>{reading[field]}</p>
+              </ReadingCard>
+            ))}
+          </ReadingGrid>
+
+          <ReflectionBox>
+            <span>나에게 묻는 질문</span>
+            <p>{reading.reflection_question}</p>
+          </ReflectionBox>
+        </ReadingBox>
+      )}
+    </ResultSection>
   );
 };
 
 export default OneCardResult;
 
+const ResultSection = styled.section`
+  width: 100%;
+  min-width: 0;
+`;
+
+const StatusMessage = styled.p`
+  width: 100%;
+  margin: 40px 0;
+  padding: 24px 16px;
+  border-radius: 14px;
+  background: #fff9e8;
+  color: #294d40;
+  text-align: center;
+  line-height: 1.6;
+`;
+
 const TopicLabel = styled.p`
   width: fit-content;
+  max-width: 100%;
   margin: 0 auto 18px;
   padding: 7px 13px;
   border: 1px solid #d8b85c;
   border-radius: 999px;
   color: #294d40;
   background: #fff9e8;
-  font-size: 0.84rem;
+  font-size: clamp(0.76rem, 3.5vw, 0.84rem);
   font-weight: 700;
   text-align: center;
-`;
-
-const Box = styled.div<{ $count: number }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${({ $count }) => ($count > 1 ? "16px" : "0")};
-  width: 100%;
-
-  & img {
-    object-fit: contain;
-    ${({ $count }) =>
-      $count === 1 &&
-      `
-      max-width: 80%;
-      height: auto;
-    `}
-    ${({ $count }) =>
-      $count > 1 &&
-      `
-      flex: 1;
-      max-width: 33%;
-      height: auto;
-    `}
-  }
-`;
-
-const CardInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 `;
 
 const CardBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: clamp(20px, 7vw, 30px) clamp(12px, 5vw, 20px);
+  border: 1px solid rgba(216, 184, 92, 0.55);
+  border-radius: 18px;
+  background: #f7f3e8;
+  box-shadow: 0 8px 24px rgba(41, 77, 64, 0.1);
   text-align: center;
-  padding: 30px 20px;
-  background-color: #f7f3e8;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+`;
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+const CardName = styled.h1`
+  margin: 0;
+  color: #294d40;
+  font-size: clamp(1.7rem, 9vw, 2.25rem);
+`;
 
-  p {
-    color: #3b5249;
-    margin: 0 0 8px;
-    font-family: "Georgia", serif;
-  }
+const EnglishName = styled.p`
+  margin: 5px 0 12px;
+  color: #6c7a6e;
+  font-size: 0.86rem;
+  font-style: italic;
+`;
 
-  /* 카드 이름 스타일 */
-  p:first-of-type {
-    position: relative;
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
+const Keywords = styled.p`
+  max-width: 100%;
+  margin: 0 0 18px;
+  color: #7c6940;
+  font-size: clamp(0.75rem, 3.4vw, 0.9rem);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+`;
 
-  /* 카드 별명 스타일 */
-  p:nth-of-type(2) {
-    font-size: 0.9rem;
-    font-weight: 300;
-    font-style: italic;
-    color: #6c7a6e;
-    margin-bottom: 12px;
-  }
+const CardImage = styled.div`
+  width: min(220px, 82vw);
 
-  /* 핵심 키워드 스타일 */
-  p:nth-of-type(3) {
-    font-size: 1rem;
-    color: #8c9c8e;
-    line-height: 1.4;
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
   }
 `;
 
-const TextBox = styled.div`
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 500px;
-  text-align: justify;
-  margin-top: 30px;
-  padding: 30px 20px;
-  background-color: #3b5249;
-  color: #f7f3e8;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  white-space: pre-wrap;
+const ReadingBox = styled.div`
+  width: 100%;
+  margin-top: 22px;
+`;
+
+const ReadingHeader = styled.header`
+  padding: clamp(22px, 7vw, 30px) clamp(16px, 6vw, 24px);
+  border-radius: 18px;
+  background: #294d40;
+  color: #f8f1dc;
+
+  span {
+    display: block;
+    color: #e1c66d;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  h2 {
+    margin: 7px 0 14px;
+    font-size: clamp(1.25rem, 6vw, 1.65rem);
+    line-height: 1.35;
+  }
+
+  p {
+    margin: 0;
+    font-size: clamp(0.9rem, 3.8vw, 1rem);
+    line-height: 1.8;
+  }
+`;
+
+const ReadingGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 10px;
+`;
+
+const ReadingCard = styled.article`
+  min-width: 0;
+  padding: 18px 16px;
+  border: 1px solid rgba(216, 184, 92, 0.45);
+  border-radius: 14px;
+  background: #fffdf6;
+
+  h3 {
+    margin: 0 0 7px;
+    color: #7c6331;
+    font-size: 0.86rem;
+  }
+
+  p {
+    margin: 0;
+    color: #31463e;
+    font-size: clamp(0.86rem, 3.7vw, 0.96rem);
+    line-height: 1.72;
+    overflow-wrap: anywhere;
+  }
+`;
+
+const ReflectionBox = styled.div`
+  margin-top: 10px;
+  padding: 20px 16px;
+  border-radius: 14px;
+  background: #fff2bb;
+  color: #294d40;
+
+  span {
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 8px 0 0;
+    font-size: clamp(0.92rem, 4vw, 1.05rem);
+    font-weight: 700;
+    line-height: 1.65;
+  }
+`;
+
+const FallbackBox = styled.div`
+  margin-top: 22px;
+  padding: 24px 18px;
+  border-radius: 16px;
+  background: #294d40;
+  color: #f8f1dc;
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 0 0 12px;
+    line-height: 1.75;
+  }
+
+  span {
+    color: #e1c66d;
+    font-size: 0.82rem;
+  }
 `;
