@@ -1,4 +1,5 @@
 // 타로 카드 크기 및 위치 관련 상수
+export const TAROT_CARD_COUNT = 78;
 export const CARD_WIDTH = 50;
 export const CARD_HEIGHT = 83;
 export const RADIUS = 100;

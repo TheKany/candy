@@ -1,9 +1,17 @@
 // 한 장 타로
-import { supabaseServer } from "@/lib/supabaseServer";
+import { getSupabaseServer } from "@/lib/supabaseServer";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
+    const supabaseServer = getSupabaseServer();
+    if (!supabaseServer) {
+      return NextResponse.json(
+        { error: "Supabase가 설정되지 않았습니다." },
+        { status: 503 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("ids");
 

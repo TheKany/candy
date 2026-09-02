@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 
 const getSessionId = () => {
@@ -11,12 +11,18 @@ const getSessionId = () => {
 };
 
 export const handleCountUsers = async (page: string) => {
+  const supabase = getSupabaseClient();
+  if (!supabase) return;
+
   await supabase.from("tarot_count_logs").insert({
     session_id: getSessionId(),
   });
 };
 
 export const getTotalUsers = async () => {
+  const supabase = getSupabaseClient();
+  if (!supabase) return 0;
+
   const { count } = await supabase
     .from("tarot_count_logs")
     .select("id", { count: "exact", head: true });
