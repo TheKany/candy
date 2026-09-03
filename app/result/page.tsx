@@ -12,6 +12,8 @@ import dynamic from "next/dynamic";
 import Feedback from "@/components/result/Feedback";
 import { useResetData } from "@/hooks/useResetData";
 import OneCardResult from "@/components/result/OneCardResult";
+import ThreeCardResult from "@/components/result/ThreeCardResult";
+import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 
 const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
   ssr: false,
@@ -19,6 +21,7 @@ const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
 
 const Result = () => {
   const router = useRouter();
+  const type = useTarotTypeStore((state) => state.type);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -67,17 +70,21 @@ const Result = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          <OneCardResult />
-          <Feedback />
+        type === "three" ? (
+          <ThreeCardResult onHome={onClickHome} />
+        ) : (
+          <>
+            <OneCardResult />
+            <Feedback />
 
-          <ButtonBox $isMobile={isMobile}>
-            <button onClick={onClickHome}>홈으로</button>
-            {isMobile && <KakaoShareButton />}
-          </ButtonBox>
+            <ButtonBox $isMobile={isMobile}>
+              <button onClick={onClickHome}>홈으로</button>
+              {isMobile && <KakaoShareButton />}
+            </ButtonBox>
 
-          <AdBanner />
-        </>
+            <AdBanner />
+          </>
+        )
       )}
     </Wrapper>
   );

@@ -103,7 +103,7 @@ export const buildThreeCardReading = (
     spread: spreadId,
     spreadTitle: spread.title,
     conclusion: buildConclusion(spreadId, keywords),
-    flowSummary: pages.map((page) => `${page.positionLabel}: ${page.summary}`).join(" "),
+    flowSummary: pages.map((page) => `${page.positionLabel} · ${page.card.name_ko}`).join("  →  "),
     advice: readings[2]?.advice ?? getFallbackLine(cards[2], orientation),
     pages,
   };
