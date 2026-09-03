@@ -37,7 +37,18 @@ const readings: TarotPositionReading[] = cards.map((card, index) => ({
   layout_id: "celtic-cross",
   position_id: ["present", "obstacle", "root", "goal", "past", "near-future", "self", "environment", "hopes-fears", "outcome"][index],
   headline: `제목 ${index + 1}`,
-  summary: `저장된 요약 ${index + 1}`,
+  summary: [
+    "지금은 역할을 정리해야 해요.",
+    "장애물이 아직 남아 있어요.",
+    "마음속 망설임이 깊어 보여요.",
+    "바라는 방향이 분명해요.",
+    "지난 경험이 기준이 되었어요.",
+    "가까운 시기에 새 제안이 들어올 수 있어요.",
+    "내 선택을 믿어볼 때예요.",
+    "주변의 협력이 필요해요.",
+    "기대와 불안이 함께 움직여요.",
+    "이 흐름은 작은 성과로 이어질 수 있어요.",
+  ][index],
   detail: `저장된 상세 ${index + 1}`,
   advice: `조언 ${index + 1}`,
   reflection_question: `질문 ${index + 1}`,
@@ -48,17 +59,25 @@ test("maps ten selected cards to Celtic positions and their own orientations", (
 
   assert.equal(result.pages.length, 10);
   assert.equal(result.pages[0].positionLabel, "현재 상황");
-  assert.equal(result.pages[0].summary, "저장된 요약 1");
-  assert.equal(result.pages[1].summary, "저장된 요약 2");
-  assert.equal(result.pages[2].summary, "저장된 요약 3");
-  assert.equal(result.pages[5].summary, "저장된 요약 6");
+  assert.equal(result.pages[0].summary, "지금은 역할을 정리해야 해요.");
+  assert.equal(result.pages[1].summary, "장애물이 아직 남아 있어요.");
+  assert.equal(result.pages[2].summary, "마음속 망설임이 깊어 보여요.");
+  assert.equal(result.pages[5].summary, "가까운 시기에 새 제안이 들어올 수 있어요.");
   assert.equal(result.pages[9].detail, "저장된 상세 10");
   assert.equal(result.pages[4].reflectionQuestion, "질문 5");
   assert.equal(result.pages[9].orientation, "reversed");
-  assert.match(result.conclusion, /저장된 요약 1/);
-  assert.match(result.coreConflict, /저장된 요약 2/);
-  assert.match(result.innerGap, /저장된 요약 4/);
-  assert.match(result.timeline, /저장된 요약 6/);
+  assert.match(result.conclusion, /지금은 역할을 정리해야 해요/);
+  assert.match(result.conclusion, /저장된 상세 1/);
+  assert.match(result.conclusion, /저장된 상세 10/);
+  assert.match(result.coreConflict, /장애물이 아직 남아 있어요/);
+  assert.match(result.coreConflict, /저장된 상세 2/);
+  assert.match(result.innerGap, /바라는 방향이 분명해요/);
+  assert.match(result.innerGap, /저장된 상세 4/);
+  assert.match(result.timeline, /가까운 시기에 새 제안이 들어올 수 있어요/);
+  assert.match(result.timeline, /저장된 상세 6/);
+  assert.match(result.outerInfluence, /저장된 상세 9/);
+  assert.doesNotMatch(result.conclusion, /지금은 지금은/);
+  assert.doesNotMatch(result.coreConflict, /에서는 지금은/);
   assert.doesNotMatch(result.conclusion, /“|”/);
 });
 

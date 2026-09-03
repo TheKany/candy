@@ -75,6 +75,7 @@ test("preserves the stored past, present, and future prose in picked order", () 
   assert.ok(result.conclusion.indexOf(readings[0].summary) < result.conclusion.indexOf(readings[1].summary));
   assert.ok(result.conclusion.indexOf(readings[1].summary) < result.conclusion.indexOf(readings[2].summary));
   assert.doesNotMatch(result.conclusion, /^\s*[“"]/);
+  assert.doesNotMatch(result.conclusion, /지금은 지금은|이 흐름을 이어가면 이 흐름을 이어가면/);
 });
 
 test("treats NO, hold, and YES as conditions instead of a card vote", () => {

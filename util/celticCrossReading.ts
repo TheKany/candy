@@ -12,6 +12,8 @@ import type {
 const getFallbackLine = (card: TarotCardProfile, orientation: TarotOrientation) =>
   orientation === "upright" ? card.upright_one_line : card.reversed_one_line;
 
+const joinSentences = (...sentences: string[]) => sentences.join(" ");
+
 export const isValidCelticCrossSelection = (
   cardIds: number[],
   orientations: string[],
@@ -53,11 +55,46 @@ export const buildCelticCrossReading = (
   });
 
   return {
-    conclusion: `지금은 ${pages[0].summary} 여기에 ${pages[1].summary} 현재의 선택이 이어지면 ${pages[9].summary}`,
-    coreConflict: `질문의 중심에서는 ${pages[0].summary} 동시에 마주한 영향은 ${pages[1].summary}`,
-    innerGap: `마음 깊은 곳에서는 ${pages[2].summary} 바라보는 방향은 ${pages[3].summary}`,
-    timeline: `지나온 흐름에서는 ${pages[4].summary} 가까운 시기에는 ${pages[5].summary}`,
-    outerInfluence: `나의 태도에서는 ${pages[6].summary} 주변에서는 ${pages[7].summary} 마음속 기대와 불안은 ${pages[8].summary}`,
+    conclusion: joinSentences(
+      "지금의 결론은 현재의 핵심과 장애물을 함께 살피는 데 있어요.",
+      pages[0].summary,
+      pages[0].detail,
+      pages[1].summary,
+      pages[1].detail,
+      "현재의 선택이 이어졌을 때 어떤 흐름이 열리는지도 확인해보세요.",
+      pages[9].summary,
+      pages[9].detail,
+    ),
+    coreConflict: joinSentences(
+      "이 질문에서 서로 맞닿는 흐름을 살펴보세요.",
+      pages[0].summary,
+      pages[0].detail,
+      pages[1].summary,
+      pages[1].detail,
+    ),
+    innerGap: joinSentences(
+      "마음 깊은 곳의 바람과 의식적인 목표를 함께 바라보세요.",
+      pages[2].summary,
+      pages[2].detail,
+      pages[3].summary,
+      pages[3].detail,
+    ),
+    timeline: joinSentences(
+      "지나온 경험과 가까운 시기의 흐름을 차례로 살펴보세요.",
+      pages[4].summary,
+      pages[4].detail,
+      pages[5].summary,
+      pages[5].detail,
+    ),
+    outerInfluence: joinSentences(
+      "나를 둘러싼 조건과 마음의 움직임을 함께 살펴보세요.",
+      pages[6].summary,
+      pages[6].detail,
+      pages[7].summary,
+      pages[7].detail,
+      pages[8].summary,
+      pages[8].detail,
+    ),
     advice: readings[6]?.advice
       ?? readings[9]?.advice
       ?? getFallbackLine(cards[6], orientations[6]),

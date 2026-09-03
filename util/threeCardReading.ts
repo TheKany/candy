@@ -12,6 +12,8 @@ import type {
 const getFallbackLine = (card: TarotCardProfile, orientation: TarotOrientation) =>
   orientation === "upright" ? card.upright_one_line : card.reversed_one_line;
 
+const joinSentences = (...sentences: string[]) => sentences.join(" ");
+
 const buildConclusion = (
   spread: ThreeCardSpreadId,
   pages: [ThreeCardReadingPage, ThreeCardReadingPage, ThreeCardReadingPage],
@@ -19,15 +21,51 @@ const buildConclusion = (
   const [first, second, third] = pages;
   switch (spread) {
     case "timeline":
-      return `지나온 흐름을 보면 ${first.summary} 지금은 ${second.summary} 이 흐름을 이어가면 ${third.summary}`;
+      return joinSentences(
+        "지나온 흐름이 지금의 판단에 영향을 주고 있어요.",
+        first.summary,
+        "현재의 상황을 천천히 확인해보세요.",
+        second.summary,
+        "앞으로의 가능성은 지금의 선택에서 자라나요.",
+        third.summary,
+      );
     case "problem":
-      return `지금은 ${first.summary} 막히는 지점은 ${second.summary} 그래서 ${third.summary}`;
+      return joinSentences(
+        "문제의 중심을 먼저 살펴보세요.",
+        first.summary,
+        "다음으로 흐름을 막는 지점을 확인해보세요.",
+        second.summary,
+        "이제 가능한 행동을 선택해보세요.",
+        third.summary,
+      );
     case "relationship":
-      return `나에게는 ${first.summary} 상대에게는 ${second.summary} 두 사람 사이에서는 ${third.summary}`;
+      return joinSentences(
+        "내 마음의 흐름부터 살펴보세요.",
+        first.summary,
+        "상대에게는 이런 흐름이 보입니다.",
+        second.summary,
+        "두 사람 사이에는 이런 방향이 놓여 있어요.",
+        third.summary,
+      );
     case "choice":
-      return `선택 A에서는 ${first.summary} 선택 B에서는 ${second.summary} 결정을 내릴 때는 ${third.summary}`;
+      return joinSentences(
+        "두 선택을 서두르지 말고 각각 살펴보세요.",
+        first.summary,
+        "다른 선택에도 이런 가능성이 있습니다.",
+        second.summary,
+        "결정할 때는 이 기준을 마음에 두세요.",
+        third.summary,
+      );
     case "direction":
-      return `현재 답은 조건부 YES/보류/NO에 가깝습니다. 먼저 ${first.summary} 이어서 ${second.summary} 그 조건이 갖춰지면 ${third.summary}`;
+      return joinSentences(
+        "현재 답은 조건부 YES/보류/NO에 가깝습니다.",
+        "먼저 피하거나 멈춰야 할 조건을 살펴보세요.",
+        first.summary,
+        "결정을 미루고 확인할 내용이 있어요.",
+        second.summary,
+        "움직일 수 있는 조건은 여기에서 열립니다.",
+        third.summary,
+      );
   }
 };
 
