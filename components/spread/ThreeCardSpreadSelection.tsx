@@ -101,6 +101,10 @@ const Header = styled.header`
   text-align: center;
   h1 { margin: 0; font-size: clamp(1.45rem, 7.3vw, 2rem); letter-spacing: -0.055em; word-break: keep-all; }
   p { margin: 9px 0 0; color: rgb(255 247 223 / 76%); font-size: clamp(0.8rem, 3.5vw, 0.94rem); }
+
+  @media (max-width: 319px) {
+    h1 { font-size: 1.18rem; }
+  }
 `;
 
 const Eyebrow = styled.div`
