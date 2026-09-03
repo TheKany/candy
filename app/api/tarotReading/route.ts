@@ -66,7 +66,7 @@ export async function GET(request: Request) {
   const { data: reading, error: readingError } = await supabase
     .from("tarot_topic_readings")
     .select(
-      "card_id,topic_id,orientation,headline,core_message,emotional_layer,hidden_context,challenge,opportunity,near_future,advice,reflection_question",
+      "card_id,topic_id,orientation,headline,conclusion,core_message,emotional_layer,hidden_context,challenge,opportunity,near_future,advice,reflection_question",
     )
     .eq("card_id", cardId)
     .eq("topic_id", topicId)

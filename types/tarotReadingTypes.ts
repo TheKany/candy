@@ -20,6 +20,7 @@ export type TarotTopicReading = {
   topic_id: TarotTopicId;
   orientation: TarotOrientation;
   headline: string;
+  conclusion: string;
   core_message: string;
   emotional_layer: string;
   hidden_context: string;

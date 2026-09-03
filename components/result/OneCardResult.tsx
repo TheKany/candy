@@ -4,18 +4,10 @@ import { getTarotTopic } from "@/constants/tarotTopics";
 import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import type { TarotReadingResult } from "@/types/tarotReadingTypes";
+import { buildTarotResultPresentation } from "@/util/tarotResultPresentation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-const readingSections = [
-  ["감정의 층위", "emotional_layer"],
-  ["숨은 맥락", "hidden_context"],
-  ["마주할 과제", "challenge"],
-  ["열려 있는 기회", "opportunity"],
-  ["가까운 흐름", "near_future"],
-  ["카드의 조언", "advice"],
-] as const;
 
 const OneCardResult = () => {
   const pickedCards = useUserPickNum((state) => state.realCard);
@@ -64,10 +56,16 @@ const OneCardResult = () => {
   if (!result) return <StatusMessage>카드의 메시지를 펼치고 있어요.</StatusMessage>;
 
   const { card, reading, fallback } = result;
+  const presentation = reading ? buildTarotResultPresentation(reading) : null;
 
   return (
     <ResultSection>
       <TopicLabel>선택한 주제 · {topic.title}</TopicLabel>
+
+      <ConclusionBox>
+        <span>그래서, 결론은</span>
+        <p>{presentation?.conclusion ?? card.upright_one_line}</p>
+      </ConclusionBox>
 
       <CardBox>
         <CardName>{card.name_ko}</CardName>
@@ -84,33 +82,36 @@ const OneCardResult = () => {
         </CardImage>
       </CardBox>
 
-      {fallback || !reading ? (
+      {fallback || !reading || !presentation ? (
         <FallbackBox>
-          <h2>카드가 전하는 한마디</h2>
-          <p>{card.upright_one_line}</p>
-          <span>지금의 상황과 맞닿는 부분부터 천천히 살펴보세요.</span>
+          <h2>카드가 전하는 흐름</h2>
+          <p>지금의 상황과 맞닿는 부분부터 천천히 살펴보세요.</p>
         </FallbackBox>
       ) : (
         <ReadingBox>
           <ReadingHeader>
-            <span>오늘의 리딩</span>
-            <h2>{reading.headline}</h2>
-            <p>{reading.core_message}</p>
+            <span>DETAIL READING</span>
+            <h2>{presentation.headline}</h2>
           </ReadingHeader>
 
           <ReadingGrid>
-            {readingSections.map(([title, field]) => (
-              <ReadingCard key={field}>
+            {presentation.details.map(([title, body]) => (
+              <ReadingCard key={title}>
                 <h3>{title}</h3>
-                <p>{reading[field]}</p>
+                <p>{body}</p>
               </ReadingCard>
             ))}
           </ReadingGrid>
 
-          <ReflectionBox>
-            <span>나에게 묻는 질문</span>
-            <p>{reading.reflection_question}</p>
-          </ReflectionBox>
+          <AdviceBox>
+            <span>마지막 조언</span>
+            <h3>카드가 권하는 한 가지</h3>
+            <p>{presentation.advice}</p>
+            <ReflectionBox>
+              <span>나에게 묻는 질문</span>
+              <p>{presentation.reflectionQuestion}</p>
+            </ReflectionBox>
+          </AdviceBox>
         </ReadingBox>
       )}
     </ResultSection>
@@ -160,6 +161,35 @@ const CardBox = styled.div`
   background: #f7f3e8;
   box-shadow: 0 8px 24px rgba(41, 77, 64, 0.1);
   text-align: center;
+`;
+
+const ConclusionBox = styled.section`
+  width: 100%;
+  margin-bottom: 12px;
+  padding: clamp(22px, 7vw, 30px) clamp(16px, 6vw, 24px);
+  border: 1px solid rgb(225 198 109 / 70%);
+  border-radius: 18px;
+  color: #fff8e5;
+  background: linear-gradient(145deg, #294d40, #17382e);
+  box-shadow: 0 10px 26px rgb(26 57 47 / 18%);
+
+  span {
+    display: block;
+    margin-bottom: 9px;
+    color: #e7ca70;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    margin: 0;
+    font-family: "NotoSerifKR", serif;
+    font-size: clamp(1.08rem, 5.2vw, 1.4rem);
+    font-weight: 800;
+    line-height: 1.62;
+    word-break: keep-all;
+  }
 `;
 
 const CardName = styled.h1`
@@ -220,11 +250,6 @@ const ReadingHeader = styled.header`
     line-height: 1.35;
   }
 
-  p {
-    margin: 0;
-    font-size: clamp(0.9rem, 3.8vw, 1rem);
-    line-height: 1.8;
-  }
 `;
 
 const ReadingGrid = styled.div`
@@ -257,10 +282,10 @@ const ReadingCard = styled.article`
 `;
 
 const ReflectionBox = styled.div`
-  margin-top: 10px;
-  padding: 20px 16px;
+  margin-top: 18px;
+  padding: 17px 15px;
   border-radius: 14px;
-  background: #fff2bb;
+  background: rgb(255 255 255 / 58%);
   color: #294d40;
 
   span {
@@ -273,6 +298,32 @@ const ReflectionBox = styled.div`
     font-size: clamp(0.92rem, 4vw, 1.05rem);
     font-weight: 700;
     line-height: 1.65;
+  }
+`;
+
+const AdviceBox = styled.section`
+  margin-top: 12px;
+  padding: 22px 17px;
+  border: 1px solid #d8b85c;
+  border-radius: 16px;
+  color: #294d40;
+  background: #fff2bb;
+
+  & > span {
+    color: #80662c;
+    font-size: 0.76rem;
+    font-weight: 900;
+  }
+
+  & > h3 {
+    margin: 7px 0 9px;
+    font-size: clamp(1.04rem, 4.5vw, 1.2rem);
+  }
+
+  & > p {
+    margin: 0;
+    font-size: clamp(0.9rem, 3.8vw, 1rem);
+    line-height: 1.75;
   }
 `;
 

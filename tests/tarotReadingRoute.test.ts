@@ -21,6 +21,7 @@ const reading = {
   topic_id: "personal-flow" as const,
   orientation: "upright" as const,
   headline: "새로운 시작 앞에서",
+  conclusion: "지금은 작게라도 새로운 선택을 시작할 때입니다.",
   core_message: "익숙한 틀을 벗어날 가능성이 열리고 있습니다.",
   emotional_layer: "기대와 불안이 함께 움직일 수 있습니다.",
   hidden_context: "완벽한 준비를 기다리는 마음이 숨어 있습니다.",
