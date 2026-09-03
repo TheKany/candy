@@ -9,4 +9,6 @@ test("restores the earliest missing reading step", () => {
   assert.equal(getReadingFlowRedirect("three", null, null), "/spread");
   assert.equal(getReadingFlowRedirect("three", null, "timeline"), "/topic");
   assert.equal(getReadingFlowRedirect("three", "career", "timeline"), null);
+  assert.equal(getReadingFlowRedirect("celtic", null), "/topic");
+  assert.equal(getReadingFlowRedirect("celtic", "career"), null);
 });

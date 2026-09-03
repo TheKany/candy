@@ -15,14 +15,14 @@ export type TarotSelectionAction =
 export const TAROT_TYPES = [
   { id: "one", title: "원 오라클", subtitle: "힌트 찾기", symbol: "☾", available: true },
   { id: "three", title: "쓰리카드", subtitle: "직관적인 답", symbol: "Ⅲ", available: true },
-  { id: "celtic", title: "켈틱 크로스", subtitle: "마음 들여다보기", symbol: "✦", available: false },
+  { id: "celtic", title: "켈틱 크로스", subtitle: "마음 들여다보기", symbol: "✦", available: true },
   { id: "horoscope", title: "호로스코프", subtitle: "내 전체 흐름", symbol: "☼", available: false },
 ] as const satisfies readonly TarotTypeOption[];
 
 export function getTarotSelectionAction(
   id: TarotTypeId,
 ): TarotSelectionAction {
-  if (id === "one") {
+  if (id === "one" || id === "celtic") {
     return { kind: "navigate", href: "/topic" };
   }
 
