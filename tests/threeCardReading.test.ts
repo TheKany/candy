@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import type { TarotPositionReading } from "../types/tarotReadingTypes.ts";
 import { buildThreeCardReading } from "../util/threeCardReading.ts";
 
 const cards = [
@@ -42,44 +43,62 @@ const cards = [
   },
 ];
 
-const readings = cards.map((card, index) => ({
+const readings: TarotPositionReading[] = cards.map((card, index) => ({
   card_id: card.card_id,
   topic_id: "career" as const,
   orientation: "upright" as const,
-  headline: `${card.name_ko}의 일 흐름`,
-  conclusion: `결론 ${index + 1}`,
-  core_message: `핵심 ${index + 1}`,
-  emotional_layer: `감정 ${index + 1}`,
-  hidden_context: `숨은 맥락 ${index + 1}`,
-  challenge: `과제 ${index + 1}`,
-  opportunity: `기회 ${index + 1}`,
-  near_future: `미래 ${index + 1}`,
+  reading_type: "three",
+  layout_id: "timeline",
+  position_id: ["past", "present", "future"][index],
+  headline: `${card.name_ko}이 놓인 자리`,
+  summary: [
+    "지난 협업의 균열이 아직 결정에 영향을 남겼어요.",
+    "지금은 역할을 정리하고 우선순위를 확인하는 때예요.",
+    "이 흐름을 이어가면 다음 제안에서 선택지가 넓어질 수 있어요.",
+  ][index],
+  detail: `상세 해석 ${index + 1}`,
   advice: `조언 ${index + 1}`,
   reflection_question: `질문 ${index + 1}`,
 }));
 
-test("maps timeline cards to past, present, and future meanings in picked order", () => {
+test("preserves the stored past, present, and future prose in picked order", () => {
   const result = buildThreeCardReading("timeline", cards, readings);
 
   assert.deepEqual(result.pages.map(({ positionLabel }) => positionLabel), ["과거", "현재", "미래"]);
   assert.equal(result.pages[0].card.card_id, 0);
-  assert.equal(result.pages[0].summary, "숨은 맥락 1");
-  assert.equal(result.pages[1].summary, "핵심 2");
-  assert.equal(result.pages[2].summary, "미래 3");
-  assert.match(result.conclusion, /과거/);
-  assert.match(result.conclusion, /현재/);
-  assert.match(result.conclusion, /미래/);
+  assert.equal(result.pages[0].headline, "바보이 놓인 자리");
+  assert.equal(result.pages[0].summary, readings[0].summary);
+  assert.equal(result.pages[1].summary, readings[1].summary);
+  assert.equal(result.pages[2].summary, readings[2].summary);
+  assert.equal(result.pages[2].detail, readings[2].detail);
+  assert.equal(result.pages[1].reflectionQuestion, readings[1].reflection_question);
+  assert.ok(result.conclusion.indexOf(readings[0].summary) < result.conclusion.indexOf(readings[1].summary));
+  assert.ok(result.conclusion.indexOf(readings[1].summary) < result.conclusion.indexOf(readings[2].summary));
+  assert.doesNotMatch(result.conclusion, /^\s*[“"]/);
 });
 
 test("treats NO, hold, and YES as conditions instead of a card vote", () => {
-  const result = buildThreeCardReading("direction", cards, readings);
+  const directionReadings = readings.map((reading, index) => ({
+    ...reading,
+    layout_id: "direction",
+    position_id: ["no", "hold", "yes"][index],
+    summary: [
+      "지금은 계약 조건이 불분명한 채로 서명하면 안 돼요.",
+      "비용과 일정이 문서로 확인되는지 더 살펴봐야 해요.",
+      "담당자와 책임 범위가 분명해지면 진행해도 좋아요.",
+    ][index],
+  }));
+  const result = buildThreeCardReading("direction", cards, directionReadings);
 
   assert.deepEqual(result.pages.map(({ positionLabel }) => positionLabel), ["NO", "보류", "YES"]);
-  assert.equal(result.pages[0].summary, "과제 1");
-  assert.equal(result.pages[1].summary, "숨은 맥락 2");
-  assert.equal(result.pages[2].summary, "기회 3");
-  assert.match(result.conclusion, /막는 신호/);
-  assert.match(result.conclusion, /가능성을 여는 조건/);
+  assert.equal(result.pages[0].summary, directionReadings[0].summary);
+  assert.equal(result.pages[1].summary, directionReadings[1].summary);
+  assert.equal(result.pages[2].summary, directionReadings[2].summary);
+  assert.match(result.conclusion, /^현재 답은 조건부 YES\/보류\/NO에 가깝습니다\./);
+  assert.match(result.conclusion, /서명하면 안 돼요/);
+  assert.match(result.conclusion, /문서로 확인되는지/);
+  assert.match(result.conclusion, /진행해도 좋아요/);
+  assert.doesNotMatch(result.conclusion, /카드.*투표|표결/);
 });
 
 test("falls back only for a card whose topic reading is missing", () => {

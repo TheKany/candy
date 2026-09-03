@@ -31,8 +31,22 @@ export type TarotTopicReading = {
   reflection_question: string;
 };
 
+export type TarotPositionReading = {
+  card_id: number;
+  topic_id: TarotTopicId;
+  orientation: TarotOrientation;
+  reading_type: "one" | "three" | "celtic" | "horoscope";
+  layout_id: string;
+  position_id: string;
+  headline: string;
+  summary: string;
+  detail: string;
+  advice: string;
+  reflection_question: string;
+};
+
 export type TarotReadingResult = {
   card: TarotCardProfile;
-  reading: TarotTopicReading | null;
+  reading: TarotPositionReading | null;
   fallback: boolean;
 };

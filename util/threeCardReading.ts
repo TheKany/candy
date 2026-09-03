@@ -2,75 +2,39 @@ import { getThreeCardSpread, type ThreeCardSpreadId } from "../constants/threeCa
 import type {
   TarotCardProfile,
   TarotOrientation,
-  TarotTopicReading,
+  TarotPositionReading,
 } from "../types/tarotReadingTypes.ts";
 import type {
   ThreeCardReadingPage,
   ThreeCardReadingResult,
 } from "../types/threeCardReadingTypes.ts";
 
-const getKeyword = (card: TarotCardProfile, orientation: TarotOrientation) =>
-  (orientation === "upright" ? card.upright_keywords : card.reversed_keywords)[0] ?? card.name_ko;
-
 const getFallbackLine = (card: TarotCardProfile, orientation: TarotOrientation) =>
   orientation === "upright" ? card.upright_one_line : card.reversed_one_line;
 
-const getPositionContent = (
-  positionId: string,
-  reading: TarotTopicReading,
-): Pick<ThreeCardReadingPage, "summary" | "detail"> => {
-  switch (positionId) {
-    case "past":
-      return { summary: reading.hidden_context, detail: reading.core_message };
-    case "present":
-    case "situation":
-      return { summary: reading.core_message, detail: reading.emotional_layer };
-    case "future":
-    case "connection":
-      return { summary: reading.near_future, detail: reading.opportunity };
-    case "obstacle":
-    case "no":
-      return { summary: reading.challenge, detail: reading.hidden_context };
-    case "advice":
-    case "decision-key":
-      return { summary: reading.advice, detail: reading.opportunity };
-    case "self":
-      return { summary: reading.emotional_layer, detail: reading.core_message };
-    case "other":
-    case "hold":
-      return { summary: reading.hidden_context, detail: reading.emotional_layer };
-    case "option-a":
-    case "option-b":
-    case "yes":
-      return { summary: reading.opportunity, detail: reading.near_future };
-    default:
-      return { summary: reading.core_message, detail: reading.advice };
-  }
-};
-
 const buildConclusion = (
   spread: ThreeCardSpreadId,
-  keywords: [string, string, string],
+  pages: [ThreeCardReadingPage, ThreeCardReadingPage, ThreeCardReadingPage],
 ) => {
-  const [first, second, third] = keywords;
+  const [first, second, third] = pages;
   switch (spread) {
     case "timeline":
-      return `과거의 “${first}” 영향이 현재의 “${second}” 흐름으로 이어졌습니다. 미래에는 “${third}”의 가능성을 키우는 선택이 중요해요.`;
+      return `지나온 흐름을 보면 ${first.summary} 지금은 ${second.summary} 이 흐름을 이어가면 ${third.summary}`;
     case "problem":
-      return `현재 상황의 핵심은 “${first}”입니다. 장애물 쪽에는 “${second}” 흐름이 보이며, 해법은 “${third}”의 방향에서 찾아볼 수 있어요.`;
+      return `지금은 ${first.summary} 막히는 지점은 ${second.summary} 그래서 ${third.summary}`;
     case "relationship":
-      return `나는 “${first}”, 상대는 “${second}”의 흐름에 가깝습니다. 두 사람이 “${third}”의 의미를 함께 다룰 때 관계의 방향이 선명해져요.`;
+      return `나에게는 ${first.summary} 상대에게는 ${second.summary} 두 사람 사이에서는 ${third.summary}`;
     case "choice":
-      return `선택 A에는 “${first}”, 선택 B에는 “${second}”의 가능성이 있습니다. 가장 중요한 결정 기준은 “${third}”입니다.`;
+      return `선택 A에서는 ${first.summary} 선택 B에서는 ${second.summary} 결정을 내릴 때는 ${third.summary}`;
     case "direction":
-      return `지금 막는 신호는 “${first}”, 보류하고 확인할 변수는 “${second}”입니다. “${third}” 관련 변화가 현실에서 확인될 때 YES의 가능성을 여는 조건이 갖춰져요.`;
+      return `현재 답은 조건부 YES/보류/NO에 가깝습니다. 먼저 ${first.summary} 이어서 ${second.summary} 그 조건이 갖춰지면 ${third.summary}`;
   }
 };
 
 export const buildThreeCardReading = (
   spreadId: ThreeCardSpreadId,
   cards: TarotCardProfile[],
-  readings: Array<TarotTopicReading | null>,
+  readings: Array<TarotPositionReading | null>,
 ): ThreeCardReadingResult => {
   const spread = getThreeCardSpread(spreadId);
   if (!spread || cards.length !== 3 || readings.length !== 3) {
@@ -78,14 +42,13 @@ export const buildThreeCardReading = (
   }
 
   const orientation = readings.find((reading) => reading)?.orientation ?? "upright";
-  const keywords = cards.map((card) => getKeyword(card, orientation)) as [string, string, string];
   const pages = spread.positions.map((position, index): ThreeCardReadingPage => {
     const card = cards[index];
     const reading = readings[index];
     const fallbackLine = getFallbackLine(card, orientation);
     const content = reading
-      ? getPositionContent(position.id, reading)
-      : { summary: fallbackLine, detail: `${position.description}을 중심으로 이 카드의 메시지를 살펴보세요.` };
+      ? { summary: reading.summary, detail: reading.detail }
+      : { summary: fallbackLine, detail: `${position.description}을 중심으로 카드가 보여주는 흐름을 살펴보세요.` };
 
     return {
       positionId: position.id,
@@ -94,7 +57,7 @@ export const buildThreeCardReading = (
       card,
       headline: reading?.headline ?? `${position.label}에서 만난 ${card.name_ko}`,
       ...content,
-      reflectionQuestion: reading?.reflection_question ?? `“${keywords[index]}”이 지금 질문과 만나는 지점은 무엇인가요?`,
+      reflectionQuestion: reading?.reflection_question ?? `${position.label}에서 이 카드가 보여주는 흐름은 지금 질문과 어떻게 만날까요?`,
       fallback: reading === null,
     };
   });
@@ -102,7 +65,7 @@ export const buildThreeCardReading = (
   return {
     spread: spreadId,
     spreadTitle: spread.title,
-    conclusion: buildConclusion(spreadId, keywords),
+    conclusion: buildConclusion(spreadId, pages as [ThreeCardReadingPage, ThreeCardReadingPage, ThreeCardReadingPage]),
     flowSummary: pages.map((page) => `${page.positionLabel} · ${page.card.name_ko}`).join("  →  "),
     advice: readings[2]?.advice ?? getFallbackLine(cards[2], orientation),
     pages,
