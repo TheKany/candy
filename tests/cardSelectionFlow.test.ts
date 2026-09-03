@@ -4,6 +4,7 @@ import {
   getCardAtPosition,
   getNextPositionLabel,
   getRelativeSlotPosition,
+  getRequiredCardCount,
   shouldOpenResultAfterReveal,
   SHUFFLE_GUIDANCE,
 } from "../util/cardSelectionFlow.ts";
@@ -23,6 +24,14 @@ test("keeps the selected spread role visible while choosing three cards", () => 
   assert.equal(getNextPositionLabel("three", "timeline", 2), "미래");
   assert.equal(getNextPositionLabel("three", "timeline", 3), null);
   assert.equal(getNextPositionLabel("one", null, 0), "선택한 카드");
+});
+
+test("guides all ten Celtic Cross picks by position", () => {
+  assert.equal(getRequiredCardCount("celtic"), 10);
+  assert.equal(getNextPositionLabel("celtic", null, 0), "현재 상황");
+  assert.equal(getNextPositionLabel("celtic", null, 2), "내면의 원인");
+  assert.equal(getNextPositionLabel("celtic", null, 9), "최종 흐름");
+  assert.equal(getNextPositionLabel("celtic", null, 10), null);
 });
 
 test("keeps the selected card target stable when the page scrolls", () => {
@@ -51,6 +60,8 @@ test("opens the result only after every selected card finishes revealing", () =>
   assert.equal(shouldOpenResultAfterReveal("one", 1, true), true);
   assert.equal(shouldOpenResultAfterReveal("three", 2, true), false);
   assert.equal(shouldOpenResultAfterReveal("three", 3, true), true);
+  assert.equal(shouldOpenResultAfterReveal("celtic", 9, true), false);
+  assert.equal(shouldOpenResultAfterReveal("celtic", 10, true), true);
 });
 
 test("shows the requested guidance while cards are shuffling", () => {

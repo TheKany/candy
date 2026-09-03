@@ -4,22 +4,11 @@ import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { getThreeCardSpread } from "@/constants/threeCardSpreads";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import CelticCrossPickBoard from "./CelticCrossPickBoard";
+import { getRequiredCardCount } from "@/util/cardSelectionFlow";
 
 type Props = {
   finishedShuffle: boolean;
-};
-
-const getCardCountByType = (type: string | null) => {
-  switch (type) {
-    case "one":
-      return 1;
-    case "three":
-      return 3;
-    case "Yn":
-      return 1;
-    default:
-      return 0;
-  }
 };
 
 const PickCardBoard = ({ finishedShuffle }: Props) => {
@@ -36,7 +25,7 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
 
   useEffect(() => {
     if (type !== null) {
-      setCardCount(getCardCountByType(type));
+      setCardCount(getRequiredCardCount(type));
     }
   }, [type]);
 
@@ -52,6 +41,10 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
       });
     });
   }, [finishedShuffle]);
+
+  if (type === "celtic") {
+    return <CelticCrossPickBoard finishedShuffle={finishedShuffle} />;
+  }
 
   return (
     <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>

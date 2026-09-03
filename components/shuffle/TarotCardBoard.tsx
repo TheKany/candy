@@ -10,6 +10,8 @@ import { getRelativeSlotPosition } from "@/util/cardSelectionFlow";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
+import { useTarotTypeStore } from "@/store/useTarotTypeStore";
+import { useCardOrientationStore } from "@/store/useCardOrientationStore";
 
 type Props = {
   isRotating: boolean;
@@ -36,6 +38,8 @@ const TarotCardBoard = ({
   const userPickedCardList = useUserPickNum((state) => state.inputs);
   const realCardList = useUserPickNum((state) => state.realCard);
   const shuffleStep = useShuffleTypeStore((state) => state.shuffleStep);
+  const type = useTarotTypeStore((state) => state.type);
+  const orientations = useCardOrientationStore((state) => state.orientations);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const completedRevealIndexes = useRef(new Set<number>());
   const [revealedCardIndexes, setRevealedCardIndexes] = useState<Set<number>>(
@@ -75,12 +79,15 @@ const TarotCardBoard = ({
 
       cardEl.style.top = `${targetPosition.top}px`;
       cardEl.style.left = `${targetPosition.left}px`;
-      cardEl.style.transform = `translate(-50%, -50%) rotate(0deg)`;
+      const targetTransform = type === "celtic"
+        ? `translate(-50%, -50%) rotate(${order === 1 ? 90 : 0}deg) scale(0.55)`
+        : "translate(-50%, -50%) rotate(0deg)";
+      cardEl.style.transform = targetTransform;
       cardEl.style.transition = `top 0.72s cubic-bezier(0.22, 0.72, 0.28, 1), left 0.72s cubic-bezier(0.22, 0.72, 0.28, 1), transform 0.72s ease`;
       cardEl.style.transitionDelay = "0ms";
-      cardEl.style.zIndex = "20";
+      cardEl.style.zIndex = String(20 + order);
     });
-  }, [userPickedCardList, slotPositions]);
+  }, [slotPositions, type, userPickedCardList]);
 
   return (
     <CardContainer>
@@ -143,7 +150,10 @@ const TarotCardBoard = ({
                         priority
                       />
                     </CardFace>
-                    <CardFace $isFront>
+                    <CardFace
+                      $isFront
+                      $isReversed={type === "celtic" && orientations[pickedOrder] === "reversed"}
+                    >
                       {frontCardId !== undefined && (
                         <Image
                           src={`/cards/card${Number(frontCardId)}.webp`}
@@ -258,14 +268,17 @@ const CardFlipper = styled.div<{ $isRevealed: boolean }>`
   transition: transform 0.72s cubic-bezier(0.42, 0, 0.2, 1);
 `;
 
-const CardFace = styled.div<{ $isFront?: boolean }>`
+const CardFace = styled.div<{ $isFront?: boolean; $isReversed?: boolean }>`
   position: absolute;
   inset: 0;
   overflow: hidden;
   border: 2px solid #fff;
   border-radius: 3px;
   backface-visibility: hidden;
-  transform: ${({ $isFront }) => ($isFront ? "rotateY(180deg)" : "none")};
+  transform: ${({ $isFront, $isReversed }) =>
+    $isFront
+      ? `rotateY(180deg) rotateZ(${$isReversed ? 180 : 0}deg)`
+      : "none"};
 `;
 
 const DeckRange = styled.div`

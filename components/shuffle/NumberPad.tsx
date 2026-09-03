@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { getCardAtPosition } from "@/util/cardSelectionFlow";
 import { getNextPositionLabel } from "@/util/cardSelectionFlow";
 import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
+import { useCardOrientationStore } from "@/store/useCardOrientationStore";
+import { getRandomOrientation } from "@/constants/celticCrossPositions";
 
 type Props = {
   finishedShuffle: boolean;
@@ -22,6 +24,7 @@ const NumberPad = ({
   const { setInput, setRealCard } = useUserPickNum();
   const type = useTarotTypeStore((state) => state.type);
   const spread = useThreeCardSpreadStore((state) => state.spread);
+  const addOrientation = useCardOrientationStore((state) => state.addOrientation);
 
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
   const [number, setNumber] = useState("");
@@ -59,6 +62,8 @@ const NumberPad = ({
 
       // 선택 개수 초과 no
       if (type === "one" && pickedNumList.length >= 1) return;
+      if (type === "three" && pickedNumList.length >= 3) return;
+      if (type === "celtic" && pickedNumList.length >= 10) return;
       if (type === null) return;
 
       const realCard = getCardAtPosition(deck, cardNum);
@@ -67,6 +72,7 @@ const NumberPad = ({
       onSelectionStarted();
       setInput(String(number));
       setRealCard(String(realCard));
+      if (type === "celtic") addOrientation(getRandomOrientation());
       setPickNumList((prev) => [...prev, cardNum]);
 
       setNumber("");
@@ -77,7 +83,7 @@ const NumberPad = ({
     <Box $isFinish={finishedShuffle}>
       <Typing aria-live="polite">
         <TypingLabel>
-          {type === "three" && nextPositionLabel
+          {(type === "three" || type === "celtic") && nextPositionLabel
             ? `${pickedNumList.length + 1}번째 · ${nextPositionLabel} 카드 고르기`
             : "고른 운명의 카드"}
         </TypingLabel>
