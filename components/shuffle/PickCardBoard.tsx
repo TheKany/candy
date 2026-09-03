@@ -1,5 +1,7 @@
 import { usePickCardStoreSlotStore } from "@/store/usepickCardSlotStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
+import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
+import { getThreeCardSpread } from "@/constants/threeCardSpreads";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -22,6 +24,7 @@ const getCardCountByType = (type: string | null) => {
 
 const PickCardBoard = ({ finishedShuffle }: Props) => {
   const type = useTarotTypeStore((state) => state.type);
+  const spread = useThreeCardSpreadStore((state) => state.spread);
   const setSlotPosition = usePickCardStoreSlotStore(
     (state) => state.setSlotPosition
   );
@@ -29,6 +32,7 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   const slotRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const [cardCount, setCardCount] = useState(0);
+  const spreadOption = getThreeCardSpread(spread);
 
   useEffect(() => {
     if (type !== null) {
@@ -53,12 +57,15 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
     <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
       {Array.from({ length: cardCount }).map((_, i) => (
         <PickCard key={i} aria-label={`선택한 카드 ${i + 1} 자리`}>
-          <SlotLabel>선택한 카드</SlotLabel>
+          <SlotLabel>{type === "three" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
           <CardPosition
             ref={(el) => {
               slotRef.current[i] = el;
             }}
           />
+          {type === "three" && spreadOption && (
+            <RoleLabel>{spreadOption.positions[i].label}</RoleLabel>
+          )}
         </PickCard>
       ))}
     </PickCardContainer>
@@ -69,7 +76,7 @@ export default PickCardBoard;
 
 const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
   width: min(calc(100% - 32px), 340px);
-  min-height: 124px;
+  min-height: ${({ $col }) => ($col === 3 ? "148px" : "124px")};
   margin: 4px auto 14px;
   display: grid;
   grid-template-columns: repeat(${({ $col }) => $col}, 1fr);
@@ -86,7 +93,7 @@ const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
 const PickCard = styled.div`
   width: 100%;
   min-width: 0;
-  height: 124px;
+  height: 100%;
   border: 1px dashed rgba(212, 175, 55, 0.75);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.035);
@@ -107,6 +114,18 @@ const SlotLabel = styled.span`
   left: 50%;
   transform: translateX(-50%);
   color: rgba(212, 175, 55, 0.82);
-  font-size: 12px;
+  font-size: clamp(9px, 3vw, 12px);
   white-space: nowrap;
+`;
+
+const RoleLabel = styled.strong`
+  position: absolute;
+  right: 3px;
+  bottom: 7px;
+  left: 3px;
+  color: #f5d77e;
+  font-size: clamp(9px, 3.1vw, 11px);
+  line-height: 1.2;
+  text-align: center;
+  word-break: keep-all;
 `;

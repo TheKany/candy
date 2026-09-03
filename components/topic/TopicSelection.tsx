@@ -6,6 +6,8 @@ import {
 } from "@/constants/tarotTopics";
 import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
+import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
+import { getReadingFlowRedirect } from "@/util/tarotFlow";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
@@ -15,13 +17,16 @@ export default function TopicSelection() {
   const type = useTarotTypeStore((state) => state.type);
   const topic = useTarotTopicStore((state) => state.topic);
   const setTopic = useTarotTopicStore((state) => state.setTopic);
+  const spread = useThreeCardSpreadStore((state) => state.spread);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (mounted && !type) router.replace("/select");
-  }, [mounted, router, type]);
+    if (!mounted) return;
+    const redirect = getReadingFlowRedirect(type, topic, spread);
+    if (redirect && redirect !== "/topic") router.replace(redirect);
+  }, [mounted, router, spread, topic, type]);
 
   const continueToShuffle = () => {
     const action = getTopicSelectionAction(topic);

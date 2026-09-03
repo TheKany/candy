@@ -3,6 +3,8 @@ import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { getCardAtPosition } from "@/util/cardSelectionFlow";
+import { getNextPositionLabel } from "@/util/cardSelectionFlow";
+import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 
 type Props = {
   finishedShuffle: boolean;
@@ -19,9 +21,11 @@ const NumberPad = ({
 }: Props) => {
   const { setInput, setRealCard } = useUserPickNum();
   const type = useTarotTypeStore((state) => state.type);
+  const spread = useThreeCardSpreadStore((state) => state.spread);
 
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
   const [number, setNumber] = useState("");
+  const nextPositionLabel = getNextPositionLabel(type, spread, pickedNumList.length);
 
   const onClickNumberBtn = (id: number | string) => {
     if (selectionLocked) return;
@@ -72,7 +76,11 @@ const NumberPad = ({
   return (
     <Box $isFinish={finishedShuffle}>
       <Typing aria-live="polite">
-        <TypingLabel>고른 운명의 카드</TypingLabel>
+        <TypingLabel>
+          {type === "three" && nextPositionLabel
+            ? `${pickedNumList.length + 1}번째 · ${nextPositionLabel} 카드 고르기`
+            : "고른 운명의 카드"}
+        </TypingLabel>
         <TypingNumber>{number || "—"}</TypingNumber>
       </Typing>
       <InfoText>[ 1 ~ 78번까지의 카드 중에서 골라주세요. ]</InfoText>

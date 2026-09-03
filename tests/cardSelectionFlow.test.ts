@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   getCardAtPosition,
+  getNextPositionLabel,
   getRelativeSlotPosition,
   shouldOpenResultAfterReveal,
   SHUFFLE_GUIDANCE,
@@ -14,6 +15,14 @@ test("maps the visible 1 through 78 positions to the shuffled deck", () => {
   assert.equal(getCardAtPosition(deck, 78), 0);
   assert.equal(getCardAtPosition(deck, 0), null);
   assert.equal(getCardAtPosition(deck, 79), null);
+});
+
+test("keeps the selected spread role visible while choosing three cards", () => {
+  assert.equal(getNextPositionLabel("three", "timeline", 0), "과거");
+  assert.equal(getNextPositionLabel("three", "timeline", 1), "현재");
+  assert.equal(getNextPositionLabel("three", "timeline", 2), "미래");
+  assert.equal(getNextPositionLabel("three", "timeline", 3), null);
+  assert.equal(getNextPositionLabel("one", null, 0), "선택한 카드");
 });
 
 test("keeps the selected card target stable when the page scrolls", () => {
