@@ -9,17 +9,15 @@ test("exposes every product reading exactly once in display order", () => {
   assert.deepEqual(
     TAROT_TYPES.map(({ id, title, subtitle, available }) => ({ id, title, subtitle, available })),
     [
-      { id: "one", title: "원 오라클", subtitle: "힌트 찾기", available: true },
-      { id: "three", title: "쓰리카드", subtitle: "직관적인 답", available: true },
-      { id: "celtic", title: "켈틱 크로스", subtitle: "마음 들여다보기", available: true },
-      { id: "horoscope", title: "호로스코프", subtitle: "내 전체 흐름", available: false },
+      { id: "one", title: "원 오라클", subtitle: "한 장의 메시지", available: true },
+      { id: "three", title: "쓰리카드", subtitle: "과거 · 현재 · 미래", available: true },
+      { id: "five", title: "파이브카드", subtitle: "상황 · 원인 · 장애물 · 조언 · 결과", available: true },
     ],
   );
 });
 
 test("routes available readings to their first step and blocks unfinished readings", () => {
   assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/topic", type: "one" });
-  assert.deepEqual(getTarotSelectionAction("three"), { kind: "navigate", href: "/spread", type: "three" });
-  assert.deepEqual(getTarotSelectionAction("celtic"), { kind: "navigate", href: "/topic", type: "celtic" });
-  assert.deepEqual(getTarotSelectionAction("horoscope"), { kind: "notice", message: "준비 중이에요" });
+  assert.deepEqual(getTarotSelectionAction("three"), { kind: "navigate", href: "/topic", type: "three" });
+  assert.deepEqual(getTarotSelectionAction("five"), { kind: "navigate", href: "/topic", type: "five" });
 });

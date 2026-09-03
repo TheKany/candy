@@ -2,67 +2,64 @@
 
 import { getTarotTopic } from "@/constants/tarotTopics";
 import { useTarotTopicStore } from "@/store/useTarotTopicStore";
-import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
+import type { FiveCardReadingResult } from "@/types/fiveCardReadingTypes";
 import { getNavigationButtonTarget } from "@/util/horizontalResultPager";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-type Props = { onHome: () => void };
+type Props = { onHome: () => void; mode?: "three" | "five" };
 
-const PAGE_COUNT = 4;
-
-export default function ThreeCardResult({ onHome }: Props) {
+export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
   const cardIds = useUserPickNum((state) => state.realCard);
   const topicId = useTarotTopicStore((state) => state.topic);
-  const spreadId = useThreeCardSpreadStore((state) => state.spread);
   const topic = getTarotTopic(topicId);
-  const [result, setResult] = useState<ThreeCardReadingResult | null>(null);
+  const [result, setResult] = useState<ThreeCardReadingResult | FiveCardReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
-    if (cardIds.length !== 3 || !topicId || !spreadId) return;
+    const requiredCount = mode === "five" ? 5 : 3;
+    if (cardIds.length !== requiredCount || !topicId) return;
     const controller = new AbortController();
 
     const loadReading = async () => {
       try {
-        const params = new URLSearchParams({
-          topicId,
-          spreadId,
-          orientation: "upright",
-        });
+        const params = new URLSearchParams({ topicId, orientation: "upright" });
+        if (mode === "three") params.set("spreadId", "timeline");
         cardIds.forEach((cardId) => params.append("cardId", cardId));
-        const response = await fetch(`/api/threeCardReading?${params}`, {
+        const response = await fetch(`/api/${mode === "five" ? "fiveCardReading" : "threeCardReading"}?${params}`, {
           signal: controller.signal,
         });
-        if (!response.ok) throw new Error("three-card reading request failed");
-        setResult((await response.json()) as ThreeCardReadingResult);
+        if (!response.ok) throw new Error(`${mode}-card reading request failed`);
+        setResult((await response.json()) as ThreeCardReadingResult | FiveCardReadingResult);
       } catch (error) {
         if ((error as Error).name !== "AbortError") {
-          console.error("Three-card reading request failed:", error);
-          setErrorMessage("세 장의 메시지를 불러오지 못했어요. 카드를 다시 골라주세요.");
+          console.error(`${mode}-card reading request failed:`, error);
+          setErrorMessage(`${mode === "five" ? "다섯" : "세"} 장의 메시지를 불러오지 못했어요. 카드를 다시 골라주세요.`);
         }
       }
     };
 
     loadReading();
     return () => controller.abort();
-  }, [cardIds, spreadId, topicId]);
+  }, [cardIds, mode, topicId]);
+
+  const pageCount = mode === "five" ? 6 : 4;
 
   const moveWithButton = (direction: "previous" | "next") => {
-    setActivePage((current) => getNavigationButtonTarget(current, direction, PAGE_COUNT));
+    setActivePage((current) => getNavigationButtonTarget(current, direction, pageCount));
   };
 
-  if (cardIds.length !== 3 || !topic || !spreadId) {
-    return <Status>쓰리카드 배열과 카드 세 장을 확인해주세요.</Status>;
+  if (cardIds.length !== (mode === "five" ? 5 : 3) || !topic) {
+    return <Status>{mode === "five" ? "파이브카드와 카드 다섯 장" : "쓰리카드와 카드 세 장"}을 확인해주세요.</Status>;
   }
   if (errorMessage) {
     return <Status><p>{errorMessage}</p><button onClick={() => history.back()}>카드 선택으로 돌아가기</button></Status>;
   }
-  if (!result) return <Status>세 장의 흐름을 연결하고 있어요.</Status>;
+  if (!result) return <Status>{mode === "five" ? "다섯" : "세"} 장의 흐름을 연결하고 있어요.</Status>;
 
   return (
     <Shell>
@@ -75,7 +72,7 @@ export default function ThreeCardResult({ onHome }: Props) {
         <Track $page={activePage}>
           <Slide aria-hidden={activePage !== 0}>
             <SummaryCard>
-              <Eyebrow>그래서, 세 장의 결론은</Eyebrow>
+              <Eyebrow>그래서, {mode === "five" ? "다섯" : "세"} 장의 결론은</Eyebrow>
               <h1>{result.conclusion}</h1>
               <FlowLine>{result.flowSummary}</FlowLine>
               <Advice>
@@ -114,12 +111,12 @@ export default function ThreeCardResult({ onHome }: Props) {
         </Track>
       </Viewport>
 
-      <Pager aria-label="쓰리카드 결과 페이지">
+      <Pager aria-label={`${mode === "five" ? "파이브카드" : "쓰리카드"} 결과 페이지`}>
         <NavButton type="button" disabled={activePage === 0} onClick={() => moveWithButton("previous")}>
           이전
         </NavButton>
         <Dots>
-          {Array.from({ length: PAGE_COUNT }, (_, index) => (
+          {Array.from({ length: pageCount }, (_, index) => (
             <Dot
               key={index}
               aria-current={activePage === index ? "page" : undefined}
@@ -127,7 +124,7 @@ export default function ThreeCardResult({ onHome }: Props) {
             />
           ))}
         </Dots>
-        {activePage === PAGE_COUNT - 1 ? (
+        {activePage === pageCount - 1 ? (
           <NavButton type="button" $home onClick={onHome}>홈으로</NavButton>
         ) : (
           <NavButton type="button" onClick={() => moveWithButton("next")}>다음</NavButton>

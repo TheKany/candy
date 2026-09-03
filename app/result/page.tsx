@@ -73,6 +73,8 @@ const Result = () => {
       ) : (
         type === "three" ? (
           <ThreeCardResult onHome={onClickHome} />
+        ) : type === "five" ? (
+          <ThreeCardResult mode="five" onHome={onClickHome} />
         ) : type === "celtic" ? (
           <CelticCrossResult onHome={onClickHome} />
         ) : (

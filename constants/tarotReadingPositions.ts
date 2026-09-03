@@ -9,6 +9,8 @@ export type TarotReadingPositionRole =
   | "hold"
   | "opening"
   | "context"
+  | "cause"
+  | "outcome"
   | "advice";
 
 export type TarotReadingPosition = {
@@ -37,6 +39,12 @@ export const TAROT_READING_POSITIONS = [
   { readingType: "three", layoutId: "direction", positionId: "no", label: "NO", role: "blocker" },
   { readingType: "three", layoutId: "direction", positionId: "hold", label: "보류", role: "hold" },
   { readingType: "three", layoutId: "direction", positionId: "yes", label: "YES", role: "opening" },
+
+  { readingType: "five", layoutId: "insight", positionId: "situation", label: "상황", role: "present" },
+  { readingType: "five", layoutId: "insight", positionId: "cause", label: "원인", role: "cause" },
+  { readingType: "five", layoutId: "insight", positionId: "obstacle", label: "장애물", role: "blocker" },
+  { readingType: "five", layoutId: "insight", positionId: "advice", label: "조언", role: "advice" },
+  { readingType: "five", layoutId: "insight", positionId: "outcome", label: "결과", role: "outcome" },
 
   { readingType: "celtic", layoutId: "celtic-cross", positionId: "present", label: "현재 상황", role: "present" },
   { readingType: "celtic", layoutId: "celtic-cross", positionId: "obstacle", label: "장애물", role: "blocker" },

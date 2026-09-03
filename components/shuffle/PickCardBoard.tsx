@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CelticCrossPickBoard from "./CelticCrossPickBoard";
 import { getRequiredCardCount } from "@/util/cardSelectionFlow";
+import { FIVE_CARD_POSITIONS } from "@/constants/fiveCardPositions";
 
 type Props = {
   finishedShuffle: boolean;
@@ -21,7 +22,12 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   const slotRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const [cardCount, setCardCount] = useState(0);
-  const spreadOption = getThreeCardSpread(spread);
+  const spreadOption = getThreeCardSpread(spread ?? "timeline");
+  const roleLabels = type === "five"
+    ? FIVE_CARD_POSITIONS.map((position) => position.label)
+    : type === "three"
+      ? spreadOption?.positions.map((position) => position.label)
+      : null;
 
   useEffect(() => {
     if (type !== null) {
@@ -50,14 +56,14 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
     <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
       {Array.from({ length: cardCount }).map((_, i) => (
         <PickCard key={i} aria-label={`선택한 카드 ${i + 1} 자리`}>
-          <SlotLabel>{type === "three" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
+          <SlotLabel>{type === "three" || type === "five" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
           <CardPosition
             ref={(el) => {
               slotRef.current[i] = el;
             }}
           />
-          {type === "three" && spreadOption && (
-            <RoleLabel>{spreadOption.positions[i].label}</RoleLabel>
+          {roleLabels?.[i] && (
+            <RoleLabel>{roleLabels[i]}</RoleLabel>
           )}
         </PickCard>
       ))}
@@ -69,10 +75,10 @@ export default PickCardBoard;
 
 const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
   width: min(calc(100% - 32px), 340px);
-  min-height: ${({ $col }) => ($col === 3 ? "148px" : "124px")};
+  min-height: ${({ $col }) => ($col === 5 ? "264px" : $col === 3 ? "148px" : "124px")};
   margin: 4px auto 14px;
   display: grid;
-  grid-template-columns: repeat(${({ $col }) => $col}, 1fr);
+  grid-template-columns: ${({ $col }) => $col === 5 ? "repeat(6, 1fr)" : `repeat(${$col}, 1fr)`};
   gap: 10px;
   position: relative;
   z-index: 1;
@@ -81,6 +87,14 @@ const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
   visibility: ${({ $isFinish }) => ($isFinish ? "visible" : "hidden")};
 
   transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+  & > div {
+    grid-column: ${({ $col }) => $col === 5 ? "span 2" : "auto"};
+  }
+
+  & > div:nth-child(4) {
+    grid-column: ${({ $col }) => $col === 5 ? "2 / span 2" : "auto"};
+  }
 `;
 
 const PickCard = styled.div`

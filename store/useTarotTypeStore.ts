@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { AvailableTarotTypeId } from "@/constants/tarotTypes";
+import type { TarotTypeId } from "@/constants/tarotTypes";
 
-export type TarotType = AvailableTarotTypeId | null;
+export type TarotType = TarotTypeId | null;
 
 interface TarotStore {
   type: TarotType;

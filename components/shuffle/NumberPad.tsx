@@ -63,6 +63,7 @@ const NumberPad = ({
       // 선택 개수 초과 no
       if (type === "one" && pickedNumList.length >= 1) return;
       if (type === "three" && pickedNumList.length >= 3) return;
+      if (type === "five" && pickedNumList.length >= 5) return;
       if (type === "celtic" && pickedNumList.length >= 10) return;
       if (type === null) return;
 
@@ -83,7 +84,7 @@ const NumberPad = ({
     <Box $isFinish={finishedShuffle}>
       <Typing aria-live="polite">
         <TypingLabel>
-          {(type === "three" || type === "celtic") && nextPositionLabel
+          {(type === "three" || type === "five" || type === "celtic") && nextPositionLabel
             ? `${pickedNumList.length + 1}번째 · ${nextPositionLabel} 카드 고르기`
             : "고른 운명의 카드"}
         </TypingLabel>

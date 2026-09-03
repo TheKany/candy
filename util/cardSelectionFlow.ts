@@ -1,5 +1,6 @@
 import { getThreeCardSpread, type ThreeCardSpreadId } from "../constants/threeCardSpreads.ts";
 import { getCelticCrossPosition } from "../constants/celticCrossPositions.ts";
+import { getFiveCardPosition } from "../constants/fiveCardPositions.ts";
 
 export const SHUFFLE_GUIDANCE = {
   shuffling: "카드를 섞는 동안 질문을 생각해주세요.",
@@ -10,6 +11,7 @@ export const SHUFFLE_GUIDANCE = {
 export const getRequiredCardCount = (type: string | null): number => {
   if (type === "one") return 1;
   if (type === "three") return 3;
+  if (type === "five") return 5;
   if (type === "celtic") return 10;
   return 0;
 };
@@ -20,8 +22,9 @@ export const getNextPositionLabel = (
   pickedCount: number,
 ): string | null => {
   if (type === "celtic") return getCelticCrossPosition(pickedCount)?.label ?? null;
+  if (type === "five") return getFiveCardPosition(pickedCount)?.label ?? null;
   if (type !== "three") return pickedCount === 0 ? "선택한 카드" : null;
-  return getThreeCardSpread(spread)?.positions[pickedCount]?.label ?? null;
+  return getThreeCardSpread(spread ?? "timeline")?.positions[pickedCount]?.label ?? null;
 };
 
 export const getCardAtPosition = (
@@ -43,6 +46,7 @@ export const shouldOpenResultAfterReveal = (
   if (!revealComplete) return false;
   if (type === "one" || type === "Yn") return pickedCount === 1;
   if (type === "three") return pickedCount === 3;
+  if (type === "five") return pickedCount === 5;
   if (type === "celtic") return pickedCount === 10;
   return false;
 };
