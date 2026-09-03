@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { buildTarotReadingResult } from "../util/tarotReadingResult.ts";
+
+const oneCardRoute = readFileSync(
+  new URL("../app/api/tarotReading/route.ts", import.meta.url),
+  "utf8",
+);
 
 const card = {
   card_id: 0,
@@ -20,14 +26,12 @@ const reading = {
   card_id: 0,
   topic_id: "personal-flow" as const,
   orientation: "upright" as const,
+  reading_type: "one" as const,
+  layout_id: "single",
+  position_id: "message",
   headline: "새로운 시작 앞에서",
-  conclusion: "지금은 작게라도 새로운 선택을 시작할 때입니다.",
-  core_message: "익숙한 틀을 벗어날 가능성이 열리고 있습니다.",
-  emotional_layer: "기대와 불안이 함께 움직일 수 있습니다.",
-  hidden_context: "완벽한 준비를 기다리는 마음이 숨어 있습니다.",
-  challenge: "충동과 용기를 구분해야 합니다.",
-  opportunity: "작은 첫걸음으로 가능성을 확인할 수 있습니다.",
-  near_future: "새로운 선택지가 구체적으로 보일 수 있습니다.",
+  summary: "지금은 작게라도 새로운 선택을 시작할 때입니다.",
+  detail: "익숙한 틀을 벗어날 가능성이 열리고 있습니다.",
   advice: "되돌릴 수 있는 작은 시도부터 시작하세요.",
   reflection_question: "지금 가볍게 시험해볼 수 있는 선택은 무엇인가요?",
 };
@@ -46,4 +50,11 @@ test("tarot reading route result marks a missing reading as fallback", () => {
     reading: null,
     fallback: true,
   });
+});
+
+test("queries the one-card message position with its exact stored coordinates", () => {
+  assert.match(oneCardRoute, /\.from\("tarot_position_readings"\)/);
+  assert.match(oneCardRoute, /\.eq\("reading_type", "one"\)/);
+  assert.match(oneCardRoute, /\.eq\("layout_id", "single"\)/);
+  assert.match(oneCardRoute, /\.eq\("position_id", "message"\)/);
 });

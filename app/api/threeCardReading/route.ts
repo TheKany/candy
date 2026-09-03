@@ -4,6 +4,7 @@ import { getSupabaseServer } from "@/lib/supabaseServer";
 import type {
   TarotCardProfile,
   TarotOrientation,
+  TarotPositionReading,
   TarotTopicReading,
 } from "@/types/tarotReadingTypes";
 import { buildThreeCardReading } from "@/util/threeCardReading";
@@ -11,6 +12,27 @@ import { NextResponse } from "next/server";
 
 const isOrientation = (value: string | null): value is TarotOrientation =>
   value === "upright" || value === "reversed";
+
+const POSITION_READING_COLUMNS =
+  "card_id,topic_id,orientation,reading_type,layout_id,position_id,headline,summary,detail,advice,reflection_question";
+
+const adaptTopicReading = (
+  reading: TarotTopicReading,
+  layoutId: string,
+  positionId: string,
+): TarotPositionReading => ({
+  card_id: reading.card_id,
+  topic_id: reading.topic_id,
+  orientation: reading.orientation,
+  reading_type: "three",
+  layout_id: layoutId,
+  position_id: positionId,
+  headline: reading.headline,
+  summary: reading.conclusion,
+  detail: reading.core_message,
+  advice: reading.advice,
+  reflection_question: reading.reflection_question,
+});
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -51,19 +73,58 @@ export async function GET(request: Request) {
   }
 
   const { data: readingRows, error: readingError } = await supabase
-    .from("tarot_topic_readings")
-    .select("card_id,topic_id,orientation,headline,conclusion,core_message,emotional_layer,hidden_context,challenge,opportunity,near_future,advice,reflection_question")
+    .from("tarot_position_readings")
+    .select(POSITION_READING_COLUMNS)
     .in("card_id", cardIds)
     .eq("topic_id", topicId)
-    .eq("orientation", orientation);
+    .eq("orientation", orientation)
+    .eq("reading_type", "three")
+    .eq("layout_id", spread.id)
+    .in("position_id", spread.positions.map((position) => position.id));
 
   if (readingError) {
-    console.error("Three-card reading query failed:", readingError);
+    console.error("Three-card position reading query failed:", readingError);
     return NextResponse.json({ error: "타로 해석을 불러오지 못했습니다." }, { status: 500 });
   }
 
-  const topicReadings = (readingRows ?? []) as TarotTopicReading[];
-  const readings = cardIds.map((id) => topicReadings.find((reading) => reading.card_id === id) ?? null);
+  const positionReadings = (readingRows ?? []) as TarotPositionReading[];
+  const missingCardIds = cardIds.filter((id, index) =>
+    !positionReadings.some((reading) =>
+      reading.card_id === id
+      && reading.position_id === spread.positions[index].id
+      && reading.orientation === orientation
+    )
+  );
+
+  let topicReadings: TarotTopicReading[] = [];
+  if (missingCardIds.length > 0) {
+    const { data: legacyRows, error: legacyReadingError } = await supabase
+      .from("tarot_topic_readings")
+      .select("card_id,topic_id,orientation,headline,conclusion,core_message,emotional_layer,hidden_context,challenge,opportunity,near_future,advice,reflection_question")
+      .in("card_id", missingCardIds)
+      .eq("topic_id", topicId)
+      .eq("orientation", orientation);
+
+    if (legacyReadingError) {
+      console.error("Three-card topic fallback query failed:", legacyReadingError);
+      return NextResponse.json({ error: "타로 해석을 불러오지 못했습니다." }, { status: 500 });
+    }
+
+    topicReadings = (legacyRows ?? []) as TarotTopicReading[];
+  }
+
+  const readings = cardIds.map((id, index) => {
+    const positionId = spread.positions[index].id;
+    const positionReading = positionReadings.find((reading) =>
+      reading.card_id === id
+      && reading.position_id === positionId
+      && reading.orientation === orientation
+    );
+    if (positionReading) return positionReading;
+
+    const topicReading = topicReadings.find((reading) => reading.card_id === id);
+    return topicReading ? adaptTopicReading(topicReading, spread.id, positionId) : null;
+  });
 
   return NextResponse.json(
     buildThreeCardReading(spread.id, cards as TarotCardProfile[], readings),

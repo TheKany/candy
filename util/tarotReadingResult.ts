@@ -1,12 +1,12 @@
 import type {
   TarotCardProfile,
+  TarotPositionReading,
   TarotReadingResult,
-  TarotTopicReading,
 } from "../types/tarotReadingTypes.ts";
 
 export const buildTarotReadingResult = (
   card: TarotCardProfile,
-  reading: TarotTopicReading | null,
+  reading: TarotPositionReading | null,
 ): TarotReadingResult => ({
   card,
   reading,

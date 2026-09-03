@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import type {
@@ -6,10 +7,16 @@ import type {
   TarotOrientation,
   TarotPositionReading,
 } from "../types/tarotReadingTypes.ts";
+import { CELTIC_CROSS_POSITIONS } from "../constants/celticCrossPositions.ts";
 import {
   buildCelticCrossReading,
   isValidCelticCrossSelection,
 } from "../util/celticCrossReading.ts";
+
+const celticCrossRoute = readFileSync(
+  new URL("../app/api/celticCrossReading/route.ts", import.meta.url),
+  "utf8",
+);
 
 const orientations: TarotOrientation[] = [
   "upright", "reversed", "upright", "reversed", "upright",
@@ -97,4 +104,11 @@ test("rejects incomplete, duplicate, or malformed Celtic selections", () => {
   assert.equal(isValidCelticCrossSelection([0, 1], ["upright", "reversed"]), false);
   assert.equal(isValidCelticCrossSelection([0, 1, 2, 3, 4, 5, 6, 7, 8, 8], orientations), false);
   assert.equal(isValidCelticCrossSelection(cards.map((card) => card.card_id), [...orientations.slice(0, 9), "sideways"]), false);
+});
+
+test("queries all ten Celtic Cross positions from stored readings", () => {
+  assert.match(celticCrossRoute, /\.from\("tarot_position_readings"\)/);
+  assert.match(celticCrossRoute, /\.eq\("reading_type", "celtic"\)/);
+  assert.match(celticCrossRoute, /\.eq\("layout_id", "celtic-cross"\)/);
+  assert.match(celticCrossRoute, /\.in\("position_id", CELTIC_CROSS_POSITIONS\.map\(\(position\) => position\.id\)\)/);
 });

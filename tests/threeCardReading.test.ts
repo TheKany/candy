@@ -1,8 +1,14 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import type { TarotPositionReading } from "../types/tarotReadingTypes.ts";
 import { buildThreeCardReading } from "../util/threeCardReading.ts";
+
+const threeCardRoute = readFileSync(
+  new URL("../app/api/threeCardReading/route.ts", import.meta.url),
+  "utf8",
+);
 
 const cards = [
   {
@@ -109,4 +115,11 @@ test("falls back only for a card whose topic reading is missing", () => {
   assert.equal(result.pages[1].fallback, true);
   assert.equal(result.pages[1].summary, cards[1].upright_one_line);
   assert.equal(result.pages[2].fallback, false);
+});
+
+test("queries each selected three-card layout position from stored readings", () => {
+  assert.match(threeCardRoute, /\.from\("tarot_position_readings"\)/);
+  assert.match(threeCardRoute, /\.eq\("reading_type", "three"\)/);
+  assert.match(threeCardRoute, /\.eq\("layout_id", spread\.id\)/);
+  assert.match(threeCardRoute, /\.in\("position_id", spread\.positions\.map\(\(position\) => position\.id\)\)/);
 });
