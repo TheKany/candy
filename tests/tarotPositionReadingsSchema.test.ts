@@ -13,13 +13,16 @@ const refinementMigrationPath = new URL(
   import.meta.url,
 );
 
+const readMigration = (path: URL) =>
+  readFileSync(path, "utf8").replace(/\r\n?/g, "\n");
+
 const readRefinementMigration = () => {
   assert.ok(
     existsSync(refinementMigrationPath),
     "migration 005 must refine the already-applied position readings",
   );
 
-  return readFileSync(refinementMigrationPath, "utf8");
+  return readMigration(refinementMigrationPath);
 };
 
 const extractTopicCaseBranches = (migration: string, alias: string) => {
@@ -59,7 +62,7 @@ test("defines exactly 38 unique positions across the supported reading types", (
 });
 
 test("creates publicly readable position readings with a guarded complete seed", () => {
-  const migration = readFileSync(migrationPath, "utf8");
+  const migration = readMigration(migrationPath);
 
   assert.match(
     migration,
@@ -77,7 +80,7 @@ test("creates publicly readable position readings with a guarded complete seed",
 });
 
 test("keeps sentence-valued source prose separate from position grammar", () => {
-  const migration = readFileSync(migrationPath, "utf8");
+  const migration = readMigration(migrationPath);
   const summaryGrammar = migration.match(
     /  case role\n([\s\S]*?)\n  end,\n  concat_ws/,
   );
