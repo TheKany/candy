@@ -5,9 +5,9 @@ import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
-import { clampResultPage, getSwipeTargetPage } from "@/util/horizontalResultPager";
+import { getNavigationButtonTarget } from "@/util/horizontalResultPager";
 import Image from "next/image";
-import { useEffect, useRef, useState, type TouchEvent } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 type Props = { onHome: () => void };
@@ -22,7 +22,6 @@ export default function ThreeCardResult({ onHome }: Props) {
   const [result, setResult] = useState<ThreeCardReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [activePage, setActivePage] = useState(0);
-  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     if (cardIds.length !== 3 || !topicId || !spreadId) return;
@@ -53,15 +52,8 @@ export default function ThreeCardResult({ onHome }: Props) {
     return () => controller.abort();
   }, [cardIds, spreadId, topicId]);
 
-  const moveTo = (index: number) => setActivePage(clampResultPage(index, PAGE_COUNT));
-  const onTouchStart = (event: TouchEvent) => {
-    touchStartX.current = event.changedTouches[0]?.clientX ?? null;
-  };
-  const onTouchEnd = (event: TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
-    setActivePage((current) => getSwipeTargetPage(current, touchStartX.current!, endX, PAGE_COUNT));
-    touchStartX.current = null;
+  const moveWithButton = (direction: "previous" | "next") => {
+    setActivePage((current) => getNavigationButtonTarget(current, direction, PAGE_COUNT));
   };
 
   if (cardIds.length !== 3 || !topic || !spreadId) {
@@ -79,7 +71,7 @@ export default function ThreeCardResult({ onHome }: Props) {
         <strong>{result.spreadTitle}</strong>
       </Header>
 
-      <Viewport onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+      <Viewport>
         <Track $page={activePage}>
           <Slide aria-hidden={activePage !== 0}>
             <SummaryCard>
@@ -123,28 +115,25 @@ export default function ThreeCardResult({ onHome }: Props) {
       </Viewport>
 
       <Pager aria-label="쓰리카드 결과 페이지">
-        <NavButton type="button" disabled={activePage === 0} onClick={() => moveTo(activePage - 1)}>
+        <NavButton type="button" disabled={activePage === 0} onClick={() => moveWithButton("previous")}>
           이전
         </NavButton>
         <Dots>
           {Array.from({ length: PAGE_COUNT }, (_, index) => (
             <Dot
               key={index}
-              type="button"
-              aria-label={`${index + 1}페이지로 이동`}
               aria-current={activePage === index ? "page" : undefined}
               $active={activePage === index}
-              onClick={() => moveTo(index)}
             />
           ))}
         </Dots>
         {activePage === PAGE_COUNT - 1 ? (
           <NavButton type="button" $home onClick={onHome}>홈으로</NavButton>
         ) : (
-          <NavButton type="button" onClick={() => moveTo(activePage + 1)}>다음</NavButton>
+          <NavButton type="button" onClick={() => moveWithButton("next")}>다음</NavButton>
         )}
       </Pager>
-      <SwipeHint>좌우로 넘겨 카드의 흐름을 확인하세요</SwipeHint>
+      <NavigationHint>아래 이전·다음 버튼으로 카드의 흐름을 확인하세요</NavigationHint>
     </Shell>
   );
 }
@@ -178,7 +167,6 @@ const Viewport = styled.div`
   min-height: 0;
   flex: 1;
   overflow: hidden;
-  touch-action: pan-y;
 `;
 
 const Track = styled.div<{ $page: number }>`
@@ -340,7 +328,8 @@ const Dots = styled.div`
   gap: 8px;
 `;
 
-const Dot = styled.button<{ $active: boolean }>`
+const Dot = styled.span<{ $active: boolean }>`
+  display: block;
   width: ${({ $active }) => $active ? "20px" : "8px"};
   height: 8px;
   border-radius: 999px;
@@ -348,7 +337,7 @@ const Dot = styled.button<{ $active: boolean }>`
   transition: width 180ms ease;
 `;
 
-const SwipeHint = styled.p`
+const NavigationHint = styled.p`
   flex: 0 0 auto;
   margin: 5px 0 0;
   color: rgb(255 247 223 / 52%);
