@@ -10,16 +10,17 @@ test("exposes every product reading exactly once in display order", () => {
     TAROT_TYPES.map(({ id, title, subtitle, available }) => ({ id, title, subtitle, available })),
     [
       { id: "one", title: "원 오라클", subtitle: "힌트 찾기", available: true },
-      { id: "three", title: "쓰리카드", subtitle: "직관적인 답", available: false },
+      { id: "three", title: "쓰리카드", subtitle: "직관적인 답", available: true },
       { id: "celtic", title: "켈틱 크로스", subtitle: "마음 들여다보기", available: false },
       { id: "horoscope", title: "호로스코프", subtitle: "내 전체 흐름", available: false },
     ],
   );
 });
 
-test("routes one oracle through topic selection and blocks every unfinished reading", () => {
+test("routes available readings to their first step and blocks unfinished readings", () => {
   assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/topic" });
-  for (const id of ["three", "celtic", "horoscope"] as const) {
+  assert.deepEqual(getTarotSelectionAction("three"), { kind: "navigate", href: "/spread" });
+  for (const id of ["celtic", "horoscope"] as const) {
     assert.deepEqual(getTarotSelectionAction(id), { kind: "notice", message: "준비 중이에요" });
   }
 });
