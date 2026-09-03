@@ -18,8 +18,8 @@ test("exposes every product reading exactly once in display order", () => {
 });
 
 test("routes available readings to their first step and blocks unfinished readings", () => {
-  assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/topic" });
-  assert.deepEqual(getTarotSelectionAction("three"), { kind: "navigate", href: "/spread" });
-  assert.deepEqual(getTarotSelectionAction("celtic"), { kind: "navigate", href: "/topic" });
+  assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/topic", type: "one" });
+  assert.deepEqual(getTarotSelectionAction("three"), { kind: "navigate", href: "/spread", type: "three" });
+  assert.deepEqual(getTarotSelectionAction("celtic"), { kind: "navigate", href: "/topic", type: "celtic" });
   assert.deepEqual(getTarotSelectionAction("horoscope"), { kind: "notice", message: "준비 중이에요" });
 });

@@ -13,6 +13,7 @@ import Feedback from "@/components/result/Feedback";
 import { useResetData } from "@/hooks/useResetData";
 import OneCardResult from "@/components/result/OneCardResult";
 import ThreeCardResult from "@/components/result/ThreeCardResult";
+import CelticCrossResult from "@/components/result/CelticCrossResult";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 
 const AdBanner = dynamic(() => import("@/components/_common/AdBanner"), {
@@ -72,6 +73,8 @@ const Result = () => {
       ) : (
         type === "three" ? (
           <ThreeCardResult onHome={onClickHome} />
+        ) : type === "celtic" ? (
+          <CelticCrossResult onHome={onClickHome} />
         ) : (
           <>
             <OneCardResult />

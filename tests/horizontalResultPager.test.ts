@@ -17,4 +17,8 @@ test("moves result pages only through previous and next button actions", () => {
   assert.equal(getNavigationButtonTarget(1, "next", 4), 2);
   assert.equal(getNavigationButtonTarget(0, "previous", 4), 0);
   assert.equal(getNavigationButtonTarget(3, "next", 4), 3);
+  assert.equal(getNavigationButtonTarget(0, "previous", 12), 0);
+  assert.equal(getNavigationButtonTarget(0, "next", 12), 1);
+  assert.equal(getNavigationButtonTarget(10, "next", 12), 11);
+  assert.equal(getNavigationButtonTarget(11, "next", 12), 11);
 });

@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { AvailableTarotTypeId } from "@/constants/tarotTypes";
 
-export type TarotType = "one" | "three" | "celtic" | null;
+export type TarotType = AvailableTarotTypeId | null;
 
 interface TarotStore {
   type: TarotType;

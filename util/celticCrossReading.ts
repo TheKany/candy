@@ -83,10 +83,10 @@ export const buildCelticCrossReading = (
   });
 
   return {
-    conclusion: `지금은 “${keywords[0]}”의 상황에 “${keywords[1]}”의 과제가 겹쳐 있습니다. 흐름을 바꾸는 열쇠는 “${keywords[6]}”의 태도이며, 현재 선택이 이어지면 “${keywords[9]}”의 가능성으로 향해요.`,
-    coreConflict: `현재 상황의 “${keywords[0]}”와 장애물의 “${keywords[1]}”이 맞물려 이번 질문의 핵심 긴장을 만들고 있습니다.`,
-    innerGap: `내면의 원인에는 “${keywords[2]}”가, 의식적인 바람에는 “${keywords[3]}”가 보여요. 두 방향의 차이를 인정해야 원하는 것을 현실적인 선택으로 바꿀 수 있습니다.`,
-    timeline: `지나간 영향의 “${keywords[4]}”는 서서히 힘을 잃고, 다가오는 흐름의 “${keywords[5]}”가 새로운 변수로 들어옵니다.`,
+    conclusion: `현재 상황에는 “${keywords[0]}”, 장애물에는 “${keywords[1]}”의 기운이 겹쳐 있습니다. 흐름을 바꾸는 열쇠는 “${keywords[6]}”에 가까운 태도이며, 지금의 선택이 이어지면 “${keywords[9]}”의 가능성으로 향해요.`,
+    coreConflict: `현재 상황에서 보이는 “${keywords[0]}”, 장애물에서 드러난 “${keywords[1]}”이 맞물려 이번 질문의 핵심 긴장을 만들고 있습니다.`,
+    innerGap: `내면의 원인에 드러난 “${keywords[2]}”, 의식적인 바람에 나타난 “${keywords[3]}” 사이의 차이를 인정해야 원하는 것을 현실적인 선택으로 바꿀 수 있습니다.`,
+    timeline: `지나간 영향인 “${keywords[4]}”는 서서히 힘을 잃고, 다가오는 흐름에서는 “${keywords[5]}”가 새로운 변수로 들어옵니다.`,
     outerInfluence: `나의 태도 “${keywords[6]}”, 주변 환경 “${keywords[7]}”, 희망과 두려움 “${keywords[8]}”이 함께 최종 흐름의 강도를 결정합니다.`,
     advice: readings[6]?.advice
       ?? readings[9]?.advice

@@ -21,7 +21,7 @@ export default function ReadingSelect() {
     const action = getTarotSelectionAction(id);
 
     if (action.kind === "navigate") {
-      if (id === "one" || id === "three") setType(id);
+      setType(action.type);
       router.push(action.href);
       return;
     }

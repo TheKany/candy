@@ -1,4 +1,5 @@
 export type TarotTypeId = "one" | "three" | "celtic" | "horoscope";
+export type AvailableTarotTypeId = Exclude<TarotTypeId, "horoscope">;
 
 export type TarotTypeOption = {
   id: TarotTypeId;
@@ -9,7 +10,7 @@ export type TarotTypeOption = {
 };
 
 export type TarotSelectionAction =
-  | { kind: "navigate"; href: "/topic" | "/spread" }
+  | { kind: "navigate"; href: "/topic" | "/spread"; type: AvailableTarotTypeId }
   | { kind: "notice"; message: "준비 중이에요" };
 
 export const TAROT_TYPES = [
@@ -23,11 +24,11 @@ export function getTarotSelectionAction(
   id: TarotTypeId,
 ): TarotSelectionAction {
   if (id === "one" || id === "celtic") {
-    return { kind: "navigate", href: "/topic" };
+    return { kind: "navigate", href: "/topic", type: id };
   }
 
   if (id === "three") {
-    return { kind: "navigate", href: "/spread" };
+    return { kind: "navigate", href: "/spread", type: id };
   }
 
   return { kind: "notice", message: "준비 중이에요" };
