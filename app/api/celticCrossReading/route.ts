@@ -11,6 +11,7 @@ import {
   buildCelticCrossReading,
   isValidCelticCrossSelection,
 } from "@/util/celticCrossReading";
+import { buildPositionReadingTupleFilter } from "@/util/tarotPositionReadingQuery";
 import { NextResponse } from "next/server";
 
 const POSITION_READING_COLUMNS =
@@ -68,15 +69,19 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "카드 열 장을 모두 찾을 수 없습니다." }, { status: 404 });
   }
 
+  const readingTuples = cardIds.map((cardId, index) => ({
+    cardId,
+    positionId: CELTIC_CROSS_POSITIONS[index].id,
+    orientation: orientations[index],
+  }));
+
   const { data: readingRows, error: readingError } = await supabase
     .from("tarot_position_readings")
     .select(POSITION_READING_COLUMNS)
-    .in("card_id", cardIds)
     .eq("topic_id", topicId)
-    .in("orientation", ["upright", "reversed"])
     .eq("reading_type", "celtic")
     .eq("layout_id", "celtic-cross")
-    .in("position_id", CELTIC_CROSS_POSITIONS.map((position) => position.id));
+    .or(buildPositionReadingTupleFilter(readingTuples));
 
   if (readingError) {
     console.error("Celtic Cross position reading query failed:", readingError);

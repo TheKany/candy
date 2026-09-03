@@ -7,6 +7,7 @@ import type {
   TarotPositionReading,
   TarotTopicReading,
 } from "@/types/tarotReadingTypes";
+import { buildPositionReadingTupleFilter } from "@/util/tarotPositionReadingQuery";
 import { buildThreeCardReading } from "@/util/threeCardReading";
 import { NextResponse } from "next/server";
 
@@ -72,15 +73,19 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "카드 세 장을 모두 찾을 수 없습니다." }, { status: 404 });
   }
 
+  const readingTuples = cardIds.map((cardId, index) => ({
+    cardId,
+    positionId: spread.positions[index].id,
+    orientation,
+  }));
+
   const { data: readingRows, error: readingError } = await supabase
     .from("tarot_position_readings")
     .select(POSITION_READING_COLUMNS)
-    .in("card_id", cardIds)
     .eq("topic_id", topicId)
-    .eq("orientation", orientation)
     .eq("reading_type", "three")
     .eq("layout_id", spread.id)
-    .in("position_id", spread.positions.map((position) => position.id));
+    .or(buildPositionReadingTupleFilter(readingTuples));
 
   if (readingError) {
     console.error("Three-card position reading query failed:", readingError);

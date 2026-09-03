@@ -110,5 +110,9 @@ test("queries all ten Celtic Cross positions from stored readings", () => {
   assert.match(celticCrossRoute, /\.from\("tarot_position_readings"\)/);
   assert.match(celticCrossRoute, /\.eq\("reading_type", "celtic"\)/);
   assert.match(celticCrossRoute, /\.eq\("layout_id", "celtic-cross"\)/);
-  assert.match(celticCrossRoute, /\.in\("position_id", CELTIC_CROSS_POSITIONS\.map\(\(position\) => position\.id\)\)/);
+  assert.match(
+    celticCrossRoute,
+    /\.or\(buildPositionReadingTupleFilter\(readingTuples\)\)/,
+  );
+  assert.doesNotMatch(celticCrossRoute, /\.in\("position_id"/);
 });

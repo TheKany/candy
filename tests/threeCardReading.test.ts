@@ -121,5 +121,9 @@ test("queries each selected three-card layout position from stored readings", ()
   assert.match(threeCardRoute, /\.from\("tarot_position_readings"\)/);
   assert.match(threeCardRoute, /\.eq\("reading_type", "three"\)/);
   assert.match(threeCardRoute, /\.eq\("layout_id", spread\.id\)/);
-  assert.match(threeCardRoute, /\.in\("position_id", spread\.positions\.map\(\(position\) => position\.id\)\)/);
+  assert.match(
+    threeCardRoute,
+    /\.or\(buildPositionReadingTupleFilter\(readingTuples\)\)/,
+  );
+  assert.doesNotMatch(threeCardRoute, /\.in\("position_id"/);
 });
