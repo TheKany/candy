@@ -50,3 +50,56 @@ Result: 7 passed, 0 failed. Node emitted its existing module-type reparsing warn
 
 - Task 3 must update the API routes from legacy `tarot_topic_readings` to exact `tarot_position_readings` queries before a full typecheck/build is expected to be clean; this task intentionally ran only the required focused tests.
 - The focused Node test command reports the pre-existing module-type reparsing warning; it does not affect the test result.
+
+## Fix round 1: Standalone stored prose and Celtic detail synthesis
+
+### Root cause and decision
+
+- Three-card and Celtic conclusions inserted stored complete sentences after prefixes and particles, which could produce constructions such as `지금은 지금은 ...` and `에서는 지금은 ...`.
+- Celtic overview fields only consumed stored summaries, so detail prose did not reach the overview.
+- Composition now joins only complete guidance sentences, stored summaries, and stored details with sentence boundaries. Each Celtic overview field includes the relevant position summaries and details.
+
+### Focused assertions
+
+- Timeline output rejects duplicate `지금은 지금은` and `이 흐름을 이어가면 이 흐름을 이어가면` constructions.
+- Celtic overview output rejects a particle attached to a complete stored sentence and asserts relevant stored detail content in conclusion, conflict, inner-gap, timeline, and outer-influence fields.
+
+### Exact verification command and output
+
+```text
+node --test --experimental-strip-types tests/threeCardReading.test.ts tests/celticCrossReading.test.ts tests/tarotResultPresentation.test.ts
+```
+
+```text
+(node:13404) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Dev/01_project/tarot-app/.worktrees/position-reading-data/tests/celticCrossReading.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Dev\01_project\tarot-app\.worktrees\position-reading-data\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ maps ten selected cards to Celtic positions and their own orientations (1.8799ms)
+✔ falls back only for a missing position reading (0.3359ms)
+✔ rejects incomplete, duplicate, or malformed Celtic selections (0.4558ms)
+(node:10036) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Dev/01_project/tarot-app/.worktrees/position-reading-data/tests/tarotResultPresentation.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Dev\01_project\tarot-app\.worktrees\position-reading-data\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ puts a short conclusion first, details in the middle, and advice last (2.9234ms)
+(node:12144) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Dev/01_project/tarot-app/.worktrees/position-reading-data/tests/threeCardReading.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Dev\01_project\tarot-app\.worktrees\position-reading-data\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ preserves the stored past, present, and future prose in picked order (2.8398ms)
+✔ treats NO, hold, and YES as conditions instead of a card vote (0.4256ms)
+✔ falls back only for a card whose topic reading is missing (1.4936ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 310.275
+```
+
+### Fix commit
+
+`312631c31144cc51d404643c24dc487582422d2d` — `fix: preserve standalone reading prose`
