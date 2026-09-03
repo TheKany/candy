@@ -157,15 +157,42 @@ select
   position_id,
   format('%s에서 마주한 흐름', label),
   case role
-    when 'past' then format('%s의 흔적은 이미 지나갔지만, 지금의 선택에 조용히 영향을 남겼어요.', coalesce(topic_meaning, meaning ->> 'cause'))
-    when 'present' then format('%s에서는 %s 흐름이 지금 드러나고 있어요.', label, coalesce(topic_meaning, meaning ->> 'current_situation'))
-    when 'future' then format('%s에서는 이 흐름이 이어진다면 %s 가능성이 열릴 수 있어요.', label, coalesce(meaning ->> 'future', topic_meaning))
-    when 'blocker' then format('%s에서는 %s. 지금은 이 신호를 피하고 멈춰 확인해야 해요.', label, coalesce(meaning ->> 'current_situation', topic_meaning))
-    when 'hold' then format('%s에서는 %s. 결정을 미루고 사실과 신호를 먼저 확인하세요.', label, coalesce(meaning ->> 'cause', topic_meaning))
-    when 'opening' then format('%s에서는 %s. 이 조건이 갖춰진다면 조심스럽게 진행해도 좋아요.', label, coalesce(meaning ->> 'advice', topic_meaning))
-    when 'advice' then format('%s에서 이 카드는 %s을 실천해 보라고 말해요.', label, coalesce(meaning ->> 'advice', topic_meaning))
-    when 'context' then format('%s의 배경에는 %s 흐름이 놓여 있어요.', label, coalesce(topic_meaning, meaning ->> 'overview'))
-    else format('%s에서 이 카드는 %s을 다정하게 비춰주고 있어요.', label, coalesce(topic_meaning, meaning ->> 'overview'))
+    when 'past' then concat_ws(' ',
+      coalesce(topic_meaning, meaning ->> 'cause'),
+      format('%s의 장면은 이미 지나갔지만, 지금의 선택에 조용히 영향을 남겼어요.', label)
+    )
+    when 'present' then concat_ws(' ',
+      coalesce(topic_meaning, meaning ->> 'current_situation'),
+      format('%s에서는 지금 드러나는 흐름을 있는 그대로 살펴보세요.', label)
+    )
+    when 'future' then concat_ws(' ',
+      coalesce(meaning ->> 'future', topic_meaning),
+      format('%s의 흐름은 현재를 돌본다면 가능성으로 이어질 수 있어요.', label)
+    )
+    when 'blocker' then concat_ws(' ',
+      coalesce(meaning ->> 'current_situation', topic_meaning),
+      format('%s에서는 지금 이 신호를 피하고 멈춰 확인해야 해요.', label)
+    )
+    when 'hold' then concat_ws(' ',
+      coalesce(meaning ->> 'cause', topic_meaning),
+      format('%s에서는 결정을 미루고 사실과 신호를 먼저 확인하세요.', label)
+    )
+    when 'opening' then concat_ws(' ',
+      coalesce(meaning ->> 'advice', topic_meaning),
+      format('%s에서는 이 조건이 갖춰진다면 조심스럽게 진행해도 좋아요.', label)
+    )
+    when 'advice' then concat_ws(' ',
+      coalesce(meaning ->> 'advice', topic_meaning),
+      format('%s에서는 이 조언을 오늘의 작은 행동으로 옮겨 보세요.', label)
+    )
+    when 'context' then concat_ws(' ',
+      coalesce(topic_meaning, meaning ->> 'overview'),
+      format('%s의 배경을 차분히 살피면 지금의 마음이 더 또렷해져요.', label)
+    )
+    else concat_ws(' ',
+      coalesce(topic_meaning, meaning ->> 'overview'),
+      format('%s에서 비친 장면을 오늘의 현실과 다정하게 연결해 보세요.', label)
+    )
   end,
   concat_ws(' ',
     coalesce(topic_meaning, meaning ->> 'overview'),

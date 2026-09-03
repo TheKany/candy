@@ -49,3 +49,14 @@ test("creates publicly readable position readings with a guarded complete seed",
     /if \(select count\(\*\) from tarot_position_readings\) <> 47424 then[\s\S]*?raise exception 'Expected 47424 position readings'/i,
   );
 });
+
+test("keeps sentence-valued source prose separate from position grammar", () => {
+  const migration = readFileSync(migrationPath, "utf8");
+  const summaryGrammar = migration.match(
+    /  case role\n(?<body>[\s\S]*?)\n  end,\n  concat_ws/,
+  );
+
+  assert.ok(summaryGrammar?.groups?.body);
+  assert.doesNotMatch(summaryGrammar.groups.body, /format\([^)]*coalesce\(/);
+  assert.match(summaryGrammar.groups.body, /when 'past' then concat_ws\('/);
+});
