@@ -51,4 +51,24 @@ Result: failed before reporting task code issues because pre-existing `tests/tar
 
 ## Concerns
 
-- Full typecheck remains blocked by the unrelated ES2017/named-capture test error noted above.
+- The earlier ES2017/named-capture error was resolved in a follow-up commit. Node still emits its pre-existing module-type reparsing warning while executing TypeScript ESM tests.
+
+## Follow-up validation
+
+The schema test's named capture group was replaced with an equivalent positional capture, preserving the same extracted migration body while remaining compatible with the project's ES2017 target.
+
+Command:
+
+```text
+node --test --experimental-strip-types tests/tarotReadingRoute.test.ts tests/threeCardReading.test.ts tests/celticCrossReading.test.ts tests/tarotPositionReadingsSchema.test.ts
+```
+
+Result: passed, 14 tests; 0 failures. Node emitted the existing module-type reparsing warning for TypeScript ESM test files.
+
+Command:
+
+```text
+npm run typecheck
+```
+
+Result: passed with exit code 0.

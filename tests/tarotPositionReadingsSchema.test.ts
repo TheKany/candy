@@ -53,10 +53,11 @@ test("creates publicly readable position readings with a guarded complete seed",
 test("keeps sentence-valued source prose separate from position grammar", () => {
   const migration = readFileSync(migrationPath, "utf8");
   const summaryGrammar = migration.match(
-    /  case role\n(?<body>[\s\S]*?)\n  end,\n  concat_ws/,
+    /  case role\n([\s\S]*?)\n  end,\n  concat_ws/,
   );
+  const summaryGrammarBody = summaryGrammar?.[1];
 
-  assert.ok(summaryGrammar?.groups?.body);
-  assert.doesNotMatch(summaryGrammar.groups.body, /format\([^)]*coalesce\(/);
-  assert.match(summaryGrammar.groups.body, /when 'past' then concat_ws\('/);
+  assert.ok(summaryGrammarBody);
+  assert.doesNotMatch(summaryGrammarBody, /format\([^)]*coalesce\(/);
+  assert.match(summaryGrammarBody, /when 'past' then concat_ws\('/);
 });
