@@ -7,8 +7,11 @@ import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
 import type { FiveCardReadingResult } from "@/types/fiveCardReadingTypes";
 import { getNavigationButtonTarget } from "@/util/horizontalResultPager";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { loadPersonalReading } from "@/util/loadPersonalReading";
+import ReadingConsent from "./ReadingConsent";
 
 type Props = { onHome: () => void; mode?: "three" | "five" };
 
@@ -19,35 +22,31 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
   const [result, setResult] = useState<ThreeCardReadingResult | FiveCardReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [activePage, setActivePage] = useState(0);
+  const [attempt, setAttempt] = useState(0);
+  const [consent, setConsent] = useState(false);
 
   useEffect(() => {
     const requiredCount = mode === "five" ? 5 : 3;
-    if (cardIds.length !== requiredCount || !topicId) return;
+    if (!consent || cardIds.length !== requiredCount || !topicId) return;
     const controller = new AbortController();
+    setErrorMessage(""); setResult(null); setActivePage(0);
 
     const loadReading = async () => {
       try {
-        const params = new URLSearchParams({ topicId, orientation: "upright" });
-        if (mode === "three") params.set("spreadId", "timeline");
-        cardIds.forEach((cardId) => params.append("cardId", cardId));
-        const response = await fetch(`/api/${mode === "five" ? "fiveCardReading" : "threeCardReading"}?${params}`, {
-          signal: controller.signal,
-        });
-        if (!response.ok) throw new Error(`${mode}-card reading request failed`);
-        setResult((await response.json()) as ThreeCardReadingResult | FiveCardReadingResult);
+        const written = await loadPersonalReading(mode, cardIds, topicId, controller.signal);
+        if (!controller.signal.aborted) setResult(written as ThreeCardReadingResult | FiveCardReadingResult);
       } catch (error) {
         if ((error as Error).name !== "AbortError") {
-          console.error(`${mode}-card reading request failed:`, error);
-          setErrorMessage(`${mode === "five" ? "다섯" : "세"} 장의 메시지를 불러오지 못했어요. 카드를 다시 골라주세요.`);
+          if (!controller.signal.aborted) setErrorMessage(error instanceof Error ? error.message : "해설을 완성하지 못했어요.");
         }
       }
     };
 
-    loadReading();
-    return () => controller.abort();
-  }, [cardIds, mode, topicId]);
+    const timer = setTimeout(() => { void loadReading(); }, 0);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [cardIds, mode, topicId, attempt, consent]);
 
-  const pageCount = mode === "five" ? 6 : 4;
+  const pageCount = mode === "five" ? 7 : 5;
 
   const moveWithButton = (direction: "previous" | "next") => {
     setActivePage((current) => getNavigationButtonTarget(current, direction, pageCount));
@@ -56,10 +55,11 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
   if (cardIds.length !== (mode === "five" ? 5 : 3) || !topic) {
     return <Status>{mode === "five" ? "파이브카드와 카드 다섯 장" : "쓰리카드와 카드 세 장"}을 확인해주세요.</Status>;
   }
+  if (!consent) return <ReadingConsent onConfirm={() => setConsent(true)} />;
   if (errorMessage) {
-    return <Status><p>{errorMessage}</p><button onClick={() => history.back()}>카드 선택으로 돌아가기</button></Status>;
+    return <Status><p>{errorMessage}</p><button onClick={() => setAttempt((value) => value + 1)}>같은 카드로 다시 해설하기</button><Link href="/topic">질문 확인하기</Link></Status>;
   }
-  if (!result) return <Status>{mode === "five" ? "다섯" : "세"} 장의 흐름을 연결하고 있어요.</Status>;
+  if (!result) return <Status role="status" aria-live="polite" aria-busy="true"><p>당신의 질문에 맞춰<br />{mode === "five" ? "다섯" : "세"} 장의 이야기를 풀고 있어요.</p><small>카드의 의미와 상황을 함께 읽고 있어요.<br />화면을 나가지 않고 잠시 기다려주세요.</small></Status>;
 
   return (
     <Shell>
@@ -75,10 +75,6 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
               <Eyebrow>그래서, {mode === "five" ? "다섯" : "세"} 장의 결론은</Eyebrow>
               <h1>{result.conclusion}</h1>
               <FlowLine>{result.flowSummary}</FlowLine>
-              <Advice>
-                <span>마지막 조언</span>
-                <p>{result.advice}</p>
-              </Advice>
             </SummaryCard>
           </Slide>
 
@@ -108,6 +104,12 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
               </CardPage>
             </Slide>
           ))}
+          <Slide aria-hidden={activePage !== pageCount - 1}>
+            <SummaryCard>
+              <Eyebrow>마지막으로, 지금 해볼 수 있는 일</Eyebrow>
+              <Advice><span>카드들을 함께 읽은 조언</span><p>{result.advice}</p></Advice>
+            </SummaryCard>
+          </Slide>
         </Track>
       </Viewport>
 
@@ -271,6 +273,7 @@ const RoleDescription = styled.span`
 `;
 
 const Reading = styled.div`
+  p { white-space: pre-line; }
   width: 100%;
   margin-top: 12px;
   padding: 15px 14px;

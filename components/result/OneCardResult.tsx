@@ -6,8 +6,11 @@ import { useUserPickNum } from "@/store/useUserPickNumStore";
 import type { TarotReadingResult } from "@/types/tarotReadingTypes";
 import { buildTarotResultPresentation } from "@/util/tarotResultPresentation";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { loadPersonalReading } from "@/util/loadPersonalReading";
+import ReadingConsent from "./ReadingConsent";
 
 const OneCardResult = () => {
   const pickedCards = useUserPickNum((state) => state.realCard);
@@ -16,44 +19,37 @@ const OneCardResult = () => {
   const cardId = pickedCards[0];
   const [result, setResult] = useState<TarotReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [attempt, setAttempt] = useState(0);
+  const [consent, setConsent] = useState(false);
 
   useEffect(() => {
-    if (cardId === undefined || !topicId) return;
+    if (!consent || cardId === undefined || !topicId) return;
 
     const controller = new AbortController();
+    setErrorMessage(""); setResult(null);
 
     const loadReading = async () => {
       try {
-        const params = new URLSearchParams({
-          cardId: String(cardId),
-          topicId,
-          orientation: "upright",
-        });
-        const response = await fetch(`/api/tarotReading?${params}`, {
-          signal: controller.signal,
-        });
-
-        if (!response.ok) throw new Error("reading request failed");
-
-        setResult((await response.json()) as TarotReadingResult);
+        const written = await loadPersonalReading("one", [String(cardId)], topicId, controller.signal);
+        if (!controller.signal.aborted) setResult(written as TarotReadingResult);
       } catch (error) {
         if ((error as Error).name !== "AbortError") {
-          console.error("Tarot reading request failed:", error);
-          setErrorMessage("카드의 메시지를 불러오지 못했어요. 잠시 후 다시 시도해주세요.");
+          if (!controller.signal.aborted) setErrorMessage(error instanceof Error ? error.message : "해설을 완성하지 못했어요.");
         }
       }
     };
 
-    loadReading();
-    return () => controller.abort();
-  }, [cardId, topicId]);
+    const timer = setTimeout(() => { void loadReading(); }, 0);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [cardId, topicId, attempt, consent]);
 
   if (cardId === undefined || !topic) {
     return <StatusMessage>선택한 카드와 주제를 확인해주세요.</StatusMessage>;
   }
 
-  if (errorMessage) return <StatusMessage>{errorMessage}</StatusMessage>;
-  if (!result) return <StatusMessage>카드의 메시지를 펼치고 있어요.</StatusMessage>;
+  if (!consent) return <ReadingConsent onConfirm={() => setConsent(true)} />;
+  if (errorMessage) return <StatusMessage><p>{errorMessage}</p><button onClick={() => setAttempt((value) => value + 1)}>같은 카드로 다시 해설하기</button><p><Link href="/topic">질문 확인하기</Link></p></StatusMessage>;
+  if (!result) return <StatusMessage role="status" aria-live="polite" aria-busy="true">당신의 질문에 맞춰 카드의 이야기를 풀고 있어요.<br />화면을 나가지 않고 잠시 기다려주세요.</StatusMessage>;
 
   const { card, reading, fallback } = result;
   const presentation = reading ? buildTarotResultPresentation(reading) : null;
@@ -121,11 +117,12 @@ const OneCardResult = () => {
 export default OneCardResult;
 
 const ResultSection = styled.section`
+  p { white-space: pre-line; }
   width: 100%;
   min-width: 0;
 `;
 
-const StatusMessage = styled.p`
+const StatusMessage = styled.div`
   width: 100%;
   margin: 40px 0;
   padding: 24px 16px;
