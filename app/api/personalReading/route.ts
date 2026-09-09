@@ -26,7 +26,6 @@ export async function POST(request: Request) {
     || !cardIds.every((id) => typeof id === "number" && Number.isInteger(id) && id >= 0 && id <= 77)) {
     return reply({ error: "질문과 선택한 카드를 다시 확인해주세요." }, 400);
   }
-  if (body.externalProcessingConfirmed !== true) return reply({ error: "Google 전송 안내를 확인한 뒤 해설을 시작해주세요." }, 400);
   if (!process.env.GEMINI_API_KEY) return reply({ error: "해설 서버 설정을 확인해주세요." }, 503);
   try {
     const supabase = getSupabaseServer();

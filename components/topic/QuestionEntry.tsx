@@ -12,12 +12,10 @@ export default function QuestionEntry() {
   const router = useRouter();
   const type = useTarotTypeStore((state) => state.type);
   const [question, setQuestion] = useState("");
-  const [consent, setConsent] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     const saved = useQuestionStore.getState();
     setQuestion(saved.question);
-    setConsent(Boolean(saved.question.trim()) && saved.consentQuestion === saved.question);
     setReady(true);
   }, []);
   useEffect(() => { if (ready && !type) router.replace("/select"); }, [ready, type, router]);
@@ -28,10 +26,9 @@ export default function QuestionEntry() {
     <p>질문을 적고 카드를 뽑아보세요.<br />카드가 전하는 이야기를 질문에 맞춰 풀어드릴게요.</p>
     <form onSubmit={(event) => {
       event.preventDefault();
-      if (!question.trim() || !consent) return;
+      if (!question.trim()) return;
       const saved = useQuestionStore.getState();
       saved.save(question.trim(), null);
-      saved.consent(question.trim());
       useTarotTopicStore.getState().resetTopic();
       handleResetCardProgress();
       router.push("/shuffle");
@@ -40,13 +37,12 @@ export default function QuestionEntry() {
       <textarea id="tarot-question" required maxLength={1000} value={question}
         placeholder="궁금한 점을 단어가 아닌 문장으로 적어주세요. 지금의 상황을 함께 알려주시면 좋아요."
         aria-describedby="question-help" onChange={(event) => {
-          setQuestion(event.target.value); setConsent(false);
+          setQuestion(event.target.value);
           useQuestionStore.getState().save(event.target.value, null);
         }} />
       <Count>{question.length}/1,000</Count>
-      <Notice id="question-help">해설을 받을 때 질문과 카드를 Google Gemini에 한 번 전송해요. 무료 API의 내용은 제품 개선이나 사람의 검토에 사용될 수 있어요. 개인정보·민감한 내용은 보내지 말고 가상 질문으로 체험해주세요.</Notice>
-      <Consent><input type="checkbox" required checked={consent} onChange={(event) => setConsent(event.target.checked)} /><span>개인정보 없는 가상 질문이며, 전송 안내를 확인했어요.</span></Consent>
-      <Button type="submit" disabled={!question.trim() || !consent}>카드 뽑으러 가기 →</Button>
+      <Notice id="question-help">개인정보나 민감한 내용은 입력하지 마세요.</Notice>
+      <Button type="submit" disabled={!question.trim()}>카드 뽑으러 가기 →</Button>
     </form>
   </Main>;
 }
@@ -67,10 +63,6 @@ const Main = styled.main`
 const Back = styled.button`min-height: 44px; color: #f2ce72; cursor: pointer;`;
 const Count = styled.div`margin-top: 6px; text-align: right; color: #fff7df80; font-size: 12px;`;
 const Notice = styled.p`margin: 22px 0 14px; font-size: 12px; overflow-wrap: anywhere;`;
-const Consent = styled.label`
-  display: flex !important; align-items: flex-start; gap: 10px; padding: 10px 0; font-size: 13px;
-  input { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; accent-color: #f2ce72; }
-`;
 const Button = styled.button`
   width: 100%; min-height: 52px; margin-top: 22px; padding: 14px; border-radius: 14px; background: #f2ce72; color: #123a2b; font-weight: 700; cursor: pointer;
   &:disabled { opacity: .4; cursor: default; }

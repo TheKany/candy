@@ -1,6 +1,6 @@
 // Manually run a single controlled example; never reads visitors' questions or writes the DB.
 const context = {
-  mode: "three", cardIds: [23, 11, 38], externalProcessingConfirmed: true,
+  mode: "three", cardIds: [23, 11, 38],
   question: "가상의 연습 질문입니다. 새로운 업무를 배우는 직장인인데 앞으로 회사생활에서 어떻게 적응하고 성장하면 좋을까요?",
 };
 const started = Date.now();
