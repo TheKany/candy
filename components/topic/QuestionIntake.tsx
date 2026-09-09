@@ -18,12 +18,14 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [consent, setConsent] = useState(false);
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
   useEffect(() => {
     const saved = useQuestionStore.getState();
     setQuestion(saved.question);
     setAnalysis(saved.analysis);
+    setConsent(Boolean(saved.question.trim()) && saved.consentQuestion === saved.question);
     setReady(true);
   }, []);
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
     useTarotTopicStore.getState().resetTopic();
   };
   const analyze = useCallback(async () => {
-    if (!question.trim() || pending.current) return;
+    if (!consent || !question.trim() || pending.current) return;
     useQuestionStore.getState().save(question, null);
     useTarotTopicStore.getState().resetTopic();
     setAnalysis(null);
@@ -46,7 +48,7 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
     try {
       const result = await fetch("/api/analyzeQuestion", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: question.trim() }), signal: controller.signal,
+        body: JSON.stringify({ question: question.trim(), externalProcessingConfirmed: consent }), signal: controller.signal,
       });
       const data = await result.json();
       if (!result.ok) throw new Error(data.error || "질문을 정리하지 못했어요. 다시 시도해주세요.");
@@ -56,15 +58,15 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
       }
     } catch (cause) {
       if (!controller.signal.aborted && pending.current === controller) {
-        setError("질문을 정리하지 못했어요. 다시 시도하거나 직접 고민을 선택해주세요.");
+        setError(cause instanceof Error ? cause.message : "질문을 정리하지 못했어요. 다시 시도하거나 직접 고민을 선택해주세요.");
       }
     } finally {
       if (pending.current === controller) { setLoading(false); pending.current = null; }
     }
-  }, [question]);
+  }, [question, consent]);
   useEffect(() => {
     if (!ready || !type || mode !== "analysis") return;
-    if (!question.trim()) { router.replace("/topic"); return; }
+    if (!question.trim() || !consent) { router.replace("/topic"); return; }
     if (useQuestionStore.getState().analysis) return;
     // Defer until after mount so React's development effect replay can cancel it.
     const timer = setTimeout(() => { void analyze(); }, 0);
@@ -73,7 +75,7 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
       pending.current?.abort();
       pending.current = null;
     };
-  }, [ready, type, mode, question, router, analyze]);
+  }, [ready, type, mode, question, consent, router, analyze]);
   const confirm = () => {
     if (!question.trim() || !analysis?.topic || !analysis.intent) return;
     useQuestionStore.getState().save(question.trim(), analysis);
@@ -104,8 +106,9 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
     <Intro>지금의 상황과 궁금한 점을 편하게 적어주세요.</Intro>
     <form onSubmit={(event) => {
       event.preventDefault();
-      if (!question.trim()) return;
+      if (!consent || !question.trim()) return;
       useQuestionStore.getState().save(question.trim(), null);
+      useQuestionStore.getState().consent(question.trim());
       useTarotTopicStore.getState().resetTopic();
       router.push("/question-analysis");
     }}>
@@ -115,12 +118,13 @@ export default function QuestionIntake({ mode = "input" }: { mode?: "input" | "a
         aria-describedby="question-help"
         onChange={(event) => {
           pending.current?.abort(); pending.current = null; setLoading(false); setError("");
-          setQuestion(event.target.value); setAnalysis(null);
+          setQuestion(event.target.value); setAnalysis(null); setConsent(false);
           useQuestionStore.getState().save(event.target.value, null);
           useTarotTopicStore.getState().resetTopic();
         }} />
-      <Help id="question-help">질문은 분석을 위해 전송되며, 이 앱의 데이터베이스에는 저장하지 않아요. 이름이나 연락처는 빼고 적어주세요. <span>{question.length}/1,000</span></Help>
-      <Button type="submit" disabled={!question.trim()}>내 질문 분석하기 →</Button>
+      <Help id="question-help">질문 분석과 카드 해설에 Google Gemini를 사용해요. 무료 API의 입력과 응답은 Google의 제품 개선에 사용되거나 사람이 검토할 수 있어요. 개인정보·민감하거나 비밀인 내용은 보내지 마세요. 앱 DB에는 질문을 저장하지 않아요. <span>{question.length}/1,000</span></Help>
+      <Label><input type="checkbox" checked={consent} required onChange={(event) => setConsent(event.target.checked)} /> 개인정보 없는 가상 질문이며, Google 전송 안내를 확인했어요.</Label>
+      <Button type="submit" disabled={!consent || !question.trim()}>내 질문 분석하기 →</Button>
     </form>
     </> : <>
     <h1>당신의 고민을<br />이렇게 정리했어요</h1>

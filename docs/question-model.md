@@ -1,6 +1,7 @@
 # 한국어 질문 분석과 Gemini 해설
 
-질문 입력 → Next.js `/api/analyzeQuestion` → 직접 운영하는 Ollama/Qwen → 사용자 확인 → 카드 선택.
+질문 입력/Google 전송 동의 → Next.js `/api/analyzeQuestion` → Gemini 분석 → 사용자 확인 → 카드 선택 → Gemini 해설.
+정상 이용 한 번에 분석 1회 + 해설 1회, 총 2회의 Gemini 요청을 사용합니다. 재분석이나 해설 재시도는 추가 요청입니다.
 질문을 풀어쓴 한국어 요약, 주제, 의도, 원하는 관계, 질문자/상대의 결혼 여부를 구분합니다.
 질문 분석 단계에서는 해석이나 예측을 생성하지 않습니다. 분류 결과는 현재 탭에 보관하며 원문을 DB나 로그에 기록하지 않습니다.
 카드 선택 후 Google 전송 안내를 확인해야 해설을 시작합니다. `/api/personalReading`이 원문, 확인한 분석, 카드별 핵심 의미를 Gemini에 한 번 전달합니다.
@@ -14,40 +15,29 @@ Gemini 호출은 최대 90초 기다립니다. 2026-09-09 가상의 커리어 �
 429 한도 오류는 사용자에게 안내하며 자동 재시도하지 않습니다. 분당 한도와 일일 한도가 다르므로 모든 429를 '오늘 소진'으로 단정하지 않습니다.
 Google 프로젝트의 무료 등급 상태가 비용을 결정하며 이 코드가 유료 프로젝트의 과금을 차단하지는 않습니다. 결제 연결/유료 전환은 하지 않았습니다.
 
-## 로컬 실행
+## 실행
 
-이 PC의 Ollama 실행 파일: `C:\Dev\tools\tarot-ollama\runtime\ollama.exe`
-질문 분석 모델: `qwen3.5:4b` (약 3.4GB).
-해설 작성 모델: `gemini-3.6-flash` (Google API). 2.5 Flash는 이 신규 프로젝트에서 404를 반환하며 3.6 Flash 사용을 안내했습니다.
+질문 분석과 해설 모델: `gemini-3.6-flash` (Google API). 2.5 Flash는 이 신규 프로젝트에서 404를 반환하며 3.6 Flash 사용을 안내했습니다.
 
 ```powershell
-& 'C:\Dev\tools\tarot-ollama\runtime\ollama.exe' serve
-# 다른 터미널에서
 npm run dev
 ```
 
-Ollama가 이미 실행 중이면 다시 시작할 필요가 없습니다. 시스템 자동 시작은 설정하지 않았습니다.
-로컬에서는 `http://127.0.0.1:11434`에 연결합니다. 질문을 편집하면 진행 중인 분석을 취소합니다.
+로컬도 서버 전용 `.env.local`의 Gemini 키를 사용합니다. Ollama 실행은 필요하지 않습니다.
+질문을 편집하면 진행 중인 분석을 취소하며, 변경한 질문에 대한 전송 동의를 다시 확인합니다.
 응답 실패나 잘못된 출력은 직접 선택 화면으로 보완합니다. 규칙 분석을 LLM 분석처럼 표시하지 않습니다.
 
 ## 배포 연결
 
-Vercel 안에는 모델이 포함되지 않습니다. Vercel의 localhost는 이 PC가 아닙니다.
-질문 자동 분석을 유지하려면 별도로 계속 실행되는 Ollama 서버와 HTTPS 인증 프록시가 필요합니다. Gemini 해설 자체는 Ollama가 필요하지 않습니다.
-운영자가 관리하는 주소만 설정하고 인증 없는 Ollama 포트를 인터넷에 공개하지 마세요.
+Vercel에 서버 전용 Gemini 키만 설정하면 질문 분석과 해설을 모두 처리합니다. 개인 PC나 터널 연결은 필요하지 않습니다.
 
-- `QUESTION_MODEL_URL`: 인증 프록시의 HTTPS 기본 주소 (`/api/chat`은 앱에서 추가)
-- `QUESTION_MODEL_TOKEN`: 프록시가 검증하는 Bearer 토큰 (서버 전용)
-- `QUESTION_MODEL_NAME`: 생략하면 위 Qwen 모델 사용
-- `READING_MODEL_NAME`: 해설 작성 모델을 별도로 지정할 때 사용. 기본은 `qwen3.5:9b`
 - `GEMINI_API_KEY`: 서버 전용 Gemini 키. 로컬은 Git에서 제외된 `.env.local`, Vercel은 배포 환경 변수에 별도 등록. 클라이언트용 접두사를 붙이지 않습니다.
-- `GEMINI_READING_MODEL`: 기본 `gemini-3.6-flash`. 임의 변경 시 무료 지원 여부와 thinkingLevel 지원을 먼저 확인합니다.
+- `GEMINI_READING_MODEL`: 분석/해설 공통 모델, 기본 `gemini-3.6-flash`. 임의 변경 시 무료 지원 여부와 thinkingLevel 지원을 먼저 확인합니다.
 
-프록시에는 접근 인증 및 요청량 제한을 적용해야 합니다. Ollama 자체는 이 Bearer 인증을 검증하지 않습니다.
 Gemini API의 무료 등급을 사용합니다. 프로젝트의 실제 일일 한도는 AI Studio에서 확인하며 한도 소진 테스트는 하지 않습니다.
-연결 주소가 없는 Vercel 배포에서는 자동 분석을 사용할 수 없다고 알리고 직접 선택을 제공합니다.
+분석 실패 시 직접 선택 화면을 사용할 수 있지만 해설에는 정상적인 Gemini 키/잔여 한도가 필요합니다.
 
-필요할 때만 3개 한국어 예시 확인:
+이전 로컬 Qwen 실험 스크립트(현재 서비스와 무관):
 `node --experimental-strip-types scripts/check-question-model.mts`
 
 Gemini 해설은 `node --experimental-strip-types scripts/check-personal-reading.mts`로 가상 질문 한 건을 확인할 수 있습니다. 실행할 때마다 실제 요청이 소비됩니다.
