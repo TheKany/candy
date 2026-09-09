@@ -1,4 +1,4 @@
-import QuestionIntake from "@/components/topic/QuestionIntake";
+import QuestionEntry from "@/components/topic/QuestionEntry";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function TopicPage() {
-  return <QuestionIntake />;
+  return <QuestionEntry />;
 }

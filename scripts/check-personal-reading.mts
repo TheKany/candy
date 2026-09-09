@@ -1,11 +1,7 @@
 // Manually run a single controlled example; never reads visitors' questions or writes the DB.
 const context = {
-  mode: "three", cardIds: [23, 11, 38], topicId: "career", externalProcessingConfirmed: true,
+  mode: "three", cardIds: [23, 11, 38], externalProcessingConfirmed: true,
   question: "가상의 연습 질문입니다. 새로운 업무를 배우는 직장인인데 앞으로 회사생활에서 어떻게 적응하고 성장하면 좋을까요?",
-  analysis: {
-    summary: "새로운 업무를 배우는 상황에서 회사생활에 적응하고 성장하는 방법이 궁금하시군요.",
-    topic: "career", intent: "action", relationshipGoal: "unspecified", selfMaritalStatus: "unknown", otherMaritalStatus: "unknown",
-  },
 };
 const started = Date.now();
 const response = await fetch("http://localhost:3000/api/personalReading", {

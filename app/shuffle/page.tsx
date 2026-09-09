@@ -11,7 +11,7 @@ import PickCardBoard from "@/components/shuffle/PickCardBoard";
 import { handleResetCardProgress } from "@/util/handleResetStore";
 import { useResetData } from "@/hooks/useResetData";
 import { useShuffleTypeStore } from "@/store/useShuffleTypeStore";
-import { useTarotTopicStore } from "@/store/useTarotTopicStore";
+import { useQuestionStore } from "@/store/useQuestionStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
@@ -29,7 +29,7 @@ const ShufflePage = () => {
   const router = useRouter();
   const setShuffleStep = useShuffleTypeStore((state) => state.setShuffleStep);
   const type = useTarotTypeStore((state) => state.type);
-  const topic = useTarotTopicStore((state) => state.topic);
+  const question = useQuestionStore((state) => state.question);
   const spread = useThreeCardSpreadStore((state) => state.spread);
   const pickedCount = useUserPickNum((state) => state.inputs.length);
 
@@ -141,12 +141,12 @@ const ShufflePage = () => {
   useEffect(() => {
     if (!mounted) return;
 
-    const redirect = getReadingFlowRedirect(type, topic, spread);
+    const redirect = getReadingFlowRedirect(type, question, spread);
     if (redirect) router.replace(redirect);
-  }, [mounted, router, spread, topic, type]);
+  }, [mounted, router, spread, question, type]);
 
   useEffect(() => {
-    if (!mounted || getReadingFlowRedirect(type, topic, spread)) return;
+    if (!mounted || getReadingFlowRedirect(type, question, spread)) return;
 
     const onLoadData = async () => {
       const result = await getCardCount();
@@ -154,7 +154,7 @@ const ShufflePage = () => {
     };
 
     onLoadData();
-  }, [mounted, spread, topic, type]);
+  }, [mounted, spread, question, type]);
 
   useEffect(() => {
     return () => {

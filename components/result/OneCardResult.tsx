@@ -1,7 +1,6 @@
 "use client";
 
-import { getTarotTopic } from "@/constants/tarotTopics";
-import { useTarotTopicStore } from "@/store/useTarotTopicStore";
+import { useQuestionStore } from "@/store/useQuestionStore";
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import type { TarotReadingResult } from "@/types/tarotReadingTypes";
 import { buildTarotResultPresentation } from "@/util/tarotResultPresentation";
@@ -10,27 +9,24 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { loadPersonalReading } from "@/util/loadPersonalReading";
-import ReadingConsent from "./ReadingConsent";
 
 const OneCardResult = () => {
   const pickedCards = useUserPickNum((state) => state.realCard);
-  const topicId = useTarotTopicStore((state) => state.topic);
-  const topic = getTarotTopic(topicId);
+  const question = useQuestionStore((state) => state.question);
   const cardId = pickedCards[0];
   const [result, setResult] = useState<TarotReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [attempt, setAttempt] = useState(0);
-  const [consent, setConsent] = useState(false);
 
   useEffect(() => {
-    if (!consent || cardId === undefined || !topicId) return;
+    if (cardId === undefined || !question.trim()) return;
 
     const controller = new AbortController();
     setErrorMessage(""); setResult(null);
 
     const loadReading = async () => {
       try {
-        const written = await loadPersonalReading("one", [String(cardId)], topicId, controller.signal);
+        const written = await loadPersonalReading("one", [String(cardId)], controller.signal);
         if (!controller.signal.aborted) setResult(written as TarotReadingResult);
       } catch (error) {
         if ((error as Error).name !== "AbortError") {
@@ -41,13 +37,12 @@ const OneCardResult = () => {
 
     const timer = setTimeout(() => { void loadReading(); }, 0);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [cardId, topicId, attempt, consent]);
+  }, [cardId, question, attempt]);
 
-  if (cardId === undefined || !topic) {
-    return <StatusMessage>선택한 카드와 주제를 확인해주세요.</StatusMessage>;
+  if (cardId === undefined || !question.trim()) {
+    return <StatusMessage>질문과 선택한 카드를 확인해주세요.</StatusMessage>;
   }
 
-  if (!consent) return <ReadingConsent onConfirm={() => setConsent(true)} />;
   if (errorMessage) return <StatusMessage><p>{errorMessage}</p><button onClick={() => setAttempt((value) => value + 1)}>같은 카드로 다시 해설하기</button><p><Link href="/topic">질문 확인하기</Link></p></StatusMessage>;
   if (!result) return <StatusMessage role="status" aria-live="polite" aria-busy="true">당신의 질문에 맞춰 카드의 이야기를 풀고 있어요.<br />화면을 나가지 않고 잠시 기다려주세요.</StatusMessage>;
 
@@ -56,7 +51,7 @@ const OneCardResult = () => {
 
   return (
     <ResultSection>
-      <TopicLabel>선택한 주제 · {topic.title}</TopicLabel>
+      <TopicLabel>내 질문에 대한 카드의 이야기</TopicLabel>
 
       <ConclusionBox>
         <span>그래서, 결론은</span>

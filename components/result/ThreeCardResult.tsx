@@ -1,7 +1,6 @@
 "use client";
 
-import { getTarotTopic } from "@/constants/tarotTopics";
-import { useTarotTopicStore } from "@/store/useTarotTopicStore";
+import { useQuestionStore } from "@/store/useQuestionStore";
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
 import type { FiveCardReadingResult } from "@/types/fiveCardReadingTypes";
@@ -11,29 +10,26 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { loadPersonalReading } from "@/util/loadPersonalReading";
-import ReadingConsent from "./ReadingConsent";
 
 type Props = { onHome: () => void; mode?: "three" | "five" };
 
 export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
   const cardIds = useUserPickNum((state) => state.realCard);
-  const topicId = useTarotTopicStore((state) => state.topic);
-  const topic = getTarotTopic(topicId);
+  const question = useQuestionStore((state) => state.question);
   const [result, setResult] = useState<ThreeCardReadingResult | FiveCardReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [activePage, setActivePage] = useState(0);
   const [attempt, setAttempt] = useState(0);
-  const [consent, setConsent] = useState(false);
 
   useEffect(() => {
     const requiredCount = mode === "five" ? 5 : 3;
-    if (!consent || cardIds.length !== requiredCount || !topicId) return;
+    if (cardIds.length !== requiredCount || !question.trim()) return;
     const controller = new AbortController();
     setErrorMessage(""); setResult(null); setActivePage(0);
 
     const loadReading = async () => {
       try {
-        const written = await loadPersonalReading(mode, cardIds, topicId, controller.signal);
+        const written = await loadPersonalReading(mode, cardIds, controller.signal);
         if (!controller.signal.aborted) setResult(written as ThreeCardReadingResult | FiveCardReadingResult);
       } catch (error) {
         if ((error as Error).name !== "AbortError") {
@@ -44,7 +40,7 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
 
     const timer = setTimeout(() => { void loadReading(); }, 0);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [cardIds, mode, topicId, attempt, consent]);
+  }, [cardIds, mode, question, attempt]);
 
   const pageCount = mode === "five" ? 7 : 5;
 
@@ -52,10 +48,9 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
     setActivePage((current) => getNavigationButtonTarget(current, direction, pageCount));
   };
 
-  if (cardIds.length !== (mode === "five" ? 5 : 3) || !topic) {
+  if (cardIds.length !== (mode === "five" ? 5 : 3) || !question.trim()) {
     return <Status>{mode === "five" ? "파이브카드와 카드 다섯 장" : "쓰리카드와 카드 세 장"}을 확인해주세요.</Status>;
   }
-  if (!consent) return <ReadingConsent onConfirm={() => setConsent(true)} />;
   if (errorMessage) {
     return <Status><p>{errorMessage}</p><button onClick={() => setAttempt((value) => value + 1)}>같은 카드로 다시 해설하기</button><Link href="/topic">질문 확인하기</Link></Status>;
   }
@@ -64,7 +59,7 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
   return (
     <Shell>
       <Header>
-        <span>{topic.title}</span>
+        <span>내 질문에 대한 답</span>
         <strong>{result.spreadTitle}</strong>
       </Header>
 
