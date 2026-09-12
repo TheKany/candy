@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getRandomCardNo } from "@/util/getRandomCardNo";
 import { handleCardShufflePosition } from "@/util/handleCardShufflePosition";
+import { SHUFFLE_TIME_SCALE } from "@/util/organicShuffleMotion";
 import { getCardCount } from "@/util/getCardData";
 
 import NumberPad from "@/components/shuffle/NumberPad";
@@ -96,19 +97,19 @@ const ShufflePage = () => {
     // 카드 퍼트리고
     setTimeout(() => {
       setPositions(handleCardShufflePosition(cardCnt));
-    }, 2000);
+    }, 2000 * SHUFFLE_TIME_SCALE);
 
     // 시계반대방향
     setTimeout(() => {
       setIsRotating(true);
       setShuffleStep(1);
-    }, 5000);
+    }, 5000 * SHUFFLE_TIME_SCALE);
 
     // 시계방향
     setTimeout(() => {
       setIsRotating(true);
       setShuffleStep(2);
-    }, 10000);
+    }, 10000 * SHUFFLE_TIME_SCALE);
 
     // 카드를 일자로 나열
     setTimeout(() => {
@@ -121,12 +122,12 @@ const ShufflePage = () => {
       );
 
       setShuffleStep(4);
-    }, 16000);
+    }, 16000 * SHUFFLE_TIME_SCALE);
 
     setTimeout(() => {
       setFinishedShuffle(true);
       setDeck(randomDeck);
-    }, 18000);
+    }, 18000 * SHUFFLE_TIME_SCALE);
   };
 
   useEffect(() => {

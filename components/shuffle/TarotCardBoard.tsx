@@ -5,6 +5,7 @@ import { useUserPickNum } from "@/store/useUserPickNumStore";
 import {
   getOrbitAnimationTiming,
   getOrganicOrbitMotion,
+  SHUFFLE_TIME_SCALE,
 } from "@/util/organicShuffleMotion";
 import { getRelativeSlotPosition } from "@/util/cardSelectionFlow";
 import Image from "next/image";
@@ -222,7 +223,7 @@ const OrbitLayer = styled.div<{
       return "";
     }
 
-    const phaseDurationMs = $shuffleStep === 1 ? 5000 : 3000;
+    const phaseDurationMs = ($shuffleStep === 1 ? 5000 : 3000) * SHUFFLE_TIME_SCALE;
     const { durationMs, delayMs, easing } = getOrbitAnimationTiming(
       $motion,
       phaseDurationMs
@@ -252,11 +253,11 @@ const CardBox = styled.div<{
   transform-origin: center center;
   transition: ${({ $positionT, $positionL, $motionIndex }) =>
     $positionL === "50%" && $positionT === "50%"
-      ? "top 2s ease, left 2s ease, transform 2s ease"
-      : `top ${2.65 + ($motionIndex % 7) * 0.025}s cubic-bezier(0.22, 0.7, 0.3, 1),
-         left ${2.7 + ($motionIndex % 5) * 0.03}s cubic-bezier(0.2, 0.68, 0.28, 1),
-         transform ${2.6 + ($motionIndex % 6) * 0.03}s cubic-bezier(0.24, 0.72, 0.32, 1)`};
-  transition-delay: ${({ $motionIndex }) => ($motionIndex % 11) * 14}ms;
+      ? `top ${2 * SHUFFLE_TIME_SCALE}s ease, left ${2 * SHUFFLE_TIME_SCALE}s ease, transform ${2 * SHUFFLE_TIME_SCALE}s ease`
+      : `top ${(2.65 + ($motionIndex % 7) * 0.025) * SHUFFLE_TIME_SCALE}s cubic-bezier(0.22, 0.7, 0.3, 1),
+         left ${(2.7 + ($motionIndex % 5) * 0.03) * SHUFFLE_TIME_SCALE}s cubic-bezier(0.2, 0.68, 0.28, 1),
+         transform ${(2.6 + ($motionIndex % 6) * 0.03) * SHUFFLE_TIME_SCALE}s cubic-bezier(0.24, 0.72, 0.32, 1)`};
+  transition-delay: ${({ $motionIndex }) => ($motionIndex % 11) * 14 * SHUFFLE_TIME_SCALE}ms;
 `;
 
 const CardFlipper = styled.div<{ $isRevealed: boolean }>`

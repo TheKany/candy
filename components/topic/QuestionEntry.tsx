@@ -36,12 +36,11 @@ export default function QuestionEntry() {
       <label htmlFor="tarot-question">나의 질문</label>
       <textarea id="tarot-question" required maxLength={1000} value={question}
         placeholder="궁금한 점을 단어가 아닌 문장으로 적어주세요. 지금의 상황을 함께 알려주시면 좋아요."
-        aria-describedby="question-help" onChange={(event) => {
+        onChange={(event) => {
           setQuestion(event.target.value);
           useQuestionStore.getState().save(event.target.value, null);
         }} />
       <Count>{question.length}/1,000</Count>
-      <Notice id="question-help">개인정보나 민감한 내용은 입력하지 마세요.</Notice>
       <Button type="submit" disabled={!question.trim()}>카드 뽑으러 가기 →</Button>
     </form>
   </Main>;
@@ -62,7 +61,6 @@ const Main = styled.main`
 `;
 const Back = styled.button`min-height: 44px; color: #f2ce72; cursor: pointer;`;
 const Count = styled.div`margin-top: 6px; text-align: right; color: #fff7df80; font-size: 12px;`;
-const Notice = styled.p`margin: 22px 0 14px; font-size: 12px; overflow-wrap: anywhere;`;
 const Button = styled.button`
   width: 100%; min-height: 52px; margin-top: 22px; padding: 14px; border-radius: 14px; background: #f2ce72; color: #123a2b; font-weight: 700; cursor: pointer;
   &:disabled { opacity: .4; cursor: default; }
