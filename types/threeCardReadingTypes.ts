@@ -17,6 +17,7 @@ export type ThreeCardReadingResult = {
   spread: ThreeCardSpreadId;
   spreadTitle: string;
   conclusion: string;
+  overview?: string[];
   flowSummary: string;
   advice: string;
   pages: ThreeCardReadingPage[];

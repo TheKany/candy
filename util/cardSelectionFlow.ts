@@ -1,4 +1,4 @@
-import { getThreeCardSpread, type ThreeCardSpreadId } from "../constants/threeCardSpreads.ts";
+import { DEFAULT_THREE_CARD_SPREAD, type ThreeCardSpreadId } from "../constants/threeCardSpreads.ts";
 import { getCelticCrossPosition } from "../constants/celticCrossPositions.ts";
 import { getFiveCardPosition } from "../constants/fiveCardPositions.ts";
 
@@ -18,13 +18,13 @@ export const getRequiredCardCount = (type: string | null): number => {
 
 export const getNextPositionLabel = (
   type: string | null,
-  spread: ThreeCardSpreadId | null,
+  _spread: ThreeCardSpreadId | null,
   pickedCount: number,
 ): string | null => {
   if (type === "celtic") return getCelticCrossPosition(pickedCount)?.label ?? null;
   if (type === "five") return getFiveCardPosition(pickedCount)?.label ?? null;
   if (type !== "three") return pickedCount === 0 ? "선택한 카드" : null;
-  return getThreeCardSpread(spread ?? "timeline")?.positions[pickedCount]?.label ?? null;
+  return DEFAULT_THREE_CARD_SPREAD.positions[pickedCount]?.label ?? null;
 };
 
 export const getCardAtPosition = (

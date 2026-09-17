@@ -1,7 +1,6 @@
 import { usePickCardStoreSlotStore } from "@/store/usepickCardSlotStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
-import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
-import { getThreeCardSpread } from "@/constants/threeCardSpreads";
+import { DEFAULT_THREE_CARD_SPREAD } from "@/constants/threeCardSpreads";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CelticCrossPickBoard from "./CelticCrossPickBoard";
@@ -14,7 +13,6 @@ type Props = {
 
 const PickCardBoard = ({ finishedShuffle }: Props) => {
   const type = useTarotTypeStore((state) => state.type);
-  const spread = useThreeCardSpreadStore((state) => state.spread);
   const setSlotPosition = usePickCardStoreSlotStore(
     (state) => state.setSlotPosition
   );
@@ -22,7 +20,7 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   const slotRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const [cardCount, setCardCount] = useState(0);
-  const spreadOption = getThreeCardSpread(spread ?? "timeline");
+  const spreadOption = DEFAULT_THREE_CARD_SPREAD;
   const roleLabels = type === "five"
     ? FIVE_CARD_POSITIONS.map((position) => position.label)
     : type === "three"

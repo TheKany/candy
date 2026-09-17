@@ -15,6 +15,7 @@ export type FiveCardReadingPage = {
 export type FiveCardReadingResult = {
   spreadTitle: string;
   conclusion: string;
+  overview?: string[];
   flowSummary: string;
   advice: string;
   pages: FiveCardReadingPage[];

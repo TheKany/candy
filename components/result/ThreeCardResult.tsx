@@ -67,9 +67,10 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
         <Track $page={activePage}>
           <Slide aria-hidden={activePage !== 0}>
             <SummaryCard>
-              <Eyebrow>그래서, {mode === "five" ? "다섯" : "세"} 장의 결론은</Eyebrow>
+              <Eyebrow>{mode === "five" ? "다섯" : "세"} 장이 전하는 답</Eyebrow>
               <h1>{result.conclusion}</h1>
-              <FlowLine>{result.flowSummary}</FlowLine>
+              <Overview>{result.overview?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</Overview>
+              <FlowLine>{result.pages.map((page) => <span key={page.positionId}>{page.positionLabel}</span>)}</FlowLine>
             </SummaryCard>
           </Slide>
 
@@ -124,7 +125,7 @@ export default function ThreeCardResult({ onHome, mode = "three" }: Props) {
         {activePage === pageCount - 1 ? (
           <NavButton type="button" $home onClick={onHome}>홈으로</NavButton>
         ) : (
-          <NavButton type="button" onClick={() => moveWithButton("next")}>다음</NavButton>
+          <NavButton type="button" onClick={() => moveWithButton("next")}>{activePage === 0 ? "카드 해설" : "다음"}</NavButton>
         )}
       </Pager>
       <NavigationHint>아래 이전·다음 버튼으로 카드의 흐름을 확인하세요</NavigationHint>
@@ -193,7 +194,16 @@ const SummaryCard = styled.div`
   border-radius: 20px;
   background: linear-gradient(145deg, rgb(42 79 65 / 96%), rgb(18 52 41 / 98%));
   box-shadow: 0 14px 34px rgb(0 0 0 / 24%);
-  h1 { margin: 9px 0 18px; font-family: "NotoSerifKR", serif; font-size: clamp(1.05rem, 5.5vw, 1.42rem); line-height: 1.65; word-break: keep-all; }
+  h1 { margin: 14px 0 24px; font-family: "NotoSerifKR", serif; font-size: clamp(1.12rem, 5.2vw, 1.48rem); line-height: 1.65; word-break: keep-all; overflow-wrap: anywhere; }
+`;
+
+const Overview = styled.div`
+  font-size: clamp(0.9rem, 3.6vw, 1rem);
+  line-height: 1.85;
+  color: rgb(255 247 223 / 88%);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  p { margin: 0 0 20px; }
 `;
 
 const Eyebrow = styled.span`
@@ -203,7 +213,14 @@ const Eyebrow = styled.span`
 `;
 
 const FlowLine = styled.p`
-  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 8px;
+  margin: 8px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgb(242 206 114 / 24%);
+  span:not(:last-child)::after { content: " →"; margin-left: 8px; opacity: .6; }
   color: #f5d77e;
   font-size: clamp(0.72rem, 3.2vw, 0.86rem);
   font-weight: 800;

@@ -6,6 +6,17 @@ export type ThreeCardPosition = {
 
 export const THREE_CARD_SPREADS = [
   {
+    id: "insight",
+    title: "세 장의 이야기",
+    subtitle: "현재 상황부터 지금 필요한 방향까지",
+    symbol: "✦",
+    positions: [
+      { id: "situation", label: "현재 상황", description: "지금 질문에서 살펴볼 상황과 마음" },
+      { id: "factor", label: "핵심 요인", description: "상황에 영향을 주는 기회나 걸림돌" },
+      { id: "guidance", label: "조언과 방향", description: "지금 해볼 행동과 주의할 점" },
+    ],
+  },
+  {
     id: "timeline",
     title: "시간의 흐름",
     subtitle: "지나온 이유부터 앞으로의 방향까지",
@@ -63,6 +74,7 @@ export const THREE_CARD_SPREADS = [
 ] as const;
 
 export type ThreeCardSpreadId = (typeof THREE_CARD_SPREADS)[number]["id"];
+export const DEFAULT_THREE_CARD_SPREAD = THREE_CARD_SPREADS[0];
 export type ThreeCardSpread = (typeof THREE_CARD_SPREADS)[number];
 
 export const getThreeCardSpread = (value: unknown): ThreeCardSpread | null =>

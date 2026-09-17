@@ -15,7 +15,7 @@ export type TarotSelectionAction =
 
 export const TAROT_TYPES = [
   { id: "one", title: "원 오라클", subtitle: "한 장의 메시지", symbol: "☾", available: true },
-  { id: "three", title: "쓰리카드", subtitle: "과거 · 현재 · 미래", symbol: "Ⅲ", available: true },
+  { id: "three", title: "쓰리카드", subtitle: "현재 상황 · 핵심 요인 · 조언과 방향", symbol: "Ⅲ", available: true },
   { id: "five", title: "파이브카드", subtitle: "상황 · 원인 · 장애물 · 조언 · 결과", symbol: "Ⅴ", available: true },
 ] as const satisfies readonly TarotTypeOption[];
 

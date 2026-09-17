@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSupabaseServer } from "@/lib/supabaseServer";
-import { getThreeCardSpread } from "@/constants/threeCardSpreads";
+import { DEFAULT_THREE_CARD_SPREAD } from "@/constants/threeCardSpreads";
 import { FIVE_CARD_POSITIONS } from "@/constants/fiveCardPositions";
 import { CARD_READING_FOUNDATIONS } from "@/constants/cardReadingFoundations";
 import { POSITION_WRITING_FOCUS } from "@/util/readingWriter";
@@ -38,10 +38,10 @@ export async function POST(request: Request) {
     const cards = cardIds.map((id: number) => profiles.find((card) => card.card_id === id));
     if (cards.some((card) => !card)) return reply({ error: "선택한 카드를 찾을 수 없어요." }, 404);
     const orderedCards = cards as TarotCardProfile[];
-    const timeline = getThreeCardSpread("timeline")!;
+    const spread = DEFAULT_THREE_CARD_SPREAD;
     const positions = mode === "one"
       ? [{ id: "message", label: "한 장의 메시지", description: "질문에 대한 카드의 이야기" }]
-      : mode === "three" ? timeline.positions : FIVE_CARD_POSITIONS;
+      : mode === "three" ? spread.positions : FIVE_CARD_POSITIONS;
     // No prior classification or canned topic prose: Gemini reads the question and cards together once.
     const written = await generateGeminiReading({
       question: question.trim(),
@@ -61,8 +61,9 @@ export async function POST(request: Request) {
       },
     });
     return reply({
-      spread: mode === "three" ? "timeline" : "insight",
-      spreadTitle: mode === "three" ? timeline.title : "다섯 장의 이야기",
+      spread: mode === "three" ? spread.id : "insight",
+      spreadTitle: mode === "three" ? spread.title : "다섯 장의 이야기",
+      overview: written.overview,
       conclusion: written.conclusion, advice: written.advice,
       flowSummary: orderedCards.map((card, index) => positions[index].label + " · " + card.name_ko).join(" → "),
       pages: orderedCards.map((card, index) => ({

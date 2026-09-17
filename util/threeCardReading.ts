@@ -20,6 +20,8 @@ const buildConclusion = (
 ) => {
   const [first, second, third] = pages;
   switch (spread) {
+    case "insight":
+      return joinSentences(first.summary, second.summary, third.summary);
     case "timeline":
       return joinSentences(
         "지나온 흐름이 지금의 판단에 영향을 주고 있어요.",

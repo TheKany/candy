@@ -18,10 +18,11 @@ test("maps the visible 1 through 78 positions to the shuffled deck", () => {
   assert.equal(getCardAtPosition(deck, 79), null);
 });
 
-test("keeps the selected spread role visible while choosing three cards", () => {
-  assert.equal(getNextPositionLabel("three", "timeline", 0), "과거");
-  assert.equal(getNextPositionLabel("three", "timeline", 1), "현재");
-  assert.equal(getNextPositionLabel("three", "timeline", 2), "미래");
+test("uses the fixed three-card roles even with a previously saved timeline", () => {
+  assert.equal(getNextPositionLabel("three", null, 0), "현재 상황");
+  assert.equal(getNextPositionLabel("three", "timeline", 0), "현재 상황");
+  assert.equal(getNextPositionLabel("three", "timeline", 1), "핵심 요인");
+  assert.equal(getNextPositionLabel("three", "timeline", 2), "조언과 방향");
   assert.equal(getNextPositionLabel("three", "timeline", 3), null);
   assert.equal(getNextPositionLabel("one", null, 0), "선택한 카드");
 });

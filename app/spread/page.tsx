@@ -1,5 +1,5 @@
-import ThreeCardSpreadSelection from "@/components/spread/ThreeCardSpreadSelection";
+import { redirect } from "next/navigation";
 
 export default function SpreadPage() {
-  return <ThreeCardSpreadSelection />;
+  redirect("/topic");
 }
