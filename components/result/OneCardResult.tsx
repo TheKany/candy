@@ -6,23 +6,25 @@ import type { TarotReadingResult } from "@/types/tarotReadingTypes";
 import { buildTarotResultPresentation } from "@/util/tarotResultPresentation";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState, type ReactNode } from "react";
+import { getNavigationButtonTarget } from "@/util/horizontalResultPager";
+import { Shell, Header, Viewport, Track, Slide, SummaryCard, Eyebrow, FlowLine, CardPage, English, CardImage, Reading, Advice, Question, Pager, NavButton, Dots, Dot, NavigationHint, Status as StatusMessage } from "./ResultPager.styles";
 import { loadPersonalReading } from "@/util/loadPersonalReading";
 
-const OneCardResult = () => {
+const OneCardResult = ({ onHome, children }: { onHome: () => void; children?: ReactNode }) => {
   const pickedCards = useUserPickNum((state) => state.realCard);
   const question = useQuestionStore((state) => state.question);
   const cardId = pickedCards[0];
   const [result, setResult] = useState<TarotReadingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [attempt, setAttempt] = useState(0);
+  const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
     if (cardId === undefined || !question.trim()) return;
 
     const controller = new AbortController();
-    setErrorMessage(""); setResult(null);
+    setErrorMessage(""); setResult(null); setActivePage(0);
 
     const loadReading = async () => {
       try {
@@ -49,295 +51,70 @@ const OneCardResult = () => {
   const { card, reading, fallback } = result;
   const presentation = reading ? buildTarotResultPresentation(reading) : null;
 
+  const hasReading = !fallback && !!reading && !!presentation;
+  const moveWithButton = (direction: "previous" | "next") =>
+    setActivePage((page) => getNavigationButtonTarget(page, direction, 3));
+
   return (
-    <ResultSection>
-      <TopicLabel>내 질문에 대한 카드의 이야기</TopicLabel>
-
-      <ConclusionBox>
-        <span>그래서, 결론은</span>
-        <p>{presentation?.conclusion ?? card.upright_one_line}</p>
-      </ConclusionBox>
-
-      <CardBox>
-        <CardName>{card.name_ko}</CardName>
-        <EnglishName>{card.name_en}</EnglishName>
-        <Keywords>{card.upright_keywords.slice(0, 5).join(" · ")}</Keywords>
-        <CardImage>
-          <Image
-            src={`/cards/card${card.card_id}.webp`}
-            alt={`${card.name_ko} 타로 카드`}
-            width={220}
-            height={367}
-            priority
-          />
-        </CardImage>
-      </CardBox>
-
-      {fallback || !reading || !presentation ? (
-        <FallbackBox>
-          <h2>카드가 전하는 흐름</h2>
-          <p>지금의 상황과 맞닿는 부분부터 천천히 살펴보세요.</p>
-        </FallbackBox>
-      ) : (
-        <ReadingBox>
-          <ReadingHeader>
-            <span>DETAIL READING</span>
-            <h2>{presentation.headline}</h2>
-          </ReadingHeader>
-
-          <ReadingGrid>
-            {presentation.details.map(([title, body]) => (
-              <ReadingCard key={title}>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </ReadingCard>
-            ))}
-          </ReadingGrid>
-
-          <AdviceBox>
-            <span>마지막 조언</span>
-            <h3>카드가 권하는 한 가지</h3>
-            <p>{presentation.advice}</p>
-            <ReflectionBox>
-              <span>나에게 묻는 질문</span>
-              <p>{presentation.reflectionQuestion}</p>
-            </ReflectionBox>
-          </AdviceBox>
-        </ReadingBox>
-      )}
-    </ResultSection>
+    <Shell>
+      <Header><span>내 질문에 대한 답</span><strong>한 장의 이야기</strong></Header>
+      <Viewport>
+        <Track $page={activePage}>
+          <Slide aria-hidden={activePage !== 0} inert={activePage !== 0}>
+            <SummaryCard>
+              <Eyebrow>한 장이 전하는 답</Eyebrow>
+              <h1>{presentation?.conclusion ?? card.upright_one_line}</h1>
+              <FlowLine><span>{card.name_ko}</span></FlowLine>
+            </SummaryCard>
+          </Slide>
+          <Slide aria-hidden={activePage !== 1} inert={activePage !== 1}>
+            <CardPage>
+              <h2>{card.name_ko}</h2>
+              <English>{card.name_en}</English>
+              <FlowLine>{card.upright_keywords.slice(0, 5).join(" · ")}</FlowLine>
+              <CardImage>
+                <Image src={`/cards/card${card.card_id}.webp`} alt={`${card.name_ko} 타로 카드`} width={124} height={207} priority />
+              </CardImage>
+              {hasReading ? (
+                <Reading>
+                  <strong>{presentation.headline}</strong>
+                  {presentation.details.map(([title, text]) => (
+                    <section key={title} aria-label={title}>
+                      {text.split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                    </section>
+                  ))}
+                </Reading>
+              ) : (
+                <Reading><strong>카드가 전하는 흐름</strong><p>지금의 상황과 맞닿는 부분부터 천천히 살펴보세요.</p></Reading>
+              )}
+            </CardPage>
+          </Slide>
+          <Slide aria-hidden={activePage !== 2} inert={activePage !== 2}>
+            <SummaryCard>
+              <Eyebrow>마지막으로, 지금 해볼 수 있는 일</Eyebrow>
+              {hasReading ? (
+                <>
+                  <Advice><span>카드가 권하는 한 가지</span><p>{presentation.advice}</p></Advice>
+                  <Question><span>나에게 묻는 질문</span><br />{presentation.reflectionQuestion}</Question>
+                </>
+              ) : <Advice><p>지금의 상황과 맞닿는 부분부터 천천히 살펴보세요.</p></Advice>}
+              {children}
+            </SummaryCard>
+          </Slide>
+        </Track>
+      </Viewport>
+      <Pager aria-label="원 오라클 결과 페이지">
+        <NavButton type="button" disabled={activePage === 0} onClick={() => moveWithButton("previous")}>이전</NavButton>
+        <Dots>
+          {[0, 1, 2].map((page) => <Dot key={page} aria-label={`${page + 1} / 3 페이지`} aria-current={activePage === page ? "page" : undefined} $active={activePage === page} />)}
+        </Dots>
+        {activePage === 2
+          ? <NavButton type="button" $home onClick={onHome}>홈으로</NavButton>
+          : <NavButton type="button" onClick={() => moveWithButton("next")}>{activePage === 0 ? "카드 해설" : "다음"}</NavButton>}
+      </Pager>
+      <NavigationHint>아래 이전·다음 버튼으로 카드의 이야기를 확인하세요</NavigationHint>
+    </Shell>
   );
 };
 
 export default OneCardResult;
-
-const ResultSection = styled.section`
-  p { white-space: pre-line; }
-  width: 100%;
-  min-width: 0;
-`;
-
-const StatusMessage = styled.div`
-  width: 100%;
-  margin: 40px 0;
-  padding: 24px 16px;
-  border-radius: 14px;
-  background: #fff9e8;
-  color: #294d40;
-  text-align: center;
-  line-height: 1.6;
-`;
-
-const TopicLabel = styled.p`
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto 18px;
-  padding: 7px 13px;
-  border: 1px solid #d8b85c;
-  border-radius: 999px;
-  color: #294d40;
-  background: #fff9e8;
-  font-size: clamp(0.76rem, 3.5vw, 0.84rem);
-  font-weight: 700;
-  text-align: center;
-`;
-
-const CardBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: clamp(20px, 7vw, 30px) clamp(12px, 5vw, 20px);
-  border: 1px solid rgba(216, 184, 92, 0.55);
-  border-radius: 18px;
-  background: #f7f3e8;
-  box-shadow: 0 8px 24px rgba(41, 77, 64, 0.1);
-  text-align: center;
-`;
-
-const ConclusionBox = styled.section`
-  width: 100%;
-  margin-bottom: 12px;
-  padding: clamp(22px, 7vw, 30px) clamp(16px, 6vw, 24px);
-  border: 1px solid rgb(225 198 109 / 70%);
-  border-radius: 18px;
-  color: #fff8e5;
-  background: linear-gradient(145deg, #294d40, #17382e);
-  box-shadow: 0 10px 26px rgb(26 57 47 / 18%);
-
-  span {
-    display: block;
-    margin-bottom: 9px;
-    color: #e7ca70;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-  }
-
-  p {
-    margin: 0;
-    font-family: "NotoSerifKR", serif;
-    font-size: clamp(1.08rem, 5.2vw, 1.4rem);
-    font-weight: 800;
-    line-height: 1.62;
-    word-break: keep-all;
-  }
-`;
-
-const CardName = styled.h1`
-  margin: 0;
-  color: #294d40;
-  font-size: clamp(1.7rem, 9vw, 2.25rem);
-`;
-
-const EnglishName = styled.p`
-  margin: 5px 0 12px;
-  color: #6c7a6e;
-  font-size: 0.86rem;
-  font-style: italic;
-`;
-
-const Keywords = styled.p`
-  max-width: 100%;
-  margin: 0 0 18px;
-  color: #7c6940;
-  font-size: clamp(0.75rem, 3.4vw, 0.9rem);
-  line-height: 1.55;
-  overflow-wrap: anywhere;
-`;
-
-const CardImage = styled.div`
-  width: min(220px, 82vw);
-
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-`;
-
-const ReadingBox = styled.div`
-  width: 100%;
-  margin-top: 22px;
-`;
-
-const ReadingHeader = styled.header`
-  padding: clamp(22px, 7vw, 30px) clamp(16px, 6vw, 24px);
-  border-radius: 18px;
-  background: #294d40;
-  color: #f8f1dc;
-
-  span {
-    display: block;
-    color: #e1c66d;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-  }
-
-  h2 {
-    margin: 7px 0 14px;
-    font-size: clamp(1.25rem, 6vw, 1.65rem);
-    line-height: 1.35;
-  }
-
-`;
-
-const ReadingGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-top: 10px;
-`;
-
-const ReadingCard = styled.article`
-  min-width: 0;
-  padding: 18px 16px;
-  border: 1px solid rgba(216, 184, 92, 0.45);
-  border-radius: 14px;
-  background: #fffdf6;
-
-  h3 {
-    margin: 0 0 7px;
-    color: #7c6331;
-    font-size: 0.86rem;
-  }
-
-  p {
-    margin: 0;
-    color: #31463e;
-    font-size: clamp(0.86rem, 3.7vw, 0.96rem);
-    line-height: 1.72;
-    overflow-wrap: anywhere;
-  }
-`;
-
-const ReflectionBox = styled.div`
-  margin-top: 18px;
-  padding: 17px 15px;
-  border-radius: 14px;
-  background: rgb(255 255 255 / 58%);
-  color: #294d40;
-
-  span {
-    font-size: 0.76rem;
-    font-weight: 800;
-  }
-
-  p {
-    margin: 8px 0 0;
-    font-size: clamp(0.92rem, 4vw, 1.05rem);
-    font-weight: 700;
-    line-height: 1.65;
-  }
-`;
-
-const AdviceBox = styled.section`
-  margin-top: 12px;
-  padding: 22px 17px;
-  border: 1px solid #d8b85c;
-  border-radius: 16px;
-  color: #294d40;
-  background: #fff2bb;
-
-  & > span {
-    color: #80662c;
-    font-size: 0.76rem;
-    font-weight: 900;
-  }
-
-  & > h3 {
-    margin: 7px 0 9px;
-    font-size: clamp(1.04rem, 4.5vw, 1.2rem);
-  }
-
-  & > p {
-    margin: 0;
-    font-size: clamp(0.9rem, 3.8vw, 1rem);
-    line-height: 1.75;
-  }
-`;
-
-const FallbackBox = styled.div`
-  margin-top: 22px;
-  padding: 24px 18px;
-  border-radius: 16px;
-  background: #294d40;
-  color: #f8f1dc;
-
-  h2 {
-    margin: 0 0 12px;
-    font-size: 1.2rem;
-  }
-
-  p {
-    margin: 0 0 12px;
-    line-height: 1.75;
-  }
-
-  span {
-    color: #e1c66d;
-    font-size: 0.82rem;
-  }
-`;

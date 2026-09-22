@@ -78,17 +78,16 @@ const Result = () => {
         ) : type === "celtic" ? (
           <CelticCrossResult onHome={onClickHome} />
         ) : (
-          <>
-            <OneCardResult />
-            <Feedback />
+          <OneCardResult onHome={onClickHome}>
+            <details style={{ marginTop: 18 }}>
+              <summary style={{ cursor: "pointer" }}>의견 남기기</summary>
+              <Feedback />
+            </details>
 
-            <ButtonBox $isMobile={isMobile}>
-              <button onClick={onClickHome}>홈으로</button>
-              {isMobile && <KakaoShareButton />}
-            </ButtonBox>
+            {isMobile && <ButtonBox><KakaoShareButton /></ButtonBox>}
 
             <AdBanner />
-          </>
+          </OneCardResult>
         )
       )}
     </Wrapper>
@@ -97,22 +96,16 @@ const Result = () => {
 
 export default Result;
 
-const ButtonBox = styled.div<{ $isMobile: boolean }>`
+const ButtonBox = styled.div`
   display: flex;
   gap: 8px;
 
   & > button {
-    width: ${({ $isMobile }) => ($isMobile ? "calc(50% - 4px)" : "100%")};
+    width: 100%;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #fee500;
     color: #121212;
     padding: 8px 0;
   }
 
-  & > button:nth-child(2) {
-    background-color: #121212;
-    color: #fee500;
-    padding: 8px 0;
-    width: 50%;
-  }
 `;
