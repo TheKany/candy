@@ -30,6 +30,8 @@ test("Gemini returns visible reading text without thoughts and normalizes escape
   t.mock.method(globalThis, "fetch", async () => Response.json({ candidates: [{ finishReason: "STOP", content: { parts: [
     { thought: true, text: "internal reasoning" },
     { text: JSON.stringify({ conclusion: "새로운 일을 익힐 때는 기준을 확인하고 구체적인 질문부터 하나씩 건네보세요.",
+      followUpQuestions: ["지금 어떤 행동부터 하면 좋을까요?", "내가 놓친 부분은 무엇일까요?"],
+      contextSummary: "새로운 업무를 배우는 상황에서 기준과 모르는 부분을 확인하기로 살펴본 상담이에요.",
       advice: "매일 배운 내용을 정리하고 궁금한 점을 모아보세요. 질문하기 전에 스스로 확인한 부분을 짚어주면 대화가 더 쉬워져요. 아직 답을 듣지 못했다면 지금 할 수 있는 일부터 해보세요.",
       pages: [{ headline: "기준을 익히는 시간", summary: "지금은 배우는 과정이니 필요한 기준을 먼저 확인해보세요.", detail, reflectionQuestion: "지금 가장 먼저 확인할 기준은 무엇인가요?" }],
     }) },

@@ -44,7 +44,7 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
         left: rect.left + window.scrollX,
       });
     });
-  }, [finishedShuffle]);
+  }, [finishedShuffle, cardCount, setSlotPosition]);
 
   if (type === "celtic") {
     return <CelticCrossPickBoard finishedShuffle={finishedShuffle} />;

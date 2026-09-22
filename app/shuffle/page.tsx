@@ -19,6 +19,7 @@ import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { shouldOpenResultAfterReveal } from "@/util/cardSelectionFlow";
 import { getReadingFlowRedirect } from "@/util/tarotFlow";
 import { useRouter } from "next/navigation";
+import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 
 type PositionProps = {
   top: string;
@@ -33,6 +34,8 @@ const ShufflePage = () => {
   const question = useQuestionStore((state) => state.question);
   const spread = useThreeCardSpreadStore((state) => state.spread);
   const pickedCount = useUserPickNum((state) => state.inputs.length);
+  const previousConsultation = useReadingSessionStore((state) => state.previousConsultation);
+  const isFollowUp = previousConsultation !== null;
 
   const [cardCnt, setCardCnt] = useState<number>(0);
   const [positions, setPositions] = useState<PositionProps[]>([]);
@@ -81,6 +84,7 @@ const ShufflePage = () => {
 
     hasGatheredCards.current = false;
     const randomDeck = getRandomCardNo({ length: cardCnt });
+    useReadingSessionStore.getState().start(randomDeck);
 
     setIsRotating(false);
     setPositions(handleCardShufflePosition(cardCnt));
@@ -131,11 +135,11 @@ const ShufflePage = () => {
   };
 
   useEffect(() => {
-    if (cardCnt > 0) {
+    if (cardCnt > 0 && !isFollowUp) {
       setPositions(handleCardShufflePosition(cardCnt));
       onShuffleCard();
     }
-  }, [cardCnt]);
+  }, [cardCnt, isFollowUp]);
 
   useEffect(() => setMounted(true), []);
 
@@ -149,13 +153,24 @@ const ShufflePage = () => {
   useEffect(() => {
     if (!mounted || getReadingFlowRedirect(type, question, spread)) return;
 
+    if (isFollowUp) {
+      const savedDeck = useReadingSessionStore.getState().deck;
+      if (!savedDeck.length) { router.replace("/topic"); return; }
+      setCardCnt(savedDeck.length);
+      setDeck(savedDeck);
+      setPositions(savedDeck.map((_, index) => ({ top: "0%", left: `${100 * index / Math.max(1, savedDeck.length - 1)}%`, rotate: 0 })));
+      setShuffleStep(4);
+      setFinishedShuffle(true);
+      return;
+    }
+
     const onLoadData = async () => {
       const result = await getCardCount();
       setCardCnt(result);
     };
 
     onLoadData();
-  }, [mounted, spread, question, type]);
+  }, [mounted, spread, question, type, isFollowUp, router, setShuffleStep]);
 
   useEffect(() => {
     return () => {
@@ -169,7 +184,7 @@ const ShufflePage = () => {
     <>
       {cardCnt > 0 ? (
         <>
-          <InfoText finishedShuffle={finishedShuffle} />
+          {isFollowUp ? <div style={{ color: "#fff7df", textAlign: "center", padding: "28px 16px 0", lineHeight: 1.7 }}><p style={{ color: "#f2ce72" }}>이어서 살펴볼 질문</p><p>{question}</p><small>섞지 않은 남은 카드에서 한 장을 골라주세요.</small></div> : <InfoText finishedShuffle={finishedShuffle} />}
 
           <TarotCardBoard
             isRotating={isRotating}

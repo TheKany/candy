@@ -20,6 +20,12 @@ export async function POST(request: Request) {
   } catch { return reply({ error: "질문과 카드를 확인해주세요." }, 400); }
   if (!body || typeof body !== "object") return reply({ error: "질문과 카드를 확인해주세요." }, 400);
   const { mode, cardIds, question } = body;
+  const previous = body.previousConsultation;
+  if (previous != null && (mode !== "one" || typeof previous !== "object"
+    || typeof previous.originalQuestion !== "string" || !previous.originalQuestion.trim() || previous.originalQuestion.length > 1000
+    || typeof previous.summary !== "string" || !previous.summary.trim() || previous.summary.length > 700)) {
+    return reply({ error: "이전 상담 정보를 확인해주세요." }, 400);
+  }
   const count = mode === "one" ? 1 : mode === "three" ? 3 : mode === "five" ? 5 : 0;
   if (!count || typeof question !== "string" || !question.trim() || question.length > 1000
     || !Array.isArray(cardIds) || cardIds.length !== count || new Set(cardIds).size !== count
@@ -45,6 +51,7 @@ export async function POST(request: Request) {
     // No prior classification or canned topic prose: Gemini reads the question and cards together once.
     const written = await generateGeminiReading({
       question: question.trim(),
+      ...(previous ? { previousConsultation: { originalQuestion: previous.originalQuestion, summary: previous.summary } } : {}),
       cards: orderedCards.map((card, index) => ({
         position: positions[index].label, name: card.name_ko,
         meaning: CARD_READING_FOUNDATIONS[card.card_id],
@@ -52,6 +59,7 @@ export async function POST(request: Request) {
       })),
     }, count, request.signal);
     if (mode === "one") return reply({
+      followUpQuestions: written.followUpQuestions, contextSummary: written.contextSummary,
       card: orderedCards[0], fallback: false,
       reading: {
         card_id: cardIds[0], orientation: "upright", reading_type: "one", layout_id: "single", position_id: "message",
@@ -61,6 +69,7 @@ export async function POST(request: Request) {
       },
     });
     return reply({
+      followUpQuestions: written.followUpQuestions, contextSummary: written.contextSummary,
       spread: mode === "three" ? spread.id : "insight",
       spreadTitle: mode === "three" ? spread.title : "다섯 장의 이야기",
       overview: written.overview,

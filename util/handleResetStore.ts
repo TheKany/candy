@@ -7,6 +7,7 @@ import { useUserSelectAnswer } from "@/store/useUserSelectAnswerStore";
 import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { useCardOrientationStore } from "@/store/useCardOrientationStore";
 import { useQuestionStore } from "@/store/useQuestionStore";
+import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 
 export const handleResetCardProgress = () => {
   usePickCardStoreSlotStore.getState().resetSlotPositions();
@@ -16,6 +17,7 @@ export const handleResetCardProgress = () => {
 };
 
 export const handleResetStore = () => {
+  useReadingSessionStore.getState().reset();
   useQuestionStore.getState().reset();
   handleResetCardProgress();
   useTarotTypeStore.getState().resetType();

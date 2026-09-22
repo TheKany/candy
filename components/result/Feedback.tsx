@@ -7,16 +7,18 @@ import styled from "styled-components";
 const Feedback = () => {
   const [feedback, setFeedback] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   const submitFeedback = async () => {
-    const result = await handleUserFeedback(feedback);
-    console.log(result);
-    // if (result === "ok") {
-    //   setSubmitted(true);
-    //   setFeedback("");
-    // } else {
-    //   alert("피드백 전송 중 오류가 발생했어요 😢");
-    // }
+    if (!feedback.trim() || sending) return;
+    setSending(true); setError("");
+    try {
+      const result = await handleUserFeedback(feedback);
+      if (result === "ok") { setSubmitted(true); setFeedback(""); }
+      else setError("피드백을 보내지 못했어요. 잠시 후 다시 시도해주세요.");
+    } catch { setError("연결을 확인하고 다시 시도해주세요."); }
+    finally { setSending(false); }
   };
 
   return (
@@ -32,7 +34,8 @@ const Feedback = () => {
             onChange={(e) => setFeedback(e.target.value)}
             placeholder="좋았던 점이나 아쉬웠던 점을 자유롭게 적어주세요"
           />
-          <button onClick={submitFeedback}>피드백 보내기</button>
+          <button disabled={sending || !feedback.trim()} onClick={submitFeedback}>{sending ? "보내는 중…" : "피드백 보내기"}</button>
+          {error && <p role="alert">{error}</p>}
         </>
       ) : (
         <p>🍓 소중한 피드백 감사합니다!</p>

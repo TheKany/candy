@@ -43,18 +43,18 @@ const KakaoShareButton = () => {
       content: {
         title: "타로타르트",
         description: "달콤하게 점쳐보는 당신의 운명",
-        imageUrl: "https://tarot-tart.vercel.app/banner.png",
+        imageUrl: `${window.location.origin}/banner.png`,
         link: {
-          mobileWebUrl: "https://tarot-tart.vercel.app/",
-          webUrl: "https://tarot-tart.vercel.app/",
+          mobileWebUrl: `${window.location.origin}/`,
+          webUrl: `${window.location.origin}/`,
         },
       },
       buttons: [
         {
           title: "타로타르트 한입 해보기 🍰",
           link: {
-            mobileWebUrl: "https://tarot-tart.vercel.app/",
-            webUrl: "https://tarot-tart.vercel.app/",
+            mobileWebUrl: `${window.location.origin}/`,
+            webUrl: `${window.location.origin}/`,
           },
         },
       ],

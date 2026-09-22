@@ -13,6 +13,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useCardOrientationStore } from "@/store/useCardOrientationStore";
+import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 
 type Props = {
   isRotating: boolean;
@@ -38,6 +39,7 @@ const TarotCardBoard = ({
   );
   const userPickedCardList = useUserPickNum((state) => state.inputs);
   const realCardList = useUserPickNum((state) => state.realCard);
+  const usedPositions = useReadingSessionStore((state) => state.usedPositions);
   const shuffleStep = useShuffleTypeStore((state) => state.shuffleStep);
   const type = useTarotTypeStore((state) => state.type);
   const orientations = useCardOrientationStore((state) => state.orientations);
@@ -99,6 +101,7 @@ const TarotCardBoard = ({
             const frontCardId =
               pickedOrder >= 0 ? realCardList[pickedOrder] : undefined;
             const isPicked = pickedOrder >= 0;
+            if (!isPicked && usedPositions.includes(index + 1)) return null;
             const isRevealed = revealedCardIndexes.has(index);
 
             return (
@@ -183,7 +186,7 @@ const TarotCardBoard = ({
 export default TarotCardBoard;
 
 const CardContainer = styled.div`
-  width: 300px;
+  width: min(300px, calc(100% - 64px));
   height: 300px;
   margin: 0 auto;
   padding-top: 100px;

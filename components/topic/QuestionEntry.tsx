@@ -7,6 +7,7 @@ import { useQuestionStore } from "@/store/useQuestionStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 import { handleResetCardProgress } from "@/util/handleResetStore";
+import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 
 export default function QuestionEntry() {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function QuestionEntry() {
       saved.save(question.trim(), null);
       useTarotTopicStore.getState().resetTopic();
       handleResetCardProgress();
+      useReadingSessionStore.getState().reset();
       router.push("/shuffle");
     }}>
       <label htmlFor="tarot-question">나의 질문</label>

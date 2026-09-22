@@ -7,6 +7,7 @@ import { getNextPositionLabel } from "@/util/cardSelectionFlow";
 import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { useCardOrientationStore } from "@/store/useCardOrientationStore";
 import { getRandomOrientation } from "@/constants/celticCrossPositions";
+import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 
 type Props = {
   finishedShuffle: boolean;
@@ -28,10 +29,14 @@ const NumberPad = ({
 
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
   const [number, setNumber] = useState("");
+  const [error, setError] = useState("");
+  const usedPositions = useReadingSessionStore((state) => state.usedPositions);
+  const isFollowUp = useReadingSessionStore((state) => state.previousConsultation !== null);
   const nextPositionLabel = getNextPositionLabel(type, spread, pickedNumList.length);
 
   const onClickNumberBtn = (id: number | string) => {
     if (selectionLocked) return;
+    setError("");
     if (number.length === 0 && id === 0) return;
 
     if (typeof id === "number") {
@@ -58,7 +63,7 @@ const NumberPad = ({
       if (cardNum < 1 || cardNum > 78) return;
 
       // 중복된 카드 no
-      if (pickedNumList.includes(cardNum)) return;
+      if (usedPositions.includes(cardNum)) { setError("이미 뽑은 카드예요. 다른 번호를 골라주세요."); return; }
 
       // 선택 개수 초과 no
       if (type === "one" && pickedNumList.length >= 1) return;
@@ -69,6 +74,7 @@ const NumberPad = ({
 
       const realCard = getCardAtPosition(deck, cardNum);
       if (realCard === null) return;
+      if (!useReadingSessionStore.getState().pick(cardNum)) return;
 
       onSelectionStarted();
       setInput(String(number));
@@ -91,6 +97,8 @@ const NumberPad = ({
         <TypingNumber>{number || "—"}</TypingNumber>
       </Typing>
       <InfoText>[ 1 ~ 78번까지의 카드 중에서 골라주세요. ]</InfoText>
+      {isFollowUp && <InfoText>남은 카드 {deck.length - usedPositions.length}장 · 기존 번호 그대로</InfoText>}
+      {error && <InfoText role="alert">{error}</InfoText>}
       <NumberContainer>
         {Array.from({ length: 12 }).map((_, idx) => {
           if (idx < 9) {

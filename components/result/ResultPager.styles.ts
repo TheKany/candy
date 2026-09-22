@@ -3,10 +3,12 @@
 import styled from "styled-components";
 
 export const Shell = styled.section`
-  display: flex;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
   width: min(100%, 480px);
   height: 100dvh;
-  min-height: 520px;
+  max-height: 100dvh;
+  min-height: 0;
   margin: 0 auto;
   flex-direction: column;
   overflow: hidden;
@@ -50,6 +52,8 @@ export const Slide = styled.article`
   min-width: 100%;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
+  overflow-x: hidden;
   padding: 4px clamp(10px, 5vw, 22px) 10px;
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
