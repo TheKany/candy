@@ -63,7 +63,7 @@ export default function ReadingSelect() {
         ))}
       </CardList>
 
-
+      <PreviewLink href="/packaging-preview">페이지 미리보기</PreviewLink>
       <Notice role="status" aria-live="polite">
         {notice}
       </Notice>
@@ -219,6 +219,28 @@ const CardList = styled.section`
   display: grid;
   min-width: 0;
   gap: clamp(10px, 2.2vh, 14px);
+`;
+
+const PreviewLink = styled(Link)`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: 1px solid rgb(242 206 114 / 45%);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 4%);
+  color: #f8dda0;
+  font-size: 0.9rem;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 3px solid #fff6dc;
+    outline-offset: 3px;
+  }
 `;
 
 const Notice = styled.p`
