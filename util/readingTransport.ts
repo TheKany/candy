@@ -1,4 +1,6 @@
 import { isReadingFailureCode, ReadingRequestError } from "./readingFailure.ts";
+import { parseMonthlyReading } from "./monthlyReadingWriter.ts";
+import type { MonthlyRequest, MonthlyReadingResult } from "../types/monthlyReadingTypes.ts";
 
 function waitForRetry(signal: AbortSignal) {
   return new Promise<void>((resolve, reject) => {
@@ -10,6 +12,21 @@ function waitForRetry(signal: AbortSignal) {
 }
 
 export async function requestPersonalReading(payload: unknown, signal: AbortSignal, onRetry?: () => void) {
+  return requestReading("/api/personalReading", payload, signal, onRetry);
+}
+
+export async function requestMonthlyReading(payload: MonthlyRequest, signal: AbortSignal, onRetry?: () => void): Promise<MonthlyReadingResult> {
+  const data = await requestReading("/api/monthlyReading", payload, signal, onRetry);
+  try {
+    const months = Array.from({ length: 13 - payload.startMonth }, (_, i) => payload.startMonth + i);
+    const pages = parseMonthlyReading(data, { ...payload, months }, payload.cardIds);
+    if (data.year !== payload.year || !Array.isArray(data.cards) || data.cards.length !== pages.length
+      || !data.cards.every((card: { card_id?: unknown; name_ko?: unknown }, i: number) => card && card.card_id === payload.cardIds[i] && typeof card.name_ko === "string" && card.name_ko.trim())) throw new Error("Invalid cards");
+    return { year: data.year, pages, cards: data.cards };
+  } catch { throw new ReadingRequestError("incomplete"); }
+}
+
+async function requestReading(endpoint: "/api/personalReading" | "/api/monthlyReading", payload: unknown, signal: AbortSignal, onRetry?: () => void) {
   const body = JSON.stringify(payload);
   for (let attempt = 0; attempt < 2; attempt++) {
     signal.throwIfAborted();
@@ -17,7 +34,7 @@ export async function requestPersonalReading(payload: unknown, signal: AbortSign
     let data;
     const requestSignal = AbortSignal.any([signal, AbortSignal.timeout(105000)]);
     try {
-      response = await fetch("/api/personalReading", {
+      response = await fetch(endpoint, {
         method: "POST", headers: { "Content-Type": "application/json" }, body,
         signal: requestSignal,
       });
