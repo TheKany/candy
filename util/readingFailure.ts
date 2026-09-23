@@ -3,7 +3,7 @@ export type ReadingFailureCode = "busy" | "quota" | "daily_quota" | "configurati
 export const READING_FAILURES: Record<ReadingFailureCode, { title: string; description: string; sign: string; retry: boolean }> = {
   busy: { title: "오븐이 잠시 말썽이에요", description: "해설 서버가 일시적으로 응답하지 못했어요. 잠시 후 같은 카드로 다시 구워주세요.", sign: "잠시 쉬는 중", retry: true },
   quota: { title: "지금은 추가 주문을 받기 어려워요", description: "AI 요청 한도에 도달했어요. 잠시 후 다시 시도해주세요. 하루 한도라면 초기화된 뒤 이용할 수 있어요.", sign: "주문 잠시 마감", retry: true },
-  daily_quota: { title: "오늘 준비한 타르트가 모두 소진됐어요", description: "AI의 일일 사용 한도에 도달했어요. 한도가 초기화되면 다시 이용할 수 있어요.", sign: "오늘 굽기 마감", retry: false },
+  daily_quota: { title: "오늘 준비한 재료가 모두 소진됐어요", description: "AI의 일일 사용 한도에 도달했어요. 한도가 초기화되면 다시 이용할 수 있어요.", sign: "빈 트레이 · 오늘 굽기 마감", retry: false },
   configuration: { title: "오븐을 점검하고 있어요", description: "서비스 연결 설정에 문제가 있어요. 운영자의 확인이 필요해 지금은 해설을 준비할 수 없어요.", sign: "오븐 점검 중", retry: false },
   timeout: { title: "타르트가 예상보다 오래 걸리고 있어요", description: "이번 해설을 제한 시간 안에 완성하지 못했어요. 고른 카드로 다시 시도할 수 있어요.", sign: "타이머 멈춤", retry: true },
   network: { title: "주문을 전달하는 길이 잠시 끊겼어요", description: "네트워크 연결에 문제가 생겼어요. 연결 상태를 확인한 뒤 다시 시도해주세요.", sign: "연결 확인 중", retry: true },
