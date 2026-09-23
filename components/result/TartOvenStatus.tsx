@@ -13,7 +13,7 @@ export default function TartOvenStatus({ error, retrying = false, onRetry, onHom
   const baking = !failure;
   const title = failure?.title ?? (retrying ? "오븐을 다시 데우고 있어요" : "당신의 이야기를 담아\n타르트를 굽고 있어요");
   const description = failure?.description ?? (retrying
-    ? "해설 서버가 잠시 응답하지 못해 같은 카드로 한 번 더 준비하고 있어요."
+    ? "조금만 더 기다려주세요. 같은 카드로 이야기를 다시 준비하고 있어요."
     : "고른 카드의 의미와 당신의 질문을 함께 읽으며, 따뜻한 한 조각을 준비하고 있어요.");
 
   return <Screen>
