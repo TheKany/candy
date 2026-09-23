@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { formatTarotVisitCount } from "@/util/tarotVisitCount";
+import InstallGuide from "./InstallGuide";
 
 export default function HomeLanding() {
   const [visitCount, setVisitCount] = useState<number | null>(null);
@@ -57,6 +58,7 @@ export default function HomeLanding() {
         <Title>{HOME_CONTENT.title}</Title>
         <Description>{HOME_CONTENT.description}</Description>
       </Hero>
+      <InstallGuide />
       <StartLink href={HOME_CONTENT.href}>
         {HOME_CONTENT.cta}<span aria-hidden>✦</span>
       </StartLink>
