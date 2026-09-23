@@ -15,6 +15,7 @@ import type { TarotReadingResult } from "@/types/tarotReadingTypes";
 import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import Feedback from "./Feedback";
+import ReadingSaveButtons from "./ReadingSaveButtons";
 import TartOvenStatus from "./TartOvenStatus";
 import { ReadingRequestError, type ReadingFailureCode } from "@/util/readingFailure";
 import { Shell, Header, Viewport, Track, Slide, SummaryCard, Overview, Eyebrow, Advice, CardPage, Position, Reading, Pager, NavButton, NavigationHint, Status } from "./ResultPager.styles";
@@ -122,11 +123,18 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
               <Eyebrow>오늘의 타로타르트</Eyebrow>
               <h1>마음에 작은 도움이<br />되었기를 바라요.</h1>
               <Actions>
-                <details><summary>피드백 쓰기</summary><Feedback /></details>
+                <ReadingSaveButtons data={{ title: `${mode === "one" ? "한 장" : mode === "three" ? "세 장" : "다섯 장"}의 이야기`, question,
+                  sections: [
+                    { title: "종합 해설", text: [conclusion, ...(multi?.overview ?? [])].filter(Boolean).join("\n\n") },
+                    ...pages.map(page => ({ title: `${page.positionLabel} · ${page.card.name_ko}`, cardId: page.card.card_id,
+                      text: [page.card.upright_one_line || page.card.upright_keywords.join(" · "), page.headline, page.summary, page.detail].filter(Boolean).join("\n\n") })),
+                    { title: "지금 해볼 수 있는 일", text: advice },
+                    { title: "이어서 생각해볼 질문", text: result.followUpQuestions.join("\n\n") },
+                  ] }} />
                 <KakaoShareButton />
+                <details><summary>피드백 쓰기</summary><Feedback /></details>
                 <PrimaryButton type="button" onClick={onHome}>홈으로</PrimaryButton>
               </Actions>
-              <Intro style={{ marginTop: 16 }}>카카오톡에는 질문이나 해설이 아닌 서비스 링크만 공유해요.</Intro>
             </SummaryCard>
           </Slide>
         </Track>

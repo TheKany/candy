@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 declare global {
   interface Window {
@@ -62,10 +63,17 @@ const KakaoShareButton = () => {
   };
 
   return (
-    <button onClick={handleShare} disabled={!isKakaoReady}>
-      카카오톡 공유하기
-    </button>
+    <ShareButton type="button" onClick={handleShare} disabled={!isKakaoReady}>
+      타로타르트 소문내기
+    </ShareButton>
   );
 };
 
 export default KakaoShareButton;
+
+const ShareButton = styled.button`
+  width:100%;min-height:46px;padding:12px 8px;border:1px solid #edcf8a66;border-radius:12px;
+  background:#ffffff08;color:#fff1cd;font-size:14px;line-height:1.6;cursor:pointer;
+  &:disabled{opacity:.5;cursor:default;}
+  &:focus-visible{outline:2px solid #edcf8a;outline-offset:3px;}
+`;

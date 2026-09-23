@@ -8,6 +8,8 @@ import { requestMonthlyReading } from "@/util/readingTransport";
 import { ReadingRequestError, type ReadingFailureCode } from "@/util/readingFailure";
 import TartOvenStatus from "./TartOvenStatus";
 import LuckClover from "./LuckClover";
+import ReadingSaveButtons from "./ReadingSaveButtons";
+import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import * as S from "./MonthlyReadingResult.styles";
 
 const categories = [["money", "금전"], ["work", "일 · 커리어 · 학업"], ["relationships", "인간관계"], ["wellbeing", "마음 · 일상"]] as const;
@@ -55,6 +57,12 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
           <strong>{item.month}월</strong><Image src={`/cards/card${item.cardId}.webp`} alt="" width={66} height={110} />
           <b>{result.cards[i].name_ko}</b><span>{item.nickname}</span>
         </button>)}</S.Grid>
+        <ReadingSaveButtons data={{ title: `${period.year}년 월별 타로`, sections: result.pages.flatMap((item, i) => [
+          { title: `${item.month}월 · ${result.cards[i].name_ko}`, cardId: item.cardId, text: `${item.nickname}\n\n${item.message}` },
+          ...categories.map(([key, title]) => ({ title: `${item.month}월 · ${title}`, text: item[key] })),
+          { title: `${item.month}월 · 행운 지수 ${item.luck}%`, text: `${item.luckMessage}\n\n카드의 분위기를 담은 재미로 보는 지수예요. 실제 사건의 확률이나 정해진 미래는 아니에요.` },
+        ]) }} />
+        <KakaoShareButton />
       </>}
     </S.Body>
     <S.Footer>{active === null ? <button type="button" onClick={onHome}>홈으로</button> : <>
