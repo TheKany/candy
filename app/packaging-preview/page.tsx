@@ -20,10 +20,10 @@ export default function PackagingPreview() {
       <button onClick={open}>이미지 저장하기</button>
     </Actions>
     <Actions hidden={!lastPage}>
-      <button onClick={() => setMessage("타로타르트 알려주기 · 공유 기능은 연결 전이에요.")}>타로타르트 알려주기</button>
+      <ShareButton onClick={() => setMessage("타로타르트 소문내기 · 공유 기능은 연결 전이에요.")}>타로타르트 소문내기</ShareButton>
       <a href="/">홈으로</a>
     </Actions>
-    <Note role="status">{message || "디자인 시연 화면 · 실제 파일은 저장하지 않아요"}</Note>
+    {message && <Note role="status">{message}</Note>}
     <Navigation aria-label="미리보기 페이지 이동">
       <button disabled={!lastPage} onClick={() => { setLastPage(false); setMessage(""); }}>이전</button>
       <span aria-live="polite">{lastPage ? "2 / 2" : "1 / 2"}</span>
@@ -55,6 +55,15 @@ const Actions = styled.div`
   label{text-align:left;font-size:13px;display:flex;gap:8px;align-items:center;margin-bottom:4px;}
   input{width:18px;height:18px;accent-color:#dfbd71;}
   button,a{box-sizing:border-box;display:flex;align-items:center;justify-content:center;border:1px solid #e7cc8c70;border-radius:14px;min-height:50px;background:#ffffff08;color:#fff0ca;font:inherit;cursor:pointer;text-decoration:none;}
+`;
+const ShareButton = styled.button`
+  && {
+    background: #fee500;
+    color: #191919;
+    border-color: #fee500;
+    font-weight: 700;
+  }
+  &:focus-visible { outline: 3px solid #fff6dc; outline-offset: 3px; }
 `;
 const Navigation = styled.nav`
   display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;max-width:340px;margin-top:20px;

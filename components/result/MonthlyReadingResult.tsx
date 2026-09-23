@@ -43,10 +43,22 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
   if (!result) return <TartOvenStatus variant="monthly" error={error} retrying={retrying} onRetry={() => setAttempt(n => n + 1)} onHome={onHome} />;
   const page = active === null ? null : result.pages[active];
   const card = active === null ? null : result.cards[active];
+  const savePage = result.pages.length;
+  const finishPage = savePage + 1;
   return <S.Shell>
-    <S.Header><span>타로타르트 · {period.year} 월별 타로</span><h1>{page ? `${page.month}월의 이야기` : "나의 남은 달들"}</h1></S.Header>
+    <S.Header><span>타로타르트 · {period.year} 월별 타로</span><h1>{active === savePage ? "이야기 간직하기" : active === finishPage ? "상담 마무리" : page ? `${page.month}월의 이야기` : "나의 남은 달들"}</h1></S.Header>
     <S.Body ref={body} key={active ?? "overview"}>
-      {page && card ? <>
+      {active === finishPage ? <>
+        <S.Hero><h2>다음 이야기도<br />함께해요</h2><p>타로타르트와 함께한 시간, 어떠셨나요?<br />함께 보고 싶은 사람에게도 알려주세요.</p></S.Hero>
+        <KakaoShareButton />
+      </> : active === savePage ? <>
+        <S.Hero><h2>오늘의 이야기를<br />간직해 보세요</h2></S.Hero>
+        <ReadingSaveButtons data={{ title: `${period.year}년 월별 타로`, sections: result.pages.flatMap((item, i) => [
+          { title: `${item.month}월 · ${result.cards[i].name_ko}`, cardId: item.cardId, text: `${item.nickname}\n\n${item.message}` },
+          ...categories.map(([key, title]) => ({ title: `${item.month}월 · ${title}`, text: item[key] })),
+          { title: `${item.month}월 · 행운 지수 ${item.luck}%`, text: `${item.luckMessage}\n\n카드의 분위기를 담은 재미로 보는 지수예요. 실제 사건의 확률이나 정해진 미래는 아니에요.` },
+        ]) }} />
+      </> : page && card ? <>
         <S.Hero><Image src={`/cards/card${card.card_id}.webp`} alt={card.name_ko} width={108} height={180} />
           <p>{card.name_ko}</p><h2>{page.nickname}</h2><blockquote>{page.message}</blockquote></S.Hero>
         {categories.map(([key, title]) => <S.Category key={key}><h3>{title}</h3><p>{page[key]}</p></S.Category>)}
@@ -57,18 +69,15 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
           <strong>{item.month}월</strong><Image src={`/cards/card${item.cardId}.webp`} alt="" width={66} height={110} />
           <b>{result.cards[i].name_ko}</b><span>{item.nickname}</span>
         </button>)}</S.Grid>
-        <ReadingSaveButtons data={{ title: `${period.year}년 월별 타로`, sections: result.pages.flatMap((item, i) => [
-          { title: `${item.month}월 · ${result.cards[i].name_ko}`, cardId: item.cardId, text: `${item.nickname}\n\n${item.message}` },
-          ...categories.map(([key, title]) => ({ title: `${item.month}월 · ${title}`, text: item[key] })),
-          { title: `${item.month}월 · 행운 지수 ${item.luck}%`, text: `${item.luckMessage}\n\n카드의 분위기를 담은 재미로 보는 지수예요. 실제 사건의 확률이나 정해진 미래는 아니에요.` },
-        ]) }} />
-        <KakaoShareButton />
       </>}
     </S.Body>
-    <S.Footer>{active === null ? <button type="button" onClick={onHome}>홈으로</button> : <>
+    <S.Footer>{active === null ? <><button type="button" onClick={onHome}>홈으로</button><button type="button" onClick={() => setActive(savePage)}>이야기 간직하기</button></> : active >= savePage ? <>
+      <button type="button" onClick={() => setActive(active === savePage ? null : savePage)}>이전</button>
+      <button type="button" onClick={() => active === finishPage ? onHome() : setActive(finishPage)}>{active === finishPage ? "홈으로" : "다음"}</button>
+    </> : <>
       <button type="button" disabled={active === 0} onClick={() => setActive(active - 1)}>이전 달</button>
       <button type="button" className="all" onClick={() => setActive(null)}>전체 달</button>
-      <button type="button" disabled={active === result.pages.length - 1} onClick={() => setActive(active + 1)}>다음 달</button>
+      <button type="button" onClick={() => setActive(active + 1)}>{active === result.pages.length - 1 ? "마무리" : "다음 달"}</button>
     </>}</S.Footer>
   </S.Shell>;
 }

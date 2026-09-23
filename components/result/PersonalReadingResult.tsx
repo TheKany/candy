@@ -64,9 +64,10 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const conclusion = single?.reading?.summary ?? multi?.conclusion ?? "";
   const advice = single?.reading?.advice ?? multi?.advice ?? "";
   const followUpPage = pages.length + 1;
-  const finishPage = followUpPage + 1;
+  const savePage = followUpPage + 1;
+  const finishPage = savePage + 1;
   const pageCount = finishPage + 1;
-  const stage = activePage === 0 ? "카드와 결론" : activePage < followUpPage ? "상세 해설" : activePage === followUpPage ? "추가 질문" : "상담 마무리";
+  const stage = activePage === 0 ? "카드와 결론" : activePage < followUpPage ? "상세 해설" : activePage === followUpPage ? "추가 질문" : activePage === savePage ? "이야기 간직하기" : "상담 마무리";
   const canContinue = deck.length > usedPositions.length;
 
   const continueReading = () => {
@@ -118,10 +119,10 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
               <Intro style={{ marginTop: 20 }}>여기서 마무리해도 좋아요. 아래 ‘마무리’ 버튼을 눌러주세요.</Intro>
             </SummaryCard>
           </Slide>
-          <Slide aria-hidden={activePage !== finishPage} inert={activePage !== finishPage}>
+          <Slide aria-hidden={activePage !== savePage} inert={activePage !== savePage}>
             <SummaryCard>
               <Eyebrow>오늘의 타로타르트</Eyebrow>
-              <h1>마음에 작은 도움이<br />되었기를 바라요.</h1>
+              <h1>오늘의 이야기를<br />간직해 보세요</h1>
               <Actions>
                 <ReadingSaveButtons data={{ title: `${mode === "one" ? "한 장" : mode === "three" ? "세 장" : "다섯 장"}의 이야기`, question,
                   sections: [
@@ -131,6 +132,15 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
                     { title: "지금 해볼 수 있는 일", text: advice },
                     { title: "이어서 생각해볼 질문", text: result.followUpQuestions.join("\n\n") },
                   ] }} />
+              </Actions>
+            </SummaryCard>
+          </Slide>
+          <Slide aria-hidden={activePage !== finishPage} inert={activePage !== finishPage}>
+            <SummaryCard>
+              <Eyebrow>오늘의 타로타르트</Eyebrow>
+              <h1>다음 이야기도<br />함께해요</h1>
+              <Intro>타로타르트와 함께한 시간, 어떠셨나요?<br />함께 보고 싶은 사람에게도 알려주세요.</Intro>
+              <Actions>
                 <KakaoShareButton />
                 <details><summary>피드백 쓰기</summary><Feedback /></details>
                 <PrimaryButton type="button" onClick={onHome}>홈으로</PrimaryButton>

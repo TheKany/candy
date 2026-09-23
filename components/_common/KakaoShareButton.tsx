@@ -73,7 +73,8 @@ export default KakaoShareButton;
 
 const ShareButton = styled.button`
   width:100%;min-height:46px;padding:12px 8px;border:1px solid #edcf8a66;border-radius:12px;
-  background:#ffffff08;color:#fff1cd;font-size:14px;line-height:1.6;cursor:pointer;
+  && { background:#fee500;color:#191919;border-color:#fee500;font-weight:700; }
+  font-size:14px;line-height:1.6;cursor:pointer;
   &:disabled{opacity:.5;cursor:default;}
   &:focus-visible{outline:2px solid #edcf8a;outline-offset:3px;}
 `;
