@@ -55,6 +55,9 @@ export default function ReadingSelect() {
         ))}
       </CardList>
 
+      <PreviewLink href="/loading-preview">로딩화면 보기</PreviewLink>
+      <PreviewLink href="/loading-preview?mode=error">오류화면 보기</PreviewLink>
+
       <Notice role="status" aria-live="polite">
         {notice}
       </Notice>
@@ -222,4 +225,20 @@ const Notice = styled.p`
   font-weight: 700;
   line-height: 1.6;
   text-align: center;
+`;
+
+const PreviewLink = styled(Link)`
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-height: 46px;
+  margin-top: 20px;
+  padding: 12px 16px;
+  border: 1px solid rgb(242 206 114 / 45%);
+  border-radius: 12px;
+  color: #f2ce72;
+  background: rgb(255 255 255 / 4%);
+  font-size: 0.88rem;
+  &:focus-visible { outline: 2px solid #fff6dc; outline-offset: 3px; }
 `;

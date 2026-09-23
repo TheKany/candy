@@ -15,6 +15,8 @@ import type { TarotReadingResult } from "@/types/tarotReadingTypes";
 import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import Feedback from "./Feedback";
+import TartOvenStatus from "./TartOvenStatus";
+import { ReadingRequestError, type ReadingFailureCode } from "@/util/readingFailure";
 import { Shell, Header, Viewport, Track, Slide, SummaryCard, Overview, Eyebrow, Advice, CardPage, Position, Reading, Pager, NavButton, NavigationHint, Status } from "./ResultPager.styles";
 
 type ReadingResponse = (TarotReadingResult | ThreeCardReadingResult) & {
@@ -29,7 +31,8 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const deck = useReadingSessionStore((state) => state.deck);
   const usedPositions = useReadingSessionStore((state) => state.usedPositions);
   const [result, setResult] = useState<ReadingResponse | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<ReadingFailureCode | null>(null);
+  const [retrying, setRetrying] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [activePage, setActivePage] = useState(0);
   const [selectedQuestion, setSelectedQuestion] = useState("");
@@ -39,18 +42,17 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   useEffect(() => {
     if (cardIds.length !== count || !question.trim()) return;
     const controller = new AbortController();
-    setResult(null); setError(""); setActivePage(0); setSelectedQuestion("");
+    setResult(null); setError(null); setRetrying(false); setActivePage(0); setSelectedQuestion("");
     const timer = setTimeout(() => {
-      loadPersonalReading(mode, cardIds, controller.signal)
+      loadPersonalReading(mode, cardIds, controller.signal, () => { if (!controller.signal.aborted) setRetrying(true); })
         .then((value: ReadingResponse) => { if (!controller.signal.aborted) setResult(value); })
-        .catch((reason: Error) => { if (!controller.signal.aborted) setError(reason.message); });
+        .catch((reason: Error) => { if (!controller.signal.aborted) setError(reason instanceof ReadingRequestError ? reason.code : "unknown"); });
     }, 0);
     return () => { clearTimeout(timer); controller.abort(); };
   }, [mode, count, cardIds, question, attempt]);
 
   if (cardIds.length !== count || !question.trim()) return <Status><p>질문과 선택한 카드를 확인해주세요.</p><Link href="/topic">질문으로 돌아가기</Link></Status>;
-  if (error) return <Status><p>{error}</p><button onClick={() => setAttempt((value) => value + 1)}>같은 카드로 다시 해설하기</button><button onClick={onHome}>홈으로</button></Status>;
-  if (!result) return <Status role="status" aria-live="polite" aria-busy="true"><p>당신의 질문에 맞춰<br />카드의 이야기를 풀고 있어요.</p><small>해설과 이어서 살펴볼 질문을 함께 준비하고 있어요.</small></Status>;
+  if (error || !result) return <TartOvenStatus error={error} retrying={retrying} onRetry={() => setAttempt((value) => value + 1)} onHome={onHome} />;
 
   const single = "reading" in result ? result : null;
   const multi = "pages" in result ? result : null;

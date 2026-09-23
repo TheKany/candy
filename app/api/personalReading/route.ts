@@ -32,10 +32,10 @@ export async function POST(request: Request) {
     || !cardIds.every((id) => typeof id === "number" && Number.isInteger(id) && id >= 0 && id <= 77)) {
     return reply({ error: "질문과 선택한 카드를 다시 확인해주세요." }, 400);
   }
-  if (!process.env.GEMINI_API_KEY) return reply({ error: "해설 서버 설정을 확인해주세요." }, 503);
+  if (!process.env.GEMINI_API_KEY) return reply({ error: "해설 서버 설정을 확인해주세요.", code: "configuration" }, 503);
   try {
     const supabase = getSupabaseServer();
-    if (!supabase) return reply({ error: "카드 정보를 불러올 수 없어요." }, 503);
+    if (!supabase) return reply({ error: "카드 정보를 불러올 수 없어요.", code: "configuration" }, 503);
     const { data, error } = await supabase.from("tarot_card_profiles")
       .select("card_id,name_ko,name_en,arcana,suit,rank,upright_keywords,reversed_keywords,upright_one_line,reversed_one_line")
       .in("card_id", cardIds);
@@ -81,7 +81,7 @@ export async function POST(request: Request) {
       })),
     });
   } catch (error) {
-    if (error instanceof GeminiReadingError) return reply({ error: error.message }, error.status);
+    if (error instanceof GeminiReadingError) return reply({ error: error.message, code: error.code }, error.status);
     return reply({ error: "질문에 맞춘 해설을 완성하지 못했어요. 카드는 유지되니 다시 시도해주세요." }, 503);
   }
 }

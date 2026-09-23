@@ -2,6 +2,25 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { generateGeminiReading, GeminiReadingError } from "../util/geminiReading.ts";
 
+test("오류 코드는 과부하·설정·일일 한도·일반 한도를 구분한다", async (t) => {
+  const originalKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = "test-only";
+  t.after(() => { if (originalKey === undefined) delete process.env.GEMINI_API_KEY; else process.env.GEMINI_API_KEY = originalKey; });
+  for (const [status, details, expected] of [
+    [503, [], "busy"], [403, [], "configuration"],
+    [429, [], "quota"],
+    [429, [{ violations: [{ quotaId: "GenerateRequestsPerDayPerProjectPerModel-FreeTier" }] }], "daily_quota"],
+  ] as const) {
+    const mock = t.mock.method(globalThis, "fetch", async () => Response.json({ error: { details } }, { status }));
+    await assert.rejects(() => generateGeminiReading({}, 1, new AbortController().signal), (error: unknown) => {
+      assert.ok(error instanceof GeminiReadingError);
+      assert.equal((error as GeminiReadingError & { code: string }).code, expected);
+      return true;
+    });
+    mock.mock.restore();
+  }
+});
+
 test("Gemini quota errors stop without retrying or exposing upstream details", async (t) => {
   const originalKey = process.env.GEMINI_API_KEY;
   process.env.GEMINI_API_KEY = "test-only";
