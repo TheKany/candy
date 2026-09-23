@@ -56,7 +56,6 @@ export default function ReadingSelect() {
       </CardList>
 
       <PreviewLink href="/loading-preview">로딩화면 보기</PreviewLink>
-      <PreviewLink href="/loading-preview?mode=error">오류화면 보기</PreviewLink>
       <PreviewLink href="/card-preview">카드 훑어보기 체험</PreviewLink>
 
       <Notice role="status" aria-live="polite">
