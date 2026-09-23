@@ -48,7 +48,7 @@ export default function CardPreviewPage() {
           onPointerMove={event => { if (pointer.current === event.pointerId) browse(event); }}
           onPointerUp={release} onPointerCancel={release} onLostPointerCapture={() => { pointer.current = null; }}>
           {Array.from({ length: CARD_COUNT }, (_, index) => <Card key={index} $active={active === index}
-            style={{ left: `calc((100% - var(--card-width)) * ${index / (CARD_COUNT - 1)})`, zIndex: active === index ? CARD_COUNT + 1 : index }} aria-hidden="true">
+            style={{ left: `calc((100% - var(--card-width)) * ${index / (CARD_COUNT - 1)})`, zIndex: index }} aria-hidden="true">
             {active === index && <NumberBadge>{index + 1}번</NumberBadge>}
             <Back />
           </Card>)}
