@@ -8,6 +8,7 @@ import { handleResetStore } from "@/util/handleResetStore";
 import Loading from "@/components/_common/Loading";
 import { useResetData } from "@/hooks/useResetData";
 import OneCardResult from "@/components/result/OneCardResult";
+import MonthlyReadingResult from "@/components/result/MonthlyReadingResult";
 import ThreeCardResult from "@/components/result/ThreeCardResult";
 import CelticCrossResult from "@/components/result/CelticCrossResult";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
@@ -18,6 +19,10 @@ const Result = () => {
   const type = useTarotTypeStore((state) => state.type);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isLoading && !type) router.replace("/select");
+  }, [isLoading, type, router]);
 
   const onClickHome = () => {
     handleResetStore();
@@ -56,7 +61,9 @@ const Result = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        type === "three" ? (
+        type === "monthly" ? (
+          <MonthlyReadingResult onHome={onClickHome} />
+        ) : type === "three" ? (
           <ThreeCardResult onHome={onClickHome} />
         ) : type === "five" ? (
           <ThreeCardResult mode="five" onHome={onClickHome} />
