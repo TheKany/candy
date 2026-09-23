@@ -9,13 +9,17 @@ import {
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { handleResetStore } from "@/util/handleResetStore";
 import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
+import { getMonthlyPeriod, type MonthlyYearChoice } from "@/util/monthlyReading";
 
 export default function ReadingSelect() {
   const [notice, setNotice] = useState("");
+  const yearDialog = useRef<HTMLDialogElement>(null);
+  const [yearChoice, setYearChoice] = useState<MonthlyYearChoice>("current");
+  const [currentPeriod, setCurrentPeriod] = useState<ReturnType<typeof getMonthlyPeriod> | null>(null);
   const router = useRouter();
   const setType = useTarotTypeStore((state) => state.setType);
 
@@ -24,8 +28,10 @@ export default function ReadingSelect() {
 
     if (action.kind === "navigate") {
       if (action.type === "monthly") {
-        handleResetStore();
-        useMonthlyReadingStore.getState().start();
+        setCurrentPeriod(getMonthlyPeriod());
+        setYearChoice("current");
+        yearDialog.current?.showModal();
+        return;
       } else {
         useMonthlyReadingStore.getState().reset();
       }
@@ -66,6 +72,22 @@ export default function ReadingSelect() {
       <Notice role="status" aria-live="polite">
         {notice}
       </Notice>
+      <YearDialog ref={yearDialog} aria-labelledby="monthly-year-title">
+        <button className="close" type="button" aria-label="닫기" onClick={() => yearDialog.current?.close()}>×</button>
+        <h2 id="monthly-year-title">어느 해를 살펴볼까요?</h2>
+        <div className="choices">
+          <button type="button" aria-pressed={yearChoice === "current"} onClick={() => setYearChoice("current")}>올해<strong>{currentPeriod?.year}년</strong></button>
+          <button type="button" aria-pressed={yearChoice === "next"} onClick={() => setYearChoice("next")}>다음 해<strong>{currentPeriod ? currentPeriod.year + 1 : ""}년</strong></button>
+        </div>
+        <p aria-live="polite">{yearChoice === "current" ? `${currentPeriod?.startMonth ?? ""}월부터 12월까지, ${currentPeriod?.months.length ?? ""}장` : "1월부터 12월까지, 12장"}의 카드를 골라요.</p>
+        <button className="start" type="button" onClick={() => {
+          handleResetStore();
+          useMonthlyReadingStore.getState().start(yearChoice);
+          setType("monthly");
+          yearDialog.current?.close();
+          router.push("/shuffle");
+        }}>카드 고르러 가기</button>
+      </YearDialog>
     </Main>
   );
 }
@@ -230,4 +252,21 @@ const Notice = styled.p`
   font-weight: 700;
   line-height: 1.6;
   text-align: center;
+`;
+
+const YearDialog = styled.dialog`
+  box-sizing:border-box;width:calc(100% - 32px);max-width:360px;max-height:calc(100dvh - 32px);
+  margin:auto;padding:38px 20px 24px;overflow-y:auto;border:1px solid #d8bf8a;border-radius:24px;
+  background:#fff8e9;color:#214433;text-align:center;
+  &::backdrop{background:#03150fbb;backdrop-filter:blur(4px);}
+  h2{font-size:20px;line-height:1.6;margin:0 0 22px;word-break:keep-all;}
+  button{font:inherit;cursor:pointer;}
+  .close{position:absolute;top:8px;right:8px;width:36px;height:36px;color:#214433;font-size:24px;}
+  .choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .choices button{min-width:0;padding:16px 6px;border:1px solid #b9b9a6;border-radius:14px;color:#214433;background:transparent;}
+  strong{display:block;font-size:13px;margin-top:5px;}
+  [aria-pressed="true"]{background:#214433!important;color:#fff5dd!important;border-color:#214433!important;}
+  p{font-size:13px;line-height:1.8;margin:20px 0;word-break:keep-all;}
+  .start{width:100%;min-height:48px;padding:12px 8px;border-radius:12px;background:#edcf8a;color:#214433;font-weight:700;}
+  button:focus-visible{outline:2px solid #947942;outline-offset:3px;}
 `;
