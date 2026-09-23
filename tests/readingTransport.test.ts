@@ -1,5 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+
+test("응답 본문 수신 중 끊김과 시간 초과도 해당 오류 화면 코드로 전달한다", async (t) => {
+  for (const [failure, expected] of [[new TypeError("connection lost"), "network"], [new DOMException("late", "TimeoutError"), "timeout"]] as const) {
+    const response = new Response(new ReadableStream({ start(controller) { controller.error(failure); } }));
+    const mock = t.mock.method(globalThis, "fetch", async () => response);
+    await assert.rejects(() => requestPersonalReading({}, new AbortController().signal), (error: unknown) => error instanceof ReadingRequestError && error.code === expected);
+    mock.mock.restore();
+  }
+});
 import { requestPersonalReading } from "../util/readingTransport.ts";
 import { ReadingRequestError } from "../util/readingFailure.ts";
 

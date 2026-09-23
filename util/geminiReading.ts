@@ -23,6 +23,8 @@ export async function generateGeminiJSON(systemPrompt: string, input: string, sc
   if (!key || typeof window !== "undefined") throw new GeminiReadingError("AI 서버 설정을 확인해주세요.", 503, "configuration");
   const model = process.env.GEMINI_READING_MODEL || "gemini-3.6-flash";
   let response: Response;
+  let body;
+  const requestSignal = AbortSignal.any([signal, AbortSignal.timeout(90000)]);
   try {
   response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: "POST",
@@ -35,15 +37,19 @@ export async function generateGeminiJSON(systemPrompt: string, input: string, sc
         temperature: 1, maxOutputTokens, thinkingConfig: { thinkingLevel: "low" },
       },
     }),
-    signal: AbortSignal.any([signal, AbortSignal.timeout(90000)]), cache: "no-store",
+    signal: requestSignal, cache: "no-store",
+  });
+  body = await response.json().catch((error: unknown) => {
+    if (error instanceof SyntaxError) return null;
+    throw error;
   });
   } catch (error) {
     if (signal.aborted) throw error;
-    const timeout = error instanceof Error && error.name === "TimeoutError";
+    const cause = requestSignal.aborted ? requestSignal.reason : error;
+    const timeout = cause instanceof Error && cause.name === "TimeoutError";
     throw new GeminiReadingError(timeout ? "해설 응답 시간이 초과됐어요." : "해설 서버와의 연결이 끊겼어요.", 503, timeout ? "timeout" : "network");
   }
   if (!response.ok) {
-    const body = await response.json().catch(() => null);
     const dailyQuota = response.status === 429 && Array.isArray(body?.error?.details)
       && body.error.details.some((detail: { violations?: Array<{ quotaId?: string }> }) =>
         Array.isArray(detail?.violations) && detail.violations.some((violation) => typeof violation?.quotaId === "string" && /perday/i.test(violation.quotaId)));
@@ -55,7 +61,7 @@ export async function generateGeminiJSON(systemPrompt: string, input: string, sc
     console.warn("Gemini request failed", { status: response.status, code });
     throw new GeminiReadingError(response.status === 429 ? "AI 요청 한도에 도달했어요." : "해설을 준비하지 못했어요.", response.status === 429 ? 429 : 503, code);
   }
-  const body = await response.json();
+  if (!body || typeof body !== "object") throw new GeminiReadingError("해설의 형식이 완성되지 않았어요.", 503, "incomplete");
   const candidate = body.candidates?.[0];
   if (body.promptFeedback?.blockReason || ["SAFETY", "RECITATION", "PROHIBITED_CONTENT", "BLOCKLIST", "SPII", "IMAGE_SAFETY"].includes(candidate?.finishReason)) {
     throw new GeminiReadingError("질문을 다른 표현으로 바꿔주세요.", 422, "blocked");

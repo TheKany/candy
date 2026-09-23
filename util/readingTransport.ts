@@ -14,16 +14,22 @@ export async function requestPersonalReading(payload: unknown, signal: AbortSign
   for (let attempt = 0; attempt < 2; attempt++) {
     signal.throwIfAborted();
     let response: Response;
+    let data;
+    const requestSignal = AbortSignal.any([signal, AbortSignal.timeout(105000)]);
     try {
       response = await fetch("/api/personalReading", {
         method: "POST", headers: { "Content-Type": "application/json" }, body,
-        signal: AbortSignal.any([signal, AbortSignal.timeout(105000)]),
+        signal: requestSignal,
+      });
+      data = await response.json().catch((error: unknown) => {
+        if (error instanceof SyntaxError) return null;
+        throw error;
       });
     } catch (error) {
       if (signal.aborted) throw error;
-      throw new ReadingRequestError(error instanceof Error && error.name === "TimeoutError" ? "timeout" : "network");
+      const cause = requestSignal.aborted ? requestSignal.reason : error;
+      throw new ReadingRequestError(cause instanceof Error && cause.name === "TimeoutError" ? "timeout" : "network");
     }
-    const data = await response.json().catch(() => null);
     if (response.ok) {
       if (!data || typeof data !== "object") throw new ReadingRequestError("incomplete");
       return data;

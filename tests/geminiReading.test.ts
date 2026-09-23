@@ -1,5 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+
+test("응답 본문 수신 중 끊김과 시간 초과도 해당 오류 화면 코드로 전달한다", async (t) => {
+  const originalKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = "test-only";
+  t.after(() => { if (originalKey === undefined) delete process.env.GEMINI_API_KEY; else process.env.GEMINI_API_KEY = originalKey; });
+  for (const [failure, expected] of [[new TypeError("connection lost"), "network"], [new DOMException("late", "TimeoutError"), "timeout"]] as const) {
+    const response = new Response(new ReadableStream({ start(controller) { controller.error(failure); } }));
+    const mock = t.mock.method(globalThis, "fetch", async () => response);
+    await assert.rejects(() => generateGeminiReading({}, 1, new AbortController().signal), (error: unknown) => error instanceof GeminiReadingError && error.code === expected);
+    mock.mock.restore();
+  }
+});
 import { generateGeminiReading, GeminiReadingError } from "../util/geminiReading.ts";
 
 test("오류 코드는 과부하·설정·일일 한도·일반 한도를 구분한다", async (t) => {
