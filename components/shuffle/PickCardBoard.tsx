@@ -38,15 +38,21 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   useEffect(() => {
     if (!finishedShuffle) return;
 
-    slotRef.current.forEach((el, i) => {
+    const measure = () => slotRef.current.forEach((el, i) => {
       if (!el) return;
       const rect = el.getBoundingClientRect();
       setSlotPosition(i, {
         top: rect.top + window.scrollY,
         left: rect.left + window.scrollX,
+        width: type === "monthly" ? el.parentElement!.getBoundingClientRect().width : undefined,
       });
     });
-  }, [finishedShuffle, cardCount, setSlotPosition]);
+    measure();
+    const observer = new ResizeObserver(measure);
+    const container = slotRef.current[0]?.parentElement?.parentElement;
+    if (container) observer.observe(container);
+    return () => observer.disconnect();
+  }, [finishedShuffle, cardCount, setSlotPosition, type]);
 
   if (type === "celtic") {
     return <CelticCrossPickBoard finishedShuffle={finishedShuffle} />;
@@ -56,7 +62,7 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
     <PickCardContainer $isFinish={finishedShuffle} $col={cardCount} $monthly={type === "monthly"}>
       {Array.from({ length: cardCount }).map((_, i) => (
         <PickCard key={i} aria-label={`선택한 카드 ${i + 1} 자리`}>
-          <SlotLabel>{type === "monthly" ? `${monthlyPeriod?.months[i]}월` : type === "three" || type === "five" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
+          <SlotLabel $overlap={type === "monthly" && cardCount >= 5}>{type === "monthly" ? `${monthlyPeriod?.months[i]}월` : type === "three" || type === "five" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
           <CardPosition
             ref={(el) => {
               slotRef.current[i] = el;
@@ -95,11 +101,20 @@ const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number; $monthl
   & > div:nth-child(4) {
     grid-column: ${({ $col }) => $col === 5 ? "2 / span 2" : "auto"};
   }
-  ${({ $monthly }) => $monthly && `
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    grid-auto-rows:132px;
-    & > div, & > div:nth-child(4){grid-column:auto;}
-    @media(min-width:380px){grid-template-columns:repeat(3,minmax(0,1fr));}
+  ${({ $monthly, $col }) => $monthly && `
+    display:flex;
+    justify-content:center;
+    gap:${$col >= 5 ? "0" : "12px"};
+    min-height:108px;
+    height:108px;
+    margin-bottom:8px;
+    & > div {
+      flex:none;
+      width:min(50px, calc(200% / ${Math.max(1, $col + 1)}));
+      border-radius:7px;
+    }
+    & > div + div { margin-left:${$col >= 5 ? `max(-25px, calc(-100% / ${$col + 1}))` : "0"}; }
+    & > div > div { top:65px; }
   `}
 `;
 
@@ -121,13 +136,15 @@ const CardPosition = styled.div`
   left: 50%;
 `;
 
-const SlotLabel = styled.span`
+const SlotLabel = styled.span<{ $overlap?: boolean }>`
   position: absolute;
   top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: ${({ $overlap }) => $overlap ? "0" : "50%"};
+  width: ${({ $overlap }) => $overlap ? "50%" : "auto"};
+  text-align:center;
+  transform: ${({ $overlap }) => $overlap ? "none" : "translateX(-50%)"};
   color: rgba(212, 175, 55, 0.82);
-  font-size: clamp(9px, 3vw, 12px);
+  font-size: ${({ $overlap }) => $overlap ? "clamp(9px, 2.5vw, 11px)" : "clamp(9px, 3vw, 12px)"};
   white-space: nowrap;
 `;
 

@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface SlotPosition {
   top: number;
   left: number;
+  width?: number;
 }
 
 interface PickCardSlotStore {

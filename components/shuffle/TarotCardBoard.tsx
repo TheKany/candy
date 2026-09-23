@@ -103,7 +103,9 @@ const TarotCardBoard = ({
       cardEl.style.left = `${targetPosition.left}px`;
       const targetTransform = type === "celtic"
         ? `translate(-50%, -50%) rotate(${order === 1 ? 90 : 0}deg) scale(0.55)`
-        : "translate(-50%, -50%) rotate(0deg)";
+        : type === "monthly"
+          ? `translate(-50%, -50%) rotate(0deg) scale(${Math.min(1, (slotPos.width ?? CARD_WIDTH) / CARD_WIDTH)})`
+          : "translate(-50%, -50%) rotate(0deg)";
       cardEl.style.transform = targetTransform;
       cardEl.style.transition = `top 0.72s cubic-bezier(0.22, 0.72, 0.28, 1), left 0.72s cubic-bezier(0.22, 0.72, 0.28, 1), transform 0.72s ease`;
       cardEl.style.transitionDelay = "0ms";
