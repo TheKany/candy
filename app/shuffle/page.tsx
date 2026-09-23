@@ -43,6 +43,7 @@ const ShufflePage = () => {
   const [finishedShuffle, setFinishedShuffle] = useState(false);
   const [deck, setDeck] = useState<number[]>([]);
   const [selectionLocked, setSelectionLocked] = useState(false);
+  const [number, setNumber] = useState("");
   const [mounted, setMounted] = useState(false);
   const hasGatheredCards = useRef(false);
   const resultTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -192,6 +193,9 @@ const ShufflePage = () => {
             cardCnt={cardCnt}
             onOrbitComplete={gatherCards}
             onCardRevealComplete={handleCardRevealComplete}
+            browsingEnabled={finishedShuffle && !selectionLocked}
+            browsedPosition={Number(number) || null}
+            onBrowse={(position) => setNumber(String(position))}
           />
 
           <PickCardBoard finishedShuffle={finishedShuffle} />
@@ -201,6 +205,8 @@ const ShufflePage = () => {
             deck={deck}
             selectionLocked={selectionLocked}
             onSelectionStarted={() => setSelectionLocked(true)}
+            number={number}
+            setNumber={setNumber}
           />
         </>
       ) : null}

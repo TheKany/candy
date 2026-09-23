@@ -25,6 +25,9 @@ type Props = {
   cardCnt: number;
   onOrbitComplete: () => void;
   onCardRevealComplete: () => void;
+  browsingEnabled: boolean;
+  browsedPosition: number | null;
+  onBrowse: (position: number) => void;
 };
 
 const TarotCardBoard = ({
@@ -33,6 +36,9 @@ const TarotCardBoard = ({
   cardCnt,
   onOrbitComplete,
   onCardRevealComplete,
+  browsingEnabled,
+  browsedPosition,
+  onBrowse,
 }: Props) => {
   const slotPositions = usePickCardStoreSlotStore(
     (state) => state.slotPositions
@@ -45,6 +51,19 @@ const TarotCardBoard = ({
   const orientations = useCardOrientationStore((state) => state.orientations);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const completedRevealIndexes = useRef(new Set<number>());
+  const pointer = useRef<number | null>(null);
+  const browse = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!browsingEnabled) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const progress = (event.clientX - bounds.left - CARD_WIDTH / 2) / Math.max(1, bounds.width - CARD_WIDTH);
+    const position = Math.max(1, Math.min(cardCnt, Math.round(progress * (cardCnt - 1)) + 1));
+    if (!usedPositions.includes(position)) onBrowse(position);
+  };
+  const release = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (pointer.current !== event.pointerId) return;
+    pointer.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
   const [revealedCardIndexes, setRevealedCardIndexes] = useState<Set<number>>(
     new Set()
   );
@@ -134,6 +153,8 @@ const TarotCardBoard = ({
                     }
                   }}
                 >
+                  <CardLift $raised={browsingEnabled && !isPicked && browsedPosition === index + 1}>
+                  {browsingEnabled && !isPicked && browsedPosition === index + 1 && <NumberBadge>{index + 1}번</NumberBadge>}
                   <CardFlipper
                     $isRevealed={isRevealed}
                     onTransitionEnd={(event) => {
@@ -168,10 +189,31 @@ const TarotCardBoard = ({
                       )}
                     </CardFace>
                   </CardFlipper>
+                  </CardLift>
                 </CardBox>
               </OrbitLayer>
             );
           })}
+        {shuffleStep === 4 && <BrowseArea role="slider" tabIndex={browsingEnabled ? 0 : -1}
+          aria-label="카드 훑어보기" aria-disabled={!browsingEnabled} aria-valuemin={1} aria-valuemax={cardCnt}
+          aria-valuenow={browsedPosition ?? 1} aria-valuetext={browsedPosition ? `${browsedPosition}번 카드` : "카드를 좌우로 훑어보세요"}
+          onKeyDown={event => {
+            if (!browsingEnabled || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+            event.preventDefault();
+            const direction = event.key === "ArrowLeft" || event.key === "End" ? -1 : 1;
+            let position = event.key === "Home" ? 1 : event.key === "End" ? cardCnt : (browsedPosition ?? (direction > 0 ? 0 : cardCnt + 1)) + direction;
+            while (position >= 1 && position <= cardCnt && usedPositions.includes(position)) position += direction;
+            if (position >= 1 && position <= cardCnt) onBrowse(position);
+          }}
+          onPointerDown={event => {
+            if (!browsingEnabled || !event.isPrimary || event.button !== 0) return;
+            pointer.current = event.pointerId;
+            event.currentTarget.focus({ preventScroll: true });
+            event.currentTarget.setPointerCapture(event.pointerId);
+            browse(event);
+          }}
+          onPointerMove={event => { if (pointer.current === event.pointerId) browse(event); }}
+          onPointerUp={release} onPointerCancel={release} onLostPointerCapture={() => { pointer.current = null; }} />}
       </Box>
       {shuffleStep === 4 && (
         <DeckRange aria-label="카드 위치는 왼쪽 1번부터 오른쪽 78번까지입니다">
@@ -187,9 +229,9 @@ export default TarotCardBoard;
 
 const CardContainer = styled.div`
   width: min(300px, calc(100% - 64px));
-  height: 300px;
+  height: 332px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 132px;
   position: relative;
 `;
 
@@ -263,6 +305,27 @@ const CardBox = styled.div<{
   transition-delay: ${({ $motionIndex }) => ($motionIndex % 11) * 14 * SHUFFLE_TIME_SCALE}ms;
 `;
 
+const BrowseArea = styled.div`
+  position:absolute;z-index:100;top:-${CARD_HEIGHT + 32}px;left:-${CARD_WIDTH / 2}px;
+  width:calc(100% + ${CARD_WIDTH}px);height:${CARD_HEIGHT * 1.5 + 32}px;
+  touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize;border-radius:8px;
+  &:focus-visible{outline:1px solid #edcf8a60;outline-offset:4px;}
+  &[aria-disabled="true"]{pointer-events:none;}
+`;
+
+const CardLift = styled.div<{ $raised: boolean }>`
+  width:100%;height:100%;position:relative;
+  transform:translateY(${({ $raised }) => $raised ? "-50%" : "0"});
+  transition:transform 210ms cubic-bezier(.2,.8,.3,1);
+  @media(prefers-reduced-motion:reduce){transition:none;}
+`;
+
+const NumberBadge = styled.span`
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  padding:4px 8px;border-radius:20px;background:#edd394;color:#193b2d;
+  font-size:12px;font-weight:700;white-space:nowrap;pointer-events:none;
+`;
+
 const CardFlipper = styled.div<{ $isRevealed: boolean }>`
   width: 100%;
   height: 100%;
@@ -287,7 +350,7 @@ const CardFace = styled.div<{ $isFront?: boolean; $isReversed?: boolean }>`
 
 const DeckRange = styled.div`
   position: absolute;
-  top: 153px;
+  top: 185px;
   left: 8px;
   right: 8px;
   display: flex;

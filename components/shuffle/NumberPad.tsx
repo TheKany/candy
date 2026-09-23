@@ -1,6 +1,6 @@
 import { useUserPickNum } from "@/store/useUserPickNumStore";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getCardAtPosition } from "@/util/cardSelectionFlow";
 import { getNextPositionLabel } from "@/util/cardSelectionFlow";
@@ -14,6 +14,8 @@ type Props = {
   deck: number[];
   selectionLocked: boolean;
   onSelectionStarted: () => void;
+  number: string;
+  setNumber: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const NumberPad = ({
@@ -21,6 +23,8 @@ const NumberPad = ({
   deck,
   selectionLocked,
   onSelectionStarted,
+  number,
+  setNumber,
 }: Props) => {
   const { setInput, setRealCard } = useUserPickNum();
   const type = useTarotTypeStore((state) => state.type);
@@ -28,8 +32,8 @@ const NumberPad = ({
   const addOrientation = useCardOrientationStore((state) => state.addOrientation);
 
   const [pickedNumList, setPickNumList] = useState<number[]>([]);
-  const [number, setNumber] = useState("");
   const [error, setError] = useState("");
+  useEffect(() => setError(""), [number]);
   const usedPositions = useReadingSessionStore((state) => state.usedPositions);
   const isFollowUp = useReadingSessionStore((state) => state.previousConsultation !== null);
   const nextPositionLabel = getNextPositionLabel(type, spread, pickedNumList.length);
@@ -96,7 +100,7 @@ const NumberPad = ({
         </TypingLabel>
         <TypingNumber>{number || "—"}</TypingNumber>
       </Typing>
-      <InfoText>[ 1 ~ 78번까지의 카드 중에서 골라주세요. ]</InfoText>
+      <InfoText>카드를 훑거나 번호를 입력한 뒤 결정해주세요.</InfoText>
       {isFollowUp && <InfoText>남은 카드 {deck.length - usedPositions.length}장 · 기존 번호 그대로</InfoText>}
       {error && <InfoText role="alert">{error}</InfoText>}
       <NumberContainer>
