@@ -1,20 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import { SHUFFLE_GUIDANCE } from "@/util/cardSelectionFlow";
+import { useTarotTypeStore } from "@/store/useTarotTypeStore";
+import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 
 type Props = {
   finishedShuffle: boolean;
 };
 
 const InfoText = ({ finishedShuffle }: Props) => {
+  const monthly = useTarotTypeStore(state => state.type === "monthly");
+  const period = useMonthlyReadingStore(state => state.period);
   return (
     <TextContainer aria-live="polite">
       {!finishedShuffle ? (
-        <ShuffleMessage>{SHUFFLE_GUIDANCE.shuffling}</ShuffleMessage>
+        <ShuffleMessage>{monthly ? "카드를 섞는 동안 앞으로의 나날을 떠올려보세요." : SHUFFLE_GUIDANCE.shuffling}</ShuffleMessage>
       ) : (
         <>
-          <ReadyMessage>{SHUFFLE_GUIDANCE.ready}</ReadyMessage>
-          <WarningMessage>{SHUFFLE_GUIDANCE.warning}</WarningMessage>
+          <ReadyMessage>{monthly && period ? `${period.year}년 ${period.startMonth}월부터 12월까지` : SHUFFLE_GUIDANCE.ready}</ReadyMessage>
+          <WarningMessage>{monthly && period ? `달마다 한 장씩, ${period.months.length}장을 골라주세요` : SHUFFLE_GUIDANCE.warning}</WarningMessage>
         </>
       )}
     </TextContainer>

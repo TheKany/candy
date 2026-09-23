@@ -20,6 +20,7 @@ import { shouldOpenResultAfterReveal } from "@/util/cardSelectionFlow";
 import { getReadingFlowRedirect } from "@/util/tarotFlow";
 import { useRouter } from "next/navigation";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
+import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 
 type PositionProps = {
   top: string;
@@ -36,6 +37,7 @@ const ShufflePage = () => {
   const pickedCount = useUserPickNum((state) => state.inputs.length);
   const previousConsultation = useReadingSessionStore((state) => state.previousConsultation);
   const isFollowUp = previousConsultation !== null;
+  const monthlyPeriod = useMonthlyReadingStore((state) => state.period);
 
   const [cardCnt, setCardCnt] = useState<number>(0);
   const [positions, setPositions] = useState<PositionProps[]>([]);
@@ -52,7 +54,8 @@ const ShufflePage = () => {
     const revealCompletesSelection = shouldOpenResultAfterReveal(
       type,
       pickedCount,
-      true
+      true,
+      monthlyPeriod?.months.length ?? 0,
     );
 
     if (!revealCompletesSelection) {
@@ -146,13 +149,15 @@ const ShufflePage = () => {
 
   useEffect(() => {
     if (!mounted) return;
+    if (type === "monthly" && !monthlyPeriod) { router.replace("/select"); return; }
 
     const redirect = getReadingFlowRedirect(type, question, spread);
     if (redirect) router.replace(redirect);
-  }, [mounted, router, spread, question, type]);
+  }, [mounted, router, spread, question, type, monthlyPeriod]);
 
   useEffect(() => {
     if (!mounted || getReadingFlowRedirect(type, question, spread)) return;
+    if (type === "monthly" && !monthlyPeriod) return;
 
     if (isFollowUp) {
       const savedDeck = useReadingSessionStore.getState().deck;
@@ -171,7 +176,7 @@ const ShufflePage = () => {
     };
 
     onLoadData();
-  }, [mounted, spread, question, type, isFollowUp, router, setShuffleStep]);
+  }, [mounted, spread, question, type, isFollowUp, router, setShuffleStep, monthlyPeriod]);
 
   useEffect(() => {
     return () => {

@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
+import { handleResetStore } from "@/util/handleResetStore";
+import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 
 export default function ReadingSelect() {
   const [notice, setNotice] = useState("");
@@ -21,6 +23,12 @@ export default function ReadingSelect() {
     const action = getTarotSelectionAction(id);
 
     if (action.kind === "navigate") {
+      if (action.type === "monthly") {
+        handleResetStore();
+        useMonthlyReadingStore.getState().start();
+      } else {
+        useMonthlyReadingStore.getState().reset();
+      }
       setType(action.type);
       router.push(action.href);
       return;

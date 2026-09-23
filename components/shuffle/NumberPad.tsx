@@ -3,7 +3,8 @@ import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getCardAtPosition } from "@/util/cardSelectionFlow";
-import { getNextPositionLabel } from "@/util/cardSelectionFlow";
+import { getNextPositionLabel, getRequiredCardCount } from "@/util/cardSelectionFlow";
+import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { useCardOrientationStore } from "@/store/useCardOrientationStore";
 import { getRandomOrientation } from "@/constants/celticCrossPositions";
@@ -36,7 +37,8 @@ const NumberPad = ({
   useEffect(() => setError(""), [number]);
   const usedPositions = useReadingSessionStore((state) => state.usedPositions);
   const isFollowUp = useReadingSessionStore((state) => state.previousConsultation !== null);
-  const nextPositionLabel = getNextPositionLabel(type, spread, pickedNumList.length);
+  const monthlyPeriod = useMonthlyReadingStore(state => state.period);
+  const nextPositionLabel = getNextPositionLabel(type, spread, pickedNumList.length, monthlyPeriod?.months);
 
   const onClickNumberBtn = (id: number | string) => {
     if (selectionLocked) return;
@@ -70,10 +72,7 @@ const NumberPad = ({
       if (usedPositions.includes(cardNum)) { setError("이미 뽑은 카드예요. 다른 번호를 골라주세요."); return; }
 
       // 선택 개수 초과 no
-      if (type === "one" && pickedNumList.length >= 1) return;
-      if (type === "three" && pickedNumList.length >= 3) return;
-      if (type === "five" && pickedNumList.length >= 5) return;
-      if (type === "celtic" && pickedNumList.length >= 10) return;
+      if (pickedNumList.length >= getRequiredCardCount(type, monthlyPeriod?.months.length)) return;
       if (type === null) return;
 
       const realCard = getCardAtPosition(deck, cardNum);
@@ -94,7 +93,7 @@ const NumberPad = ({
     <Box $isFinish={finishedShuffle}>
       <Typing aria-live="polite">
         <TypingLabel>
-          {(type === "three" || type === "five" || type === "celtic") && nextPositionLabel
+          {type === "monthly" && nextPositionLabel ? `${nextPositionLabel} 카드 고르기` : (type === "three" || type === "five" || type === "celtic") && nextPositionLabel
             ? `${pickedNumList.length + 1}번째 · ${nextPositionLabel} 카드 고르기`
             : "고른 운명의 카드"}
         </TypingLabel>

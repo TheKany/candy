@@ -7,6 +7,7 @@ export const getReadingFlowRedirect = (
   _spread: ThreeCardSpreadId | null = null,
 ): "/select" | "/spread" | "/topic" | null => {
   if (!type) return "/select";
+  if (type === "monthly") return null;
   if (!question?.trim()) return "/topic";
   return null;
 };

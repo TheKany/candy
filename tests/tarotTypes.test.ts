@@ -10,8 +10,9 @@ test("exposes every product reading exactly once in display order", () => {
     TAROT_TYPES.map(({ id, title, subtitle, available }) => ({ id, title, subtitle, available })),
     [
       { id: "one", title: "원 오라클", subtitle: "한 장의 메시지", available: true },
-      { id: "three", title: "쓰리카드", subtitle: "과거 · 현재 · 미래", available: true },
+      { id: "three", title: "쓰리카드", subtitle: "현재 상황 · 핵심 요인 · 조언과 방향", available: true },
       { id: "five", title: "파이브카드", subtitle: "상황 · 원인 · 장애물 · 조언 · 결과", available: true },
+      { id: "monthly", title: "월별 타로", subtitle: "이번 달부터 연말까지의 흐름", available: true },
     ],
   );
 });
@@ -20,4 +21,5 @@ test("routes available readings to their first step and blocks unfinished readin
   assert.deepEqual(getTarotSelectionAction("one"), { kind: "navigate", href: "/topic", type: "one" });
   assert.deepEqual(getTarotSelectionAction("three"), { kind: "navigate", href: "/topic", type: "three" });
   assert.deepEqual(getTarotSelectionAction("five"), { kind: "navigate", href: "/topic", type: "five" });
+  assert.deepEqual(getTarotSelectionAction("monthly"), { kind: "navigate", href: "/shuffle", type: "monthly" });
 });

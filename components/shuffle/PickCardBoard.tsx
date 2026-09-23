@@ -6,6 +6,7 @@ import styled from "styled-components";
 import CelticCrossPickBoard from "./CelticCrossPickBoard";
 import { getRequiredCardCount } from "@/util/cardSelectionFlow";
 import { FIVE_CARD_POSITIONS } from "@/constants/fiveCardPositions";
+import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 
 type Props = {
   finishedShuffle: boolean;
@@ -13,6 +14,7 @@ type Props = {
 
 const PickCardBoard = ({ finishedShuffle }: Props) => {
   const type = useTarotTypeStore((state) => state.type);
+  const monthlyPeriod = useMonthlyReadingStore(state => state.period);
   const setSlotPosition = usePickCardStoreSlotStore(
     (state) => state.setSlotPosition
   );
@@ -29,9 +31,9 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
 
   useEffect(() => {
     if (type !== null) {
-      setCardCount(getRequiredCardCount(type));
+      setCardCount(getRequiredCardCount(type, monthlyPeriod?.months.length));
     }
-  }, [type]);
+  }, [type, monthlyPeriod]);
 
   useEffect(() => {
     if (!finishedShuffle) return;
@@ -51,10 +53,10 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
   }
 
   return (
-    <PickCardContainer $isFinish={finishedShuffle} $col={cardCount}>
+    <PickCardContainer $isFinish={finishedShuffle} $col={cardCount} $monthly={type === "monthly"}>
       {Array.from({ length: cardCount }).map((_, i) => (
         <PickCard key={i} aria-label={`선택한 카드 ${i + 1} 자리`}>
-          <SlotLabel>{type === "three" || type === "five" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
+          <SlotLabel>{type === "monthly" ? `${monthlyPeriod?.months[i]}월` : type === "three" || type === "five" ? `${i + 1}번째 카드` : "선택한 카드"}</SlotLabel>
           <CardPosition
             ref={(el) => {
               slotRef.current[i] = el;
@@ -71,7 +73,7 @@ const PickCardBoard = ({ finishedShuffle }: Props) => {
 
 export default PickCardBoard;
 
-const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
+const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number; $monthly: boolean }>`
   width: min(calc(100% - 32px), 340px);
   min-height: ${({ $col }) => ($col === 5 ? "264px" : $col === 3 ? "148px" : "124px")};
   margin: 4px auto 14px;
@@ -93,6 +95,12 @@ const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number }>`
   & > div:nth-child(4) {
     grid-column: ${({ $col }) => $col === 5 ? "2 / span 2" : "auto"};
   }
+  ${({ $monthly }) => $monthly && `
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-auto-rows:132px;
+    & > div, & > div:nth-child(4){grid-column:auto;}
+    @media(min-width:380px){grid-template-columns:repeat(3,minmax(0,1fr));}
+  `}
 `;
 
 const PickCard = styled.div`

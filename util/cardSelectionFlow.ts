@@ -8,7 +8,8 @@ export const SHUFFLE_GUIDANCE = {
   warning: "운명은 한번 결정하면 되돌릴 수 없습니다",
 } as const;
 
-export const getRequiredCardCount = (type: string | null): number => {
+export const getRequiredCardCount = (type: string | null, monthlyCount = 0): number => {
+  if (type === "monthly") return monthlyCount;
   if (type === "one") return 1;
   if (type === "three") return 3;
   if (type === "five") return 5;
@@ -20,7 +21,9 @@ export const getNextPositionLabel = (
   type: string | null,
   _spread: ThreeCardSpreadId | null,
   pickedCount: number,
+  monthlyMonths: number[] = [],
 ): string | null => {
+  if (type === "monthly") return monthlyMonths[pickedCount] ? `${monthlyMonths[pickedCount]}월` : null;
   if (type === "celtic") return getCelticCrossPosition(pickedCount)?.label ?? null;
   if (type === "five") return getFiveCardPosition(pickedCount)?.label ?? null;
   if (type !== "three") return pickedCount === 0 ? "선택한 카드" : null;
@@ -41,9 +44,11 @@ export const getCardAtPosition = (
 export const shouldOpenResultAfterReveal = (
   type: string | null,
   pickedCount: number,
-  revealComplete: boolean
+  revealComplete: boolean,
+  monthlyCount = 0,
 ) => {
   if (!revealComplete) return false;
+  if (type === "monthly") return monthlyCount > 0 && pickedCount === monthlyCount;
   if (type === "one" || type === "Yn") return pickedCount === 1;
   if (type === "three") return pickedCount === 3;
   if (type === "five") return pickedCount === 5;

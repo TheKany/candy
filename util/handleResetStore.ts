@@ -8,6 +8,7 @@ import { useThreeCardSpreadStore } from "@/store/useThreeCardSpreadStore";
 import { useCardOrientationStore } from "@/store/useCardOrientationStore";
 import { useQuestionStore } from "@/store/useQuestionStore";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
+import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 
 export const handleResetCardProgress = () => {
   usePickCardStoreSlotStore.getState().resetSlotPositions();
@@ -17,6 +18,7 @@ export const handleResetCardProgress = () => {
 };
 
 export const handleResetStore = () => {
+  useMonthlyReadingStore.getState().reset();
   useReadingSessionStore.getState().reset();
   useQuestionStore.getState().reset();
   handleResetCardProgress();
