@@ -69,11 +69,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4184442303277144"
-        crossOrigin="anonymous"
-      />
       <body>
         <PwaRegister />
         <Container>{children}</Container>
