@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { formatTarotVisitCount } from "@/util/tarotVisitCount";
 import InstallGuide from "./InstallGuide";
+import UsageGuide from "./UsageGuide";
 
 export default function HomeLanding() {
   const [visitCount, setVisitCount] = useState<number | null>(null);
@@ -38,6 +39,7 @@ export default function HomeLanding() {
 
   return (
     <Main>
+      <UsageGuide />
       <Eyebrow>{HOME_CONTENT.eyebrow}</Eyebrow>
       <Hero>
         <Artwork>
@@ -129,6 +131,7 @@ const Eyebrow = styled.p`
   position: relative;
   z-index: 1;
   margin: 0;
+  padding: 0 40px;
   color: #f2ce72;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.75rem;
