@@ -64,6 +64,7 @@ export default function HomeLanding() {
       <StartLink href={HOME_CONTENT.href}>
         {HOME_CONTENT.cta}<span aria-hidden>✦</span>
       </StartLink>
+      <ExampleLink href="/reading-example">어떤 해설을 받게 될까요? <span>해설 미리보기 ›</span></ExampleLink>
     </Main>
   );
 }
@@ -77,6 +78,14 @@ const reducedMotion = `
       animation: none !important;
     }
   }
+`;
+
+const ExampleLink = styled(Link)`
+  position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; column-gap: 10px; row-gap: 4px; min-height: 44px; margin-top: 10px;
+  padding: 8px 0; color: #c7ceb9; font-size: 11px; line-height: 1.7;
+  span { color: #efd493; border-bottom: 1px solid #efd49355; }
+  &:focus-visible { outline: 2px solid #efd493; outline-offset: 3px; border-radius: 8px; }
 `;
 
 const Main = styled.main`
