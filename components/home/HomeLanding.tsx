@@ -53,7 +53,7 @@ export default function HomeLanding() {
           />
           <CountBubble aria-live="polite">
             {visitCount === null
-              ? "타르트 사간 사람 집계 중"
+              ? "구워낸 타르트 집계 중"
               : formatTarotVisitCount(visitCount)}
           </CountBubble>
         </Artwork>
