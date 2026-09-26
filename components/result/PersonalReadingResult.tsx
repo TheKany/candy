@@ -37,13 +37,14 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const [attempt, setAttempt] = useState(0);
   const [activePage, setActivePage] = useState(0);
   const [selectedQuestion, setSelectedQuestion] = useState("");
+  const [customQuestion, setCustomQuestion] = useState("");
   const leaving = useRef(false);
   const count = mode === "one" ? 1 : mode === "three" ? 3 : 5;
 
   useEffect(() => {
     if (cardIds.length !== count || !question.trim()) return;
     const controller = new AbortController();
-    setResult(null); setError(null); setRetrying(false); setActivePage(0); setSelectedQuestion("");
+    setResult(null); setError(null); setRetrying(false); setActivePage(0); setSelectedQuestion(""); setCustomQuestion("");
     const timer = setTimeout(() => {
       loadPersonalReading(mode, cardIds, controller.signal, () => { if (!controller.signal.aborted) setRetrying(true); })
         .then((value: ReadingResponse) => { if (!controller.signal.aborted) setResult(value); })
@@ -69,14 +70,15 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const pageCount = finishPage + 1;
   const stage = activePage === 0 ? "카드와 결론" : activePage < followUpPage ? "상세 해설" : activePage === followUpPage ? "추가 질문" : activePage === savePage ? "이야기 간직하기" : "상담 마무리";
   const canContinue = deck.length > usedPositions.length;
+  const followUpQuestion = customQuestion.trim() || selectedQuestion;
 
   const continueReading = () => {
-    if (!selectedQuestion || leaving.current) return;
+    if (!followUpQuestion || followUpQuestion.length > 1000 || leaving.current) return;
     const session = useReadingSessionStore.getState();
     if (!session.continueWith({ originalQuestion: session.previousConsultation?.originalQuestion ?? question, summary: result.contextSummary })) return;
     leaving.current = true;
     handleResetCardProgress();
-    useQuestionStore.getState().save(selectedQuestion, null);
+    useQuestionStore.getState().save(followUpQuestion, null);
     useTarotTypeStore.getState().setType("one");
     router.replace("/shuffle");
   };
@@ -112,9 +114,17 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
               <Eyebrow>이어서 궁금한 이야기</Eyebrow>
               <h1>조금 더 들여다볼까요?</h1>
               {canContinue ? <>
-                <Intro>궁금한 질문 하나를 고르면, 섞지 않은 남은 카드에서 한 장을 더 뽑아요.</Intro>
-                <Actions>{result.followUpQuestions.map((text) => <QuestionButton key={text} type="button" aria-pressed={selectedQuestion === text} $selected={selectedQuestion === text} onClick={() => setSelectedQuestion(text)}>{selectedQuestion === text ? "✓ " : ""}{text}</QuestionButton>)}</Actions>
-                {selectedQuestion && <PrimaryButton type="button" onClick={continueReading}>남은 카드에서 한 장 뽑기</PrimaryButton>}
+                <Intro>질문을 고르거나 직접 적어주세요. 섞지 않은 남은 카드에서 한 장을 더 뽑아요.</Intro>
+                <Actions>{result.followUpQuestions.map((text) => <QuestionButton key={text} type="button" aria-pressed={selectedQuestion === text} $selected={selectedQuestion === text} onClick={() => { setSelectedQuestion(text); setCustomQuestion(""); }}>{selectedQuestion === text ? "✓ " : ""}{text}</QuestionButton>)}</Actions>
+                <CustomQuestionField>
+                  <label htmlFor="custom-follow-up">직접 질문하기</label>
+                  <textarea id="custom-follow-up" rows={3} maxLength={1000} value={customQuestion}
+                    placeholder="이 해설에서 더 궁금한 점을 문장으로 적어주세요."
+                    aria-describedby="custom-follow-up-count"
+                    onChange={(event) => { setCustomQuestion(event.target.value); setSelectedQuestion(""); }} />
+                  <small id="custom-follow-up-count">{customQuestion.length.toLocaleString("ko-KR")} / 1,000자</small>
+                </CustomQuestionField>
+                {followUpQuestion && <PrimaryButton type="button" onClick={continueReading}>남은 카드에서 한 장 뽑기</PrimaryButton>}
               </> : <Intro>{deck.length ? "남은 카드를 모두 살펴봤어요. 오늘의 이야기를 천천히 돌아보세요." : "이전 덱 정보가 없어 이어 뽑을 수 없어요. 새로운 상담에서 다시 만나요."}</Intro>}
               <Intro style={{ marginTop: 20 }}>여기서 마무리해도 좋아요. 아래 ‘마무리’ 버튼을 눌러주세요.</Intro>
             </SummaryCard>
@@ -175,6 +185,18 @@ const Actions = styled.div`
 `;
 const QuestionButton = styled.button<{ $selected: boolean }>`
   && { text-align: left; border-color: ${({ $selected }) => $selected ? "#ffe49b" : "#f2ce7270"}; background: ${({ $selected }) => $selected ? "#f2ce7225" : "#ffffff08"}; }
+`;
+const CustomQuestionField = styled.div`
+  display: grid; gap: 10px; margin-top: 24px; text-align: left; min-width: 0;
+  label { color: #f2ce72; font-size: .86rem; font-weight: 700; }
+  textarea {
+    box-sizing: border-box; width: 100%; min-width: 0; min-height: 116px; padding: 14px;
+    border: 1px solid #f2ce7270; border-radius: 12px; background: #ffffff08;
+    color: #fff7df; font: inherit; font-size: 16px; line-height: 1.7; resize: vertical;
+    &::placeholder { color: #fff7df80; }
+    &:focus-visible { outline: 2px solid #f2ce72; outline-offset: 3px; }
+  }
+  small { text-align: right; color: #fff7df90; font-size: .72rem; }
 `;
 const PrimaryButton = styled.button`&& { width: 100%; min-height: 48px; margin-top: 16px; padding: 12px; border-radius: 12px; color: #123a2b; background: #f2ce72; font-weight: 700; cursor: pointer; line-height: 1.6; }`;
 const PageIndicator = styled.span`text-align: center; color: #f2ce72; font-size: .78rem; line-height: 1.6; small { color: #fff7df90; }`;
