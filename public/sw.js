@@ -1,7 +1,5 @@
-const CACHE_NAME = "tarot-tart-v1";
+const CACHE_NAME = "tarot-tart-v2-public-only";
 const PRECACHE_PATHS = [
-  "/",
-  "/select",
   "/offline.html",
   "/main.png",
   "/cardBack.png",
@@ -44,9 +42,9 @@ async function cacheSuccessfulResponse(request, response) {
 
 async function networkFirstNavigation(request) {
   try {
-    return await cacheSuccessfulResponse(request, await fetch(request));
+    return await fetch(request);
   } catch {
-    return (await caches.match(request)) || (await caches.match("/offline.html"));
+    return await caches.match("/offline.html");
   }
 }
 

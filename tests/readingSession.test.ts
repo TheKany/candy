@@ -20,3 +20,21 @@ test("연계 질문은 덱 순서와 사용한 위치를 유지하고 중복 카
   assert.equal(store.getState().previousConsultation, null);
   store.getState().reset();
 });
+
+test("계정 저장 완료 이후 추가 질문은 새 저장이 필요하고 초기화 시 계정 저장 상태도 지운다", () => {
+  const store = useReadingSessionStore;
+  store.getState().start([0, 1]);
+  const firstId = store.getState().consultationId;
+  store.getState().remember({ id: "a", data: { title: "질문", sections: [] } });
+  store.getState().markAccountSaved(1);
+  assert.equal(store.getState().accountSavedRevision, 1);
+  store.getState().remember({ id: "b", data: { title: "연계", sections: [] } });
+  assert.equal(store.getState().accountSavedRevision, 1);
+  assert.equal(store.getState().history.length, 2);
+  store.getState().reset();
+  assert.equal(store.getState().accountSavedRevision, 0);
+  assert.equal(store.getState().history.length, 0);
+  store.getState().start([1, 0]);
+  assert.notEqual(store.getState().consultationId, firstId);
+  store.getState().reset();
+});

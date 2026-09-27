@@ -1,4 +1,4 @@
-import { exportSections, wrapExportText, type ReadingExport } from "./readingExportLayout";
+import { readingExportSections, wrapExportText, type ReadingExport } from "./readingExportLayout";
 
 // Local assets and already-received text only; no reading request or upload.
 export async function renderReadingExport(data: ReadingExport, includeQuestion: boolean, format: "png" | "jpeg" = "png"): Promise<Blob[]> {
@@ -38,7 +38,7 @@ export async function renderReadingExport(data: ReadingExport, includeQuestion: 
     }
   };
   start();
-  for (const section of exportSections(data.sections, data.question, includeQuestion)) {
+  for (const section of readingExportSections(data, includeQuestion)) {
     await space(section.cardId === undefined ? 90 : 258);
     if (section.cardId !== undefined) {
       const card = await loadImage(`/cards/card${section.cardId}.webp`);

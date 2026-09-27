@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
 import type { QuestionAnalysis } from "@/util/analyzeQuestion";
 
 type QuestionStore = {
@@ -11,14 +10,12 @@ type QuestionStore = {
   reset: () => void;
 };
 
-export const useQuestionStore = create<QuestionStore>()(persist((set) => ({
+// Questions are temporary consultation state, never browser-persisted history.
+export const useQuestionStore = create<QuestionStore>((set) => ({
   question: "",
   analysis: null,
   consentQuestion: "",
   consent: (question) => set({ consentQuestion: question }),
   save: (question, analysis) => set((state) => ({ question, analysis, consentQuestion: state.consentQuestion === question ? question : "" })),
   reset: () => set({ question: "", analysis: null, consentQuestion: "" }),
-}), {
-  name: "tarot-question",
-  storage: createJSONStorage(() => sessionStorage),
 }));

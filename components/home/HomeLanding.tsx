@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { formatTarotVisitCount } from "@/util/tarotVisitCount";
 import InstallGuide from "./InstallGuide";
 import UsageGuide from "./UsageGuide";
+import MemberEntry from "./MemberEntry";
 
 export default function HomeLanding() {
   const [visitCount, setVisitCount] = useState<number | null>(null);
@@ -61,9 +62,7 @@ export default function HomeLanding() {
         <Description>{HOME_CONTENT.description}</Description>
       </Hero>
       <InstallGuide />
-      <StartLink href={HOME_CONTENT.href}>
-        {HOME_CONTENT.cta}<span aria-hidden>✦</span>
-      </StartLink>
+      <MemberEntry />
       <ExampleLink href="/reading-example">어떤 해설을 받게 될까요? <span>해설 미리보기 ›</span></ExampleLink>
     </Main>
   );

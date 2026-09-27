@@ -59,7 +59,7 @@ export async function POST(request: Request) {
       })),
     }, count, request.signal);
     if (mode === "one") return reply({
-      followUpQuestions: written.followUpQuestions, contextSummary: written.contextSummary,
+      followUpQuestions: written.followUpQuestions, contextSummary: written.contextSummary, questionKeywords: written.questionKeywords,
       card: orderedCards[0], fallback: false,
       reading: {
         card_id: cardIds[0], orientation: "upright", reading_type: "one", layout_id: "single", position_id: "message",
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       },
     });
     return reply({
-      followUpQuestions: written.followUpQuestions, contextSummary: written.contextSummary,
+      followUpQuestions: written.followUpQuestions, contextSummary: written.contextSummary, questionKeywords: written.questionKeywords,
       spread: mode === "three" ? spread.id : "insight",
       spreadTitle: mode === "three" ? spread.title : "다섯 장의 이야기",
       overview: written.overview,

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
@@ -9,6 +9,8 @@ import { ReadingRequestError, type ReadingFailureCode } from "@/util/readingFail
 import TartOvenStatus from "./TartOvenStatus";
 import LuckClover from "./LuckClover";
 import ReadingSaveButtons from "./ReadingSaveButtons";
+import SaveToAccount from "@/components/account/SaveToAccount";
+import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import * as S from "./MonthlyReadingResult.styles";
 
@@ -24,6 +26,17 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
   const [attempt, setAttempt] = useState(0);
   const [retrying, setRetrying] = useState(false);
   const body = useRef<HTMLDivElement>(null);
+  const exportData = useMemo(() => !result || !period ? null : ({
+    title: `${period.year}년 월별 타로`, keywords: [`${period.year}년`, "월별 흐름"],
+    sections: result.pages.flatMap((item, i) => [
+      { title: `${item.month}월 · ${result.cards[i].name_ko}`, cardId: item.cardId, text: `${item.nickname}\n\n${item.message}` },
+      ...categories.map(([key, title]) => ({ title: `${item.month}월 · ${title}`, text: item[key] })),
+      { title: `${item.month}월 · 행운 지수 ${item.luck}%`, text: `${item.luckMessage}\n\n카드의 분위기를 담은 재미로 보는 지수예요. 실제 사건의 확률이나 정해진 미래는 아니에요.` },
+    ]),
+  }), [result, period]);
+  useEffect(() => {
+    if (exportData) useReadingSessionStore.getState().remember({ id: JSON.stringify(["monthly", period, cardIds]), data: exportData });
+  }, [exportData, period, cardIds]);
 
   useEffect(() => {
     if (!period || cardIds.length !== period.months.length) { router.replace("/select"); return; }
@@ -53,11 +66,8 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
         <KakaoShareButton />
       </> : active === savePage ? <>
         <S.Hero><h2>오늘의 이야기를<br />간직해 보세요</h2></S.Hero>
-        <ReadingSaveButtons data={{ title: `${period.year}년 월별 타로`, sections: result.pages.flatMap((item, i) => [
-          { title: `${item.month}월 · ${result.cards[i].name_ko}`, cardId: item.cardId, text: `${item.nickname}\n\n${item.message}` },
-          ...categories.map(([key, title]) => ({ title: `${item.month}월 · ${title}`, text: item[key] })),
-          { title: `${item.month}월 · 행운 지수 ${item.luck}%`, text: `${item.luckMessage}\n\n카드의 분위기를 담은 재미로 보는 지수예요. 실제 사건의 확률이나 정해진 미래는 아니에요.` },
-        ]) }} />
+        <SaveToAccount />
+        {exportData && <ReadingSaveButtons data={exportData} onDownloaded={() => useReadingSessionStore.getState().markDownloaded(1)} />}
       </> : page && card ? <>
         <S.Hero><Image src={`/cards/card${card.card_id}.webp`} alt={card.name_ko} width={108} height={180} />
           <p>{card.name_ko}</p><h2>{page.nickname}</h2><blockquote>{page.message}</blockquote></S.Hero>

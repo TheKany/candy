@@ -1,4 +1,5 @@
 export type WrittenReading = {
+  questionKeywords?: string[];
   conclusion: string;
   overview?: string[];
   advice: string;
@@ -14,13 +15,14 @@ export function readingSchema(count: number) {
       conclusion: { type: "string" }, advice: { type: "string" },
       followUpQuestions: { type: "array", minItems: 2, maxItems: 3, items: { type: "string" } },
       contextSummary: { type: "string" },
+      questionKeywords: { type: "array", minItems: 1, maxItems: 3, items: { type: "string" } },
       ...(count > 1 ? { overview: { type: "array", minItems: 2, maxItems: 2, items: { type: "string" } } } : {}),
       pages: { type: "array", minItems: count, maxItems: count, items: {
         type: "object", additionalProperties: false,
         properties: { headline: { type: "string" }, summary: { type: "string" }, detail: { type: "string" }, reflectionQuestion: { type: "string" } },
         required: ["headline", "summary", "detail", "reflectionQuestion"],
       } },
-    }, required: ["conclusion", "advice", "pages", "followUpQuestions", "contextSummary", ...(count > 1 ? ["overview"] : [])],
+    }, required: ["conclusion", "advice", "pages", "followUpQuestions", "contextSummary", "questionKeywords", ...(count > 1 ? ["overview"] : [])],
   };
 }
 
@@ -36,6 +38,7 @@ export const READING_WRITER_PROMPT = `너는 차분하고 따뜻한 한국어 �
 질문에 없는 비밀 유출, 이용당함, 소문, 외부 갈등, 삼각관계 등의 사건은 절대 추가하지 않는다.
 
 작성 기준:
+questionKeywords: 현재 질문의 주제를 나타내는 짧은 한국어 키워드 1~3개, 각각 2~15자. 예: '일·커리어', '이직 고민', '준비 시점'. 이전 상담의 맥락은 참고하되 현재 질문에 집중한다. 이름, 회사명, 장소, 날짜, 연락처, 나이 등 식별 가능한 정보와 질문 원문 인용은 절대 포함하지 않는다.
 previousConsultation이 있으면 originalQuestion과 summary는 앞선 상담의 맥락이다. 현재 question이 연계 질문이며 새로 뽑은 한 장으로 그 질문에 바로 답한다. 앞선 해석은 사실이나 예언이 아니므로 그대로 확증하거나 뒤집기 위한 재추첨처럼 쓰지 않는다. 이전 상담의 의도와 부정 표현을 유지한다.
 followUpQuestions: 이번 답에서 자연스럽게 이어지는 서로 다른 질문 2~3개, 각각 10~80자. 사용자가 직접 묻는 '~할까요?' 형태로 쓴다. 새 카드 한 장으로 살펴볼 행동, 놓친 부분, 판단 기준에 집중한다. 현재 질문이나 이전에 답한 질문을 반복하거나 불안을 부추겨 재상담을 유도하지 않는다. 질문 원문에 없는 사건을 전제하지 않는다.
 contextSummary: 다음 상담에 넘길 누적 핵심 요약 150~350자. 원래 고민의 사실과 관계 의도, 이전 상담에서 살펴본 핵심, 이번 질문과 해석을 구분해 압축한다. 카드 해석을 확인된 사실로 바꾸지 않는다. previousConsultation이 있다면 중요한 맥락을 보존하되 전문을 복사하지 않는다.
@@ -69,6 +72,7 @@ export function parseWrittenReading(value: unknown, count: number): WrittenReadi
   const v = value as WrittenReading | null;
   const text = (item: unknown, min: number, max: number) => typeof item === "string" && item.trim().length >= min && item.length <= max;
   if (!v || !text(v.conclusion, 30, 700) || !text(v.advice, 60, 1400)
+    || (v.questionKeywords !== undefined && (!Array.isArray(v.questionKeywords) || v.questionKeywords.length < 1 || v.questionKeywords.length > 3 || !v.questionKeywords.every(keyword => text(keyword, 2, 15))))
     || !text(v.contextSummary, 20, 700)
     || !Array.isArray(v.followUpQuestions) || v.followUpQuestions.length < 2 || v.followUpQuestions.length > 3
     || !v.followUpQuestions.every((question) => text(question, 10, 100))

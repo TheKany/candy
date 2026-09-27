@@ -11,19 +11,14 @@ import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 import { handleResetCardProgress } from "@/util/handleResetStore";
 import { loadPersonalReading } from "@/util/loadPersonalReading";
-import type { TarotReadingResult } from "@/types/tarotReadingTypes";
-import type { ThreeCardReadingResult } from "@/types/threeCardReadingTypes";
+import { archivePersonalReading, type PersonalReadingResponse as ReadingResponse } from "@/util/personalReadingArchive";
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import Feedback from "./Feedback";
 import ReadingSaveButtons from "./ReadingSaveButtons";
+import SaveToAccount from "@/components/account/SaveToAccount";
 import TartOvenStatus from "./TartOvenStatus";
 import { ReadingRequestError, type ReadingFailureCode } from "@/util/readingFailure";
 import { Shell, Header, Viewport, Track, Slide, SummaryCard, Overview, Eyebrow, Advice, CardPage, Position, Reading, Pager, NavButton, NavigationHint, Status } from "./ResultPager.styles";
-
-type ReadingResponse = (TarotReadingResult | ThreeCardReadingResult) & {
-  followUpQuestions: string[];
-  contextSummary: string;
-};
 
 export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | "three" | "five"; onHome: () => void }) {
   const router = useRouter();
@@ -31,6 +26,8 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const question = useQuestionStore((state) => state.question);
   const deck = useReadingSessionStore((state) => state.deck);
   const usedPositions = useReadingSessionStore((state) => state.usedPositions);
+  const history = useReadingSessionStore((state) => state.history);
+  const historyDialog = useRef<HTMLDialogElement>(null);
   const [result, setResult] = useState<ReadingResponse | null>(null);
   const [error, setError] = useState<ReadingFailureCode | null>(null);
   const [retrying, setRetrying] = useState(false);
@@ -47,7 +44,10 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
     setResult(null); setError(null); setRetrying(false); setActivePage(0); setSelectedQuestion(""); setCustomQuestion("");
     const timer = setTimeout(() => {
       loadPersonalReading(mode, cardIds, controller.signal, () => { if (!controller.signal.aborted) setRetrying(true); })
-        .then((value: ReadingResponse) => { if (!controller.signal.aborted) setResult(value); })
+        .then((value: ReadingResponse) => { if (!controller.signal.aborted) {
+          useReadingSessionStore.getState().remember({ id: JSON.stringify([question, cardIds]), data: archivePersonalReading(value, question) });
+          setResult(value);
+        } })
         .catch((reason: Error) => { if (!controller.signal.aborted) setError(reason instanceof ReadingRequestError ? reason.code : "unknown"); });
     }, 0);
     return () => { clearTimeout(timer); controller.abort(); };
@@ -71,6 +71,7 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const stage = activePage === 0 ? "카드와 결론" : activePage < followUpPage ? "상세 해설" : activePage === followUpPage ? "추가 질문" : activePage === savePage ? "이야기 간직하기" : "상담 마무리";
   const canContinue = deck.length > usedPositions.length;
   const followUpQuestion = customQuestion.trim() || selectedQuestion;
+  const goHome = onHome;
 
   const continueReading = () => {
     if (!followUpQuestion || followUpQuestion.length > 1000 || leaving.current) return;
@@ -86,7 +87,9 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   return <>
     <ResultScreenStyle />
     <Shell>
-      <Header><span>{mode === "one" ? "한 장" : mode === "three" ? "세 장" : "다섯 장"}의 이야기</span><strong>{stage}</strong></Header>
+      <Header style={{ flexWrap: "wrap" }}><span>{mode === "one" ? "한 장" : mode === "three" ? "세 장" : "다섯 장"}의 이야기</span><strong>{stage}</strong>
+        {history.length > 1 && <HistoryButton type="button" onClick={() => historyDialog.current?.showModal()}>이전 상담 보기</HistoryButton>}
+      </Header>
       <Viewport>
         <Track $page={activePage}>
           <Slide aria-hidden={activePage !== 0} inert={activePage !== 0}>
@@ -134,14 +137,9 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
               <Eyebrow>오늘의 타로타르트</Eyebrow>
               <h1>오늘의 이야기를<br />간직해 보세요</h1>
               <Actions>
-                <ReadingSaveButtons data={{ title: `${mode === "one" ? "한 장" : mode === "three" ? "세 장" : "다섯 장"}의 이야기`, question,
-                  sections: [
-                    { title: "종합 해설", text: [conclusion, ...(multi?.overview ?? [])].filter(Boolean).join("\n\n") },
-                    ...pages.map(page => ({ title: `${page.positionLabel} · ${page.card.name_ko}`, cardId: page.card.card_id,
-                      text: [page.card.upright_one_line || page.card.upright_keywords.join(" · "), page.headline, page.summary, page.detail].filter(Boolean).join("\n\n") })),
-                    { title: "지금 해볼 수 있는 일", text: advice },
-                    { title: "이어서 생각해볼 질문", text: result.followUpQuestions.join("\n\n") },
-                  ] }} />
+                <SaveToAccount />
+                <ReadingSaveButtons data={{ title: "처음부터 이어진 우리의 이야기", sections: [], readings: history.map(entry => entry.data) }}
+                  onDownloaded={() => useReadingSessionStore.getState().markDownloaded(history.length)} />
               </Actions>
             </SummaryCard>
           </Slide>
@@ -153,7 +151,7 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
               <Actions>
                 <KakaoShareButton />
                 <details><summary>피드백 쓰기</summary><Feedback /></details>
-                <PrimaryButton type="button" onClick={onHome}>홈으로</PrimaryButton>
+                <PrimaryButton type="button" onClick={goHome}>홈으로</PrimaryButton>
               </Actions>
             </SummaryCard>
           </Slide>
@@ -162,10 +160,22 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
       <Pager aria-label="해설 페이지 이동">
         <NavButton disabled={activePage === 0} onClick={() => setActivePage((page) => Math.max(0, page - 1))}>이전</NavButton>
         <PageIndicator aria-live="polite">{stage}<br /><small>{activePage + 1} / {pageCount}</small></PageIndicator>
-        <NavButton $home={activePage === finishPage} onClick={() => activePage === finishPage ? onHome() : setActivePage((page) => Math.min(finishPage, page + 1))}>{activePage === finishPage ? "홈으로" : activePage === followUpPage ? "마무리" : "다음"}</NavButton>
+        <NavButton $home={activePage === finishPage} onClick={() => activePage === finishPage ? goHome() : setActivePage((page) => Math.min(finishPage, page + 1))}>{activePage === finishPage ? "홈으로" : activePage === followUpPage ? "마무리" : "다음"}</NavButton>
       </Pager>
       <NavigationHint>긴 해설은 안쪽에서 스크롤하고, 페이지는 버튼으로 넘겨요</NavigationHint>
     </Shell>
+    <ArchiveDialog ref={historyDialog} aria-label="이전 상담 기록">
+      <button className="close" type="button" onClick={() => historyDialog.current?.close()}>닫기</button>
+      <h2>지금까지 나눈 이야기</h2>
+      {history.slice(0, -1).map((entry, index) => <article key={entry.id}>
+        <h3>{index === 0 ? "처음 질문" : `연계 질문 ${index}`}</h3><p>{entry.data.question}</p>
+        {entry.data.sections.map((section, i) => <section key={i}>
+          {section.cardId !== undefined && <Image src={`/cards/card${section.cardId}.webp`} alt={section.title} width={96} height={160} />}
+          <h4>{section.title}</h4><p>{section.text}</p>
+        </section>)}
+      </article>)}
+      <PrimaryButton type="button" onClick={() => { historyDialog.current?.close(); setActivePage(savePage); }}>전체 이야기 저장하기</PrimaryButton>
+    </ArchiveDialog>
   </>;
 }
 
@@ -200,3 +210,15 @@ const CustomQuestionField = styled.div`
 `;
 const PrimaryButton = styled.button`&& { width: 100%; min-height: 48px; margin-top: 16px; padding: 12px; border-radius: 12px; color: #123a2b; background: #f2ce72; font-weight: 700; cursor: pointer; line-height: 1.6; }`;
 const PageIndicator = styled.span`text-align: center; color: #f2ce72; font-size: .78rem; line-height: 1.6; small { color: #fff7df90; }`;
+const HistoryButton = styled.button`min-height:44px;padding:8px 12px;border:1px solid #cfb575;border-radius:10px;background:transparent;color:inherit;font:inherit;font-size:12px;cursor:pointer;`;
+const ArchiveDialog = styled.dialog`
+  box-sizing:border-box;width:calc(100% - 28px);max-width:440px;max-height:85dvh;
+  margin:auto;padding:24px;border:1px solid #d8bf8a;border-radius:22px;background:#fff8e9;color:#214433;
+  overflow-y:auto;overscroll-behavior:contain;
+  &::backdrop{background:#03150fbb;backdrop-filter:blur(4px);}
+  h2{font-size:20px;line-height:1.6;margin:12px 0;}h3{margin:24px 0 12px;}h4{margin:18px 0 8px;}
+  p{font-size:14px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere;}
+  article + article{border-top:1px solid #cfb575;margin-top:24px;}img{display:block;margin:18px auto 8px;}
+  .close{display:block;margin-left:auto;min-height:44px;padding:8px 12px;background:transparent;border:0;color:inherit;cursor:pointer;}
+  > button:last-child{width:100%;margin-top:12px;}button:focus-visible{outline:2px solid #b89140;outline-offset:3px;}
+`;

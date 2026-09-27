@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import styled from "styled-components";
 import type { ReadingExport } from "@/util/readingExportLayout";
 
-export default function ReadingSaveButtons({ data }: { data: ReadingExport }) {
+export default function ReadingSaveButtons({ data, onDownloaded }: { data: ReadingExport; onDownloaded?: () => void }) {
+  const titleId = useId();
   const [include, setInclude] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -12,12 +13,15 @@ export default function ReadingSaveButtons({ data }: { data: ReadingExport }) {
   const working = useRef(false);
   const mounted = useRef(true);
   const dialog = useRef<HTMLDialogElement>(null);
+  const downloaded = useRef(new Set<number>());
+  const preparedCallback = useRef(onDownloaded);
   useEffect(() => { if (files.length) dialog.current?.showModal(); }, [files]);
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; urls.current.forEach(URL.revokeObjectURL); }; }, []);
-  const clear = () => { urls.current.forEach(URL.revokeObjectURL); urls.current = []; setFiles([]); };
+  const clear = () => { urls.current.forEach(URL.revokeObjectURL); urls.current = []; downloaded.current.clear(); setFiles([]); };
   const prepare = async (format: "pdf" | "image") => {
     if (working.current) return;
     working.current = true; setBusy(true); setError(""); clear();
+    preparedCallback.current = onDownloaded;
     try {
       const { renderReadingExport, createReadingPdf } = await import("@/util/renderReadingExport");
       const images = await renderReadingExport(data, include, format === "pdf" ? "jpeg" : "png");
@@ -31,18 +35,24 @@ export default function ReadingSaveButtons({ data }: { data: ReadingExport }) {
   };
   return <Box>
     <Intro>오늘의 이야기를 정성껏 포장해 드릴게요.<br />간직하고 싶을 때 가져가세요.</Intro>
-    {data.question && <label><input type="checkbox" checked={include} disabled={busy} onChange={event => { setInclude(event.target.checked); clear(); }} />내 질문 포함</label>}
+    {(data.question || data.readings?.some(reading => reading.question)) && <div>
+      <label><input type="checkbox" checked={include} disabled={busy} onChange={event => { setInclude(event.target.checked); clear(); }} />내 질문 포함</label>
+      <Hint>{data.readings || data.keywords?.length ? "미체크시 키워드만 저장됩니다." : "미체크시 질문은 저장되지 않습니다."}</Hint>
+    </div>}
     <button type="button" disabled={busy} onClick={() => prepare("pdf")}>PDF 저장하기</button>
     <button type="button" disabled={busy} onClick={() => prepare("image")}>이미지 저장하기</button>
     {busy && <p role="status">해설을 파일로 담고 있어요…</p>}
     {error && <p role="alert">{error}</p>}
-    <PackageDialog ref={dialog} aria-labelledby="reading-package-title" onClose={clear}>
+    <PackageDialog ref={dialog} aria-labelledby={titleId} onClose={clear}>
       <button className="close" type="button" aria-label="팝업 닫기" onClick={() => dialog.current?.close()}>×</button>
       <small>마음을 담아, 소중하게</small>
-      <h2 id="reading-package-title">타르트 포장이<br />완료되었습니다.</h2>
+      <h2 id={titleId}>타르트 포장이<br />완료되었습니다.</h2>
       <img src="/images/bakery/packed-tart.png" alt="타르트를 담은 크림색 포장상자" />
       <p>당신의 이야기를 포장했어요</p>
-      {files.map((file, i) => <a key={file.url} href={file.url} download={file.name}>
+      {files.map((file, i) => <a key={file.url} href={file.url} download={file.name} onClick={() => {
+        downloaded.current.add(i);
+        if (downloaded.current.size === files.length) preparedCallback.current?.();
+      }}>
         가져가기{files.length > 1 ? ` · ${i + 1} / ${files.length}` : ""}
       </a>)}
     </PackageDialog>
@@ -61,6 +71,7 @@ const Box = styled.div`
 `;
 
 const Intro = styled.p`text-align:center;color:#c9cfbd;line-height:1.9;margin:0 0 18px;word-break:keep-all;`;
+const Hint = styled.small`display:block;margin:0 0 8px 27px;color:#c9cfbd;font-size:11px;line-height:1.6;`;
 const PackageDialog = styled.dialog`
   box-sizing:border-box;width:calc(100% - 32px);max-width:360px;max-height:calc(100dvh - 32px);
   margin:auto;padding:36px 24px 24px;border:1px solid #d8bf8a;border-radius:26px;
