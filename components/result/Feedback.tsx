@@ -40,6 +40,7 @@ const Feedback = () => {
       ) : (
         <p>🍓 소중한 피드백 감사합니다!</p>
       )}
+      <a className="open-chat" href="https://open.kakao.com/o/sIZKvBPi" target="_blank" rel="noopener noreferrer">카카오톡 오픈채팅으로 의견 보내기</a>
     </FeedbackBox>
   );
 };
@@ -87,4 +88,5 @@ const FeedbackBox = styled.div`
     color: #121212;
     font-weight: bold;
   }
+  .open-chat { margin-top: 14px; padding: 10px 4px; color: #fff1b7; font-size: 13px; line-height: 1.6; text-align: center; text-underline-offset: 4px; }
 `;
