@@ -22,6 +22,14 @@ import { recordTarotStart } from "@/util/recordTarotStart";
 export default function ReadingSelect() {
   const auth = useAuth();
   const stampArcId=useId();
+  const [menuPage, setMenuPage] = useState(0);
+  const menuViewport = useRef<HTMLDivElement>(null);
+  const menuTabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const switchMenu = (page: number) => {
+    if (stamping) return;
+    const viewport = menuViewport.current;
+    viewport?.scrollTo({ left: page * viewport.clientWidth, behavior: reduced ? 'instant' : 'smooth' });
+  };
   const [notice, setNotice] = useState("");
   const [selectedType, setSelectedType] = useState<TarotTypeId | null>(null);
   const [stamping,setStamping]=useState(false);
@@ -79,6 +87,23 @@ export default function ReadingSelect() {
 
       <SelectionAccountSummary />
       <Divider />
+      <MenuTabs role="tablist" aria-label="주문서 메뉴">
+        {['고민 상담', '가볍게 한 입'].map((label, index) => <button key={label}
+          ref={element => { menuTabs.current[index] = element; }} type="button" role="tab"
+          id={`menu-tab-${index}`} aria-controls={`menu-panel-${index}`} aria-selected={menuPage === index}
+          tabIndex={menuPage === index ? 0 : -1} disabled={stamping}
+          onClick={() => switchMenu(index)} onKeyDown={event => {
+            if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+            event.preventDefault();
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? 1 : 1 - index;
+            switchMenu(next); menuTabs.current[next]?.focus();
+          }}>{label}</button>)}
+      </MenuTabs>
+      <MenuViewport ref={menuViewport} $locked={stamping} onScroll={event => {
+        const viewport = event.currentTarget;
+        setMenuPage(Math.min(1, Math.max(0, Math.round(viewport.scrollLeft / viewport.clientWidth))));
+      }}>
+      <MenuPanel id="menu-panel-0" role="tabpanel" aria-labelledby="menu-tab-0" inert={menuPage !== 0}>
       <OrderSheet aria-labelledby="order-title">
       <Header>
         <OrderLabel>TAROTART <span>·</span> ORDER</OrderLabel>
@@ -99,6 +124,19 @@ export default function ReadingSelect() {
       </CardList>
       <OrderFooter aria-hidden="true">MADE FOR YOUR MOMENT <span>✦</span></OrderFooter>
       </OrderSheet>
+      </MenuPanel>
+      <MenuPanel id="menu-panel-1" role="tabpanel" aria-labelledby="menu-tab-1" inert={menuPage !== 1}>
+        <OrderSheet>
+          <Header>
+            <OrderLabel>TAROTART <span>·</span> LITTLE BITES</OrderLabel>
+            <Title style={{paddingRight:0}}><span>질문 없이 편하게</span>가볍게 한 입</Title>
+          </Header>
+          <ComingSoon><span aria-hidden="true">✦</span><h2>작은 즐거움을 준비하고 있어요</h2><p>가볍게 만날 타로 메뉴가<br />곧 이곳에 놓일 거예요.</p><small>준비 중</small></ComingSoon>
+          <OrderFooter aria-hidden="true">A LITTLE MOMENT FOR YOU <span>✦</span></OrderFooter>
+        </OrderSheet>
+      </MenuPanel>
+      </MenuViewport>
+      <MenuHint aria-hidden="true">{menuPage === 0 ? '가볍게 한 입도 살펴보세요 →' : '← 고민 상담으로 돌아가기'}</MenuHint>
 
       <Notice role="status" aria-live="polite">
         {notice}
@@ -218,6 +256,32 @@ const Header = styled.header`
   text-align: left;
   @media (max-width: 319px) { padding: 20px 14px; }
 `;
+
+const MenuTabs = styled.div`
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;
+  padding:4px;margin-bottom:14px;border:1px solid #f2ce7240;border-radius:14px;background:#ffffff08;
+  button{min-height:44px;padding:8px 4px;border-radius:10px;color:#fff7dfaa;font:inherit;font-size:14px;cursor:pointer;}
+  button[aria-selected="true"]{background:#f2ce72;color:#173e2e;font-weight:700;}
+  button:focus-visible{outline:2px solid #fff7df;outline-offset:2px;}
+`;
+const MenuViewport = styled.div<{$locked:boolean}>`
+  display:flex;width:100%;min-width:0;overflow-x:${({$locked})=>$locked?'hidden':'auto'};
+  scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+  &::-webkit-scrollbar{display:none;}
+`;
+const MenuPanel = styled.div`
+  flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;display:flex;padding-bottom:8px;
+  >section{width:100%;display:flex;flex-direction:column;}
+`;
+const ComingSoon = styled.div`
+  flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  min-height:240px;padding:28px 14px;text-align:center;
+  >span{font-size:36px;color:#b49258;margin-bottom:22px;}
+  h2{font-size:17px;line-height:1.7;word-break:keep-all;}
+  p{margin-top:12px;color:#69755f;font-size:13px;line-height:1.8;}
+  small{margin-top:22px;padding:6px 14px;border:1px solid #aa916a70;border-radius:20px;font-size:11px;color:#8c7551;}
+`;
+const MenuHint = styled.p`margin-top:12px;text-align:center;font-size:11px;color:#fff7df80;`;
 
 const OrderSheet = styled.section`
   position: relative;
