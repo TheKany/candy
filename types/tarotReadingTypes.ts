@@ -32,6 +32,8 @@ export type TarotTopicReading = {
 };
 
 export type TarotPositionReading = {
+  remember?: string;
+  avoid?: string;
   card_id: number;
   topic_id: TarotTopicId;
   orientation: TarotOrientation;

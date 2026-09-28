@@ -11,6 +11,7 @@ import TartStamps from "./TartStamps";
 import { rewardDisplay } from "@/util/mypageRules";
 import Loading from "@/components/_common/Loading";
 import { loadDashboard, readDashboard } from "@/util/accountDashboardCache";
+import ActivityList from './ActivityList';
 const kinds: Record<string,string>={one:"한 장 타로",three:"세 장 타로",five:"다섯 장 타로",monthly:"월별 타로",saved:"저장한 타로"};
 export default function MyPage(){
   const auth=useAuth(); const [data,setData]=useState<MyPageData|null>(()=>auth.account?readDashboard(auth.account.id):null);const [error,setError]=useState("");const [busy,setBusy]=useState(true);const [attempt,setAttempt]=useState(0);
@@ -21,7 +22,7 @@ export default function MyPage(){
   },[auth.account?.id,attempt]);
   useEffect(()=>{const onFocus=()=>refresh();window.addEventListener("focus",onFocus);return()=>window.removeEventListener("focus",onFocus);},[refresh]);
   useEffect(()=>{if(!data)return;const midnight=Date.parse(`${data.day}T00:00:00+09:00`)+86400000;const timer=setTimeout(refresh,Math.max(1000,midnight-Date.now()+1000));return()=>clearTimeout(timer);},[data?.day,refresh]);
-  const more=async()=>{if(!data||busy)return;setBusy(true);setError("");try{const response=await fetch(`/api/account/dashboard?offset=${data.activities.length}`,{cache:"no-store"});if(!response.ok)throw new Error();const next:MyPageData=await response.json();setData(previous=>previous?{...next,activities:[...previous.activities,...next.activities]}:next);}catch{setError("이용내역을 더 불러오지 못했어요.");}finally{setBusy(false);}};
+  const more=async()=>{if(!data||busy)return;setBusy(true);setError("");try{const response=await fetch(`/api/account/dashboard?offset=${data.nextOffset??data.activities.length}`,{cache:"no-store"});if(!response.ok)throw new Error();const next:MyPageData=await response.json();setData(previous=>previous?{...next,activities:[...previous.activities,...next.activities.filter(n=>!previous.activities.some(p=>p.consultation_id===n.consultation_id&&p.ordinal===n.ordinal))]}:next);}catch{setError("이용내역을 더 불러오지 못했어요.");}finally{setBusy(false);}};
   const card=data?.representativeCard!=null?REPRESENTATIVE_CARDS[data.representativeCard]:null;
   const balance=data?rewardDisplay(data.ads,data.paid,data.free,data.freeUsedToday):null;
   if(auth.status==="loading" || (auth.account && !data && busy)) return <Loading message="내 공간을 준비하고 있어요" />;
@@ -30,11 +31,11 @@ export default function MyPage(){
       {error&&<p className="error" role="alert">{error} <button className="plain" onClick={refresh}>다시 시도</button></p>}
       {data&&<>
         <section className="profile"><Link href="/account/card" className="representative" aria-label="대표 카드 고르기">{card?<Image src={`/cards/card${card.id}.webp`} width={116} height={194} alt={card.name}/>:<span className="card-back" aria-hidden="true">✦</span>}<small>{card?"대표 카드 바꾸기":"대표 카드 고르기"}</small></Link><div><small className="muted">나의 계정</small><h1>나를 위한<br/>작은 타르트</h1><span className="grade"><span aria-hidden="true">{auth.status==="super"?"☀":"☆"}</span> {auth.status==="super"?"슈퍼 계정":"일반 계정"}</span></div></section>
-        <section aria-label="보유 시트"><div className="sheet-row"><Link href="/account/sheets" className="buy">구매</Link><div><span>구매한 타르트 시트</span><small>하루 사용 횟수 제한 없음</small></div><strong>{data.paid}<small> 장</small></strong></div><div className="sheet-row"><span className="gift" aria-hidden="true">✦</span><div><span>무료 타르트 시트</span><small>{data.freeUsedToday?"오늘은 사용했어요 · 내일 다시 사용 가능":"하루에 1장 사용 가능 · 누적 보관"}</small></div><strong>{data.free}<small> 장</small></strong></div></section>
+        <section aria-label="보유 시트"><div className="sheet-row"><Link href="/account/sheets" className="buy">구매</Link><div><span>구매한 타르트 시트</span><small>하루 사용 횟수 제한 없음</small></div><strong>{auth.status==='super'?'-':data.paid}<small> 장</small></strong></div><div className="sheet-row"><span className="gift" aria-hidden="true">✦</span><div><span>무료 타르트 시트</span><small>{auth.status==='super'?'시트 없이 자유롭게 이용해요':data.freeUsedToday?"오늘은 사용했어요 · 내일 다시 사용 가능":"하루에 1장 사용 가능 · 누적 보관"}</small></div><strong>{auth.status==='super'?'-':data.free}<small> 장</small></strong></div></section>
         {auth.status==="super"?<p className="super-note">무료 이용 계정이에요. 상담에 시트가 필요하지 않아요.</p>:<TartStamps ads={balance?.stamps??0} available={data.adsAvailable}/>}
         <header className="history-heading"><h2>지금까지 먹은 타르트</h2><strong>{data.total}<small> 개</small></strong></header>
         {!data.activities.length&&<p className="empty">아직 나눈 이야기가 없어요.<br/>첫 타르트를 만나러 가볼까요?</p>}
-        <ul className="activities">{data.activities.map(item=>{const content=<><span className="record-copy"><time>{new Date(item.created_at).toLocaleDateString("ko-KR",{timeZone:"Asia/Seoul"})} · {kinds[item.kind]||"타로"}{item.ordinal>1?` · 연계 ${item.ordinal-1}`:""}</time><span className="topic">{item.topic}</span>{item.title&&<span className="record-title">{item.title}</span>}</span>{item.savedId?<span className="arrow" aria-hidden="true">›</span>:<span className="unsaved">저장 안 함</span>}</>;return <li key={`${item.consultation_id}-${item.ordinal}`}>{item.savedId?<Link className="record" href={`/account/readings/${item.savedId}`}>{content}</Link>:<div className="record">{content}</div>}</li>;})}</ul>
+        <ActivityList items={data.activities}/>
         {data.hasMore&&<button className="plain more" disabled={busy} onClick={more}>{busy?"불러오는 중…":"내역 더 보기"}</button>}
       </>}
       <footer>{auth.account.isAdmin && <Link href="/admin/members">관리자 페이지</Link>}<a href="mailto:kaanzy@naver.com">문의하기</a><Link href="/privacy">개인정보 안내</Link><button className="plain" onClick={auth.signOut}>로그아웃</button></footer>

@@ -5,7 +5,7 @@ export type WrittenReading = {
   advice: string;
   followUpQuestions: string[];
   contextSummary: string;
-  pages: Array<{ headline: string; summary: string; detail: string; reflectionQuestion: string }>;
+  pages: Array<{ headline: string; summary: string; detail: string; reflectionQuestion: string; remember?: string; avoid?: string }>;
 };
 
 export function readingSchema(count: number) {
@@ -19,8 +19,8 @@ export function readingSchema(count: number) {
       ...(count > 1 ? { overview: { type: "array", minItems: 2, maxItems: 2, items: { type: "string" } } } : {}),
       pages: { type: "array", minItems: count, maxItems: count, items: {
         type: "object", additionalProperties: false,
-        properties: { headline: { type: "string" }, summary: { type: "string" }, detail: { type: "string" }, reflectionQuestion: { type: "string" } },
-        required: ["headline", "summary", "detail", "reflectionQuestion"],
+        properties: { headline: { type: "string" }, summary: { type: "string" }, detail: { type: "string" }, reflectionQuestion: { type: "string" }, remember: { type: "string" }, avoid: { type: "string" } },
+        required: ["headline", "summary", "detail", "reflectionQuestion", "remember", "avoid"],
       } },
     }, required: ["conclusion", "advice", "pages", "followUpQuestions", "contextSummary", "questionKeywords", ...(count > 1 ? ["overview"] : [])],
   };
@@ -38,6 +38,8 @@ export const READING_WRITER_PROMPT = `너는 차분하고 따뜻한 한국어 �
 질문에 없는 비밀 유출, 이용당함, 소문, 외부 갈등, 삼각관계 등의 사건은 절대 추가하지 않는다.
 
 작성 기준:
+결론과 행동 조언은 명확하게 쓴다. '하는 게 좋아요 / 하지 않는 게 좋아요 / 먼저 확인하세요'처럼 무엇을 할지 바로 답한다. '~일지도 몰라요 / 도움이 될 수 있어요 / 흐름을 살펴보세요'만으로 결론을 흐리지 않는다. 단, 미래의 사건·상대 속마음·합격·수익을 사실로 확정하지 않는다. 확인되지 않은 사실은 모른다고 하고, 행동에 대한 권고는 분명하게 제시한다.
+각 pages의 remember는 '기억할 것', avoid는 '주의할 것'이다. 질문과 카드에 맞는 서로 다른 행동 문구를 각 10~45자로 쓴다. 단어 나열이나 점수는 쓰지 않는다. 예: '성과를 근거로 이야기하세요', '추측으로 평가를 단정하지 마세요'.
 questionKeywords: 현재 질문의 주제를 나타내는 짧은 한국어 키워드 1~3개, 각각 2~15자. 예: '일·커리어', '이직 고민', '준비 시점'. 이전 상담의 맥락은 참고하되 현재 질문에 집중한다. 이름, 회사명, 장소, 날짜, 연락처, 나이 등 식별 가능한 정보와 질문 원문 인용은 절대 포함하지 않는다.
 previousConsultation이 있으면 originalQuestion과 summary는 앞선 상담의 맥락이다. 현재 question이 연계 질문이며 새로 뽑은 한 장으로 그 질문에 바로 답한다. 앞선 해석은 사실이나 예언이 아니므로 그대로 확증하거나 뒤집기 위한 재추첨처럼 쓰지 않는다. 이전 상담의 의도와 부정 표현을 유지한다.
 followUpQuestions: 이번 답에서 자연스럽게 이어지는 서로 다른 질문 2~3개, 각각 10~80자. 사용자가 직접 묻는 '~할까요?' 형태로 쓴다. 새 카드 한 장으로 살펴볼 행동, 놓친 부분, 판단 기준에 집중한다. 현재 질문이나 이전에 답한 질문을 반복하거나 불안을 부추겨 재상담을 유도하지 않는다. 질문 원문에 없는 사건을 전제하지 않는다.
@@ -55,7 +57,7 @@ reflectionQuestion은 그 카드와 질문에 맞는 짧은 성찰 질문 하나
 advice: 모든 카드를 함께 읽은 마지막 실천 조언. 3~5문장으로 지금 할 일, 잠시 멈출 일, 반응이 달라지지 않을 때의 판단 기준까지 설명한다.
 예: '거리를 유지하세요'로 끝내지 말고 '답이 오기 전에 메시지를 보태기보다 한 번 말을 건넨 뒤 기다려보세요. 계속 나만 대화를 시작한다면 가끔 안부를 나누는 사이가 편한지 살펴보세요'처럼 맥락에 맞는 행동을 쓴다. 이 예를 모든 질문에 복사하지 않는다.
 의학적 진단/법률 판정/투자 수익 보장/합격 보장/확정 날짜 예측 금지. 필요한 경우 현실적인 확인 행동으로 답한다.
-말투는 '~해요/~볼까요/~일 수 있어요'. 독자를 '질문자'라고 부르지 말고 직접 말을 건넨다. '~입니다/~중요합니다/~시사합니다' 같은 보고서 말투를 쓰지 않는다.
+말투는 따뜻한 '~해요/~하세요/~하는 게 좋아요'를 사용한다. 독자를 '질문자'라고 부르지 말고 직접 말을 건넨다. '~시사합니다' 같은 보고서 말투를 쓰지 않는다.
 각 페이지는 주어진 자리의 역할에 집중한다. 개별 카드의 summary에서 세 장 전체 흐름을 반복하지 않는다.
 summary와 detail의 첫 문장은 서로 달라야 한다. advice에서 conclusion을 다시 복사하지 말고 실제 행동을 제시한다.
 '선택이 중요합니다/흐름을 살펴보세요/에너지/양자택일을 지키세요' 같은 내용 없는 문장과 상투적 공감 반복 금지.
@@ -80,7 +82,8 @@ export function parseWrittenReading(value: unknown, count: number): WrittenReadi
     || (count > 1 && (!Array.isArray(v.overview) || v.overview.length !== 2 || !v.overview.every((paragraph) => text(paragraph, 30, 350))))
     || !Array.isArray(v.pages) || v.pages.length !== count
     || !v.pages.every((page) => page && text(page.headline, 3, 150) && text(page.summary, 20, 700)
-      && text(page.detail, 150, 1800) && text(page.reflectionQuestion, 5, 250))) {
+      && text(page.detail, 150, 1800) && text(page.reflectionQuestion, 5, 250)
+      && (page.remember === undefined || text(page.remember, 3, 100)) && (page.avoid === undefined || text(page.avoid, 3, 100)))) {
     throw new Error("Incomplete reading");
   }
   return v;

@@ -11,6 +11,7 @@ import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 
 export default function QuestionEntry() {
   const router = useRouter();
+  useEffect(() => { router.prefetch('/shuffle'); }, [router]);
   const type = useTarotTypeStore((state) => state.type);
   const [question, setQuestion] = useState("");
   const [ready, setReady] = useState(false);

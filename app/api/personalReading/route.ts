@@ -66,6 +66,7 @@ export async function POST(request: Request) {
         headline: written.pages[0].headline, summary: written.conclusion,
         detail: written.pages[0].summary + "\n\n" + written.pages[0].detail,
         advice: written.advice, reflection_question: written.pages[0].reflectionQuestion,
+        remember: written.pages[0].remember, avoid: written.pages[0].avoid,
       },
     });
     return reply({

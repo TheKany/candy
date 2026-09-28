@@ -13,6 +13,7 @@ import SaveToAccount from "@/components/account/SaveToAccount";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import * as S from "./MonthlyReadingResult.styles";
+import { ReadingCardPanel } from './ReadingPanels';
 
 const categories = [["money", "금전"], ["work", "일 · 커리어 · 학업"], ["relationships", "인간관계"], ["wellbeing", "마음 · 일상"]] as const;
 
@@ -30,6 +31,8 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
     title: `${period.year}년 월별 타로`, keywords: [`${period.year}년`, "월별 흐름"],
     sections: result.pages.flatMap((item, i) => [
       { title: `${item.month}월 · ${result.cards[i].name_ko}`, cardId: item.cardId, text: `${item.nickname}\n\n${item.message}` },
+      ...(item.remember?[{title:`기억할 것 · ${item.month}월 · ${result.cards[i].name_ko}`,text:item.remember}]:[]),
+      ...(item.avoid?[{title:`주의할 것 · ${item.month}월 · ${result.cards[i].name_ko}`,text:item.avoid}]:[]),
       ...categories.map(([key, title]) => ({ title: `${item.month}월 · ${title}`, text: item[key] })),
       { title: `${item.month}월 · 행운 지수 ${item.luck}%`, text: `${item.luckMessage}\n\n카드의 분위기를 담은 재미로 보는 지수예요. 실제 사건의 확률이나 정해진 미래는 아니에요.` },
     ]),
@@ -69,10 +72,10 @@ export default function MonthlyReadingResult({ onHome }: { onHome: () => void })
         <SaveToAccount />
         {exportData && <ReadingSaveButtons data={exportData} onDownloaded={() => useReadingSessionStore.getState().markDownloaded(1)} />}
       </> : page && card ? <>
-        <S.Hero><Image src={`/cards/card${card.card_id}.webp`} alt={card.name_ko} width={108} height={180} />
-          <p>{card.name_ko}</p><h2>{page.nickname}</h2><blockquote>{page.message}</blockquote></S.Hero>
+        <ReadingCardPanel card={{id:card.card_id,name:card.name_ko,label:`${page.month}월 · ${page.nickname}`,detail:page.message,remember:page.remember,avoid:page.avoid}}>
         {categories.map(([key, title]) => <S.Category key={key}><h3>{title}</h3><p>{page[key]}</p></S.Category>)}
         <S.Luck><h3>{page.month}월의 행운 지수</h3><LuckClover value={page.luck} /><strong>{page.luck}%</strong><p>{page.luckMessage}</p><small>카드의 분위기를 담은 재미로 보는 지수예요.<br />실제 사건의 확률이나 정해진 미래는 아니에요.</small></S.Luck>
+        </ReadingCardPanel>
       </> : <>
         <p>{period.startMonth}월부터 12월까지, 한 달에 한 장.<br />카드를 눌러 그달의 이야기를 만나보세요.</p>
         <S.Grid>{result.pages.map((item, i) => <button type="button" key={item.month} onClick={() => setActive(i)} aria-label={`${item.month}월 해설 보기`}>

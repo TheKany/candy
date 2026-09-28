@@ -21,7 +21,8 @@ export function monthlyReadingSchema(count: number) {
         month: { type: "integer", minimum: 1, maximum: 12 }, cardId: { type: "integer", minimum: 0, maximum: 77 },
         ...Object.fromEntries(textFields.map(key => [key, { type: "string" }])),
         luck: { type: "integer", minimum: 0, maximum: 100 },
-      }, required: ["month", "cardId", ...textFields, "luck"],
+        remember: { type: "string" }, avoid: { type: "string" },
+      }, required: ["month", "cardId", ...textFields, "luck", "remember", "avoid"],
     } } }, required: ["pages"],
   };
 }
@@ -34,7 +35,8 @@ export function parseMonthlyReading(value: unknown, period: MonthlyPeriod, cardI
       || !Number.isInteger(page.luck) || page.luck < 0 || page.luck > 100
       || !textFields.every(key => typeof page[key] === "string" && page[key].trim().length >= (key === "nickname" ? 1 : 10)
         && page[key].length <= (key === "nickname" ? 40 : 700))) throw new Error("Incomplete monthly reading");
-    return { month: page.month, cardId: page.cardId, luck: page.luck,
+    if ([page.remember,page.avoid].some(v=>v!==undefined&&(typeof v!=='string'||v.trim().length<3||v.length>100))) throw new Error('Incomplete monthly guidance');
+    return { month: page.month, cardId: page.cardId, luck: page.luck, remember:page.remember, avoid:page.avoid,
       nickname: page.nickname.trim(), message: page.message.trim(), money: page.money.trim(), work: page.work.trim(),
       relationships: page.relationships.trim(), wellbeing: page.wellbeing.trim(), luckMessage: page.luckMessage.trim() };
   });
@@ -45,6 +47,8 @@ export const MONTHLY_READING_PROMPT = `너는 차분하고 따뜻한 한국어 �
 월별 카드 한 장은 그 달을 돌아보고 준비하는 상징이지 사건을 예언하는 증거가 아니다.
 받은 월과 카드 순서를 그대로 유지하고 month와 cardId를 정확하게 복사한다.
 각 달에 nickname(짧은 한국어 별명, 3~15자), message(핵심 메시지 1~2문장, 30~100자)를 쓴다.
+remember(기억할 것)와 avoid(주의할 것)는 그 달의 카드에 맞춰 실천할 행동과 피할 행동을 각각 10~45자로 쓴다. 점수나 추상적 단어 대신 '도움을 주고받으세요' 같은 행동 문구로 쓴다.
+결론과 조언은 '하는 게 좋아요 / 피하세요 / 먼저 확인하세요'처럼 명확히 제시한다. '~일지도 몰라요 / 가능성이 있어요'로 결론을 흐리지 않는다. 행동은 분명히 권하되 사건이나 타인의 속마음을 확인된 사실처럼 단정하지 않는다.
 money(금전), work(일·학업), relationships(인간관계), wellbeing(마음·생활)은 각각 자연스러운 2~3문장, 90~160자다.
 첫 문장은 해당 카드의 의미가 이 분야에서 어떻게 읽히는지, 다음 문장은 실제 해볼 행동이나 살펴볼 기준을 설명한다.
 직장인·학생·구직자에게 두루 읽히도록 '맡은 일이나 배우는 과정'처럼 쓰고 특정 직업, 연애 상태, 나이를 가정하지 않는다.

@@ -2,6 +2,8 @@ import type { ThreeCardSpreadId } from "@/constants/threeCardSpreads";
 import type { TarotCardProfile } from "@/types/tarotReadingTypes";
 
 export type ThreeCardReadingPage = {
+  remember?: string;
+  avoid?: string;
   positionId: string;
   positionLabel: string;
   positionDescription: string;

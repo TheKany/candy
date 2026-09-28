@@ -17,6 +17,8 @@ import Feedback from "./Feedback";
 import ReadingSaveButtons from "./ReadingSaveButtons";
 import SaveToAccount from "@/components/account/SaveToAccount";
 import TartOvenStatus from "./TartOvenStatus";
+import { ReadingOverview, ReadingCardPanel } from './ReadingPanels';
+import SavedReadingCarousel from './SavedReadingCarousel';
 import { ReadingRequestError, type ReadingFailureCode } from "@/util/readingFailure";
 import { Shell, Header, Viewport, Track, Slide, SummaryCard, Overview, Eyebrow, Advice, CardPage, Position, Reading, Pager, NavButton, NavigationHint, Status } from "./ResultPager.styles";
 
@@ -61,6 +63,7 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const pages = multi?.pages ?? (single?.reading ? [{
     card: single.card, positionLabel: "한 장의 메시지", headline: single.reading.headline,
     summary: "", detail: single.reading.detail,
+    remember: single.reading.remember, avoid: single.reading.avoid,
   }] : []);
   const conclusion = single?.reading?.summary ?? multi?.conclusion ?? "";
   const advice = single?.reading?.advice ?? multi?.advice ?? "";
@@ -69,12 +72,12 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
   const finishPage = savePage + 1;
   const pageCount = finishPage + 1;
   const stage = activePage === 0 ? "카드와 결론" : activePage < followUpPage ? "상세 해설" : activePage === followUpPage ? "추가 질문" : activePage === savePage ? "이야기 간직하기" : "상담 마무리";
-  const canContinue = deck.length > usedPositions.length;
+  const canContinue = deck.length > usedPositions.length && history.length < 3;
   const followUpQuestion = customQuestion.trim() || selectedQuestion;
   const goHome = onHome;
 
   const continueReading = () => {
-    if (!followUpQuestion || followUpQuestion.length > 1000 || leaving.current) return;
+    if (!followUpQuestion || followUpQuestion.length > 1000 || leaving.current || history.length>=3) return;
     const session = useReadingSessionStore.getState();
     if (!session.continueWith({ originalQuestion: session.previousConsultation?.originalQuestion ?? question, summary: result.contextSummary })) return;
     leaving.current = true;
@@ -93,24 +96,10 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
       <Viewport>
         <Track $page={activePage}>
           <Slide aria-hidden={activePage !== 0} inert={activePage !== 0}>
-            <SummaryCard>
-              <Eyebrow>뽑은 카드가 전하는 의미</Eyebrow>
-              <CardMeanings>{pages.map((page) => <div key={page.card.card_id}>
-                <Image src={`/cards/card${page.card.card_id}.webp`} alt={page.card.name_ko} width={42} height={70} />
-                <div><strong>{page.card.name_ko}</strong><p>{page.card.upright_one_line || page.card.upright_keywords.slice(0, 3).join(" · ")}</p></div>
-              </div>)}</CardMeanings>
-              <Eyebrow>그래서, 질문에 대한 답은</Eyebrow>
-              <h1>{conclusion}</h1>
-            </SummaryCard>
+            <ReadingOverview question={question} cards={pages.map(p=>({id:p.card.card_id,name:p.card.name_ko,detail:p.detail}))} conclusion={conclusion} overview={multi?.overview} advice={advice}/>
           </Slide>
           {pages.map((page, index) => <Slide key={page.card.card_id} aria-hidden={activePage !== index + 1} inert={activePage !== index + 1}>
-            <CardPage>
-              <Position>{page.positionLabel} · {page.card.name_ko}</Position>
-              <h2>{page.headline}</h2>
-              {index === 0 && multi?.overview && <Overview style={{ marginTop: 18, textAlign: "left" }}>{multi.overview.map((text, i) => <p key={i}>{text}</p>)}</Overview>}
-              <Reading>{page.summary && <p>{page.summary}</p>}{page.detail.split(/\n\s*\n/).filter(Boolean).map((text, i) => <p key={i}>{text}</p>)}</Reading>
-              {index === pages.length - 1 && <Advice><span>지금 해볼 수 있는 일</span><p>{advice}</p></Advice>}
-            </CardPage>
+            <ReadingCardPanel card={{id:page.card.card_id,name:page.card.name_ko,label:page.positionLabel,detail:[page.summary,page.detail].filter(Boolean).join('\n\n'),remember:page.remember,avoid:page.avoid}} headline={page.headline}/>
           </Slide>)}
           <Slide aria-hidden={activePage !== followUpPage} inert={activePage !== followUpPage}>
             <SummaryCard>
@@ -128,7 +117,7 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
                   <small id="custom-follow-up-count">{customQuestion.length.toLocaleString("ko-KR")} / 1,000자</small>
                 </CustomQuestionField>
                 {followUpQuestion && <PrimaryButton type="button" onClick={continueReading}>남은 카드에서 한 장 뽑기</PrimaryButton>}
-              </> : <Intro>{deck.length ? "남은 카드를 모두 살펴봤어요. 오늘의 이야기를 천천히 돌아보세요." : "이전 덱 정보가 없어 이어 뽑을 수 없어요. 새로운 상담에서 다시 만나요."}</Intro>}
+              </> : <Intro>{history.length>=3 ? "연계 질문 두 번까지 함께 살펴봤어요. 오늘의 이야기를 간직해보세요." : deck.length ? "남은 카드를 모두 살펴봤어요. 오늘의 이야기를 천천히 돌아보세요." : "이전 덱 정보가 없어 이어 뽑을 수 없어요. 새로운 상담에서 다시 만나요."}</Intro>}
               <Intro style={{ marginTop: 20 }}>여기서 마무리해도 좋아요. 아래 ‘마무리’ 버튼을 눌러주세요.</Intro>
             </SummaryCard>
           </Slide>
@@ -160,21 +149,13 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
       <Pager aria-label="해설 페이지 이동">
         <NavButton disabled={activePage === 0} onClick={() => setActivePage((page) => Math.max(0, page - 1))}>이전</NavButton>
         <PageIndicator aria-live="polite">{stage}<br /><small>{activePage + 1} / {pageCount}</small></PageIndicator>
-        <NavButton $home={activePage === finishPage} onClick={() => activePage === finishPage ? goHome() : setActivePage((page) => Math.min(finishPage, page + 1))}>{activePage === finishPage ? "홈으로" : activePage === followUpPage ? "마무리" : "다음"}</NavButton>
+        <NavButton $home onClick={() => activePage === finishPage ? goHome() : setActivePage((page) => Math.min(finishPage, page + 1))}>{activePage === finishPage ? "홈으로" : activePage === followUpPage ? "마무리" : "다음"}</NavButton>
       </Pager>
       <NavigationHint>긴 해설은 안쪽에서 스크롤하고, 페이지는 버튼으로 넘겨요</NavigationHint>
     </Shell>
     <ArchiveDialog ref={historyDialog} aria-label="이전 상담 기록">
       <button className="close" type="button" onClick={() => historyDialog.current?.close()}>닫기</button>
-      <h2>지금까지 나눈 이야기</h2>
-      {history.slice(0, -1).map((entry, index) => <article key={entry.id}>
-        <h3>{index === 0 ? "처음 질문" : `연계 질문 ${index}`}</h3><p>{entry.data.question}</p>
-        {entry.data.sections.map((section, i) => <section key={i}>
-          {section.cardId !== undefined && <Image src={`/cards/card${section.cardId}.webp`} alt={section.title} width={96} height={160} />}
-          <h4>{section.title}</h4><p>{section.text}</p>
-        </section>)}
-      </article>)}
-      <PrimaryButton type="button" onClick={() => { historyDialog.current?.close(); setActivePage(savePage); }}>전체 이야기 저장하기</PrimaryButton>
+      {history.length>1&&<SavedReadingCarousel readings={history.slice(0,-1).map(entry=>entry.data)} onBack={()=>historyDialog.current?.close()} actions={<PrimaryButton type="button" onClick={() => { historyDialog.current?.close(); setActivePage(savePage); }}>전체 이야기 저장하기</PrimaryButton>}/>}
     </ArchiveDialog>
   </>;
 }
@@ -212,13 +193,11 @@ const PrimaryButton = styled.button`&& { width: 100%; min-height: 48px; margin-t
 const PageIndicator = styled.span`text-align: center; color: #f2ce72; font-size: .78rem; line-height: 1.6; small { color: #fff7df90; }`;
 const HistoryButton = styled.button`min-height:44px;padding:8px 12px;border:1px solid #cfb575;border-radius:10px;background:transparent;color:inherit;font:inherit;font-size:12px;cursor:pointer;`;
 const ArchiveDialog = styled.dialog`
-  box-sizing:border-box;width:calc(100% - 28px);max-width:440px;max-height:85dvh;
-  margin:auto;padding:24px;border:1px solid #d8bf8a;border-radius:22px;background:#fff8e9;color:#214433;
-  overflow-y:auto;overscroll-behavior:contain;
+  box-sizing:border-box;width:100%;max-width:480px;height:100dvh;max-height:100dvh;
+  margin:auto;padding:0;border:1px solid #d8bf8a;border-radius:14px;background:#0b2b21;color:#f8f0d9;
+  overflow:hidden;overscroll-behavior:contain;
+  > section{height:calc(100dvh - 46px);max-height:calc(100dvh - 46px);}
   &::backdrop{background:#03150fbb;backdrop-filter:blur(4px);}
-  h2{font-size:20px;line-height:1.6;margin:12px 0;}h3{margin:24px 0 12px;}h4{margin:18px 0 8px;}
-  p{font-size:14px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere;}
-  article + article{border-top:1px solid #cfb575;margin-top:24px;}img{display:block;margin:18px auto 8px;}
   .close{display:block;margin-left:auto;min-height:44px;padding:8px 12px;background:transparent;border:0;color:inherit;cursor:pointer;}
-  > button:last-child{width:100%;margin-top:12px;}button:focus-visible{outline:2px solid #b89140;outline-offset:3px;}
+  button:focus-visible{outline:2px solid #b89140;outline-offset:3px;}
 `;
