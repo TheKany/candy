@@ -81,7 +81,7 @@ const reducedMotion = `
 
 const ExampleLink = styled(Link)`
   position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;
-  flex-wrap: wrap; column-gap: 10px; row-gap: 4px; min-height: 44px; margin-top: 10px;
+  flex-wrap: wrap; column-gap: 10px; row-gap: 4px; min-height: 44px; margin-top: 0; flex-shrink: 0;
   padding: 8px 0; color: #c7ceb9; font-size: 11px; line-height: 1.7;
   span { color: #efd493; border-bottom: 1px solid #efd49355; }
   &:focus-visible { outline: 2px solid #efd493; outline-offset: 3px; border-radius: 8px; }
@@ -92,11 +92,13 @@ const Main = styled.main`
   display: flex;
   width: 100%;
   min-height: 100dvh;
+  height: 100dvh;
+  box-sizing: border-box;
   flex-direction: column;
   overflow-y: auto;
-  padding: calc(64px + env(safe-area-inset-top))
+  padding: calc(52px + env(safe-area-inset-top))
     calc(24px + env(safe-area-inset-right))
-    calc(24px + env(safe-area-inset-bottom))
+    calc(10px + env(safe-area-inset-bottom))
     calc(24px + env(safe-area-inset-left));
   color: #fff7df;
   background:
@@ -126,9 +128,9 @@ const Main = styled.main`
   }
 
   @media (max-width: 319px) {
-    padding: calc(60px + env(safe-area-inset-top))
+    padding: calc(52px + env(safe-area-inset-top))
       calc(14px + env(safe-area-inset-right))
-      calc(14px + env(safe-area-inset-bottom))
+      calc(8px + env(safe-area-inset-bottom))
       calc(14px + env(safe-area-inset-left));
   }
 
@@ -152,18 +154,21 @@ const Hero = styled.section`
   position: relative;
   z-index: 1;
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+  min-height: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 3vh, 24px);
-  padding: clamp(18px, 5vh, 48px) 0;
+  gap: clamp(6px, 1.5dvh, 14px);
+  padding: clamp(8px, 2dvh, 20px) 0;
   text-align: center;
 `;
 
 const Artwork = styled.div`
   position: relative;
-  width: clamp(176px, 72vw, 320px);
+  width: min(68vw, 32dvh, 280px);
+  min-height: 0;
+  flex-shrink: 1;
   aspect-ratio: 1;
   filter: drop-shadow(0 18px 25px rgb(0 0 0 / 32%));
   transition: transform 240ms ease;
@@ -180,7 +185,7 @@ const Artwork = styled.div`
   }
 
   @media (max-width: 319px) {
-    width: min(68vw, 190px);
+    width: min(64vw, 28dvh, 180px);
   }
 `;
 
@@ -228,7 +233,7 @@ const Title = styled.h1`
   margin: 0;
   color: #fff6dc;
   font-family: "NotoSerifKR", serif;
-  font-size: clamp(2rem, 12vw, 3rem);
+  font-size: clamp(2rem, min(10vw, 6dvh), 3rem);
   font-weight: 900;
   letter-spacing: -0.07em;
   line-height: 1.1;

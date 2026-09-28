@@ -3,16 +3,17 @@ import Link from "next/link";
 import { useRef } from "react";
 import styled from "styled-components";
 import { useAuth } from "@/components/auth/AuthProvider";
-import Loading from "@/components/_common/Loading";
 export default function MemberEntry() {
   const auth = useAuth(); const dialog = useRef<HTMLDialogElement>(null);
   return <Box>
-    {auth.status === "loading" ? <Loading compact message="이용 정보를 확인하고 있어요" /> : auth.account ? <>
+    <Actions aria-busy={auth.status === "loading"}>
+    {auth.status === "loading" ? <button className="primary" type="button" disabled>시작하기 ✦</button> : auth.account ? <>
       <Link className="primary" href="/select">시작하기 ✦</Link>
     </> : <>
       <button className="primary" type="button" onClick={auth.signIn}>회원으로 이용하기</button>
       <button type="button" onClick={() => dialog.current?.showModal()}>비회원으로 이용하기</button>
     </>}
+    </Actions>
     {auth.error && <p role="alert">{auth.error} <button type="button" onClick={auth.refreshAccount}>다시 확인</button></p>}
     <Link className="privacy" href="/privacy">개인정보 안내</Link>
     <Benefits ref={dialog} aria-labelledby="member-benefits-title">
@@ -26,11 +27,16 @@ export default function MemberEntry() {
   </Box>;
 }
 const Box = styled.div`
-  position:relative;z-index:1;display:grid;gap:10px;width:100%;
+  position:relative;z-index:1;display:grid;gap:4px;width:100%;flex-shrink:0;
   button,a{box-sizing:border-box;font:inherit;} > button, > a.primary{display:block;width:100%;min-height:50px;padding:13px;border:1px solid #e7ca7080;border-radius:14px;background:#ffffff08;color:#fff7df;text-align:center;font-weight:700;cursor:pointer;text-decoration:none;}
   && .primary{background:linear-gradient(135deg,#f7da83,#d8a940,#f3cb69);color:#173629;}
   p{color:#e6dfc8;text-align:center;font-size:13px;line-height:1.7;}.links{display:flex;gap:18px;justify-content:center;align-items:center;color:#edcf8a;font-size:13px;}.links button{min-height:44px;border:0;background:none;color:inherit;cursor:pointer;}
   .privacy{text-align:center;font-size:11px;color:#c7ceb9;padding:8px;}button:focus-visible,a:focus-visible{outline:2px solid #edcf8a;outline-offset:3px;}
+`;
+const Actions = styled.div`
+  display:flex;gap:8px;min-height:50px;
+  > a, > button{display:flex;flex:1;min-width:0;align-items:center;justify-content:center;min-height:50px;padding:10px 6px;border:1px solid #e7ca7080;border-radius:14px;background:#ffffff08;color:#fff7df;text-align:center;font-size:clamp(12px,3.2vw,14px);font-weight:700;cursor:pointer;text-decoration:none;word-break:keep-all;}
+  > button:disabled{cursor:default;opacity:1;}
 `;
 const Benefits = styled.dialog`
   box-sizing:border-box;width:calc(100% - 28px);max-width:380px;max-height:90dvh;margin:auto;padding:36px 22px 24px;border:1px solid #d8bf8a;border-radius:24px;background:#fff8e9;color:#214433;overflow-y:auto;
