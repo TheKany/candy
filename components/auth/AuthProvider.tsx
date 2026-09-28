@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { createAuthBrowserClient } from "@/lib/auth/browser";
 import { handleResetStore } from "@/util/handleResetStore";
 import type { Account } from "@/lib/auth/member";
+import { clearDashboardCache } from "@/util/accountDashboardCache";
 type AuthValue = {
   status: "loading" | "guest" | "member" | "super" | "error";
   account: Account | null; error: string;
@@ -29,8 +30,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       if (sequence !== requestSequence.current) return false;
       const key = next ? `${next.id}:${next.role}` : "guest";
       if (identity.current !== undefined && identity.current !== key) {
-        handleResetStore(); setGeneration(value => value + 1);
+        clearDashboardCache(); handleResetStore(); setGeneration(value => value + 1);
       }
+      if (!next) clearDashboardCache();
       identity.current = key; setAccount(next); setStatus(next?.role ?? "guest"); setError("");
       return true;
     } catch {
@@ -63,7 +65,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     try {
       const { error } = await createAuthBrowserClient().auth.signOut({ scope: "local" });
       if (error) throw error;
-      ++requestSequence.current; handleResetStore(); setGeneration(value => value + 1);
+      ++requestSequence.current; clearDashboardCache(); handleResetStore(); setGeneration(value => value + 1);
       identity.current = "guest"; setAccount(null); setStatus("guest"); setError(""); router.replace("/"); router.refresh();
     } catch { setError("로그아웃하지 못했어요. 다시 시도해주세요."); }
   };

@@ -10,13 +10,14 @@ import { AccountPageShell } from "./AccountChrome";
 import TartStamps from "./TartStamps";
 import { rewardDisplay } from "@/util/mypageRules";
 import Loading from "@/components/_common/Loading";
+import { loadDashboard, readDashboard } from "@/util/accountDashboardCache";
 const kinds: Record<string,string>={one:"한 장 타로",three:"세 장 타로",five:"다섯 장 타로",monthly:"월별 타로",saved:"저장한 타로"};
 export default function MyPage(){
-  const auth=useAuth(); const [data,setData]=useState<MyPageData|null>(null);const [error,setError]=useState("");const [busy,setBusy]=useState(true);const [attempt,setAttempt]=useState(0);
+  const auth=useAuth(); const [data,setData]=useState<MyPageData|null>(()=>auth.account?readDashboard(auth.account.id):null);const [error,setError]=useState("");const [busy,setBusy]=useState(true);const [attempt,setAttempt]=useState(0);
   const refresh=useCallback(()=>setAttempt(n=>n+1),[]);
-  useEffect(()=>{setData(null);},[auth.account?.id]);
+  useEffect(()=>{setData(auth.account?readDashboard(auth.account.id):null);},[auth.account?.id]);
   useEffect(()=>{setError("");if(!auth.account)return;const controller=new AbortController();setBusy(true);
-    fetch("/api/account/dashboard",{cache:"no-store",signal:controller.signal}).then(async response=>{if(!response.ok)throw new Error();const value:MyPageData=await response.json();if(!controller.signal.aborted)setData(value);}).catch(()=>{if(!controller.signal.aborted)setError("마이페이지를 불러오지 못했어요. 잠시 후 다시 시도해주세요.");}).finally(()=>{if(!controller.signal.aborted)setBusy(false);});return()=>controller.abort();
+    loadDashboard(auth.account.id).then(value=>{if(!controller.signal.aborted)setData(value);}).catch(()=>{if(!controller.signal.aborted)setError("마이페이지를 불러오지 못했어요. 잠시 후 다시 시도해주세요.");}).finally(()=>{if(!controller.signal.aborted)setBusy(false);});return()=>controller.abort();
   },[auth.account?.id,attempt]);
   useEffect(()=>{const onFocus=()=>refresh();window.addEventListener("focus",onFocus);return()=>window.removeEventListener("focus",onFocus);},[refresh]);
   useEffect(()=>{if(!data)return;const midnight=Date.parse(`${data.day}T00:00:00+09:00`)+86400000;const timer=setTimeout(refresh,Math.max(1000,midnight-Date.now()+1000));return()=>clearTimeout(timer);},[data?.day,refresh]);

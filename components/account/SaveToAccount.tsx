@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { invalidateDashboard } from "@/util/accountDashboardCache";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 import { prepareAccountReadings, type QuestionSaveMode } from "@/util/prepareAccountReadings";
 export default function SaveToAccount() {
@@ -20,6 +21,7 @@ export default function SaveToAccount() {
       const readings = prepareAccountReadings(session.history.map(entry => entry.data), questionMode);
       const response = await fetch("/api/consultations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ consultationId: id, revision, questionMode, readings }) });
       if (!response.ok) throw new Error();
+      invalidateDashboard(account.id);
       dialog.current?.close();
       if (useReadingSessionStore.getState().consultationId === id) { useReadingSessionStore.getState().markAccountSaved(revision); setMessage("내 타로 기록에 저장했어요."); }
     } catch { setMessage("저장하지 못했어요. 로그인 상태를 확인하고 다시 눌러주세요."); }

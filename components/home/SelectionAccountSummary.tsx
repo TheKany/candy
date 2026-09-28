@@ -5,22 +5,21 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useAuth } from "@/components/auth/AuthProvider";
 import type { MyPageData } from "@/types/mypageTypes";
+import { loadDashboard, readDashboardSummary } from "@/util/accountDashboardCache";
 
 export default function SelectionAccountSummary() {
   const auth = useAuth();
-  const [data, setData] = useState<MyPageData | null>(null);
+  const [data, setData] = useState<MyPageData | null>(() => auth.account ? readDashboardSummary(auth.account.id) : null);
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
 
-  useEffect(() => { setData(null); }, [auth.account?.id]);
+  useEffect(() => { setData(auth.account ? readDashboardSummary(auth.account.id) : null); }, [auth.account?.id]);
   useEffect(() => {
     setFailed(false);
     if (!auth.account) return;
     const controller = new AbortController();
-    void fetch("/api/account/dashboard", { cache: "no-store", signal: controller.signal })
-      .then(async response => {
-        if (!response.ok) throw new Error("BALANCE_UNAVAILABLE");
-        const next: MyPageData = await response.json();
+    void loadDashboard(auth.account.id)
+      .then(next => {
         if (!controller.signal.aborted) setData(next);
       })
       .catch(() => { if (!controller.signal.aborted) setFailed(true); });

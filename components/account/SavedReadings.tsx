@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { invalidateDashboard } from "@/util/accountDashboardCache";
 import ReadingSaveButtons from "@/components/result/ReadingSaveButtons";
 import type { ReadingExport } from "@/util/readingExportLayout";
 import Loading from "@/components/_common/Loading";
@@ -30,6 +31,7 @@ export default function SavedReadings({ id }: { id?: string }) {
     try {
       const response = await fetch(`/api/consultations/${recordId}`, { method: "DELETE" });
       if (!response.ok) throw new Error();
+      if (auth.account) invalidateDashboard(auth.account.id);
       setItems(list => list.filter(item => item.id !== recordId));
       if (id === recordId) router.replace("/account");
     } catch { setError("기록을 삭제하지 못했어요. 다시 시도해주세요."); }
