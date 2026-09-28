@@ -14,6 +14,7 @@ import { loadPersonalReading } from "@/util/loadPersonalReading";
 import { archivePersonalReading, type PersonalReadingResponse as ReadingResponse } from "@/util/personalReadingArchive";
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import Feedback from "./Feedback";
+import QuestionEditor from "@/components/_common/QuestionEditor";
 import ReadingSaveButtons from "./ReadingSaveButtons";
 import SaveToAccount from "@/components/account/SaveToAccount";
 import TartOvenStatus from "./TartOvenStatus";
@@ -110,11 +111,9 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
                 <Actions>{result.followUpQuestions.map((text) => <QuestionButton key={text} type="button" aria-pressed={selectedQuestion === text} $selected={selectedQuestion === text} onClick={() => { setSelectedQuestion(text); setCustomQuestion(""); }}>{selectedQuestion === text ? "✓ " : ""}{text}</QuestionButton>)}</Actions>
                 <CustomQuestionField>
                   <label htmlFor="custom-follow-up">직접 질문하기</label>
-                  <textarea id="custom-follow-up" rows={3} maxLength={1000} value={customQuestion}
+                  <QuestionEditor id="custom-follow-up" label="이어서 궁금한 질문" value={customQuestion}
                     placeholder="이 해설에서 더 궁금한 점을 문장으로 적어주세요."
-                    aria-describedby="custom-follow-up-count"
-                    onChange={(event) => { setCustomQuestion(event.target.value); setSelectedQuestion(""); }} />
-                  <small id="custom-follow-up-count">{customQuestion.length.toLocaleString("ko-KR")} / 1,000자</small>
+                    onChange={(value) => { setCustomQuestion(value); setSelectedQuestion(""); }} />
                 </CustomQuestionField>
                 {followUpQuestion && <PrimaryButton type="button" onClick={continueReading}>남은 카드에서 한 장 뽑기</PrimaryButton>}
               </> : <Intro>{history.length>=3 ? "연계 질문 두 번까지 함께 살펴봤어요. 오늘의 이야기를 간직해보세요." : deck.length ? "남은 카드를 모두 살펴봤어요. 오늘의 이야기를 천천히 돌아보세요." : "이전 덱 정보가 없어 이어 뽑을 수 없어요. 새로운 상담에서 다시 만나요."}</Intro>}

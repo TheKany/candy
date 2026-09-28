@@ -8,6 +8,7 @@ import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 import { handleResetCardProgress } from "@/util/handleResetStore";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
+import QuestionEditor from "@/components/_common/QuestionEditor";
 
 export default function QuestionEntry() {
   const router = useRouter();
@@ -38,13 +39,12 @@ export default function QuestionEntry() {
       router.push("/shuffle");
     }}>
       <label htmlFor="tarot-question">나의 질문</label>
-      <textarea id="tarot-question" required maxLength={1000} value={question}
+      <QuestionEditor id="tarot-question" label="나의 질문" value={question}
         placeholder="궁금한 점을 단어가 아닌 문장으로 적어주세요. 지금의 상황을 함께 알려주시면 좋아요."
-        onChange={(event) => {
-          setQuestion(event.target.value);
-          useQuestionStore.getState().save(event.target.value, null);
+        onChange={(value) => {
+          setQuestion(value);
+          useQuestionStore.getState().save(value, null);
         }} />
-      <Count>{question.length}/1,000</Count>
     </form>
     </div>
     <Button type="submit" form="question-form" disabled={!question.trim()}>카드 뽑으러 가기 →</Button>
