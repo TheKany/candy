@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import PwaRegister from "@/components/_common/PwaRegister";
 import AuthProvider from "@/components/auth/AuthProvider";
 import SuperWelcome from "@/components/auth/SuperWelcome";
+import StyledComponentsRegistry from "@/components/_common/StyledComponentsRegistry";
 
 export const viewport = {
   width: "device-width",
@@ -73,7 +74,9 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <PwaRegister />
-        <AuthProvider><Container>{children}</Container><SuperWelcome /></AuthProvider>
+        <StyledComponentsRegistry>
+          <AuthProvider><Container>{children}</Container><SuperWelcome /></AuthProvider>
+        </StyledComponentsRegistry>
         <script
           defer
           src="https://developers.kakao.com/sdk/js/kakao.min.js"
