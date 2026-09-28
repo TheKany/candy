@@ -2,19 +2,22 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { useAuth } from "@/components/auth/AuthProvider";
 import ReadingSaveButtons from "@/components/result/ReadingSaveButtons";
 import type { ReadingExport } from "@/util/readingExportLayout";
+import Loading from "@/components/_common/Loading";
 type Summary = { id: string; revision: number; updated_at: string };
 export default function SavedReadings({ id }: { id?: string }) {
   const auth = useAuth();
+  const router = useRouter();
   const [items, setItems] = useState<Summary[]>([]);
   const [readings, setReadings] = useState<ReadingExport[]>([]);
   const [error, setError] = useState(""); const [busy, setBusy] = useState(true); const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     setItems([]); setReadings([]); setError("");
-    if (auth.status !== "member") return;
+    if (auth.status !== "member" && auth.status !== "super") return;
     const controller = new AbortController(); setBusy(true);
     fetch(id ? `/api/consultations/${encodeURIComponent(id)}` : "/api/consultations", { cache: "no-store", signal: controller.signal })
       .then(async response => { if (!response.ok) throw new Error(); const body = await response.json(); if (!controller.signal.aborted) { if (id) setReadings(body.readings); else setItems(body.readings); } })
@@ -28,19 +31,20 @@ export default function SavedReadings({ id }: { id?: string }) {
       const response = await fetch(`/api/consultations/${recordId}`, { method: "DELETE" });
       if (!response.ok) throw new Error();
       setItems(list => list.filter(item => item.id !== recordId));
+      if (id === recordId) router.replace("/account");
     } catch { setError("기록을 삭제하지 못했어요. 다시 시도해주세요."); }
   };
-  return <Page><nav><Link href={id ? "/account" : "/"}>{id ? "← 내 기록" : "← 홈으로"}</Link>{auth.account && <button type="button" onClick={auth.signOut}>로그아웃</button>}</nav>
+  if(auth.status === "loading" || (auth.account && busy)) return <Loading message="저장한 이야기를 꺼내고 있어요" />;
+  return <Page className="page-enter"><nav><Link href={id ? "/account" : "/"}>{id ? "← 내 기록" : "← 홈으로"}</Link>{auth.account && <button type="button" onClick={auth.signOut}>로그아웃</button>}</nav>
     <small>나를 위한 타로타르트</small><h1>{id ? "다시 꺼낸 이야기" : "내 타로 기록"}</h1>
-    {auth.status === "loading" ? <p role="status">로그인을 확인하고 있어요…</p> : auth.status === "super" ? <p>슈퍼 계정의 질문과 해설은 별도로 저장하지 않아요.</p> : auth.status !== "member" ? <><p>{auth.error || "카카오 로그인 후 내 기록을 볼 수 있어요."}</p><button type="button" onClick={auth.signIn}>카카오로 로그인</button></> : <>
-      {busy && <p role="status">기록을 꺼내고 있어요…</p>}
+    {auth.status !== "member" && auth.status !== "super" ? <><p>{auth.error || "카카오 로그인 후 내 기록을 볼 수 있어요."}</p><button type="button" onClick={auth.signIn}>카카오로 로그인</button></> : <>
       {error && <p role="alert">{error} <button type="button" onClick={() => setAttempt(value => value + 1)}>다시 시도</button></p>}
       {!id && !busy && !error && !items.length && <p>아직 저장한 이야기가 없어요.<br />상담 후 ‘내 기록에 저장’을 눌러보세요.</p>}
       {!id && items.map(item => <article key={item.id}><Link href={`/account/readings/${item.id}`}><h2>{new Date(item.updated_at).toLocaleDateString("ko-KR")}의 이야기</h2><p>처음 질문{item.revision > 1 ? ` + 연계 질문 ${item.revision - 1}개` : ""}</p></Link><button type="button" onClick={() => remove(item.id)}>삭제</button></article>)}
       {id && readings.map((reading, index) => <article key={index}><h2>{index ? `연계 질문 ${index}` : reading.title}</h2><p className="question">{reading.question || reading.keywords?.join(" · ")}</p>
         {reading.sections.map((section, i) => <section key={i}>{section.cardId !== undefined && <Image src={`/cards/card${section.cardId}.webp`} width={96} height={160} alt={section.title} />}<h3>{section.title}</h3><p>{section.text}</p></section>)}
       </article>)}
-      {id && readings.length > 0 && <ReadingSaveButtons data={{ title: "다시 꺼낸 이야기", sections: [], readings }} />}
+      {id && readings.length > 0 && <><ReadingSaveButtons data={{ title: "다시 꺼낸 이야기", sections: [], readings }} /><button type="button" onClick={() => remove(id)}>이 상담 기록 삭제</button></>}
     </>}
   </Page>;
 }

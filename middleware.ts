@@ -22,4 +22,4 @@ export async function middleware(request: NextRequest) {
   response.headers.set("X-Frame-Options", "DENY");
   return response;
 }
-export const config = { matcher: ["/auth/:path*", "/account/:path*", "/api/account/:path*", "/api/consultations/:path*"] };
+export const config = { matcher: ["/auth/:path*", "/account/:path*", "/admin/:path*", "/api/admin/:path*", "/api/account/:path*", "/api/consultations/:path*"] };

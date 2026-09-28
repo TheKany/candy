@@ -25,8 +25,9 @@ export async function readLimitedJson(request: Request): Promise<unknown> {
 const isObject = (value: unknown): value is Record<string, unknown> => !!value && typeof value === "object" && !Array.isArray(value);
 const text = (value: unknown, max: number) => typeof value === "string" && value.length <= max;
 const keys = (value: Record<string, unknown>, allowed: string[]) => Object.keys(value).every(key => allowed.includes(key));
-export function parseSavedConsultation(value: unknown): { consultationId: string; revision: number; readings: ReadingExport[] } {
-  if (!isObject(value) || !keys(value, ["consultationId", "revision", "readings"])
+export function parseSavedConsultation(value: unknown): { consultationId: string; revision: number; readings: ReadingExport[]; questionMode?: "original" | "keywords" } {
+  if (!isObject(value) || !keys(value, ["consultationId", "revision", "readings", "questionMode"])
+    || (value.questionMode !== undefined && value.questionMode !== "original" && value.questionMode !== "keywords")
     || typeof value.consultationId !== "string" || !uuidPattern.test(value.consultationId)
     || !Number.isInteger(value.revision) || Number(value.revision) < 1 || Number(value.revision) > 78
     || !Array.isArray(value.readings) || value.readings.length !== value.revision
@@ -37,5 +38,5 @@ export function parseSavedConsultation(value: unknown): { consultationId: string
       && reading.sections.every(section => isObject(section) && keys(section, ["title", "text", "cardId"])
         && text(section.title, 200) && text(section.text, 20000)
         && (section.cardId === undefined || (Number.isInteger(section.cardId) && Number(section.cardId) >= 0 && Number(section.cardId) <= 77))))) throw new AccountRequestError("저장할 상담 내용을 확인해주세요.");
-  return value as { consultationId: string; revision: number; readings: ReadingExport[] };
+  return value as { consultationId: string; revision: number; readings: ReadingExport[]; questionMode?: "original" | "keywords" };
 }

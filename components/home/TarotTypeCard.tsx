@@ -1,25 +1,32 @@
 import type { TarotTypeId, TarotTypeOption } from "@/constants/tarotTypes";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 type TarotTypeCardProps = {
   option: TarotTypeOption;
   onSelect: (id: TarotTypeId) => void;
+  selected?: boolean;
+  disabled?: boolean;
 };
 
-export default function TarotTypeCard({ option, onSelect }: TarotTypeCardProps) {
+export default function TarotTypeCard({ option, onSelect, selected = false, disabled = false }: TarotTypeCardProps) {
   return (
     <CardButton
       type="button"
+      $selected={selected}
+      disabled={disabled}
+      aria-pressed={selected}
       aria-label={`${option.title}, ${option.subtitle}${option.available ? "" : ", 준비 중"}`}
       onClick={() => onSelect(option.id)}
     >
       <Symbol aria-hidden>{option.symbol}</Symbol>
       <Copy>
         <Title>{option.title}</Title>
-        <Subtitle>— {option.subtitle} —</Subtitle>
+        <Subtitle>{option.subtitle}</Subtitle>
       </Copy>
       {option.available ? (
-        <Arrow aria-hidden>→</Arrow>
+        <SelectionMark $selected={selected} aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>
+        </SelectionMark>
       ) : (
         <Badge aria-hidden>준비 중</Badge>
       )}
@@ -27,32 +34,32 @@ export default function TarotTypeCard({ option, onSelect }: TarotTypeCardProps) 
   );
 }
 
-const CardButton = styled.button`
+const CardButton = styled.button<{ $selected: boolean }>`
   display: grid;
   width: 100%;
   min-width: 0;
   min-height: 88px;
-  grid-template-columns: 28px minmax(150px, 1fr) auto;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 8px;
-  padding: 8px;
-  border: 1px solid rgb(242 206 114 / 55%);
-  border-radius: 17px;
-  color: #fff6dc;
-  background: linear-gradient(135deg, rgb(21 69 52 / 92%), rgb(9 43 33 / 94%));
-  box-shadow: 0 10px 22px rgb(0 0 0 / 18%), inset 0 1px 0 rgb(255 247 223 / 8%);
+  padding: 14px 4px;
+  border: 0;
+  border-bottom: 1px solid #b5a17b40;
+  border-radius: 0;
+  color: #244636;
+  background: ${({ $selected }) => $selected ? "#dce4cc" : "transparent"};
   cursor: pointer;
   text-align: left;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  transition: background 180ms ease;
+  &:last-child { border-bottom: 0; }
 
-  &:hover {
-    border-color: #f2ce72;
-    background: linear-gradient(135deg, #19533d, #0b392c);
-    transform: translateY(-2px);
+  &:hover:not(:disabled) {
+    background: #dfd3b54a;
   }
+  &:disabled { cursor: default; opacity: 1; }
 
   &:focus-visible {
-    outline: 3px solid #fff6dc;
+    outline: 2px solid #476b50;
     outline-offset: -3px;
   }
 `;
@@ -62,7 +69,7 @@ const Symbol = styled.span`
   width: 28px;
   height: 44px;
   place-items: center;
-  color: #f2ce72;
+  color: #9a7a43;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.65rem;
   line-height: 1;
@@ -76,7 +83,7 @@ const Copy = styled.span`
 `;
 
 const Title = styled.span`
-  color: #fff6dc;
+  color: #244636;
   font-size: clamp(1rem, 4.6vw, 1.12rem);
   font-weight: 900;
   line-height: 1.25;
@@ -84,17 +91,30 @@ const Title = styled.span`
 `;
 
 const Subtitle = styled.span`
-  color: rgb(255 247 223 / 76%);
+  color: #747762;
   font-size: 0.78rem;
-  line-height: 1.3;
+  line-height: 1.6;
   word-break: keep-all;
 `;
 
-const Arrow = styled.span`
-  padding: 0 6px;
-  color: #f2ce72;
-  font-size: 1.4rem;
-  font-weight: 700;
+const drawCheck = keyframes`
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: 0; }
+`;
+
+const SelectionMark = styled.span<{ $selected: boolean }>`
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin: 0 3px;
+  border: 1px solid ${({ $selected }) => $selected ? "#365e44" : "#a7a48a"};
+  border-radius: 5px;
+  background: ${({ $selected }) => $selected ? "#365e44" : "#fffaf040"};
+  transition: background 180ms ease, border-color 180ms ease;
+  svg { width: 22px; height: 22px; fill: none; stroke: #fff8e9; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; visibility: ${({ $selected }) => $selected ? "visible" : "hidden"}; }
+  path { stroke-dasharray: 28; stroke-dashoffset: ${({ $selected }) => $selected ? 0 : 28}; animation: ${({ $selected }) => $selected ? drawCheck : "none"} 240ms ease-out both; }
+  @media (prefers-reduced-motion: reduce) { &, path { animation: none; transition: none; } }
 `;
 
 const Badge = styled.span`

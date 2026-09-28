@@ -7,7 +7,7 @@ import type { Account } from "@/lib/auth/member";
 type AuthValue = {
   status: "loading" | "guest" | "member" | "super" | "error";
   account: Account | null; error: string;
-  signIn: () => Promise<void>; signOut: () => Promise<void>; refreshAccount: () => Promise<void>;
+  signIn: () => Promise<void>; signOut: () => Promise<void>; refreshAccount: () => Promise<boolean>;
 };
 const AuthContext = createContext<AuthValue | null>(null);
 export function useAuth() { const value = useContext(AuthContext); if (!value) throw new Error("AuthProvider missing"); return value; }
@@ -23,17 +23,19 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const sequence = ++requestSequence.current;
     try {
       const response = await fetch("/api/account", { cache: "no-store" });
-      if (sequence !== requestSequence.current) return;
+      if (sequence !== requestSequence.current) return false;
       if (!response.ok && response.status !== 401) throw new Error("회원 연결을 확인하지 못했어요. 다시 시도해주세요.");
       const next: Account | null = response.status === 401 ? null : await response.json();
-      if (sequence !== requestSequence.current) return;
+      if (sequence !== requestSequence.current) return false;
       const key = next ? `${next.id}:${next.role}` : "guest";
       if (identity.current !== undefined && identity.current !== key) {
         handleResetStore(); setGeneration(value => value + 1);
       }
       identity.current = key; setAccount(next); setStatus(next?.role ?? "guest"); setError("");
+      return true;
     } catch {
       if (sequence === requestSequence.current) { setAccount(null); setStatus("error"); setError("회원 연결을 확인하지 못했어요. 다시 시도해주세요."); }
+      return false;
     }
   }, []);
   useEffect(() => {
@@ -52,7 +54,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const signIn = async () => {
     setError("");
     try {
-      const { error } = await createAuthBrowserClient().auth.signInWithOAuth({ provider: "kakao", options: { redirectTo: `${window.location.origin}/auth/callback`, scopes: "profile_nickname" } });
+      // `scopes` appends to Supabase's Kakao defaults (email/photo); override the provider scope instead.
+      const { error } = await createAuthBrowserClient().auth.signInWithOAuth({ provider: "kakao", options: { redirectTo: `${window.location.origin}/auth/callback`, queryParams: { scope: "profile_nickname" } } });
       if (error) throw error;
     } catch { setError("카카오 로그인을 시작하지 못했어요. 다시 시도해주세요."); }
   };

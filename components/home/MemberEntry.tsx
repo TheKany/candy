@@ -3,12 +3,12 @@ import Link from "next/link";
 import { useRef } from "react";
 import styled from "styled-components";
 import { useAuth } from "@/components/auth/AuthProvider";
+import Loading from "@/components/_common/Loading";
 export default function MemberEntry() {
   const auth = useAuth(); const dialog = useRef<HTMLDialogElement>(null);
   return <Box>
-    {auth.status === "loading" ? <p role="status">이용 정보를 확인하고 있어요…</p> : auth.account ? <>
+    {auth.status === "loading" ? <Loading compact message="이용 정보를 확인하고 있어요" /> : auth.account ? <>
       <Link className="primary" href="/select">시작하기 ✦</Link>
-      <div className="links">{auth.status === "member" ? <Link href="/account">내 타로 기록</Link> : <span>SUPER ACCOUNT</span>}<button type="button" onClick={auth.signOut}>로그아웃</button></div>
     </> : <>
       <button className="primary" type="button" onClick={auth.signIn}>회원으로 이용하기</button>
       <button type="button" onClick={() => dialog.current?.showModal()}>비회원으로 이용하기</button>

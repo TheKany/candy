@@ -15,6 +15,7 @@ import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 import ReadingSaveButtons from "@/components/result/ReadingSaveButtons";
 import SaveToAccount from "@/components/account/SaveToAccount";
+import ActivityRecorder from "@/components/account/ActivityRecorder";
 
 
 const Result = () => {
@@ -70,7 +71,7 @@ const Result = () => {
   if (!isReady || !type) return null;
 
   return (
-    <><Wrapper>
+    <><ActivityRecorder kind={type}/><Wrapper>
       {type === "monthly" ? (
           <MonthlyReadingResult onHome={onClickHome} />
         ) : type === "three" ? (

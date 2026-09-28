@@ -9,21 +9,27 @@ import {
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { handleResetStore } from "@/util/handleResetStore";
 import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 import { getMonthlyPeriod, type MonthlyYearChoice } from "@/util/monthlyReading";
+import SelectionAccountSummary from "./SelectionAccountSummary";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 export default function ReadingSelect() {
+  const auth = useAuth();
   const [notice, setNotice] = useState("");
+  const [selectedType, setSelectedType] = useState<TarotTypeId | null>(null);
+  const selectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (selectionTimer.current) clearTimeout(selectionTimer.current); }, []);
   const yearDialog = useRef<HTMLDialogElement>(null);
   const [yearChoice, setYearChoice] = useState<MonthlyYearChoice>("current");
   const [currentPeriod, setCurrentPeriod] = useState<ReturnType<typeof getMonthlyPeriod> | null>(null);
   const router = useRouter();
   const setType = useTarotTypeStore((state) => state.setType);
 
-  const handleSelect = (id: TarotTypeId) => {
+  const openSelection = (id: TarotTypeId) => {
     const action = getTarotSelectionAction(id);
 
     if (action.kind === "navigate") {
@@ -31,6 +37,8 @@ export default function ReadingSelect() {
         setCurrentPeriod(getMonthlyPeriod());
         setYearChoice("current");
         yearDialog.current?.showModal();
+        setSelectedType(null);
+        selectionTimer.current = null;
         return;
       } else {
         useMonthlyReadingStore.getState().reset();
@@ -43,31 +51,37 @@ export default function ReadingSelect() {
     setNotice(action.message);
   };
 
+  const handleSelect = (id: TarotTypeId) => {
+    if (selectionTimer.current) return;
+    if (getTarotSelectionAction(id).kind !== "navigate") { openSelection(id); return; }
+    setSelectedType(id);
+    const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 100 : 460;
+    selectionTimer.current = setTimeout(() => openSelection(id), delay);
+  };
+
   return (
     <Main>
       <TopBar>
-        <BackButton
-          type="button"
-          aria-label="이전 화면으로 돌아가기"
-          onClick={() => router.back()}
-        >
-          <span aria-hidden>←</span>
-          뒤로
-        </BackButton>
         <HomeLink href="/">홈으로</HomeLink>
+        {auth.account && <HomeLink href="/account">마이페이지</HomeLink>}
       </TopBar>
 
+      <SelectionAccountSummary />
+      <Divider />
+      <OrderSheet aria-labelledby="order-title">
       <Header>
-        <Eyebrow>CHOOSE YOUR READING</Eyebrow>
-        <Title>어떤 타로를 볼까요?</Title>
-        <Description>지금 마음에 가장 가까운 리딩을 골라보세요.</Description>
+        <OrderLabel>TAROTART <span>·</span> ORDER</OrderLabel>
+        <Title id="order-title"><span>주문할 타로타르트를</span>골라 주세요</Title>
+        <Stamp aria-hidden="true"><svg viewBox="0 0 48 38" fill="none"><path d="M7 20c0-5 8-9 17-9s17 4 17 9l-4 11c-8 5-18 5-26 0L7 20Z"/><ellipse cx="24" cy="20" rx="17" ry="8"/><path d="m15 27 2 6m7-5v6m9-7-2 6"/><circle cx="21" cy="14" r="4"/><circle cx="28" cy="15" r="4"/><path d="M23 10c0-4 3-6 6-5-1 3-3 5-6 5Z"/></svg><span>마음 한 조각</span></Stamp>
       </Header>
 
       <CardList aria-label="타로 리딩 유형">
         {TAROT_TYPES.map((option) => (
-          <TarotTypeCard key={option.id} option={option} onSelect={handleSelect} />
+          <TarotTypeCard key={option.id} option={option} onSelect={handleSelect} selected={selectedType === option.id} disabled={selectedType !== null} />
         ))}
       </CardList>
+      <OrderFooter aria-hidden="true">MADE FOR YOUR MOMENT <span>✦</span></OrderFooter>
+      </OrderSheet>
 
       <Notice role="status" aria-live="polite">
         {notice}
@@ -160,29 +174,6 @@ const TopBar = styled.div`
   justify-content: space-between;
 `;
 
-const BackButton = styled.button`
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  gap: 6px;
-  padding: 0 6px;
-  color: #fff6dc;
-  cursor: pointer;
-  font-size: 0.88rem;
-  font-weight: 700;
-
-  span {
-    color: #f2ce72;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.3rem;
-  }
-
-  &:focus-visible {
-    outline: 3px solid #fff6dc;
-    outline-offset: -3px;
-  }
-`;
-
 const HomeLink = styled(Link)`
   display: inline-flex;
   min-height: 44px;
@@ -202,36 +193,94 @@ const HomeLink = styled(Link)`
 const Header = styled.header`
   position: relative;
   z-index: 1;
-  margin: clamp(20px, 5vh, 42px) 0 clamp(18px, 4vh, 30px);
-  text-align: center;
+  padding: 24px 20px 22px;
+  border-bottom: 1px dashed #aa916a80;
+  text-align: left;
+  @media (max-width: 319px) { padding: 20px 14px; }
 `;
 
-const Eyebrow = styled.p`
-  margin: 0 0 10px;
-  color: #f2ce72;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+const OrderSheet = styled.section`
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  margin-bottom: 8px;
+  color: #244636;
+  background: linear-gradient(115deg, #fff8e9, #f4ead6);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 12px 28px #031a1433;
+  &::after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #f4ead6 25%, transparent 25%) -8px 0,
+      linear-gradient(225deg, #f4ead6 25%, transparent 25%) -8px 0;
+    background-size: 16px 16px;
+  }
+`;
+
+const OrderLabel = styled.p`
+  margin: 0 0 18px;
+  color: #8c7551;
+  font-family: Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  span { padding: 0 5px; }
+`;
+
+const Stamp = styled.div`
+  position: absolute;
+  right: 18px;
+  bottom: 25px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: 65px;
+  height: 65px;
+  border: 1px solid #a37055;
+  border-radius: 50%;
+  color: #a37055;
+  transform: rotate(12deg);
+  svg { width: 39px; height: 32px; stroke: currentColor; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+  span { font-size: 8px; letter-spacing: 0.02em; }
+  @media (max-width: 359px) { right: 12px; width: 48px; height: 48px; svg { width: 28px; height: 24px; } span { font-size: 7px; } }
+`;
+
+const OrderFooter = styled.p`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;
+  padding: 14px 0 16px;
+  border-top: 1px dashed #aa916a80;
+  color: #8c7551;
+  font-family: Georgia, serif;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  span { font-size: 12px; }
+  @media (max-width: 319px) { margin: 0 14px; }
+`;
+
+const Divider = styled.hr`
+  width: 100%;
+  border: 0;
+  border-top: 1px solid rgb(237 207 138 / 28%);
+  margin: 20px 0;
 `;
 
 const Title = styled.h1`
   margin: 0;
-  color: #fff6dc;
-  font-size: clamp(1.75rem, 9vw, 2.35rem);
+  padding-right: 64px;
+  color: #244636;
+  font-size: clamp(1.7rem, 7.4vw, 2.15rem);
   font-weight: 900;
   letter-spacing: -0.06em;
-  line-height: 1.18;
+  line-height: 1.5;
   word-break: keep-all;
-`;
-
-const Description = styled.p`
-  max-width: 27ch;
-  margin: 12px auto 0;
-  color: rgb(255 247 223 / 80%);
-  font-size: clamp(0.88rem, 3.8vw, 1rem);
-  line-height: 1.6;
-  word-break: keep-all;
+  span { display: block; font-size: clamp(0.85rem, 3.5vw, 1rem); font-weight: 500; letter-spacing: -0.04em; margin-bottom: 3px; }
+  @media (max-width: 359px) { padding-right: 42px; }
 `;
 
 const CardList = styled.section`
@@ -239,7 +288,9 @@ const CardList = styled.section`
   z-index: 1;
   display: grid;
   min-width: 0;
-  gap: clamp(10px, 2.2vh, 14px);
+  gap: 0;
+  padding: 4px 16px;
+  @media (max-width: 319px) { padding: 4px 10px; }
 `;
 
 const Notice = styled.p`

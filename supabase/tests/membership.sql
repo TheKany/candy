@@ -1,4 +1,4 @@
--- Run only after 202609270001_membership.sql. Synthetic identities; all changes roll back.
+-- Run after membership and super_manual_save migrations. Synthetic identities; all changes roll back.
 begin;
 insert into auth.users(id) values
  ('00000000-0000-4000-8000-000000000a01'),
@@ -35,11 +35,17 @@ do $$ declare removed integer; begin
   if removed <> 0 then raise exception 'Other member can delete'; end if;
 end $$;
 select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000c01',true);
-do $$ begin
-  begin
-    perform public.save_consultation('00000000-0000-4000-8000-000000000d03',1,'[{"title":"Super","sections":[{"title":"Card","text":"Test only"}]}]');
-    raise exception 'Super save permitted';
-  exception when insufficient_privilege then null; end;
+do $$ declare removed integer; begin
+  if exists(select 1 from public.saved_consultations) then raise exception 'Super can read other accounts'; end if;
+  perform public.save_consultation('00000000-0000-4000-8000-000000000d03',1,'[{"title":"Super","keywords":["Career"],"sections":[{"title":"Card","text":"Test only"}]}]');
+  if (select count(*) from public.saved_consultations) <> 1 then raise exception 'Super cannot read own save'; end if;
+  if exists(select 1 from public.saved_consultations where readings->0 ? 'question') then raise exception 'Unexpected question stored'; end if;
+  delete from public.saved_consultations where consultation_id = '00000000-0000-4000-8000-000000000d01';
+  get diagnostics removed = row_count;
+  if removed <> 0 then raise exception 'Super can delete other accounts'; end if;
+  delete from public.saved_consultations where consultation_id = '00000000-0000-4000-8000-000000000d03';
+  get diagnostics removed = row_count;
+  if removed <> 1 then raise exception 'Super cannot delete own save'; end if;
 end $$;
 select public.acknowledge_super_notice();
 do $$ declare first_ack timestamptz; begin

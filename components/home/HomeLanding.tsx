@@ -94,7 +94,7 @@ const Main = styled.main`
   min-height: 100dvh;
   flex-direction: column;
   overflow-y: auto;
-  padding: calc(24px + env(safe-area-inset-top))
+  padding: calc(64px + env(safe-area-inset-top))
     calc(24px + env(safe-area-inset-right))
     calc(24px + env(safe-area-inset-bottom))
     calc(24px + env(safe-area-inset-left));
@@ -126,7 +126,7 @@ const Main = styled.main`
   }
 
   @media (max-width: 319px) {
-    padding: calc(14px + env(safe-area-inset-top))
+    padding: calc(60px + env(safe-area-inset-top))
       calc(14px + env(safe-area-inset-right))
       calc(14px + env(safe-area-inset-bottom))
       calc(14px + env(safe-area-inset-left));

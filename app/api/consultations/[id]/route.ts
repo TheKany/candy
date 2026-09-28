@@ -5,7 +5,6 @@ async function lookup(context: Context) {
   const { id } = await context.params;
   if (!uuidPattern.test(id)) throw new AccountRequestError("기록을 찾을 수 없어요.", 404);
   const { client, account } = await requireAccount();
-  if (account.role !== "member") throw new AccountRequestError("이 계정은 상담 기록을 보관하지 않아요.", 403);
   return { id, client, account };
 }
 export async function GET(_request: Request, context: Context) {

@@ -1,3 +1,3 @@
-import SavedReadings from "@/components/account/SavedReadings";
+import MyPage from "@/components/account/MyPage";
 export const dynamic = "force-dynamic";
-export default function AccountPage() { return <SavedReadings />; }
+export default function AccountPage() { return <MyPage />; }
