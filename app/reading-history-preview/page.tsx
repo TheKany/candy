@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import DeleteRecordButton from '@/components/account/DeleteRecordButton';
 
 const cards = [
   { id: 23, name: "완드 2", light: "방향을 정하고 움직이세요", shadow: "계획만 세우며 미루지 마세요", lead: "지금은 성급히 자리를 옮기기보다, 다음에 맡을 일을 정하는 게 좋아요.", paragraphs: ["완드 2의 인물은 성벽 위에서 더 넓은 세상을 바라보고 있어요. 이 질문에서 중요한 건 ‘떠날까, 남을까’를 서둘러 결정하는 일이 아니라, 어떤 일을 하며 성장하고 싶은지 정하는 일이에요.", "먼저 현재 업무에서 더 키울 강점 한 가지를 골라보세요. 그 강점을 쓸 수 있는 역할을 찾아 상사와 이야기하는 게 좋아요. 준비 없이 환경부터 바꾸거나, 생각만 하며 결정을 미루는 건 피하세요."], advice: "이번 주 안에 맡고 싶은 업무 한 가지와 그 이유를 적어보세요." },
@@ -16,8 +17,7 @@ export default function ReadingHistoryPreview() {
   const [reading, setReading] = useState<number | null>(null);
   const [page, setPage] = useState(0);
   const [deleted, setDeleted] = useState(false);
-  const remove = () => {
-    if (!window.confirm('이 상담의 처음 질문과 연계 질문 기록을 모두 삭제할까요? 삭제한 기록은 복구할 수 없어요.')) return;
+  const remove = async () => {
     setDeleted(true); setReading(null); setPage(0);
   };
   const scroll = useRef<HTMLDivElement>(null);
@@ -32,14 +32,15 @@ export default function ReadingHistoryPreview() {
       <span className="eyebrow">MY TAROT DIARY</span><h1>차곡차곡 쌓인<br/>나의 이야기</h1><p className="intro">처음의 고민부터, 이어진 질문까지.</p>
       <div className="wallet"><span>보유 타르트 시트</span><span>무료 <b>-장</b> · 유료 <b>-장</b></span><small>슈퍼 계정 · 시트 없이 자유롭게 이용해요</small></div>
       <div className="list-title"><h2>지금까지 먹은 타르트</h2><span>4개</span></div>
-      {!deleted ? <section className="group"><div className="date">2026. 09. 28 <span>세 장 타로 · 일과 커리어</span></div>
-        <button className="entry main" onClick={() => open(0)}><span><small>처음 질문</small><strong>{questions[0]}</strong><em>계획을 세우고, 함께 성장하는 시간</em></span><span className="arrow">›</span></button>
-        <div className="branches">{[1,2].map(i => <button className="entry" key={i} onClick={() => open(i)}><span><small>연계 질문 {i} <i>한 장 타로</i></small><strong>{questions[i]}</strong></span><span className="arrow">›</span></button>)}</div>
-      </section> : <p role="status" className="sample">샘플 저장 기록을 삭제했어요.<br/>실제 기록은 변경되지 않았어요.</p>}
+      <section className="group"><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><div className="date">2026. 09. 28 <span>세 장 타로 · 일과 커리어</span></div>{!deleted&&<DeleteRecordButton onDelete={remove}/>}</div>
+        {deleted?<div className="entry"><span><small>처음 질문 · 세 장 타로</small><strong>일과 커리어</strong></span><span className="unsaved">저장 안 함</span></div>:<button className="entry main" onClick={() => open(0)}><span><small>처음 질문</small><strong>{questions[0]}</strong><em>계획을 세우고, 함께 성장하는 시간</em></span><span className="arrow">›</span></button>}
+        <div className="branches">{[1,2].map(i => deleted?<div className="entry" key={i}><span><small>연계 질문 {i} · 한 장 타로</small><strong>일과 커리어</strong></span><span className="unsaved">저장 안 함</span></div>:<button className="entry" key={i} onClick={() => open(i)}><span><small>연계 질문 {i} <i>한 장 타로</i></small><strong>{questions[i]}</strong></span><span className="arrow">›</span></button>)}</div>
+      </section>
+      {deleted&&<p role="status" className="sample">샘플 저장 내용을 삭제했어요. 이용 기록은 남아 있어요.<br/>실제 상담 기록은 변경되지 않았어요.</p>}
       <section className="group older"><div className="date">2026. 09. 24 <span>한 장 타로 · 나의 마음</span></div><div className="entry"><span><small>처음 질문</small><strong>마음의 여유를 되찾고 싶어요.</strong></span><span className="unsaved">저장 안 함</span></div></section>
       <p className="sample">샘플 기록으로 구성한 디자인 미리보기예요.<br/>실제 상담 기록은 변경되지 않아요.</p><Link className="home" href="/">홈으로</Link>
     </div> : <>
-      <div className="reading-label"><span>{reading === 0 ? "처음 질문" : `연계 질문 ${reading}`}<i> · {selected.length === 3 ? "세" : "한"} 장 타로</i></span><button type="button" onClick={remove} style={{color:'#dfb09b',fontSize:12,minHeight:44}}>기록 삭제</button></div>
+      <div className="reading-label"><span>{reading === 0 ? "처음 질문" : `연계 질문 ${reading}`}<i> · {selected.length === 3 ? "세" : "한"} 장 타로</i></span><small>2026. 09. 28</small></div>
       <div className="reading-scroll" ref={scroll} key={reading}>
         <article key={page} className="paper">
           {page === 0 ? <><span className="eyebrow">그날의 질문</span><h1 className="question">{questions[reading]}</h1><div className="drawn">{selected.map(c => <figure key={c.id}><Image src={`/cards/card${c.id}.webp`} width={88} height={147} alt={c.name}/><figcaption>{c.name}</figcaption></figure>)}</div><div className="divider"><span>종합 해설</span></div><h2 className="conclusion">{reading === 0 ? "지금은 자리를 바꾸기보다, 성과를 정리하고 협력하는 게 좋아요." : selected[0].lead}</h2><p>{reading === 0 ? "이번 카드의 조언은 ‘현재 자리에서 다음 역할을 준비하라’예요. 맡고 싶은 일을 하나 정하고, 지금까지의 성과를 근거로 상사와 이야기하세요. 동료에게 도움을 요청하는 것도 좋아요. 인정받고 싶다는 마음에 모든 일을 혼자 떠안거나, 답답하다는 이유만으로 이직을 결정하는 건 피하세요." : selected[0].paragraphs[0]}</p><aside><small>마음에 담아갈 한마디</small><p>{reading === 0 ? "다음 역할은 구체적으로 요청하고, 감당할 수 없는 일에는 선을 그으세요." : selected[0].advice}</p></aside></> : <>

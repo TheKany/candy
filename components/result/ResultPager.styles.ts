@@ -6,8 +6,8 @@ export const Shell = styled.section`
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto auto;
   width: min(100%, 480px);
-  height: 100dvh;
-  max-height: 100dvh;
+  height: var(--app-height, 100dvh);
+  max-height: var(--app-height, 100dvh);
   min-height: 0;
   margin: 0 auto;
   flex-direction: column;

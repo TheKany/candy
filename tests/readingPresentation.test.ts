@@ -1,7 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { presentReading, groupActivities } from '../util/readingPresentation.ts';
+import { presentReading, groupActivities, clearSavedActivity } from '../util/readingPresentation.ts';
 import { parseSavedConsultation } from '../util/validateSavedConsultation.ts';
+
+test('deleting saved content keeps activity rows but clears private titles and links',()=>{
+  const rows=[1,2,3].map(ordinal=>({consultation_id:'a',ordinal,kind:'one',topic:'일·커리어',created_at:'2026-09-28',savedId:'saved',title:'개인 질문'}));
+  const other={...rows[0],consultation_id:'b',savedId:'other'};
+  const result=clearSavedActivity([...rows,other],'saved');
+  assert.equal(result.length,4);
+  assert.deepEqual(result.slice(0,3).map(r=>[r.ordinal,r.savedId,r.title]),[[1,null,undefined],[2,null,undefined],[3,null,undefined]]);
+  assert.equal(result[0].created_at,rows[0].created_at);
+  assert.equal(result[3],other);
+});
 
 test('old saved reading keeps card details and does not invent guidance', () => {
   const result=presentReading({title:'오늘의 이야기',question:'질문',sections:[

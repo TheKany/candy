@@ -5,6 +5,7 @@ import PwaRegister from "@/components/_common/PwaRegister";
 import AuthProvider from "@/components/auth/AuthProvider";
 import SuperWelcome from "@/components/auth/SuperWelcome";
 import StyledComponentsRegistry from "@/components/_common/StyledComponentsRegistry";
+import PageTransition from '@/components/_common/PageTransition';
 
 export const viewport = {
   width: "device-width",
@@ -75,7 +76,7 @@ export default function RootLayout({
       <body>
         <PwaRegister />
         <StyledComponentsRegistry>
-          <AuthProvider><Container>{children}</Container><SuperWelcome /></AuthProvider>
+          <AuthProvider><Container><PageTransition>{children}</PageTransition></Container><SuperWelcome /></AuthProvider>
         </StyledComponentsRegistry>
         <script
           defer

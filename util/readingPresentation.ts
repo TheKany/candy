@@ -29,3 +29,7 @@ export function groupActivities(items:AccountActivity[]) {
   for(const item of items){const group=groups.get(item.consultation_id)||[];if(!group.some(r=>r.ordinal===item.ordinal))group.push(item);groups.set(item.consultation_id,group);}
   return [...groups].map(([id,rows])=>({id,items:rows.sort((a,b)=>a.ordinal-b.ordinal)}));
 }
+
+export function clearSavedActivity(items:AccountActivity[],savedId:string):AccountActivity[] {
+  return items.map(item=>item.savedId===savedId?{...item,savedId:null,title:undefined}:item);
+}

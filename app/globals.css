@@ -69,7 +69,8 @@ body {
   background: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-bottom: env(safe-area-inset-bottom);
+  height: var(--app-height, 100dvh);
+  overflow: hidden;
 }
 
 * {
@@ -100,11 +101,11 @@ button {
   justify-content: center !important;
 }
 
-@keyframes page-enter {
-  from { opacity: 0.96; }
-  to { opacity: 1; }
-}
-.page-enter { animation: page-enter 180ms ease-out; }
-@media (prefers-reduced-motion: reduce) {
-  .page-enter { animation: none; }
+.app-page-frame {
+  height: var(--app-height, 100dvh);
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  background: #0c3427;
 }

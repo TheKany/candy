@@ -24,9 +24,10 @@ export default function QuestionEntry() {
   if (!ready || !type) return null;
   return <Main>
     <Back type="button" onClick={() => router.push("/select")}>← 타로 방식 고르기</Back>
+    <div className="question-content">
     <h1>어떤 이야기가<br />마음에 걸리나요?</h1>
     <p>질문을 적고 카드를 뽑아보세요.<br />카드가 전하는 이야기를 질문에 맞춰 풀어드릴게요.</p>
-    <form onSubmit={(event) => {
+    <form id="question-form" onSubmit={(event) => {
       event.preventDefault();
       if (!question.trim()) return;
       const saved = useQuestionStore.getState();
@@ -44,13 +45,15 @@ export default function QuestionEntry() {
           useQuestionStore.getState().save(event.target.value, null);
         }} />
       <Count>{question.length}/1,000</Count>
-      <Button type="submit" disabled={!question.trim()}>카드 뽑으러 가기 →</Button>
     </form>
+    </div>
+    <Button type="submit" form="question-form" disabled={!question.trim()}>카드 뽑으러 가기 →</Button>
   </Main>;
 }
 
 const Main = styled.main`
-  width: min(100%, 480px); min-height: 100dvh; margin: auto;
+  width: min(100%, 480px); height:var(--app-height,100dvh);min-height:0;margin:auto;display:flex;flex-direction:column;overflow:hidden;
+  >button{flex-shrink:0;}.question-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px;}
   padding: calc(18px + env(safe-area-inset-top)) clamp(16px, 5vw, 28px) calc(28px + env(safe-area-inset-bottom));
   color: #fff7df; background: radial-gradient(circle at 15% 10%, #d4af3720, transparent 35%), #08291f;
   h1 { margin: 32px 0 16px; font-size: clamp(26px, 7vw, 34px); line-height: 1.4; }

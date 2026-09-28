@@ -91,8 +91,8 @@ const Main = styled.main`
   position: relative;
   display: flex;
   width: 100%;
-  min-height: 100dvh;
-  height: 100dvh;
+  min-height: 0;
+  height: var(--app-height, 100dvh);
   box-sizing: border-box;
   flex-direction: column;
   overflow-y: auto;

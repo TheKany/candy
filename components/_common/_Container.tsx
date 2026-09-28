@@ -22,10 +22,10 @@ const Con = styled.div`
   width: 100%;
   max-width: 480px;
   min-width: 280px;
-  min-height: 100dvh;
+  height: var(--app-height, 100dvh);
   position: relative;
   margin: 0 auto;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   background-color: #0c3427;
 `;

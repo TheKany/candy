@@ -10,6 +10,7 @@ import ReadingSaveButtons from "@/components/result/ReadingSaveButtons";
 import type { ReadingExport } from "@/util/readingExportLayout";
 import Loading from "@/components/_common/Loading";
 import SavedReadingCarousel from '@/components/result/SavedReadingCarousel';
+import DeleteRecordButton from './DeleteRecordButton';
 type Summary = { id: string; revision: number; updated_at: string };
 export default function SavedReadings({ id }: { id?: string }) {
   const auth = useAuth();
@@ -28,27 +29,26 @@ export default function SavedReadings({ id }: { id?: string }) {
     return () => controller.abort();
   }, [auth.account?.id, auth.status, id, attempt]);
   const remove = async (recordId: string) => {
-    if (!window.confirm("이 상담의 처음 질문과 연계 질문 기록을 모두 삭제할까요? 삭제한 기록은 복구할 수 없어요.")) return;
     try {
       const response = await fetch(`/api/consultations/${recordId}`, { method: "DELETE" });
       if (!response.ok) throw new Error();
       if (auth.account) invalidateDashboard(auth.account.id);
       setItems(list => list.filter(item => item.id !== recordId));
       if (id === recordId) router.replace("/account");
-    } catch { setError("기록을 삭제하지 못했어요. 다시 시도해주세요."); }
+    } catch { throw new Error("DELETE_FAILED"); }
   };
   if(auth.status === "loading" || (auth.account && busy)) return <Loading message="저장한 이야기를 꺼내고 있어요" />;
-  if(id&&auth.account&&readings.length&&!error){const ordinal=typeof window==='undefined'?0:Number(new URLSearchParams(window.location.search).get('reading')||0);return <SavedReadingCarousel readings={readings} initial={Number.isInteger(ordinal)?ordinal:0} onBack={()=>router.push('/account')} headerAction={<button type="button" onClick={()=>remove(id)} style={{minHeight:44,padding:'8px 0',border:0,color:'#dfb09b',background:'none',fontSize:12,cursor:'pointer'}}>기록 삭제</button>} actions={<ReadingSaveButtons data={{title:'다시 꺼낸 이야기',sections:[],readings}}/>}/>;}
+  if(id&&auth.account&&readings.length&&!error){const ordinal=typeof window==='undefined'?0:Number(new URLSearchParams(window.location.search).get('reading')||0);return <SavedReadingCarousel readings={readings} initial={Number.isInteger(ordinal)?ordinal:0} onBack={()=>router.push('/account')} actions={<ReadingSaveButtons data={{title:'다시 꺼낸 이야기',sections:[],readings}}/>}/>;}
   return <Page className="page-enter"><nav><Link href={id ? "/account" : "/"}>{id ? "← 내 기록" : "← 홈으로"}</Link></nav>
     <small>나를 위한 타로타르트</small><h1>{id ? "다시 꺼낸 이야기" : "내 타로 기록"}</h1>
     {auth.status !== "member" && auth.status !== "super" ? <><p>{auth.error || "카카오 로그인 후 내 기록을 볼 수 있어요."}</p><button type="button" onClick={auth.signIn}>카카오로 로그인</button></> : <>
       {error && <p role="alert">{error} <button type="button" onClick={() => setAttempt(value => value + 1)}>다시 시도</button></p>}
       {!id && !busy && !error && !items.length && <p>아직 저장한 이야기가 없어요.<br />상담 후 ‘내 기록에 저장’을 눌러보세요.</p>}
-      {!id && items.map(item => <article key={item.id}><Link href={`/account/readings/${item.id}`}><h2>{new Date(item.updated_at).toLocaleDateString("ko-KR")}의 이야기</h2><p>처음 질문{item.revision > 1 ? ` + 연계 질문 ${item.revision - 1}개` : ""}</p></Link><button type="button" onClick={() => remove(item.id)}>삭제</button></article>)}
+      {!id && items.map(item => <article key={item.id} style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:12}}><Link href={`/account/readings/${item.id}`}><h2>{new Date(item.updated_at).toLocaleDateString("ko-KR")}의 이야기</h2><p>처음 질문{item.revision > 1 ? ` + 연계 질문 ${item.revision - 1}개` : ""}</p></Link><DeleteRecordButton onDelete={()=>remove(item.id)}/></article>)}
       {id && readings.map((reading, index) => <article key={index}><h2>{index ? `연계 질문 ${index}` : reading.title}</h2><p className="question">{reading.question || reading.keywords?.join(" · ")}</p>
         {reading.sections.map((section, i) => <section key={i}>{section.cardId !== undefined && <Image src={`/cards/card${section.cardId}.webp`} width={96} height={160} alt={section.title} />}<h3>{section.title}</h3><p>{section.text}</p></section>)}
       </article>)}
-      {id && readings.length > 0 && <><ReadingSaveButtons data={{ title: "다시 꺼낸 이야기", sections: [], readings }} /><button type="button" onClick={() => remove(id)}>이 상담 기록 삭제</button></>}
+      {id && readings.length > 0 && <ReadingSaveButtons data={{ title: "다시 꺼낸 이야기", sections: [], readings }} />}
     </>}
   </Page>;
 }
