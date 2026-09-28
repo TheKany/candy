@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { useQuestionStore } from "@/store/useQuestionStore";
@@ -9,6 +9,7 @@ import { useTarotTopicStore } from "@/store/useTarotTopicStore";
 import { handleResetCardProgress } from "@/util/handleResetStore";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
 import QuestionEditor from "@/components/_common/QuestionEditor";
+import { recordTarotStart } from "@/util/recordTarotStart";
 
 export default function QuestionEntry() {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default function QuestionEntry() {
   const type = useTarotTypeStore((state) => state.type);
   const [question, setQuestion] = useState("");
   const [ready, setReady] = useState(false);
+  const starting = useRef(false);
+  const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     const saved = useQuestionStore.getState();
     setQuestion(saved.question);
@@ -30,12 +33,15 @@ export default function QuestionEntry() {
     <p>질문을 적고 카드를 뽑아보세요.<br />카드가 전하는 이야기를 질문에 맞춰 풀어드릴게요.</p>
     <form id="question-form" onSubmit={(event) => {
       event.preventDefault();
-      if (!question.trim()) return;
+      if (!question.trim() || starting.current) return;
+      starting.current = true;
+      setSubmitting(true);
       const saved = useQuestionStore.getState();
       saved.save(question.trim(), null);
       useTarotTopicStore.getState().resetTopic();
       handleResetCardProgress();
       useReadingSessionStore.getState().reset();
+      void recordTarotStart();
       router.push("/shuffle");
     }}>
       <label htmlFor="tarot-question">나의 질문</label>
@@ -47,7 +53,7 @@ export default function QuestionEntry() {
         }} />
     </form>
     </div>
-    <Button type="submit" form="question-form" disabled={!question.trim()}>카드 뽑으러 가기 →</Button>
+    <Button type="submit" form="question-form" disabled={!question.trim() || submitting}>카드 뽑으러 가기 →</Button>
   </Main>;
 }
 

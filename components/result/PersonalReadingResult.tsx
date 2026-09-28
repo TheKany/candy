@@ -15,6 +15,7 @@ import { archivePersonalReading, type PersonalReadingResponse as ReadingResponse
 import KakaoShareButton from "@/components/_common/KakaoShareButton";
 import Feedback from "./Feedback";
 import QuestionEditor from "@/components/_common/QuestionEditor";
+import { recordTarotStart } from "@/util/recordTarotStart";
 import ReadingSaveButtons from "./ReadingSaveButtons";
 import SaveToAccount from "@/components/account/SaveToAccount";
 import TartOvenStatus from "./TartOvenStatus";
@@ -85,6 +86,7 @@ export default function PersonalReadingResult({ mode, onHome }: { mode: "one" | 
     handleResetCardProgress();
     useQuestionStore.getState().save(followUpQuestion, null);
     useTarotTypeStore.getState().setType("one");
+    void recordTarotStart();
     router.replace("/shuffle");
   };
 

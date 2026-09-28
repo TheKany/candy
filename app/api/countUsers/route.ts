@@ -43,6 +43,6 @@ export async function POST() {
     return NextResponse.json({ recorded: true });
   } catch (error) {
     console.error("Tarot count insert failed:", error);
-    return NextResponse.json({ error: "결과 도달을 기록하지 못했습니다." }, { status: 500 });
+    return NextResponse.json({ error: "이용 횟수를 기록하지 못했습니다." }, { status: 500 });
   }
 }

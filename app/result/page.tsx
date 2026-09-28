@@ -50,23 +50,6 @@ const Result = () => {
     } else leaveForHome();
   };
 
-  useEffect(() => {
-    const logUserCount = async () => {
-      try {
-        await fetch("/api/countUsers", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      } catch (error) {
-        console.error("Failed to log tarot count:", error);
-      }
-    };
-
-    logUserCount();
-  }, []);
-
   useResetData(handleResetStore);
   if (!isReady || !type) return null;
 

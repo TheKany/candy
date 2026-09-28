@@ -17,6 +17,7 @@ import { getMonthlyPeriod, type MonthlyYearChoice } from "@/util/monthlyReading"
 import SelectionAccountSummary from "./SelectionAccountSummary";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { motion, useReducedMotion } from 'framer-motion';
+import { recordTarotStart } from "@/util/recordTarotStart";
 
 export default function ReadingSelect() {
   const auth = useAuth();
@@ -28,6 +29,7 @@ export default function ReadingSelect() {
   const selectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => { if (selectionTimer.current) clearTimeout(selectionTimer.current); }, []);
   const yearDialog = useRef<HTMLDialogElement>(null);
+  const monthlyStarting = useRef(false);
   const [yearChoice, setYearChoice] = useState<MonthlyYearChoice>("current");
   const [currentPeriod, setCurrentPeriod] = useState<ReturnType<typeof getMonthlyPeriod> | null>(null);
   const router = useRouter();
@@ -110,10 +112,13 @@ export default function ReadingSelect() {
         </div>
         <p aria-live="polite">{yearChoice === "current" ? `${currentPeriod?.startMonth ?? ""}월부터 12월까지, ${currentPeriod?.months.length ?? ""}장` : "1월부터 12월까지, 12장"}의 카드를 골라요.</p>
         <button className="start" type="button" onClick={() => {
+          if (monthlyStarting.current) return;
+          monthlyStarting.current = true;
           handleResetStore();
           useMonthlyReadingStore.getState().start(yearChoice);
           setType("monthly");
           yearDialog.current?.close();
+          void recordTarotStart();
           router.push("/shuffle");
         }}>카드 고르러 가기</button>
       </YearDialog>
