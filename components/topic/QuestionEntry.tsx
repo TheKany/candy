@@ -52,8 +52,8 @@ export default function QuestionEntry() {
 }
 
 const Main = styled.main`
-  width: min(100%, 480px); height:var(--app-height,100dvh);min-height:0;margin:auto;display:flex;flex-direction:column;overflow:hidden;
-  >button{flex-shrink:0;}.question-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px;}
+  width: min(100%, 480px); min-height:var(--app-height,100dvh);margin:auto;display:flex;flex-direction:column;
+  >button{flex-shrink:0;}.question-content{flex:1;padding-bottom:12px;}
   padding: calc(18px + env(safe-area-inset-top)) clamp(16px, 5vw, 28px) calc(28px + env(safe-area-inset-bottom));
   color: #fff7df; background: radial-gradient(circle at 15% 10%, #d4af3720, transparent 35%), #08291f;
   h1 { margin: 32px 0 16px; font-size: clamp(26px, 7vw, 34px); line-height: 1.4; }
@@ -64,6 +64,12 @@ const Main = styled.main`
   textarea::placeholder { color: #fff7df75; }
   button, input { font: inherit; }
   button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid #ffe49b; outline-offset: 3px; }
+  @media (max-height: 500px) {
+    padding-top: 10px;
+    padding-bottom: 16px;
+    h1 { margin: 12px 0 8px; font-size: 24px; }
+    form { margin-top: 16px; }
+  }
 `;
 const Back = styled.button`align-self:flex-start;min-height:44px;text-align:left;font-size:13px;color:#f2ce72;cursor:pointer;`;
 const Count = styled.div`margin-top: 6px; text-align: right; color: #fff7df80; font-size: 12px;`;

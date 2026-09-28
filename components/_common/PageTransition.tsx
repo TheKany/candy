@@ -20,9 +20,13 @@ export default function PageTransition({children}:{children:ReactNode}) {
   },[pathname,reduced]);
   useEffect(()=>{
     const viewport=window.visualViewport;
-    const resize=()=>document.documentElement.style.setProperty('--app-height',`${viewport?.height??window.innerHeight}px`);
-    resize();viewport?.addEventListener('resize',resize);window.addEventListener('resize',resize);
-    return ()=>{viewport?.removeEventListener('resize',resize);window.removeEventListener('resize',resize);document.documentElement.style.removeProperty('--app-height');};
+    const resize=()=>{
+      document.documentElement.style.setProperty('--app-height',`${viewport?.height??window.innerHeight}px`);
+      // iOS pans the visual viewport as well as resizing it when the keyboard opens.
+      document.documentElement.style.setProperty('--app-offset-top',`${viewport?.offsetTop??0}px`);
+    };
+    resize();viewport?.addEventListener('resize',resize);viewport?.addEventListener('scroll',resize);window.addEventListener('resize',resize);
+    return ()=>{viewport?.removeEventListener('resize',resize);viewport?.removeEventListener('scroll',resize);window.removeEventListener('resize',resize);document.documentElement.style.removeProperty('--app-height');document.documentElement.style.removeProperty('--app-offset-top');};
   },[]);
-  return <div ref={frame} className="app-page-frame">{children}</div>;
+  return <div ref={frame} className={`app-page-frame${pathname === '/topic' ? ' question-page-frame' : ''}`}>{children}</div>;
 }

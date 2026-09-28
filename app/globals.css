@@ -109,3 +109,14 @@ button {
   overscroll-behavior-y: contain;
   background: #0c3427;
 }
+
+/* Keep question entry inside the visible area above the mobile keyboard. */
+.question-page-frame {
+  position: fixed;
+  top: var(--app-offset-top, 0px);
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin-inline: auto;
+  background: #08291f;
+}
