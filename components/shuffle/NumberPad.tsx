@@ -156,7 +156,7 @@ export default NumberPad;
 const Box = styled.div<{ $isFinish: boolean }>`
   width: min(100%, 360px);
   margin: 0 auto;
-  padding: 0 16px 28px;
+  padding: 0 16px calc(12px + env(safe-area-inset-bottom));
   opacity: ${({ $isFinish }) => ($isFinish ? 1 : 0)};
   visibility: ${({ $isFinish }) => ($isFinish ? "visible" : "hidden")};
 
@@ -164,8 +164,8 @@ const Box = styled.div<{ $isFinish: boolean }>`
 `;
 
 const Typing = styled.div`
-  min-height: 50px;
-  padding: 9px 14px;
+  min-height: 44px;
+  padding: 7px 12px;
   border: 1px solid #d4af37;
   border-radius: 12px;
   background: rgba(212, 175, 55, 0.08);
@@ -191,7 +191,7 @@ const TypingNumber = styled.strong`
 
 const InfoText = styled.p`
   color: #ccc;
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
   padding-top: 4px;
 `;
@@ -200,13 +200,13 @@ const NumberContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 16px;
+  gap: 6px;
+  margin-top: 8px;
 `;
 
 const NumberBtn = styled.button`
   width: 100%;
-  height: 50px;
+  height: 44px;
   background-color: #eadbc8;
   border-radius: 8px;
 

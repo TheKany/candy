@@ -9,18 +9,22 @@ import {
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import styled from "styled-components";
 import { handleResetStore } from "@/util/handleResetStore";
 import { useMonthlyReadingStore } from "@/store/useMonthlyReadingStore";
 import { getMonthlyPeriod, type MonthlyYearChoice } from "@/util/monthlyReading";
 import SelectionAccountSummary from "./SelectionAccountSummary";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function ReadingSelect() {
   const auth = useAuth();
+  const stampArcId=useId();
   const [notice, setNotice] = useState("");
   const [selectedType, setSelectedType] = useState<TarotTypeId | null>(null);
+  const [stamping,setStamping]=useState(false);
+  const reduced=useReducedMotion();
   const selectionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => { if (selectionTimer.current) clearTimeout(selectionTimer.current); }, []);
   const yearDialog = useRef<HTMLDialogElement>(null);
@@ -37,7 +41,7 @@ export default function ReadingSelect() {
         setCurrentPeriod(getMonthlyPeriod());
         setYearChoice("current");
         yearDialog.current?.showModal();
-        setSelectedType(null);
+        setStamping(false);
         selectionTimer.current = null;
         return;
       } else {
@@ -55,8 +59,13 @@ export default function ReadingSelect() {
     if (selectionTimer.current) return;
     if (getTarotSelectionAction(id).kind !== "navigate") { openSelection(id); return; }
     setSelectedType(id);
-    const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 100 : 460;
-    selectionTimer.current = setTimeout(() => openSelection(id), delay);
+    setNotice('');
+  };
+
+  const handleOrder = () => {
+    if(!selectedType||selectionTimer.current)return;
+    setStamping(true);
+    selectionTimer.current=setTimeout(()=>openSelection(selectedType),reduced?0:430);
   };
 
   return (
@@ -72,12 +81,18 @@ export default function ReadingSelect() {
       <Header>
         <OrderLabel>TAROTART <span>·</span> ORDER</OrderLabel>
         <Title id="order-title"><span>주문할 타로타르트를</span>골라 주세요</Title>
-        <Stamp aria-hidden="true"><svg viewBox="0 0 48 38" fill="none"><path d="M7 20c0-5 8-9 17-9s17 4 17 9l-4 11c-8 5-18 5-26 0L7 20Z"/><ellipse cx="24" cy="20" rx="17" ry="8"/><path d="m15 27 2 6m7-5v6m9-7-2 6"/><circle cx="21" cy="14" r="4"/><circle cx="28" cy="15" r="4"/><path d="M23 10c0-4 3-6 6-5-1 3-3 5-6 5Z"/></svg><span>마음 한 조각</span></Stamp>
+        <Stamp type="button" aria-label="선택한 타로 주문하기" disabled={!selectedType||stamping} onClick={handleOrder} $ready={!!selectedType} $stamped={stamping}
+          initial={false} animate={stamping&&!reduced?{scale:[1.12,0.94,1],rotate:[12,8,12]}:{scale:1,rotate:12}} transition={{duration:0.38,ease:'easeOut'}}>
+          <svg className="order-label" viewBox="0 0 100 100" aria-hidden="true">
+            <defs><path id={stampArcId} d="M 9 50 A 41 41 0 0 1 91 50" /></defs>
+            <text><textPath href={`#${stampArcId}`} startOffset="50%" textAnchor="middle">{stamping?'주문 완료':'주문하기'}</textPath></text>
+          </svg>
+          <svg aria-hidden="true" viewBox="0 0 48 38" fill="none"><path d="M7 20c0-5 8-9 17-9s17 4 17 9l-4 11c-8 5-18 5-26 0L7 20Z"/><ellipse cx="24" cy="20" rx="17" ry="8"/><path d="m15 27 2 6m7-5v6m9-7-2 6"/><circle cx="21" cy="14" r="4"/><circle cx="28" cy="15" r="4"/><path d="M23 10c0-4 3-6 6-5-1 3-3 5-6 5Z"/></svg><span>마음 한 조각</span></Stamp>
       </Header>
 
       <CardList aria-label="타로 리딩 유형">
         {TAROT_TYPES.map((option) => (
-          <TarotTypeCard key={option.id} option={option} onSelect={handleSelect} selected={selectedType === option.id} disabled={selectedType !== null} />
+          <TarotTypeCard key={option.id} option={option} onSelect={handleSelect} selected={selectedType === option.id} disabled={stamping} />
         ))}
       </CardList>
       <OrderFooter aria-hidden="true">MADE FOR YOUR MOMENT <span>✦</span></OrderFooter>
@@ -230,7 +245,7 @@ const OrderLabel = styled.p`
   span { padding: 0 5px; }
 `;
 
-const Stamp = styled.div`
+const Stamp = styled(motion.button)<{$ready:boolean;$stamped:boolean}>`
   position: absolute;
   right: 18px;
   bottom: 25px;
@@ -239,13 +254,18 @@ const Stamp = styled.div`
   align-content: center;
   width: 65px;
   height: 65px;
-  border: 1px solid #a37055;
+  border: 1px solid ${({$stamped})=>$stamped?'#365e44':'#a37055'};
   border-radius: 50%;
-  color: #a37055;
-  transform: rotate(12deg);
-  svg { width: 39px; height: 32px; stroke: currentColor; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+  color: ${({$stamped})=>$stamped?'#fff8e9':'#a37055'};
+  background:${({$stamped,$ready})=>$stamped?'#365e44':$ready?'#eadcc3':'transparent'};
+  cursor:${({$ready,$stamped})=>$ready&&!$stamped?'pointer':'default'};
+  transition:background 160ms ease,color 160ms ease;
+  .order-label{position:absolute;top:-15px;left:-15px;width:calc(100% + 30px);height:calc(100% + 30px);overflow:visible;fill:${({$stamped})=>$stamped?'#365e44':'#a37055'};stroke:none;opacity:${({$ready})=>$ready?1:0};transition:opacity 160ms ease,fill 160ms ease;pointer-events:none;}
+  .order-label text{font-family:inherit;font-size:13px;font-weight:700;letter-spacing:1px;}
+  &:focus-visible{outline:2px solid #365e44;outline-offset:5px;}
+  >svg:not(.order-label) { width: 39px; height: 32px; stroke: currentColor; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
   span { font-size: 8px; letter-spacing: 0.02em; }
-  @media (max-width: 359px) { right: 12px; width: 48px; height: 48px; svg { width: 28px; height: 24px; } span { font-size: 7px; } }
+  @media (max-width: 359px) { right: 12px; width: 48px; height: 48px; >svg:not(.order-label) { width: 28px; height: 24px; } span { font-size: 7px; } .order-label text{font-size:14px;} }
 `;
 
 const OrderFooter = styled.p`

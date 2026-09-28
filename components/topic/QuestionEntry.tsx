@@ -23,7 +23,7 @@ export default function QuestionEntry() {
   useEffect(() => { if (ready && !type) router.replace("/select"); }, [ready, type, router]);
   if (!ready || !type) return null;
   return <Main>
-    <Back type="button" onClick={() => router.push("/select")}>← 타로 방식 고르기</Back>
+    <Back type="button" onClick={() => router.push("/select")}>다른 타르트 주문하기 →</Back>
     <div className="question-content">
     <h1>어떤 이야기가<br />마음에 걸리나요?</h1>
     <p>질문을 적고 카드를 뽑아보세요.<br />카드가 전하는 이야기를 질문에 맞춰 풀어드릴게요.</p>
@@ -65,7 +65,7 @@ const Main = styled.main`
   button, input { font: inherit; }
   button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid #ffe49b; outline-offset: 3px; }
 `;
-const Back = styled.button`min-height: 44px; color: #f2ce72; cursor: pointer;`;
+const Back = styled.button`align-self:flex-start;min-height:44px;text-align:left;font-size:13px;color:#f2ce72;cursor:pointer;`;
 const Count = styled.div`margin-top: 6px; text-align: right; color: #fff7df80; font-size: 12px;`;
 const Button = styled.button`
   width: 100%; min-height: 52px; margin-top: 22px; padding: 14px; border-radius: 14px; background: #f2ce72; color: #123a2b; font-weight: 700; cursor: pointer;

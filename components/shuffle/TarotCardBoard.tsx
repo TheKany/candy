@@ -114,7 +114,7 @@ const TarotCardBoard = ({
   }, [slotPositions, type, userPickedCardList]);
 
   return (
-    <CardContainer>
+    <CardContainer $picking={shuffleStep === 4}>
       <Box>
         {positions.length === cardCnt &&
           Array.from({ length: cardCnt }).map((_, index) => {
@@ -229,11 +229,11 @@ const TarotCardBoard = ({
 
 export default TarotCardBoard;
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<{ $picking: boolean }>`
   width: min(300px, calc(100% - 64px));
-  height: 332px;
+  height: ${({$picking})=>$picking?'188px':'332px'};
   margin: 0 auto;
-  padding-top: 132px;
+  padding-top: ${({$picking})=>$picking?'116px':'132px'};
   position: relative;
 `;
 
@@ -352,7 +352,7 @@ const CardFace = styled.div<{ $isFront?: boolean; $isReversed?: boolean }>`
 
 const DeckRange = styled.div`
   position: absolute;
-  top: 185px;
+  top: 166px;
   left: 8px;
   right: 8px;
   display: flex;

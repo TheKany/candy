@@ -28,8 +28,8 @@ const InfoText = ({ finishedShuffle }: Props) => {
 export default InfoText;
 
 const TextContainer = styled.div`
-  min-height: 76px;
-  padding: 18px 16px 4px;
+  min-height: 68px;
+  padding: 10px 16px 4px;
   display: flex;
   justify-content: center;
   align-items: center;

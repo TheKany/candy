@@ -7,7 +7,7 @@ export default function MemberEntry() {
   const auth = useAuth(); const dialog = useRef<HTMLDialogElement>(null);
   return <Box>
     <Actions aria-busy={auth.status === "loading"}>
-    {auth.status === "loading" ? <button className="primary" type="button" disabled>시작하기 ✦</button> : auth.account ? <>
+    {auth.status === "loading" ? <Link className="primary" href="/select">시작하기 ✦</Link> : auth.account ? <>
       <Link className="primary" href="/select">시작하기 ✦</Link>
     </> : <>
       <button className="primary" type="button" onClick={auth.signIn}>회원으로 이용하기</button>

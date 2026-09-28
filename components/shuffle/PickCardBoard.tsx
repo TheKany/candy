@@ -81,8 +81,8 @@ export default PickCardBoard;
 
 const PickCardContainer = styled.div<{ $isFinish: boolean; $col: number; $monthly: boolean }>`
   width: min(calc(100% - 32px), 340px);
-  min-height: ${({ $col }) => ($col === 5 ? "264px" : $col === 3 ? "148px" : "124px")};
-  margin: 4px auto 14px;
+  min-height: ${({ $col }) => ($col === 5 ? "264px" : $col === 3 ? "140px" : "112px")};
+  margin: 2px auto 8px;
   display: grid;
   grid-template-columns: ${({ $col }) => $col === 5 ? "repeat(6, 1fr)" : `repeat(${$col}, 1fr)`};
   gap: 10px;
