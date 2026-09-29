@@ -10,9 +10,9 @@ const sheets = [
 ];
 export default function Page() {
   const auth = useAuth();
-  const [selected, setSelected] = useState<number | null>(null);
-  const [quantity, setQuantity] = useState(0);
-  const sheet = selected === null ? null : sheets[selected];
+  const [quantities, setQuantities] = useState([0, 0]);
+  const changeQuantity = (index: number, change: number) => setQuantities(previous => previous.map((value, i) => i === index ? Math.min(1000, Math.max(0, value + change)) : value));
+  const total = sheets.reduce((sum, item, index) => sum + item.price * quantities[index], 0);
   return <Shop>
     <nav><Link href="/account">← 마이페이지</Link><span>타르트 시트 구매</span></nav>
     {auth.status === 'super' ? <><h1>시트 없이 자유롭게</h1><p>무료 이용 계정이에요.<br/>상담에 시트가 필요하지 않아요.</p></> : <>
@@ -21,30 +21,33 @@ export default function Page() {
         <div className="order-label"><span>YOUR LITTLE ORDER</span><span aria-hidden="true">✦</span></div>
         <h2><em>01</em> 어떤 시트를 담을까요?</h2>
         <div className="choices" role="group" aria-label="시트 종류">
-          {sheets.map((item, index) => <button key={item.name} type="button" className={`choice ${selected === index ? 'selected' : ''}`} aria-pressed={selected === index} onClick={() => { if(selected !== index){setSelected(index);setQuantity(0);} }}>
+          {sheets.map((item, index) => <div key={item.name} className={`choice ${quantities[index] > 0 ? 'selected' : ''}`}>
+            <div className="choice-header">
             <span className="symbol" aria-hidden="true">{item.icon}</span>
             <span className="choice-copy"><strong>{item.name}</strong><small>{item.description}</small><b>1장 {item.price}원</b></span>
-            <span className="check" aria-hidden="true">{selected === index ? '✓' : ''}</span>
-          </button>)}
+            <span className="check" aria-hidden="true">{quantities[index] > 0 ? '✓' : ''}</span>
+            </div>
+            <div className="stepper" role="group" aria-label={`${item.name} 구매 수량`}>
+              <button type="button" aria-label={`${item.name} 수량 줄이기`} disabled={quantities[index] === 0} onClick={() => changeQuantity(index, -1)}>−</button>
+              <output aria-live="polite" aria-label={`${item.name} 선택 수량`}>{quantities[index]}<small>장</small></output>
+              <button type="button" aria-label={`${item.name} 수량 늘리기`} disabled={quantities[index] >= 1000} onClick={() => changeQuantity(index, 1)}>+</button>
+            </div>
+          </div>)}
         </div>
-        <div className="quantity-section">
-          <h2><em>02</em> 몇 장을 준비할까요?</h2>
-          <p className="selection-hint">{sheet ? `${sheet.name}를 필요한 만큼 담아주세요.` : '먼저 위에서 시트 종류를 골라주세요.'}</p>
-          <div className="stepper" role="group" aria-label="구매 수량">
-            <button type="button" aria-label="수량 줄이기" disabled={!sheet || quantity === 0} onClick={() => setQuantity(value => Math.max(0, value - 1))}>−</button>
-            <output aria-live="polite" aria-label="선택 수량">{quantity}<small>장</small></output>
-            <button type="button" aria-label="수량 늘리기" disabled={!sheet || quantity >= 1000} onClick={() => setQuantity(value => Math.min(1000, value + 1))}>+</button>
-          </div>
-          <small className="limit">한 번에 최대 1,000장까지 담을 수 있어요.</small>
+        <small className="limit">두 종류를 함께 담을 수 있어요. 종류별 최대 1,000장</small>
+        <div className="receipt" aria-live="polite">
+          <h2><em>02</em> 담은 시트를 확인해주세요</h2>
+          {sheets.map((item, index) => <div className="receipt-item" key={item.name}><span>{item.name} {quantities[index]}장</span><span>{(item.price * quantities[index]).toLocaleString('ko-KR')}원</span></div>)}
+          <div><span>합계 금액</span><strong>{total.toLocaleString('ko-KR')}<small>원</small></strong></div>
         </div>
-        <div className="receipt" aria-live="polite"><span>{sheet ? `${sheet.name} ${quantity}장` : '담은 시트가 없어요'}</span><div><span>총금액</span><strong>{((sheet?.price ?? 0) * quantity).toLocaleString('ko-KR')}<small>원</small></strong></div></div>
         <p className="exchange-note">고급 시트 1장은 기본 시트 2장으로 교환할 수 있어요.</p>
       </section>
-      <footer><button className="action" disabled>결제 준비 중</button><p>지금은 결제가 진행되지 않아요.</p></footer>
+      <footer><button className="action" disabled>{total === 0 ? '시트를 담아주세요' : '결제 준비 중'}</button><p>지금은 결제가 진행되지 않아요.</p></footer>
     </>}
   </Shop>;
 }
 const Shop = styled(AccountPageShell)`
+  .choices .choice{display:block;}.choice-header{display:flex;align-items:center;gap:10px;}.choice .stepper{margin-top:14px;width:100%;}.receipt .receipt-item{font-size:12px;color:#75816c;}.receipt h2{margin-top:0;}
   max-width:540px;margin:0 auto;padding-bottom:calc(20px + env(safe-area-inset-bottom));
   .intro{padding:26px 2px 20px;}.intro>small{font-size:10px;letter-spacing:.16em;color:#d6bc81;}.intro h1{font-family:"NotoSerifKR",serif;font-size:clamp(23px,6vw,29px);margin:10px 0;letter-spacing:-.04em;}.intro p{margin:0;color:#b9cbbb;font-size:13px;}
   .order{background:#fff8e7;color:#234636;border:1px solid #e2cd9a;border-radius:7px 7px 22px 22px;padding:20px clamp(12px,4vw,22px);box-shadow:0 7px 0 #051f1630;}.order-label{display:flex;justify-content:space-between;align-items:center;color:#92784c;font-size:9px;letter-spacing:.13em;border-bottom:1px dashed #d8c9a7;padding-bottom:15px;}.order h2{font-size:15px;margin:20px 0 14px;display:flex;align-items:center;gap:9px;}.order h2 em{font:italic 16px Georgia,serif;color:#a38b5b;}
