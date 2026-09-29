@@ -2,8 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 import styled from 'styled-components';
 import TarotCardBoard from '@/components/shuffle/TarotCardBoard';
 import PickCardBoard from '@/components/shuffle/PickCardBoard';
@@ -26,7 +25,6 @@ export default function DailyShuffle() {
   const revealTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   useEffect(()=>{
     let active=true;
-    let timer:ReturnType<typeof setTimeout>|undefined;
     void Promise.resolve(useDailyReadingStore.persist.rehydrate()).then(()=>{
       if(!active)return;
       const daily=useDailyReadingStore.getState();
@@ -39,10 +37,9 @@ export default function DailyShuffle() {
       useReadingSessionStore.getState().start(cards);
       useShuffleTypeStore.getState().setShuffleStep(4);
       setDeck(cards);
-      timer=setTimeout(()=>setReady(true),reduced?0:1050);
     });
-    return()=>{active=false;clearTimeout(timer);if(revealTimer.current)clearTimeout(revealTimer.current);};
-  },[router,reduced]);
+    return()=>{active=false;if(revealTimer.current)clearTimeout(revealTimer.current);};
+  },[router]);
   const onReveal=()=>{
     if(revealTimer.current)return;
     const raw=useUserPickNum.getState().realCard[0];
@@ -54,14 +51,9 @@ export default function DailyShuffle() {
     <Nav><Link href="/select">← 다른 주문 하러가기</Link><span>TODAY’S TART</span></Nav>
     <Heading><small>질문 없이 가볍게 한 입</small><h1>오늘의 타로</h1><p aria-live="polite">{ready?'오늘의 카드 한 장을 골라주세요':'오늘의 흐름을 담고 있어요'}</p></Heading>
     <Selection>
-      {!ready && <ShuffleScene aria-label="카드를 빠르게 섞고 있어요">
-        {Array.from({length:10},(_,i)=><motion.div key={i} initial={{x:i%2?-65:65,y:i*2,rotate:i%2?-12:12}}
-          animate={reduced?{x:0,y:0,rotate:0}:{x:[i%2?-65:65, i%2?-40:40,0,0],y:[i*2,-10+i*3,i*1.4,0],rotate:[i%2?-12:12,i%2?-6:6,0,0]}}
-          transition={{duration:.92,delay:i*.009,times:[0,.3,.78,1],ease:'easeInOut'}}>
-          <Image src="/cardBack.png" alt="" fill sizes="76px" priority /></motion.div>)}
-      </ShuffleScene>}
-      <div style={{visibility:ready?'visible':'hidden'}}>
+      <div>
         {deck.length>0 && <TarotCardBoard cardCnt={78} positions={positions} isRotating={false} onOrbitComplete={()=>{}}
+          scatterEntrance reduceEntrance={!!reduced} onEntranceComplete={()=>setReady(true)}
           onCardRevealComplete={onReveal} browsingEnabled={ready&&!locked} browsedPosition={Number(number)||null} onBrowse={n=>setNumber(String(n))}/>}
         <PickCardBoard finishedShuffle={ready}/>
         <NumberPad deck={deck} finishedShuffle={ready} selectionLocked={!ready||locked} onSelectionStarted={()=>setLocked(true)} number={number} setNumber={setNumber}/>
@@ -73,4 +65,3 @@ const Screen=styled.main`width:100%;max-width:480px;margin:auto;padding:14px 0 m
 const Nav=styled.nav`display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 16px;font-size:11px;a{color:#e4d3ad;}span{font-family:Georgia,serif;font-size:9px;letter-spacing:1px;color:#a5ac94;}@media(max-width:319px){span{display:none;}}`;
 const Heading=styled.header`padding:22px 16px 0;text-align:center;small{font-size:11px;color:#d0bb83;}h1{font-size:26px;margin:5px 0 9px;}p{font-size:13px;color:#ded4b4;}@media(max-height:650px){padding-top:12px;h1{font-size:22px;}}`;
 const Selection=styled.section`position:relative;`;
-const ShuffleScene=styled.div`position:absolute;inset:0;z-index:4;pointer-events:none;display:grid;place-items:start center;padding-top:68px;>div{position:absolute;width:76px;height:126px;border:2px solid #e6d3ad;border-radius:5px;overflow:hidden;box-shadow:0 4px 12px #0004;}`;

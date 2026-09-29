@@ -9,11 +9,12 @@ import {
 } from "@/util/organicShuffleMotion";
 import { getRelativeSlotPosition } from "@/util/cardSelectionFlow";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useTarotTypeStore } from "@/store/useTarotTypeStore";
 import { useCardOrientationStore } from "@/store/useCardOrientationStore";
 import { useReadingSessionStore } from "@/store/useReadingSessionStore";
+import { DAILY_DEAL_DURATION, getDailyDealFrames } from "@/util/dailyShuffleMotion";
 
 type Props = {
   isRotating: boolean;
@@ -28,6 +29,9 @@ type Props = {
   browsingEnabled: boolean;
   browsedPosition: number | null;
   onBrowse: (position: number) => void;
+  scatterEntrance?: boolean;
+  reduceEntrance?: boolean;
+  onEntranceComplete?: () => void;
 };
 
 const TarotCardBoard = ({
@@ -39,6 +43,9 @@ const TarotCardBoard = ({
   browsingEnabled,
   browsedPosition,
   onBrowse,
+  scatterEntrance = false,
+  reduceEntrance = false,
+  onEntranceComplete,
 }: Props) => {
   const slotPositions = usePickCardStoreSlotStore(
     (state) => state.slotPositions
@@ -50,6 +57,19 @@ const TarotCardBoard = ({
   const type = useTarotTypeStore((state) => state.type);
   const orientations = useCardOrientationStore((state) => state.orientations);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const entranceComplete = useRef(onEntranceComplete);
+  entranceComplete.current = onEntranceComplete;
+  useLayoutEffect(() => {
+    if (!scatterEntrance || positions.length !== cardCnt) return;
+    if (reduceEntrance) { entranceComplete.current?.(); return; }
+    let active = true;
+    const animations = cardRefs.current.flatMap((card, index) => card
+      ? [card.animate(getDailyDealFrames(index, cardCnt), { duration: DAILY_DEAL_DURATION, fill: 'backwards' })] : []);
+    void Promise.all(animations.map(animation => animation.finished)).then(() => {
+      if (active) entranceComplete.current?.();
+    }).catch(() => { /* Unmount cancels the entrance without unlocking another screen. */ });
+    return () => { active = false; animations.forEach(animation => animation.cancel()); };
+  }, [scatterEntrance, reduceEntrance, cardCnt, positions.length]);
   const completedRevealIndexes = useRef(new Set<number>());
   const pointer = useRef<number | null>(null);
   const browse = (event: React.PointerEvent<HTMLDivElement>) => {
