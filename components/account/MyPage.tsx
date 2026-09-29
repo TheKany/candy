@@ -39,7 +39,18 @@ export default function MyPage(){
       {error&&<p className="error" role="alert">{error} <button className="plain" onClick={refresh}>다시 시도</button></p>}
       {data&&<>
         <section className="profile"><Link href="/account/card" className="representative" aria-label="대표 카드 고르기">{card?<Image src={`/cards/card${card.id}.webp`} width={116} height={194} alt={card.name}/>:<span className="card-back" aria-hidden="true">✦</span>}<small>{card?"대표 카드 바꾸기":"대표 카드 고르기"}</small></Link><div><small className="muted">나의 계정</small><h1>나를 위한<br/>작은 타르트</h1><span className="grade"><span aria-hidden="true">{auth.status==="super"?"☀":"☆"}</span> {auth.status==="super"?"슈퍼 계정":"일반 계정"}</span></div></section>
-        <section aria-label="보유 시트"><div className="sheet-row"><Link href="/account/sheets" className="buy">구매</Link><div><span>고급 시트</span><small>처음 타로 상담을 볼 때 사용해요</small></div><strong>{auth.status==='super'?'-':data.premium}<small> 장</small></strong></div><div className="sheet-row"><span className="gift" aria-hidden="true">✦</span><div><span>기본 시트</span><small>연계질문에 사용 · 하루 사용 제한 없음</small></div><strong>{auth.status==='super'?'-':data.basic}<small> 장</small></strong></div></section>
+        <section aria-label="보유 시트">
+          <div className="sheet-row">
+            {auth.status!=='super'&&<Link href="/account/sheets#premium" className="buy" aria-label="고급 시트 구매, 1장 990원">구매</Link>}
+            <div><span>고급 시트</span><small>처음 타로 상담을 볼 때 사용해요</small>{auth.status!=='super'&&<small>1장 990원</small>}</div>
+            <strong>{auth.status==='super'?'-':data.premium}<small> 장</small></strong>
+          </div>
+          <div className="sheet-row">
+            {auth.status!=='super'&&<Link href="/account/sheets#basic" className="buy" aria-label="기본 시트 구매, 1장 500원">구매</Link>}
+            <div><span>기본 시트</span><small>연계질문에 사용 · 하루 사용 제한 없음</small>{auth.status!=='super'&&<small>1장 500원</small>}</div>
+            <strong>{auth.status==='super'?'-':data.basic}<small> 장</small></strong>
+          </div>
+        </section>
         {auth.status!=='super'&&<SheetExchange premium={data.premium} available={data.exchangeAvailable} onExchanged={()=>{if(auth.account)invalidateDashboard(auth.account.id);refresh();}}/>}
         {auth.status==="super"?<p className="super-note">무료 이용 계정이에요. 상담에 시트가 필요하지 않아요.</p>:<TartStamps ads={balance?.stamps??0} available={data.adsAvailable}/>}
         <header className="history-heading"><h2>지금까지 먹은 타르트</h2><strong>{data.total}<small> 개</small></strong></header>

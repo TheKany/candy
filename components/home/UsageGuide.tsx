@@ -6,7 +6,7 @@ import styled, { keyframes } from "styled-components";
 
 const steps = [
   { label: "이야기의 시작", title: "오늘은 어떤 타로가\n끌리나요?", description: "한 장으로 가볍게, 여러 장으로 깊이 있게.\n월별 타로에서는 한 달씩 흐름을 살펴봐요.", note: "지금 마음에 맞는 타로를 골라주세요." },
-  { label: "이용 요금", title: "필요한 만큼만\n이야기를 나눠요", description: "타로 1회 990원\n추가 질문 1회 500원 · 2회 묶음 990원", note: "추가 질문은 한 상담에서 최대 2번 이용할 수 있어요." },
+  { label: "이용 요금", title: "필요한 만큼만\n이야기를 나눠요", description: "고급 시트 1장 990원 · 처음 타로 상담\n기본 시트 1장 500원 · 연계질문", note: "고급 시트 1장은 기본 시트 2장으로 교환할 수 있어요.\n연계질문은 한 상담에서 최대 2번 이용할 수 있어요." },
   { label: "마음을 담는 시간", title: "마음속 질문을\n들려주세요", description: "누구와 어떤 일이 있었는지, 무엇이 궁금한지\n편하게 문장으로 적어주세요.", note: "구체적인 질문일수록 이야기도 선명해져요." },
   { label: "당신의 카드", title: "마음이 가는 카드를\n골라보세요", description: "카드를 훑어보며 마음이 가는 번호를 찾고,\n그 번호를 입력해 한 장씩 선택해요.", note: "카드를 섞는 동안 질문을 떠올려보세요." },
   { label: "펼쳐지는 이야기", title: "카드가 전하는 이야기를\n천천히 읽어요", description: "핵심 결론부터 자세한 해설까지,\n이전·다음 버튼으로 한 페이지씩 읽어보세요.", note: "더 궁금한 점은 추가 질문으로 이어갈 수 있어요." },
@@ -41,7 +41,7 @@ export default function UsageGuide() {
           <Scene aria-hidden="true">
             <Orbit />
             {page === 0 && <><Logo src="/main.png" width={230} height={230} alt="" /><MiniTag>한 장의 카드, 나만의 이야기</MiniTag></>}
-            {page === 1 && <PriceMenu><small>TAROT TARTE MENU</small><div><span>타로 한 번</span><b>990<em>원</em></b></div><div><span>추가 질문 한 번</span><b>500<em>원</em></b></div><div><span>추가 질문 두 번</span><b>990<em>원</em></b></div><p>마음에 맞는 이야기를 골라요</p></PriceMenu>}
+            {page === 1 && <PriceMenu><small>TAROT TARTE MENU</small><div><span>고급 시트 한 장</span><b>990<em>원</em></b></div><div><span>기본 시트 한 장</span><b>500<em>원</em></b></div><p>고급 시트 1장 → 기본 시트 2장 교환 가능</p></PriceMenu>}
             {page === 2 && <Question><small>오늘의 고민</small><p>새로운 일을 시작하고 싶어요.<br />어떤 점을 준비하면 좋을까요?</p><i>나의 이야기에서 시작해요</i></Question>}
             {page === 3 && <Deck>{[0, 1, 2, 3, 4].map((card) => <Card key={card} $index={card} $picked={card === 2}><span>✦</span>{card === 2 && <b>23</b>}</Card>)}</Deck>}
             {page === 4 && <Reading><small>당신에게 전하는 한마디</small><strong>서두르지 않아도 괜찮아요.</strong><p>지금 할 수 있는 작은 한 걸음부터<br />당신의 이야기가 이어져요.</p><div><span /> <span /> <span /></div></Reading>}
