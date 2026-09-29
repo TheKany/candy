@@ -1,4 +1,4 @@
-export type TarotTypeId = "one" | "three" | "five" | "celtic" | "horoscope" | "monthly";
+export type TarotTypeId = "one" | "three" | "five" | "celtic" | "horoscope" | "monthly" | "daily";
 export type AvailableTarotTypeId = "one" | "three" | "five" | "monthly";
 
 export type TarotTypeOption = {

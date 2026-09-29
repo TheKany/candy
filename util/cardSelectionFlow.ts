@@ -10,7 +10,7 @@ export const SHUFFLE_GUIDANCE = {
 
 export const getRequiredCardCount = (type: string | null, monthlyCount = 0): number => {
   if (type === "monthly") return monthlyCount;
-  if (type === "one") return 1;
+  if (type === "one" || type === "daily") return 1;
   if (type === "three") return 3;
   if (type === "five") return 5;
   if (type === "celtic") return 10;
@@ -49,7 +49,7 @@ export const shouldOpenResultAfterReveal = (
 ) => {
   if (!revealComplete) return false;
   if (type === "monthly") return monthlyCount > 0 && pickedCount === monthlyCount;
-  if (type === "one" || type === "Yn") return pickedCount === 1;
+  if (type === "one" || type === "Yn" || type === "daily") return pickedCount === 1;
   if (type === "three") return pickedCount === 3;
   if (type === "five") return pickedCount === 5;
   if (type === "celtic") return pickedCount === 10;

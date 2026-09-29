@@ -14,7 +14,7 @@ export default function PageTransition({children}:{children:ReactNode}) {
     const element=frame.current;
     if(!element)return;
     element.scrollTop=0;
-    if(reduced)return;
+    if(reduced||pathname.startsWith('/daily'))return;
     const animation=animate(element,{opacity:[0,1]},{duration:1,ease:'easeOut'});
     return ()=>{animation.stop();element.style.opacity='1';};
   },[pathname,reduced]);

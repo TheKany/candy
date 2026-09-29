@@ -6,15 +6,15 @@ import styled, { keyframes } from "styled-components";
 import { READING_FAILURES, type ReadingFailureCode } from "@/util/readingFailure";
 import TartFailureIllustration from "./TartFailureIllustration";
 
-type Props = { error?: ReadingFailureCode | null; retrying?: boolean; variant?: "personal" | "monthly"; onRetry: () => void; onHome: () => void };
+type Props = { error?: ReadingFailureCode | null; retrying?: boolean; variant?: "personal" | "monthly" | "daily"; onRetry: () => void; onHome: () => void };
 
 export default function TartOvenStatus({ error, retrying = false, variant = "personal", onRetry, onHome }: Props) {
   const failure = error ? READING_FAILURES[error] : null;
   const baking = !failure;
-  const title = failure?.title ?? (retrying ? "오븐을 다시 데우고 있어요" : "당신의 이야기를 담아\n타르트를 굽고 있어요");
-  const description = variant === "monthly" && error === "blocked" ? "이번 이야기를 준비하지 못했어요. 홈에서 다른 타로를 만나보세요." : failure?.description ?? (retrying
+  const title = variant !== 'personal' && error === 'blocked' ? "이번 이야기를 준비하지 못했어요" : failure?.title ?? (retrying ? "오븐을 다시 데우고 있어요" : variant === 'daily' ? "오늘의 흐름을 담아\n타르트를 굽고 있어요" : "당신의 이야기를 담아\n타르트를 굽고 있어요");
+  const description = variant !== "personal" && error === "blocked" ? "다른 타로에서 새로운 이야기를 만나보세요." : failure?.description ?? (retrying
     ? "조금만 더 기다려주세요. 같은 카드로 이야기를 다시 준비하고 있어요."
-    : variant === "monthly" ? "고른 카드에서 달마다의 이야기를 읽으며, 남은 날들을 위한 타르트를 준비하고 있어요." : "고른 카드의 의미와 당신의 질문을 함께 읽으며, 따뜻한 한 조각을 준비하고 있어요.");
+    : variant === 'daily' ? "오늘 당신에게 온 한 장을 읽으며, 하루를 위한 작은 조언을 준비하고 있어요." : variant === "monthly" ? "고른 카드에서 달마다의 이야기를 읽으며, 남은 날들을 위한 타르트를 준비하고 있어요." : "고른 카드의 의미와 당신의 질문을 함께 읽으며, 따뜻한 한 조각을 준비하고 있어요.");
 
   return <Screen>
     <Brand>타로타르트 · 작은 타로 베이커리</Brand>

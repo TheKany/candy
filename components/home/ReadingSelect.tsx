@@ -18,10 +18,14 @@ import SelectionAccountSummary from "./SelectionAccountSummary";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { motion, useReducedMotion } from 'framer-motion';
 import { recordTarotStart } from "@/util/recordTarotStart";
+import { useDailyReadingStore } from "@/store/useDailyReadingStore";
 
 export default function ReadingSelect() {
   const auth = useAuth();
   const stampArcId=useId();
+  const dailyArcId=useId();
+  const [dailySelected,setDailySelected]=useState(false);
+  const [dailyStamping,setDailyStamping]=useState(false);
   const [menuPage, setMenuPage] = useState(0);
   const menuViewport = useRef<HTMLDivElement>(null);
   const menuTabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -77,6 +81,17 @@ export default function ReadingSelect() {
     setStamping(true);
     selectionTimer.current=setTimeout(()=>openSelection(selectedType),reduced?0:430);
   };
+  const handleDailyOrder = () => {
+    if(!dailySelected||selectionTimer.current)return;
+    setStamping(true);
+    setDailyStamping(true);
+    selectionTimer.current=setTimeout(()=>{
+      handleResetStore();
+      useDailyReadingStore.getState().begin();
+      setType('daily');
+      router.push('/daily');
+    },reduced?450:850);
+  };
 
   return (
     <Main>
@@ -126,12 +141,21 @@ export default function ReadingSelect() {
       </OrderSheet>
       </MenuPanel>
       <MenuPanel id="menu-panel-1" role="tabpanel" aria-labelledby="menu-tab-1" inert={menuPage !== 1}>
-        <OrderSheet $watermark>
+        <OrderSheet>
           <Header>
             <OrderLabel>TAROTART <span>·</span> LITTLE BITES</OrderLabel>
-            <Title style={{paddingRight:0}}><span>질문 없이 편하게</span>가볍게 한 입</Title>
+            <Title><span>질문 없이 편하게</span>가볍게 한 입</Title>
+            <DailyStamp type="button" aria-label="오늘의 타로 주문하기" disabled={!dailySelected||stamping} onClick={handleDailyOrder} $ready={dailySelected} $stamped={dailyStamping}
+              initial={false} animate={dailyStamping&&!reduced?{scale:[1.15,.93,1],rotate:[6,-3,6]}:{scale:1,rotate:6}} transition={{duration:.38,ease:'easeOut'}}>
+              <svg className="order-label" viewBox="0 0 100 100" aria-hidden="true"><defs><path id={dailyArcId} d="M 9 50 A 41 41 0 0 1 91 50"/></defs><text><textPath href={`#${dailyArcId}`} startOffset="50%" textAnchor="middle">{dailyStamping?'주문 완료':'주문하기'}</textPath></text></svg>
+              <i className="mascot" aria-hidden="true"/>
+              {dailyStamping&&<Yap role="status" initial={reduced?false:{opacity:0,scale:.5,y:5}} animate={{opacity:1,scale:1,y:0}} transition={{duration:.18}}>얍!</Yap>}
+            </DailyStamp>
           </Header>
-          <ComingSoon><span aria-hidden="true">✦</span><h2>작은 즐거움을 준비하고 있어요</h2><p>가볍게 만날 타로 메뉴가<br />곧 이곳에 놓일 거예요.</p><small>준비 중</small></ComingSoon>
+          <DailyMenu>
+            <TarotTypeCard option={{id:'daily',title:'오늘의 타로',subtitle:'한 장으로 만나는 오늘의 흐름',symbol:'☀',available:true}} selected={dailySelected} disabled={stamping} onSelect={()=>setDailySelected(true)}/>
+            <DailyNote><span>오늘은 어떤 하루일까요?</span><p>질문 없이 한 장을 골라<br/>오늘의 에너지와 작은 조언을 만나보세요.</p><small>{dailySelected?'위의 캐릭터 스탬프를 눌러 주문해주세요':'메뉴를 체크하고 오늘의 한 입을 주문하세요'}</small></DailyNote>
+          </DailyMenu>
           <OrderFooter aria-hidden="true">A LITTLE MOMENT FOR YOU <span>✦</span></OrderFooter>
         </OrderSheet>
       </MenuPanel>
@@ -273,17 +297,11 @@ const MenuPanel = styled.div`
   flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;display:flex;padding-bottom:8px;
   >section{width:100%;display:flex;flex-direction:column;}
 `;
-const ComingSoon = styled.div`
-  flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  min-height:240px;padding:28px 14px;text-align:center;
-  >span{font-size:36px;color:#b49258;margin-bottom:22px;}
-  h2{font-size:17px;line-height:1.7;word-break:keep-all;}
-  p{margin-top:12px;color:#69755f;font-size:13px;line-height:1.8;}
-  small{margin-top:22px;padding:6px 14px;border:1px solid #aa916a70;border-radius:20px;font-size:11px;color:#8c7551;}
-`;
+const DailyMenu = styled.div`flex:1;padding:0 18px;@media(max-width:319px){padding:0 12px;}`;
+const DailyNote = styled.div`padding:36px 18px;text-align:center;>span{font-size:17px;color:#6b644a;}p{margin-top:12px;color:#7a7d68;font-size:13px;line-height:1.8;}small{display:block;margin-top:24px;color:#9b815c;font-size:11px;line-height:1.8;}`;
 const MenuHint = styled.p`margin-top:12px;text-align:center;font-size:11px;color:#fff7df80;`;
 
-const OrderSheet = styled.section<{$watermark?: boolean}>`
+const OrderSheet = styled.section`
   position: relative;
   z-index: 1;
   min-width: 0;
@@ -292,24 +310,6 @@ const OrderSheet = styled.section<{$watermark?: boolean}>`
   background: linear-gradient(115deg, #fff8e9, #f4ead6);
   border-radius: 5px 5px 0 0;
   box-shadow: 0 12px 28px #031a1433;
-  ${({$watermark}) => $watermark && `
-    isolation: isolate;
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      right: 0;
-      bottom: 24px;
-      width: 90%;
-      max-width: 340px;
-      aspect-ratio: 1;
-      background: #8c7551;
-      -webkit-mask: url('/images/mascot/tart-oracle-watermark-v1.png') center / contain no-repeat;
-      mask: url('/images/mascot/tart-oracle-watermark-v1.png') center / contain no-repeat;
-      opacity: .07;
-      pointer-events: none;
-    }
-  `}
   &::after {
     content: "";
     position: absolute;
@@ -354,6 +354,12 @@ const Stamp = styled(motion.button)<{$ready:boolean;$stamped:boolean}>`
   span { font-size: 9px; letter-spacing: 0.02em; }
   @media (max-width: 359px) { right: 12px; width: 54px; height: 54px; >svg:not(.order-label) { width: 32px; height: 27px; } span { font-size: 8px; } .order-label text{font-size:14px;} }
 `;
+
+const DailyStamp = styled(Stamp)`
+  .mascot{width:62px;height:62px;display:block;background:currentColor;mask:url('/images/mascot/tart-oracle-watermark-v1.png') center/contain no-repeat;-webkit-mask:url('/images/mascot/tart-oracle-watermark-v1.png') center/contain no-repeat;}
+  @media(max-width:359px){.mascot{width:48px;height:48px;}}
+`;
+const Yap=styled(motion.b)`position:absolute;right:-8px;top:-22px;z-index:3;background:#fff8df;color:#365e44;border:1px solid #365e44;border-radius:12px 12px 12px 2px;padding:6px 9px;font-size:15px;line-height:1;box-shadow:0 3px 7px #173d2520;pointer-events:none;`;
 
 const OrderFooter = styled.p`
   display: flex;
