@@ -126,7 +126,7 @@ export default function ReadingSelect() {
       </OrderSheet>
       </MenuPanel>
       <MenuPanel id="menu-panel-1" role="tabpanel" aria-labelledby="menu-tab-1" inert={menuPage !== 1}>
-        <OrderSheet>
+        <OrderSheet $watermark>
           <Header>
             <OrderLabel>TAROTART <span>·</span> LITTLE BITES</OrderLabel>
             <Title style={{paddingRight:0}}><span>질문 없이 편하게</span>가볍게 한 입</Title>
@@ -283,7 +283,7 @@ const ComingSoon = styled.div`
 `;
 const MenuHint = styled.p`margin-top:12px;text-align:center;font-size:11px;color:#fff7df80;`;
 
-const OrderSheet = styled.section`
+const OrderSheet = styled.section<{$watermark?: boolean}>`
   position: relative;
   z-index: 1;
   min-width: 0;
@@ -292,6 +292,24 @@ const OrderSheet = styled.section`
   background: linear-gradient(115deg, #fff8e9, #f4ead6);
   border-radius: 5px 5px 0 0;
   box-shadow: 0 12px 28px #031a1433;
+  ${({$watermark}) => $watermark && `
+    isolation: isolate;
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      right: 0;
+      bottom: 24px;
+      width: 90%;
+      max-width: 340px;
+      aspect-ratio: 1;
+      background: #8c7551;
+      -webkit-mask: url('/images/mascot/tart-oracle-watermark-v1.png') center / contain no-repeat;
+      mask: url('/images/mascot/tart-oracle-watermark-v1.png') center / contain no-repeat;
+      opacity: .07;
+      pointer-events: none;
+    }
+  `}
   &::after {
     content: "";
     position: absolute;

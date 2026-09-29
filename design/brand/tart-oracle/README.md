@@ -21,7 +21,9 @@
 
 이 파일은 큰 캐릭터와 0%·50%·100% 예시가 함께 있는 **컨셉 시트**다. 투명 배경의 단일 캐릭터나 실제 마스크 애니메이션용 완성 자산은 아니다.
 실제 UI에 적용할 때 단일 캐릭터와 커스터드 채움 마스크를 별도로 준비하고, 이 승인 원본은 덮어쓰지 않는다.
-현재는 디자인 보관용이며 서비스 코드에는 연결하지 않았다.
+승인 원본은 디자인 보관용이다. 별도 파생 자산 `public/images/mascot/tart-oracle-watermark-v1.png`는 ‘가볍게 한 입’ 주문서의 워터마크로 연결했다. CSS 마스크로 갈색 단색, 불투명도 7%를 적용하며 원본 시안은 변경하지 않는다.
+
+워터마크 생성: 내장 이미지 생성 도구로 승인 시안의 큰 캐릭터만 분리했다. 프롬프트: preserve the original large mascot silhouette, face, hands, star card and tart shell; remove small examples and percentage labels; monochrome warm brown line art; transparent interior and background; no redesign.
 
 ## 생성 기록
 
