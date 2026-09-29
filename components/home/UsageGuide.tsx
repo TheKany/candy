@@ -10,7 +10,7 @@ const steps = [
   { label: "마음을 담는 시간", title: "마음속 질문을\n들려주세요", description: "누구와 어떤 일이 있었는지, 무엇이 궁금한지\n편하게 문장으로 적어주세요.", note: "구체적인 질문일수록 이야기도 선명해져요." },
   { label: "당신의 카드", title: "마음이 가는 카드를\n골라보세요", description: "카드를 훑어보며 마음이 가는 번호를 찾고,\n그 번호를 입력해 한 장씩 선택해요.", note: "카드를 섞는 동안 질문을 떠올려보세요." },
   { label: "펼쳐지는 이야기", title: "카드가 전하는 이야기를\n천천히 읽어요", description: "핵심 결론부터 자세한 해설까지,\n이전·다음 버튼으로 한 페이지씩 읽어보세요.", note: "더 궁금한 점은 추가 질문으로 이어갈 수 있어요." },
-  { label: "한 번 더, 무료로", title: "광고 세 번 보고\n질문 한 번 더", description: "추가 질문을 고른 뒤 ‘광고 보기’를 선택해요.\n광고 3개를 끝까지 보면 추가 질문 1회가 무료예요.\n광고 대신 결제해서 이용할 수도 있어요.", note: "광고는 하루 최대 3개, 무료 추가 질문은 하루 1회예요.\n중간에 닫은 광고는 완료 횟수에 포함되지 않아요." },
+  { label: "기본 시트 모으기", title: "광고 세 번 보고\n기본 시트 한 장", description: "마이페이지에서 광고 3개를 끝까지 보면\n기본 시트 1장을 받을 수 있어요.\n구매한 기본 시트와 똑같이 연계질문에 사용해요.", note: "하루 광고 3회 · 기본 시트 1장 지급. 모은 시트는 하루 사용 제한이 없어요.\n광고 기능은 준비 중이며, 중간에 닫은 광고는 완료 횟수에 포함되지 않아요." },
   { label: "이야기 포장", title: "오늘의 이야기를\n가져가세요", description: "해설을 PDF나 이미지로 간직할 수 있어요.\n질문을 함께 담을지는 직접 선택해요.", note: "좋은 시간이었다면 타로타르트도 소문내주세요." },
 ];
 
@@ -45,7 +45,7 @@ export default function UsageGuide() {
             {page === 2 && <Question><small>오늘의 고민</small><p>새로운 일을 시작하고 싶어요.<br />어떤 점을 준비하면 좋을까요?</p><i>나의 이야기에서 시작해요</i></Question>}
             {page === 3 && <Deck>{[0, 1, 2, 3, 4].map((card) => <Card key={card} $index={card} $picked={card === 2}><span>✦</span>{card === 2 && <b>23</b>}</Card>)}</Deck>}
             {page === 4 && <Reading><small>당신에게 전하는 한마디</small><strong>서두르지 않아도 괜찮아요.</strong><p>지금 할 수 있는 작은 한 걸음부터<br />당신의 이야기가 이어져요.</p><div><span /> <span /> <span /></div></Reading>}
-            {page === 5 && <RewardTicket><small>당신을 위한 작은 선물</small><Stamps>{[1, 2, 3].map(number => <div key={number}><span>✦</span><small>{number}회 시청</small></div>)}</Stamps><strong>추가 질문 1회 무료</strong><p>광고 3개 시청 완료</p></RewardTicket>}
+            {page === 5 && <RewardTicket><small>당신을 위한 작은 선물</small><Stamps>{[1, 2, 3].map(number => <div key={number}><span>✦</span><small>{number}회 시청</small></div>)}</Stamps><strong>기본 시트 1장</strong><p>광고 3개 시청 완료</p></RewardTicket>}
             {page === 6 && <><Package src="/images/bakery/packed-tart.png" width={220} height={180} alt="" /><MiniTag>당신의 이야기를 포장했어요</MiniTag></>}
             <Spark $left>✧</Spark><Spark>✦</Spark>
           </Scene>

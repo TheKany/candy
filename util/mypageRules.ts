@@ -12,7 +12,7 @@ export function safeActivityTopic(keywords: string[] = []): string {
 export function isRepresentativeCard(value: unknown): value is number | null {
   return value === null || (typeof value === "number" && Number.isInteger(value) && value >= 0 && value < 78);
 }
-export function rewardDisplay(ads: number, paid: number, free: number, usedToday: boolean) {
+export function rewardDisplay(ads: number, premium: number, basic: number) {
   const stamps = Math.min(3, Math.max(0, ads));
-  return { stamps, completed: stamps === 3, paid, free, freeUsable: free > 0 && !usedToday };
+  return { stamps, completed: stamps === 3, premium, basic, basicUsable: basic > 0 };
 }

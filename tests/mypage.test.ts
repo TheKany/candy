@@ -9,8 +9,8 @@ test("미저장 이용내역 주제는 자유입력 개인정보를 복사하지
   assert.equal(safeActivityTopic(["홍길동의 승진", "회사"]), "일·커리어");
   assert.equal(safeActivityTopic(["010-1234-5678", "개인적인 이야기"]), "타로 상담");
 });
-test("3회 시청이면 스탬프 닫기, 무료는 하루1장이고 구매는 독립", () => {
-  assert.deepEqual(rewardDisplay(3, 4, 2, true), { stamps: 3, completed: true, paid: 4, free: 2, freeUsable: false });
-  assert.equal(rewardDisplay(2, 0, 2, false).completed, false);
-  assert.equal(rewardDisplay(0, 0, 0, false).freeUsable, false);
+test("3회 시청이면 완료, 기본 시트는 출처와 무관하게 사용 가능", () => {
+  assert.deepEqual(rewardDisplay(3, 4, 2), { stamps: 3, completed: true, premium: 4, basic: 2, basicUsable: true });
+  assert.equal(rewardDisplay(2, 0, 2).completed, false);
+  assert.equal(rewardDisplay(0, 0, 0).basicUsable, false);
 });

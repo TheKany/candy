@@ -2,7 +2,7 @@ export type AccountActivity = { consultation_id: string; ordinal: number; kind: 
 export type MyPageData = {
   nextOffset?: number;
   representativeCard: number | null;
-  paid: number; free: number; ads: number; freeUsedToday: boolean;
+  premium: number; basic: number; ads: number; exchangeAvailable: boolean;
   day: string; total: number; activities: AccountActivity[]; hasMore: boolean;
   adsAvailable: false; paymentsAvailable: false;
 };

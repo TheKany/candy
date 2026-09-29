@@ -321,8 +321,8 @@ const Stamp = styled(motion.button)<{$ready:boolean;$stamped:boolean}>`
   display: grid;
   justify-items: center;
   align-content: center;
-  width: 65px;
-  height: 65px;
+  width: 72px;
+  height: 72px;
   border: 1px solid ${({$stamped})=>$stamped?'#365e44':'#a37055'};
   border-radius: 50%;
   color: ${({$stamped})=>$stamped?'#fff8e9':'#a37055'};
@@ -332,9 +332,9 @@ const Stamp = styled(motion.button)<{$ready:boolean;$stamped:boolean}>`
   .order-label{position:absolute;top:-15px;left:-15px;width:calc(100% + 30px);height:calc(100% + 30px);overflow:visible;fill:${({$stamped})=>$stamped?'#365e44':'#a37055'};stroke:none;opacity:${({$ready})=>$ready?1:0};transition:opacity 160ms ease,fill 160ms ease;pointer-events:none;}
   .order-label text{font-family:inherit;font-size:13px;font-weight:700;letter-spacing:1px;}
   &:focus-visible{outline:2px solid #365e44;outline-offset:5px;}
-  >svg:not(.order-label) { width: 39px; height: 32px; stroke: currentColor; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
-  span { font-size: 8px; letter-spacing: 0.02em; }
-  @media (max-width: 359px) { right: 12px; width: 48px; height: 48px; >svg:not(.order-label) { width: 28px; height: 24px; } span { font-size: 7px; } .order-label text{font-size:14px;} }
+  >svg:not(.order-label) { width: 43px; height: 35px; stroke: currentColor; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+  span { font-size: 9px; letter-spacing: 0.02em; }
+  @media (max-width: 359px) { right: 12px; width: 54px; height: 54px; >svg:not(.order-label) { width: 32px; height: 27px; } span { font-size: 8px; } .order-label text{font-size:14px;} }
 `;
 
 const OrderFooter = styled.p`
@@ -361,7 +361,7 @@ const Divider = styled.hr`
 
 const Title = styled.h1`
   margin: 0;
-  padding-right: 64px;
+  padding-right: 74px;
   color: #244636;
   font-size: clamp(1.7rem, 7.4vw, 2.15rem);
   font-weight: 900;
@@ -369,7 +369,7 @@ const Title = styled.h1`
   line-height: 1.5;
   word-break: keep-all;
   span { display: block; font-size: clamp(0.85rem, 3.5vw, 1rem); font-weight: 500; letter-spacing: -0.04em; margin-bottom: 3px; }
-  @media (max-width: 359px) { padding-right: 42px; }
+  @media (max-width: 359px) { padding-right: 52px; }
 `;
 
 const CardList = styled.section`

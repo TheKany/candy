@@ -42,7 +42,7 @@ export default function PrivacyPage() {
         <h2>카카오 비밀번호도 저장하나요?</h2>
         <p><strong>아니요. 카카오 비밀번호는 받거나 저장하지 않아요.</strong></p>
         <p>로그인을 유지하고 내 기록을 찾아주기 위한 계정 정보와 회원 구분을 보관해요.</p>
-        <p>직접 고른 대표 카드, 시트 잔량, 날짜별 광고 완료·무료 시트 사용 횟수도 계정에 보관해요.</p>
+        <p>직접 고른 대표 카드, 고급·기본 시트 잔량, 광고 완료 횟수와 시트 사용·교환 내역도 계정에 보관해요.</p>
       </Card>
     </div>
     <section className="processing" aria-labelledby="processing-title">

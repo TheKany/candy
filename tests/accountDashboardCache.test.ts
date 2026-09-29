@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { clearDashboardCache, loadDashboard, readDashboard, readDashboardSummary, invalidateDashboard } from '../util/accountDashboardCache.ts';
 
-const data = { representativeCard: 17, paid: 2, free: 1, ads: 3, freeUsedToday: false, day: new Date(Date.now()+9*3600000).toISOString().slice(0,10), total: 4, activities: [{ consultation_id: 'private', ordinal: 1, kind: 'one', topic: 'private topic', created_at: '', savedId: null }], hasMore: false, adsAvailable: false, paymentsAvailable: false };
+const data = { representativeCard: 17, premium: 2, basic: 1, ads: 3, exchangeAvailable: true, day: new Date(Date.now()+9*3600000).toISOString().slice(0,10), total: 4, activities: [{ consultation_id: 'private', ordinal: 1, kind: 'one', topic: 'private topic', created_at: '', savedId: null }], hasMore: false, adsAvailable: false, paymentsAvailable: false };
 test('shares concurrent and repeated dashboard reads; invalidation fetches again', async () => {
   clearDashboardCache();
   let calls = 0;
@@ -30,7 +30,7 @@ test('persistent summary excludes consultation metadata and is account-scoped', 
     await loadDashboard('a');
     assert.ok(values.size);
     assert.ok(![...values.values()].join('').includes('private'));
-    assert.equal(readDashboardSummary('a')?.paid, 2);
+    assert.equal(readDashboardSummary('a')?.premium, 2);
     assert.equal(readDashboardSummary('b'), null);
     clearDashboardCache();
     assert.equal(values.size, 0);

@@ -1,7 +1,7 @@
 import type { MyPageData } from '../types/mypageTypes';
 
 // Display cache only. Never use these values to authorize spending or access.
-const PREFIX = 'tarot-dashboard-v1:';
+const PREFIX = 'tarot-dashboard-v2:';
 const TTL = 60_000;
 const MAX_AGE = 24 * 60 * 60_000;
 type Entry = { at: number; data: MyPageData };
@@ -24,7 +24,7 @@ export function readDashboardSummary(id: string): MyPageData | null {
     const entry: Entry | null = JSON.parse(localStorage.getItem(PREFIX + id) || 'null');
     if (!entry || !entry.data || !usable(entry)) return null;
     const d = entry.data;
-    if (![d.paid, d.free, d.ads, d.total].every(n => Number.isFinite(n) && n >= 0)) return null;
+    if (![d.premium, d.basic, d.ads, d.total].every(n => Number.isFinite(n) && n >= 0)) return null;
     if (d.representativeCard !== null && (!Number.isInteger(d.representativeCard) || d.representativeCard < 0 || d.representativeCard > 77)) return null;
     return { ...d, activities: [], hasMore: false };
   } catch { return null; }
@@ -66,8 +66,8 @@ export function loadDashboard(id: string): Promise<MyPageData> {
     const at = Date.now();
     memory.set(id, { at, data });
     // Persist only display fields, never history, titles, questions or readings.
-    const { representativeCard, paid, free, ads, freeUsedToday, day, total, adsAvailable, paymentsAvailable } = data;
-    try { localStorage.setItem(PREFIX + id, JSON.stringify({ at, data: { representativeCard, paid, free, ads, freeUsedToday, day, total, adsAvailable, paymentsAvailable } })); } catch { /* Storage is optional. */ }
+    const { representativeCard, premium, basic, ads, exchangeAvailable, day, total, adsAvailable, paymentsAvailable } = data;
+    try { localStorage.setItem(PREFIX + id, JSON.stringify({ at, data: { representativeCard, premium, basic, ads, exchangeAvailable, day, total, adsAvailable, paymentsAvailable } })); } catch { /* Storage is optional. */ }
     return data;
   })();
   pending.set(id, request);

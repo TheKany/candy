@@ -19,8 +19,8 @@ export default function MemberEntry() {
     <Benefits ref={dialog} aria-labelledby="member-benefits-title">
       <button className="close" type="button" aria-label="닫기" onClick={() => dialog.current?.close()}>×</button>
       <small>타로타르트와 조금 더 가까이</small><h2 id="member-benefits-title">회원으로 함께하면</h2>
-      <ul><li>내 타로 기록 저장·다시 보기</li><li>타르트 시트 미리 구매 <em>준비 중</em></li><li>매일 광고 3회 보고 무료 시트 받기 <em>준비 중</em></li></ul>
-      <p>비회원은 계정에 기록을 저장하거나<br />광고 무료 시트를 받을 수 없어요.</p>
+      <ul><li>내 타로 기록 저장·다시 보기</li><li>고급·기본 시트 미리 구매 <em>준비 중</em></li><li>매일 광고 3회 보고 기본 시트 받기 <em>준비 중</em></li></ul>
+      <p>비회원은 계정에 기록을 저장하거나<br />광고 보상 시트를 받을 수 없어요.</p>
       <Link href="/select" onClick={() => dialog.current?.close()}>그냥 이용할래요</Link>
       <button className="primary" type="button" onClick={() => { dialog.current?.close(); void auth.signIn(); }}>회원으로 이용할래요</button>
     </Benefits>

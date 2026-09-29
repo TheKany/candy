@@ -40,14 +40,14 @@ export default function SelectionAccountSummary() {
   }, [data?.day]);
 
   const loading = auth.status === "loading" || Boolean(auth.account && !data && !failed);
-  if (!loading && !auth.account) return <Summary aria-label="비회원 이용 안내"><strong>비회원으로 이용 중이에요</strong><p>{auth.error || "보유 이용권과 무료 시트는 로그인 후 확인할 수 있어요."}</p><button onClick={auth.signIn}>카카오로 로그인</button></Summary>;
+  if (!loading && !auth.account) return <Summary aria-label="비회원 이용 안내"><strong>비회원으로 이용 중이에요</strong><p>{auth.error || "보유 시트와 광고 보상은 로그인 후 확인할 수 있어요."}</p><button onClick={auth.signIn}>카카오로 로그인</button></Summary>;
 
   const unavailable = failed ? "확인 불가" : "확인 중…";
   return <Summary aria-label="내 주문서와 타르트 시트" aria-busy={loading}>
     <dl>
-      <div><dt>타르트 주문서</dt><dd className="muted"><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "이용 안내" : auth.status === "super" ? "무료 이용" : "준비 중"}</Value></dd></div>
-      <div><dt>타르트 시트</dt><dd className="balances"><span>무료 <b><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "00장" : auth.status==='super'?'-장':data ? `${data.free}장` : unavailable}</Value></b></span><span>유료 <b><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "00장" : auth.status==='super'?'-장':data ? `${data.paid}장` : unavailable}</Value></b></span></dd></div>
-      <div><dt>오늘의 무료 시트</dt><dd><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "오늘의 시트" : auth.status === "super" ? <span className="muted">시트 없이 이용</span> : !data ? <span className="muted">{unavailable}</span> : data.ads >= 3 ? <span className="received">받았어요 ✓</span> : <Link href="/account">{data.adsAvailable ? `받기 · ${data.ads}/3` : "광고 준비 중"}</Link>}</Value></dd></div>
+      <div><dt>고급 시트</dt><dd><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "00장" : auth.status==='super'?'-장':data ? `${data.premium}장` : unavailable}</Value></dd></div>
+      <div><dt>기본 시트</dt><dd><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "00장" : auth.status==='super'?'-장':data ? `${data.basic}장` : unavailable}</Value></dd></div>
+      <div><dt>오늘의 기본 시트 받기</dt><dd><Value $loading={loading} aria-hidden={loading || undefined}>{loading ? "오늘의 시트" : auth.status === "super" ? <span className="muted">시트 없이 이용</span> : !data ? <span className="muted">{unavailable}</span> : data.ads >= 3 ? <span className="received">받았어요 ✓</span> : <Link href="/account">{data.adsAvailable ? `받기 · ${data.ads}/3` : "광고 준비 중"}</Link>}</Value></dd></div>
     </dl>
     {failed && <p role="alert">시트 정보를 불러오지 못했어요. <button onClick={() => setAttempt(value => value + 1)}>다시 확인</button></p>}
   </Summary>;

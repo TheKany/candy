@@ -1,10 +1,10 @@
 "use client";
 import styled from "styled-components";
 export default function TartStamps({ ads, available }: { ads: number; available: boolean }) {
-  if (ads >= 3) return <Done role="status">오늘의 무료 시트를 받았어요. 내일 또 만나요.</Done>;
-  return <Box><header><h2>오늘의 타르트 스탬프</h2><span>{ads} / 3</span></header><p>광고 3번을 보면 무료 시트 한 장을 드려요.</p>
+  if (ads >= 3) return <Done role="status">오늘의 기본 시트 1장을 받았어요. 내일 또 만나요.</Done>;
+  return <Box><header><h2>오늘의 타르트 스탬프</h2><span>{ads} / 3</span></header><p>광고 3번을 보면 기본 시트 한 장을 드려요.</p>
     <div className="stamps">{[0,1,2].map(i => <div key={i} className={i<ads?"stamp done":"stamp"} aria-label={`${i+1}번째 광고 ${i<ads?"완료":"미완료"}`}><div className="seal" aria-hidden="true"><div className="tart"><span className="crust"/><span className="filling"/><span className="berry"/></div></div><small>{["첫 번째","두 번째","세 번째"][i]}</small></div>)}</div>
-    <button type="button" disabled={!available}>광고 준비 중</button><p className="limit">계정당 하루 광고 3회 · 무료 시트 사용 하루 1장</p>
+    <button type="button" disabled={!available}>광고 준비 중</button><p className="limit">계정당 하루 광고 3회 · 기본 시트 1장 지급</p>
   </Box>;
 }
 const Done=styled.p`text-align:center;color:#cedbbb;font-size:12px!important;`;
