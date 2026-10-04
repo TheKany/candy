@@ -2,6 +2,22 @@
 import styled from "styled-components";
 import { AccountPageShell } from "./AccountChrome";
 export const AdminPage = styled(AccountPageShell)`
+  &.member-admin .eyebrow{margin-top:16px;margin-bottom:4px;}
+  &.member-admin h1{font-size:21px;margin-bottom:6px;}
+  &.member-admin .note{font-size:11px;line-height:1.65;margin:0;}
+  &.member-admin form{margin:14px 0;}
+  &.member-admin .member{padding:12px 0;}
+  &.member-admin .member header{gap:8px;margin-bottom:3px;}
+  &.member-admin .member-id{font-family:monospace;font-size:9px;line-height:1.5;color:#91a797;margin:0;min-width:0;overflow-wrap:anywhere;}
+  .member-counts{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 8px;}
+  .member-counts>div{display:flex;align-items:baseline;gap:5px;}
+  .member-counts dt{font-size:11px;color:#bdcbbd;}
+  .member-counts dd{margin:0;font-size:14px;font-weight:600;color:#edcf8a;font-variant-numeric:tabular-nums;}
+  &.member-admin .status-badge{font-size:10px;padding:3px 7px;}
+  &.member-admin .meta{gap:6px 10px;font-size:10px;}
+  &.member-admin .meta label{display:flex;align-items:center;gap:5px;}
+  &.member-admin select{min-height:30px;padding:5px 8px;font-size:11px;}
+  &.member-admin .detail{min-height:30px;font-size:11px;text-decoration:none;}
   .eyebrow{font-size:11px;letter-spacing:.16em;color:#edcf8a;margin-top:24px;}
   h1{margin-top:8px;} .number{font-family:monospace;overflow-wrap:anywhere;line-height:1.7;}
   form{display:flex;gap:8px;margin:22px 0;}input{min-width:0;flex:1;background:#ffffff09;border:1px solid #d9c38b55;border-radius:8px;padding:12px;color:#fff8df;font:inherit;font-size:12px;}

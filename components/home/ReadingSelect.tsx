@@ -89,6 +89,7 @@ export default function ReadingSelect() {
       handleResetStore();
       useDailyReadingStore.getState().begin();
       setType('daily');
+      void recordTarotStart();
       router.push('/daily');
     },reduced?450:850);
   };

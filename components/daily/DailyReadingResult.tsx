@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import type { DailyReadingResult as Result } from '@/util/dailyReadingWriter';
 import TartEnergy from './TartEnergy';
-export default function DailyReadingResult({result,onAgain}:{result:Result;onAgain:()=>void}) {
+export default function DailyReadingResult({result}:{result:Result}) {
   const {card,reading,date}=result;
   return <Page>
     <Nav><Link href="/select">← 주문서로</Link><span>{date.replaceAll('-','. ')}</span></Nav>
@@ -18,7 +18,7 @@ export default function DailyReadingResult({result,onAgain}:{result:Result;onAga
       </Story>
       <Footer>당신의 하루에 따뜻한 한 조각 <span>✦</span></Footer>
     </Receipt>
-    <Actions><button onClick={onAgain}>한 장 더 만나보기</button><Link href="/">홈으로</Link></Actions>
+    <Actions><Link href="/">홈으로</Link></Actions>
   </Page>;
 }
 const Page=styled.main`max-width:480px;width:100%;margin:auto;padding:18px 16px calc(24px + env(safe-area-inset-bottom));color:#244636;`;
@@ -31,4 +31,4 @@ const IndexNote=styled.p`font-size:10px;color:#8c876f;text-align:center;padding:
 const Story=styled.section`border-top:1px dashed #baa578;padding:24px 22px;>small{font-size:11px;color:#9a7745;}h2{font-size:21px;line-height:1.6;margin:9px 0 20px;word-break:keep-all;}p{font-size:15px;line-height:1.95;white-space:pre-line;overflow-wrap:anywhere;}@media(max-width:319px){padding:20px 15px;h2{font-size:19px;}p{font-size:14px;}}`;
 const Advice=styled.div<{$caution?:boolean}>`margin-top:22px;padding:16px;border-radius:10px;background:${p=>p.$caution?'#b68d6712':'#6a885818'};h3{font-size:12px;color:${p=>p.$caution?'#966f51':'#557246'};margin-bottom:8px;}p{font-size:14px;line-height:1.8;}`;
 const Footer=styled.footer`margin:0 22px;padding:14px 0 18px;border-top:1px dashed #baa578;font-size:10px;color:#96805a;display:flex;justify-content:space-between;`;
-const Actions=styled.div`display:flex;gap:10px;margin-top:24px;button,a{flex:1;padding:14px 8px;border:1px solid #b8a16c60;border-radius:12px;text-align:center;color:#ecd59f;font-size:13px;}button{background:#f0d493;color:#254633;}`;
+const Actions=styled.div`display:flex;margin-top:24px;a{flex:1;padding:14px 8px;border:1px solid #b8a16c60;border-radius:12px;text-align:center;color:#ecd59f;font-size:13px;}`;

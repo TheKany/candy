@@ -24,6 +24,6 @@ export default function DailyResultPage() {
     }).catch(cause=>{if(active)setError(cause instanceof ReadingRequestError?cause.code:'unknown');});
     return()=>{active=false;};
   },[hydrated,drawId,cardId,result,attempt,router]);
-  if(hydrated&&result)return <DailyReadingResult result={result} onAgain={()=>{useDailyReadingStore.getState().begin();router.push('/daily');}}/>;
+  if(hydrated&&result)return <DailyReadingResult result={result}/>;
   return <TartOvenStatus variant="daily" error={error} retrying={attempt>0} onRetry={()=>setAttempt(n=>n+1)} onHome={()=>router.push('/select')}/>;
 }
